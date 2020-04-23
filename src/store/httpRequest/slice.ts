@@ -66,7 +66,7 @@ const slice = createSlice({
     changeBodyType(state, { payload }: PayloadAction<string>) {
       state.body.type = payload;
     },
-    toggleBodyType(state) {
+    toggleBodyInputStrategy(state) {
       state.body.raw = !state.body.raw;
     },
   },
