@@ -1,10 +1,3 @@
 module.exports = {
-  plugins: [
-    require('autoprefixer'),
-    require('postcss-preset-env')({
-      features: {
-        'custom-properties': true,
-      },
-    }),
-  ],
+  plugins: [require("autoprefixer"), require("postcss-global-import")],
 };
