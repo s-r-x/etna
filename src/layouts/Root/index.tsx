@@ -57,7 +57,6 @@ export default class RootLayout extends React.Component {
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }} />
           <Content style={{ margin: "0 16px" }}>{this.props.children}</Content>
         </Layout>
       </Layout>

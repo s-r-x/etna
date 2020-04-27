@@ -4,6 +4,8 @@ import { UUID } from "@/utils/uuid";
 
 const DOMAIN = "httpRequest";
 
+type TOptsKey = "headers" | "body" | "query";
+
 type THeaderMeta = {
   key: string;
   value: string;
@@ -22,6 +24,7 @@ type State = {
     [key: string]: THeaderMeta;
   };
   body: TBody;
+  activeOptsEditor: TOptsKey;
 };
 const slice = createSlice({
   name: DOMAIN,
@@ -29,6 +32,7 @@ const slice = createSlice({
     url: "",
     method: "GET",
     headers: {},
+    activeOptsEditor: "headers",
     body: {
       type: "application/json",
       raw: true,
@@ -69,9 +73,16 @@ const slice = createSlice({
     toggleBodyInputStrategy(state) {
       state.body.raw = !state.body.raw;
     },
+    changeActiveOptsEditor(state, { payload }: PayloadAction<TOptsKey>) {
+      state.activeOptsEditor = payload;
+    },
   },
 });
 
-export const { changeMethod, changeUrl } = slice.actions;
+export const {
+  changeMethod,
+  changeUrl,
+  changeActiveOptsEditor,
+} = slice.actions;
 
 export default slice.reducer;

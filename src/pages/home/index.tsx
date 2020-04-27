@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { delayInc, delayDec } from "@/store/counter/slice";
 import cls from "./index.less";
 import { THTTPMethod } from "@/typings/http";
-import HTTPRequestForm from "@/components/modules/HttpRequestForm";
+import HttpRequestOpts from "@/components/modules/HttpRequestOpts";
+import { Row, Col } from "antd";
+import HttpRequestForm from "@/components/modules/HttpRequestForm";
 
 const onChange = (val: THTTPMethod) => {
   console.log(val);
@@ -24,7 +26,13 @@ type Props = {
 export const IndexPage = (props: Props) => {
   return (
     <main>
-      <HTTPRequestForm />
+      <Row>
+        <Col span={16}>
+          <HttpRequestForm />
+          <HttpRequestOpts />
+        </Col>
+        <Col span={8}></Col>
+      </Row>
     </main>
   );
 };
