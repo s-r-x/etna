@@ -7,6 +7,7 @@ type TProps = TProviderProps & {
   HeadersEditor: React.ReactElement;
   QueryEditor: React.ReactElement;
   BodyEditor: React.ReactElement;
+  AuthEditor: React.ReactElement;
 };
 const HttpOptsTabs = (props: TProps) => {
   return (
@@ -25,6 +26,9 @@ const HttpOptsTabs = (props: TProps) => {
       </TabPane>
       <TabPane tab="Body" key="body">
         {props.BodyEditor}
+      </TabPane>
+      <TabPane tab="Auth" key="auth">
+        {props.AuthEditor}
       </TabPane>
     </Tabs>
   );

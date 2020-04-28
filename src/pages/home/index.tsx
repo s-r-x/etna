@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { delayInc, delayDec } from "@/store/counter/slice";
-import cls from "./index.less";
 import { THTTPMethod } from "@/typings/http";
 import HttpRequestOpts from "@/components/modules/HttpRequestOpts";
 import { Row, Col } from "antd";
 import HttpRequestForm from "@/components/modules/HttpRequestForm";
+import { Card } from "antd";
 
 const onChange = (val: THTTPMethod) => {
   console.log(val);
@@ -28,8 +28,10 @@ export const IndexPage = (props: Props) => {
     <main>
       <Row>
         <Col span={16}>
-          <HttpRequestForm />
-          <HttpRequestOpts />
+          <Card>
+            <HttpRequestForm />
+            <HttpRequestOpts />
+          </Card>
         </Col>
         <Col span={8}></Col>
       </Row>

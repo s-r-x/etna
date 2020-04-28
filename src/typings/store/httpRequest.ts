@@ -1,6 +1,7 @@
 import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 
-export type TOptsKey = "headers" | "body" | "query";
+export type TAuthStrategy = "bearer_token" | "basic" | "none";
+export type TOptsKey = "headers" | "body" | "query" | "auth";
 export type THeader = {
   id: string;
   key: string;
@@ -12,6 +13,18 @@ export type TBody = {
   raw: boolean;
   content: string;
 };
+export type TAuth = {
+  strategy: TAuthStrategy;
+  data: {
+    basic: {
+      user: string;
+      password: string;
+    };
+    bearer_token: {
+      token: string;
+    };
+  }
+};
 export type TState = {
   method: THTTPMethod;
   url: string;
@@ -19,4 +32,5 @@ export type TState = {
   body: TBody;
   activeOptsEditor: TOptsKey;
   loading: boolean;
+  auth: TAuth;
 };

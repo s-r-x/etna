@@ -1,7 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 import { UUID } from "@/utils/uuid";
-import { TOptsKey, TState, THeader } from "@/typings/store/httpRequest";
+import {
+  TOptsKey,
+  TState,
+  THeader,
+  TAuthStrategy,
+} from "@/typings/store/httpRequest";
 
 const DOMAIN = "httpRequest";
 
@@ -25,6 +30,18 @@ const slice = createSlice({
       content: "",
     },
     loading: false,
+    auth: {
+      strategy: "none",
+      data: {
+        basic: {
+          user: "",
+          password: "",
+        },
+        bearer_token: {
+          token: "",
+        },
+      },
+    },
   } as TState,
   reducers: {
     loadingStart(state) {
@@ -79,11 +96,15 @@ const slice = createSlice({
     changeActiveOptsEditor(state, { payload }: PayloadAction<TOptsKey>) {
       state.activeOptsEditor = payload;
     },
+    changeAuthStrategy(state, { payload }: PayloadAction<TAuthStrategy>) {
+      state.auth.strategy = payload;
+    },
   },
 });
 
 export const {
   addHeader,
+  changeAuthStrategy,
   changeBody,
   changeBodyMIME,
   changeHeaderKey,

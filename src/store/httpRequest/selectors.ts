@@ -1,6 +1,9 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { TRootState } from "@/store/rootReducer";
 import qs from "query-string";
+
+const getAuthStrategy = (state: TRootState) => state.httpRequest.auth.strategy;
+const getAuthData = (state: TRootState) => state.httpRequest.auth.data;
 const getHeaders = (state: TRootState) => state.httpRequest.headers;
 const getBody = (state: TRootState) => state.httpRequest.body.content;
 const getBodyMIME = (state: TRootState) => state.httpRequest.body.mime;
@@ -20,8 +23,11 @@ const getParsedQuery = createSelector(getUrl, (url) => {
   const query = qs.parse(parsedUrl.search);
   return query;
 });
+
 export const HttpRequestSelectors = {
   getActiveOptsEditor,
+  getAuthData,
+  getAuthStrategy,
   getHeaders,
   getBody,
   getBodyMIME,
