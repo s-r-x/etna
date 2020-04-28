@@ -24,8 +24,18 @@ const slice = createSlice({
       raw: true,
       content: "",
     },
+    loading: false,
   } as TState,
   reducers: {
+    loadingStart(state) {
+      state.loading = true;
+    },
+    loadingSuccess(state) {
+      state.loading = false;
+    },
+    loadingError(state) {
+      state.loading = false;
+    },
     addHeader(state) {
       state.headers.push(genVoidHeader());
     },
@@ -79,10 +89,13 @@ export const {
   changeHeaderKey,
   changeHeaderValue,
   changeHeaderActive,
-  removeHeader,
   changeMethod,
   changeUrl,
   changeActiveOptsEditor,
+  loadingError,
+  loadingStart,
+  loadingSuccess,
+  removeHeader,
 } = slice.actions;
 
 export default slice.reducer;

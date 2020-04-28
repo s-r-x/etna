@@ -18,4 +18,5 @@ export type TState = {
   headers: THeader[];
   body: TBody;
   activeOptsEditor: TOptsKey;
+  loading: boolean;
 };

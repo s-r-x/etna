@@ -6,6 +6,7 @@ const getBody = (state: TRootState) => state.httpRequest.body.content;
 const getBodyMIME = (state: TRootState) => state.httpRequest.body.mime;
 const getUrl = (state: TRootState) => state.httpRequest.url;
 const getMethod = (state: TRootState) => state.httpRequest.method;
+const getLoading = (state: TRootState) => state.httpRequest.loading;
 const getActiveOptsEditor = (state: TRootState) =>
   state.httpRequest.activeOptsEditor;
 // TODO:: performance refactor
@@ -19,13 +20,12 @@ const getParsedQuery = createSelector(getUrl, (url) => {
   const query = qs.parse(parsedUrl.search);
   return query;
 });
-const getFiles = (state: TRootState) => state.httpRequest.files;
 export const HttpRequestSelectors = {
   getActiveOptsEditor,
   getHeaders,
   getBody,
   getBodyMIME,
-  getFiles,
+  getLoading,
   getMethod,
   getParsedQuery,
   getUrl,
