@@ -29,13 +29,13 @@ export const IndexPage = (props: Props) => {
     <main>
       <Row gutter={24}>
         <Col span={16}>
-          <Card>
+          <Card title="Request">
             <HttpRequestForm />
             <HttpRequestOpts />
           </Card>
         </Col>
         <Col span={8}>
-          <Card>
+          <Card title="History">
             <HttpRequestHistory />
           </Card>
         </Col>

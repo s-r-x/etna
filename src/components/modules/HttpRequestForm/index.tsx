@@ -10,7 +10,9 @@ const HTTPRequestForm = (props: TProviderProps) => {
     <div className={cls.container}>
       <MethodSelect value={props.method} onChange={props.changeMethod} />
       <URLInput value={props.url} onChange={props.changeUrl} />
-      <Button type="primary" onClick={() => alert('run')}>Run</Button>
+      <Button size="large" type="primary" onClick={() => alert("run")}>
+        Run
+      </Button>
     </div>
   );
 };

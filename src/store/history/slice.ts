@@ -17,9 +17,6 @@ const slice = createSlice({
     changeSearch(state, { payload }: PayloadAction<string>) {
       state.search = payload;
     },
-    clearSearch(state) {
-      state.search = "";
-    },
     addItem(state, { payload }: PayloadAction<THistoryItem>) {
       state.items.push(payload);
     },
@@ -32,6 +29,6 @@ const slice = createSlice({
   },
 });
 
-export const { changeSearch, clearSearch, addItem, removeItem } = slice.actions;
+export const { changeSearch, addItem, removeItem } = slice.actions;
 
 export default slice.reducer;

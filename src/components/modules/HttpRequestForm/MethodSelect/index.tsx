@@ -11,6 +11,7 @@ type TProps = {
 export const MethodSelect = (props: TProps) => {
   return (
     <Select
+      size="large"
       value={props.value}
       style={{ width: 120 }}
       defaultValue="GET"
