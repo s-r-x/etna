@@ -1,5 +1,6 @@
 import React from "react";
-import { Layout, Menu } from "antd";
+import cls from "./index.less";
+import { Layout, Menu, Typography } from "antd";
 
 const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -22,7 +23,11 @@ export default class RootLayout extends React.Component {
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
         >
-          <div className="logo" />
+          <div className={cls.logo}>
+            <Typography.Title level={3} style={{ color: "white" }}>
+              Etna
+            </Typography.Title>
+          </div>
           <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
             <Menu.Item key="1">
               <span>Option 1</span>

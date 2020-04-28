@@ -5,6 +5,7 @@ import { THTTPMethod } from "@/typings/http";
 import HttpRequestOpts from "@/components/modules/HttpRequestOpts";
 import { Row, Col } from "antd";
 import HttpRequestForm from "@/components/modules/HttpRequestForm";
+import HttpRequestHistory from "@/components/modules/HttpRequestHistory";
 import { Card } from "antd";
 
 const onChange = (val: THTTPMethod) => {
@@ -26,14 +27,18 @@ type Props = {
 export const IndexPage = (props: Props) => {
   return (
     <main>
-      <Row>
+      <Row gutter={24}>
         <Col span={16}>
           <Card>
             <HttpRequestForm />
             <HttpRequestOpts />
           </Card>
         </Col>
-        <Col span={8}></Col>
+        <Col span={8}>
+          <Card>
+            <HttpRequestHistory />
+          </Card>
+        </Col>
       </Row>
     </main>
   );
