@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import CodeEditor from "@/components/CodeEditor";
 
 const BodyEditor = () => {
-  return <div>body editor</div>;
+  const [body, setBody] = useState("");
+  return (
+    <div>
+      <p>body editor</p>
+      <CodeEditor mode="javascript" value={body} onChange={setBody} />
+    </div>
+  );
 };
 export default BodyEditor;
