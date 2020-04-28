@@ -1,13 +1,13 @@
 import React, { useCallback } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
-import { TCodeEditorMode } from "@/typings/codeEditor";
+import { THTTPBodyMIME} from "@/typings/http";
 import { provide, TProviderProps } from "./provider";
 require("codemirror/mode/javascript/javascript");
 require("codemirror/mode/xml/xml");
 require("codemirror/keymap/vim");
 
 type TProps = TProviderProps & {
-  mode: TCodeEditorMode;
+  mode: THTTPBodyMIME;
   onChange(value: string): void;
   value: string;
 };

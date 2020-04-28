@@ -35,7 +35,6 @@ const Row = memo((props: TProps) => {
             danger
             title="Remove header"
             shape="circle"
-            // @ts-ignore
             icon={<DeleteOutlined />}
             onClick={() => props.removeHeader(props.idx)}
           />

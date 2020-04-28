@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { THTTPMethod } from "@/typings/http";
+import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 import { UUID } from "@/utils/uuid";
 import { TOptsKey, TState, THeader } from "@/typings/store/httpRequest";
 
@@ -20,7 +20,7 @@ const slice = createSlice({
     headers: [genVoidHeader()],
     activeOptsEditor: "headers",
     body: {
-      type: "application/json",
+      mime: "application/json",
       raw: true,
       content: "",
     },
@@ -57,11 +57,11 @@ const slice = createSlice({
     changeUrl(state, { payload }: PayloadAction<string>) {
       state.url = payload;
     },
-    changeBodyContent(state, { payload }: PayloadAction<string>) {
+    changeBody(state, { payload }: PayloadAction<string>) {
       state.body.content = payload;
     },
-    changeBodyType(state, { payload }: PayloadAction<string>) {
-      state.body.type = payload;
+    changeBodyMIME(state, { payload }: PayloadAction<THTTPBodyMIME>) {
+      state.body.mime = payload;
     },
     toggleBodyInputStrategy(state) {
       state.body.raw = !state.body.raw;
@@ -74,6 +74,8 @@ const slice = createSlice({
 
 export const {
   addHeader,
+  changeBody,
+  changeBodyMIME,
   changeHeaderKey,
   changeHeaderValue,
   changeHeaderActive,

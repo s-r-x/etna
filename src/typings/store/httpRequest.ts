@@ -1,5 +1,4 @@
-import { THTTPMethod } from "@/typings/http";
-
+import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 
 export type TOptsKey = "headers" | "body" | "query";
 export type THeader = {
@@ -9,7 +8,7 @@ export type THeader = {
   active: boolean;
 };
 export type TBody = {
-  type: string;
+  mime: THTTPBodyMIME;
   raw: boolean;
   content: string;
 };

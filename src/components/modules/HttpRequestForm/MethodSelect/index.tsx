@@ -1,6 +1,6 @@
 import React from "react";
 import { THTTPMethod } from "@/typings/http";
-import { HTTP_METHODS } from "@/misc/httpMethods";
+import { HTTP_METHODS } from "@/misc/http";
 import { Select } from "antd";
 const { Option } = Select;
 

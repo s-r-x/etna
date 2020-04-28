@@ -56,8 +56,9 @@ export default class RootLayout extends React.Component {
             <Menu.Item key="9"></Menu.Item>
           </Menu>
         </Sider>
-        <Layout className="site-layout">
-          <Content style={{ margin: "0 16px" }}>{this.props.children}</Content>
+        <Layout>
+          <Header />
+          <Content style={{ margin: "20px" }}>{this.props.children}</Content>
         </Layout>
       </Layout>
     );
