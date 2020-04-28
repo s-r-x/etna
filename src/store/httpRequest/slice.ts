@@ -1,63 +1,56 @@
-import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { THTTPMethod } from "@/typings/http";
 import { UUID } from "@/utils/uuid";
+import { TOptsKey, TState, THeader } from "@/typings/store/httpRequest";
 
 const DOMAIN = "httpRequest";
 
-type TOptsKey = "headers" | "body" | "query";
+const genVoidHeader = (): THeader => ({
+  id: UUID.gen(),
+  active: true,
+  key: "",
+  value: "",
+});
 
-type THeaderMeta = {
-  key: string;
-  value: string;
-  active: boolean;
-  desc: string;
-};
-type TBody = {
-  type: string;
-  raw: boolean;
-  content: string;
-};
-type State = {
-  method: THTTPMethod;
-  url: string;
-  headers: {
-    [key: string]: THeaderMeta;
-  };
-  body: TBody;
-  activeOptsEditor: TOptsKey;
-};
 const slice = createSlice({
   name: DOMAIN,
   initialState: {
     url: "",
     method: "GET",
-    headers: {},
+    headers: [genVoidHeader()],
     activeOptsEditor: "headers",
     body: {
       type: "application/json",
       raw: true,
       content: "",
     },
-  } as State,
+  } as TState,
   reducers: {
     addHeader(state) {
-      const id = UUID.gen();
-      state.headers[id] = {
-        active: true,
-        key: "",
-        value: "",
-        desc: "",
-      };
+      state.headers.push(genVoidHeader());
     },
-    changeHeader(
+    changeHeaderKey(
       state,
-      { payload }: PayloadAction<{ id: string; data: THeaderMeta }>
+      { payload }: PayloadAction<{ idx: number; key: string }>
     ) {
-      state.headers[payload.id] = payload.data;
+      state.headers[payload.idx].key = payload.key;
     },
-    removeHeader(state, { payload }: PayloadAction<string>) {
-      delete state.headers[payload];
+    changeHeaderValue(
+      state,
+      { payload }: PayloadAction<{ idx: number; value: string }>
+    ) {
+      state.headers[payload.idx].value = payload.value;
     },
+    changeHeaderActive(
+      state,
+      { payload }: PayloadAction<{ idx: number; active: boolean }>
+    ) {
+      state.headers[payload.idx].active = payload.active;
+    },
+    removeHeader(state, { payload: idx }: PayloadAction<number>) {
+      state.headers.splice(idx, 1);
+    },
+
     changeMethod(state, { payload }: PayloadAction<THTTPMethod>) {
       state.method = payload;
     },
@@ -80,6 +73,11 @@ const slice = createSlice({
 });
 
 export const {
+  addHeader,
+  changeHeaderKey,
+  changeHeaderValue,
+  changeHeaderActive,
+  removeHeader,
   changeMethod,
   changeUrl,
   changeActiveOptsEditor,

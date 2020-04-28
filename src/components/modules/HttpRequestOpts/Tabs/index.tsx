@@ -11,6 +11,7 @@ type TProps = TProviderProps & {
 const HttpOptsTabs = (props: TProps) => {
   return (
     <Tabs
+      destroyInactiveTabPane
       animated={false}
       defaultActiveKey="headers"
       activeKey={props.active}
