@@ -1,5 +1,5 @@
 import React from "react";
-import Item from "../Item";
+import Item from "./Item";
 import { TProviderProps } from "../provider";
 
 type TProps = Pick<TProviderProps, "history">;

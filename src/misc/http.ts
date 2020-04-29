@@ -44,7 +44,7 @@ export const HTTP_STATUS_CODES: StatusCode[] = [
   },
   {
     value: 103,
-    hr: " Early Hints",
+    hr: "Early Hints",
     hint: "Used to return some response headers before final HTTP message.",
   },
 
@@ -69,7 +69,7 @@ export const HTTP_STATUS_CODES: StatusCode[] = [
   },
   {
     value: 203,
-    hr: " Non-Authoritative Information",
+    hr: "Non-Authoritative Information",
     hint:
       "The server is a transforming proxy (e.g. a Web accelerator) that received a 200 OK from its origin, but is returning a modified version of the origin's response.",
   },
@@ -113,7 +113,7 @@ export const HTTP_STATUS_CODES: StatusCode[] = [
   // 3xx
   {
     value: 300,
-    hr: " Multiple Choices",
+    hr: "Multiple Choices",
     hint:
       "Indicates multiple options for the resource from which the client may choose (via agent-driven content negotiation). For example, this code could be used to present multiple video format options, to list files with different filename extensions, or to suggest word-sense disambiguation.",
   },
@@ -136,13 +136,13 @@ export const HTTP_STATUS_CODES: StatusCode[] = [
   },
   {
     value: 304,
-    hr: " Not Modified",
+    hr: "Not Modified",
     hint:
       "Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-None-Match. In such case, there is no need to retransmit the resource since the client still has a previously-downloaded copy.",
   },
   {
     value: 305,
-    hr: " Use Proxy",
+    hr: "Use Proxy",
     hint:
       "The requested resource is available only through a proxy, the address for which is provided in the response. For security reasons, many HTTP clients (such as Mozilla Firefox and Internet Explorer) do not obey this status code.",
   },
@@ -160,7 +160,7 @@ export const HTTP_STATUS_CODES: StatusCode[] = [
   },
   {
     value: 308,
-    hr: " Permanent Redirect",
+    hr: "Permanent Redirect",
     hint:
       "The request and all future requests should be repeated using another URI. 307 and 308 parallel the behaviors of 302 and 301, but do not allow the HTTP method to change. So, for example, submitting a form to a permanently redirected resource may continue smoothly.",
   },
@@ -210,7 +210,7 @@ export const HTTP_STATUS_CODES: StatusCode[] = [
   },
   {
     value: 407,
-    hr: " Proxy Authentication Required",
+    hr: "Proxy Authentication Required",
     hint: "The client must first authenticate itself with the proxy.",
   },
   {
@@ -390,7 +390,7 @@ export const HTTP_STATUS_CODES: StatusCode[] = [
   },
   {
     value: 508,
-    hr: " Loop Detected",
+    hr: "Loop Detected",
     hint:
       "The server detected an infinite loop while processing the request (sent instead of 208 Already Reported).",
   },
