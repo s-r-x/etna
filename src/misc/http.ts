@@ -6,6 +6,10 @@ export const HTTP_METHODS: THTTPMethod[] = [
   "PUT",
   "DELETE",
   "PATCH",
+  "HEAD",
+  "OPTIONS",
+  "LINK",
+  "UNLINK",
 ];
 export const HTTP_MIME_TYPES: THTTPBodyMIME[] = [
   "application/json",

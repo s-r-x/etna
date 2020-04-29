@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 import { UUID } from "@/utils/uuid";
 import {
@@ -8,7 +8,7 @@ import {
   TAuthStrategy,
 } from "@/typings/store/httpRequest";
 
-const DOMAIN = "httpRequest";
+export const DOMAIN = "httpRequest";
 
 const genVoidHeader = (): THeader => ({
   id: UUID.gen(),
@@ -102,6 +102,7 @@ const slice = createSlice({
   },
 });
 
+export const makeRequest = createAction(`${DOMAIN}/makeRequest`);
 export const {
   addHeader,
   changeAuthStrategy,

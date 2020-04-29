@@ -10,7 +10,6 @@ import {
   CalendarFilled,
   SyncOutlined,
   DeleteFilled,
-  HeartOutlined,
 } from "@ant-design/icons";
 
 type TData = Pick<TProviderProps, "history">;
@@ -54,12 +53,6 @@ const SearchItem = memo((props: ListChildComponentProps) => {
               size="small"
               title="Remove"
               icon={<DeleteFilled />}
-            />
-            <Button
-              title="Add to favorites"
-              icon={<HeartOutlined />}
-              shape="circle"
-              size="small"
             />
           </Space>
         </div>

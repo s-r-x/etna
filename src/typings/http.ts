@@ -1,4 +1,13 @@
-export type THTTPMethod = "POST" | "PUT" | "GET" | "DELETE" | "PATCH";
+export type THTTPMethod =
+  | "POST"
+  | "PUT"
+  | "GET"
+  | "DELETE"
+  | "PATCH"
+  | "HEAD"
+  | "OPTIONS"
+  | "LINK"
+  | "UNLINK";
 export type THTTPBodyMIME =
   | "application/json"
   | "text/html"
