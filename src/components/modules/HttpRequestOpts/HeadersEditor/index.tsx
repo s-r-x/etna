@@ -24,7 +24,6 @@ const HeadersEditor = (props: TProviderProps) => {
           onClick={props.addHeader}
           type="primary"
           block
-          // @ts-ignore
           icon={<PlusOutlined />}
         ></Button>
       </Space>

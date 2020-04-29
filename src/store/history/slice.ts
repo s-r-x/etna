@@ -7,36 +7,7 @@ const slice = createSlice({
   name: DOMAIN,
   initialState: {
     search: "",
-    items: [
-      {
-        id: "1",
-        url: "http:url.com?key=value",
-        date: "2020-04-29T09:17:49.084Z",
-        method: "POST",
-        status: 200,
-      },
-      {
-        id: "2",
-        url: "http:url.com?key=value",
-        date: "2020-04-29T09:17:49.084Z",
-        method: "POST",
-        status: 400,
-      },
-      {
-        id: "3",
-        url: "http:url.com?key=value",
-        date: "2020-04-29T09:17:49.084Z",
-        method: "POST",
-        status: 500,
-      },
-      {
-        id: "4",
-        url: "http:url.com?key=value",
-        date: "2020-04-29T09:17:49.084Z",
-        method: "POST",
-        status: 500,
-      },
-    ],
+    items: [],
     searchForm: {
       method: undefined,
       url: undefined,

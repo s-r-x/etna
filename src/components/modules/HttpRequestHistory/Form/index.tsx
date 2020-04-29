@@ -22,7 +22,7 @@ const HistorySearchForm = (props: TProps) => {
     [props.searchForm]
   );
   return (
-    <div>
+    <>
       <Form
         labelCol={{
           span: 4,
@@ -50,7 +50,7 @@ const HistorySearchForm = (props: TProps) => {
           />
         </Form.Item>
       </Form>
-    </div>
+    </>
   );
 };
 export default HistorySearchForm;

@@ -11,7 +11,6 @@ export default class RootLayout extends React.Component {
   };
 
   onCollapse = (collapsed: boolean) => {
-    console.log(collapsed);
     this.setState({ collapsed });
   };
 
@@ -63,7 +62,9 @@ export default class RootLayout extends React.Component {
         </Sider>
         <Layout>
           <Header />
-          <Content style={{ margin: "20px" }}>{this.props.children}</Content>
+          <Content style={{ margin: "20px", height: "100%" }}>
+            {this.props.children}
+          </Content>
         </Layout>
       </Layout>
     );

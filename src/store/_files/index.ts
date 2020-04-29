@@ -1,5 +1,4 @@
 import { TFileObject } from "@/typings/file";
-import _ from "lodash";
 import { UUID } from "@/utils/uuid";
 
 export class FilesListStore {

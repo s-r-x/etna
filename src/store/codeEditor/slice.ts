@@ -1,4 +1,4 @@
-import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TState } from "@/typings/store/codeEditor";
 import {
   TCodeEditorTabSize,

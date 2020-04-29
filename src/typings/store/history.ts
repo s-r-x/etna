@@ -8,6 +8,7 @@ export type THistoryItem = {
   method: THTTPMethod;
   date: string;
   url: string;
+  wait: number;
   status: number;
   id: string;
 };

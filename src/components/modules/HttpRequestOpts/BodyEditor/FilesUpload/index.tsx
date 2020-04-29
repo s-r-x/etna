@@ -1,12 +1,11 @@
 import React, { useCallback } from "react";
 import { UploadOutlined } from "@ant-design/icons";
-import { provide, TProviderProps } from "./provider";
 import cls from "./index.less";
 import { useFileStore } from "@/hooks/filesListStore";
 import List from "./List";
 import _ from "lodash";
 
-const FilesUpload = (props: TProviderProps) => {
+const FilesUpload = () => {
   const [files, store] = useFileStore();
   const addFiles = useCallback(
     ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,4 +35,4 @@ const FilesUpload = (props: TProviderProps) => {
   );
 };
 
-export default provide(FilesUpload);
+export default FilesUpload;
