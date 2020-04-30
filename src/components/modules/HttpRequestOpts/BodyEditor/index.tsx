@@ -9,7 +9,7 @@ import { Space } from "antd";
 const BodyEditor = (props: TProviderProps) => {
   return (
     <div>
-      <Space style={{ width: "100%" }} direction="vertical">
+      <Space style={{ width: "100%", display: "flex" }} direction="vertical">
         <MIMESelect value={props.bodyMIME} onChange={props.changeBodyMIME} />
         {props.activeEditor === "file" && <FilesUpload />}
         {props.activeEditor === "kv" && <KVEditor />}

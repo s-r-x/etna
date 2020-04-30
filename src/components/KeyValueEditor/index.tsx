@@ -6,7 +6,7 @@ import { TProps } from "@/typings/components/keyValueEditor";
 
 const KeyValueEditor = (props: TProps) => {
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" style={{ display: "flex" }}>
       {props.items.map((item, idx) => (
         <Row
           item={item}

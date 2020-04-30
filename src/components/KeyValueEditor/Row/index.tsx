@@ -74,7 +74,7 @@ const Row = memo((props: TProps) => {
           />
         </Space>
       </div>
-      <Space size="small">
+      <Space className={cls.inputs} size="small">
         <Input
           placeholder={keyPlaceholder}
           value={item.key}
