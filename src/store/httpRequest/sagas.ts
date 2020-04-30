@@ -11,12 +11,12 @@ import {
   all,
   takeLatest,
 } from "redux-saga/effects";
-import { SagaIterator } from "redux-saga";
 import { DOMAIN, loadingStart, loadingError, loadingSuccess } from "./slice";
 import { HttpClient } from "@/utils/HttpClient";
 import { HttpRequestSelectors as Selectors } from "./selectors";
 
-function* makeRequest(): SagaIterator {
+const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+function* makeRequest() {
   const client = new HttpClient();
   const state = yield select();
   const [url, method, bodyMIME, headers] = [
@@ -27,13 +27,13 @@ function* makeRequest(): SagaIterator {
   ];
   try {
     yield put(loadingStart());
-    const resp = yield call(client.make, url, method, {
+    const resp = yield client.make(url, method, {
       headers: {
         ...headers,
         "content-type": bodyMIME,
       },
     });
-    yield put(loadingSuccess());
+    yield put(loadingSuccess(resp));
   } finally {
     if (yield cancelled()) {
       if (client) {

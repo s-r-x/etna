@@ -5,6 +5,7 @@ import { TRootState } from "@/store/rootReducer";
 const mSp = (state: TRootState) => ({
   loading: Selectors.getLoading(state),
   response: Selectors.getResponse(state),
+  responseSize: Selectors.getResponseSize(state),
 });
 
 export const provide = connect(mSp);

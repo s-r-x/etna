@@ -1,6 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { TRootState } from "@/store/rootReducer";
 import qs from "query-string";
+import _ from "lodash";
 
 const getAuthStrategy = (state: TRootState) => state.httpRequest.auth.strategy;
 const getAuthData = (state: TRootState) => state.httpRequest.auth.data;
@@ -41,6 +42,19 @@ const getParsedQuery = createSelector(getUrl, (url) => {
   return query;
 });
 const getResponse = (state: TRootState) => state.httpRequest.response;
+const getResponseSize = createSelector(getResponse, (resp) => {
+  let stringified: string;
+  if (resp) {
+    if (_.isObject(resp.data)) {
+      stringified = JSON.stringify(resp.data);
+    } else {
+      stringified = String(resp.data);
+    }
+  } else {
+    stringified = "";
+  }
+  return new TextEncoder().encode(stringified).length;
+});
 export const HttpRequestSelectors = {
   getActiveBodyEditor,
   getActiveOptsEditor,
@@ -54,5 +68,6 @@ export const HttpRequestSelectors = {
   getMethod,
   getParsedQuery,
   getResponse,
+  getResponseSize,
   getUrl,
 };
