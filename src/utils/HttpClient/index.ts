@@ -31,7 +31,10 @@ export class HttpClient {
       response.statusText = clientResp.statusText;
     } catch (e) {
       if (!axios.isCancel(e)) {
-        response.error = e.toJSON();
+        if (e.isAxiosError) {
+          response.status = e.response.status;
+          response.data = e.response.data;
+        }
       }
     } finally {
       const requestEnd = performance.now();

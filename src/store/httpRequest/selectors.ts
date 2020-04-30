@@ -6,6 +6,14 @@ import _ from "lodash";
 const getAuthStrategy = (state: TRootState) => state.httpRequest.auth.strategy;
 const getAuthData = (state: TRootState) => state.httpRequest.auth.data;
 const getHeaders = (state: TRootState) => state.httpRequest.headers;
+const getRequestReadyHeaders = createSelector(getHeaders, (raw) => {
+  return raw.reduce((acc, header) => {
+    if (header.key) {
+      acc[header.key] = header.value;
+    }
+    return acc;
+  }, {} as { [key: string]: string });
+});
 const getBodyText = (state: TRootState) => state.httpRequest.bodyText;
 const getBodyKV = (state: TRootState) => state.httpRequest.bodyKV;
 const getBodyMIME = (state: TRootState) => state.httpRequest.bodyMime;
@@ -74,6 +82,7 @@ export const HttpRequestSelectors = {
   getLoading,
   getMethod,
   getParsedQuery,
+  getRequestReadyHeaders,
   getResponse,
   getRawResponseBody,
   getResponseSize,

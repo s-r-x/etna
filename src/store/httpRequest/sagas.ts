@@ -14,20 +14,21 @@ import {
 import { DOMAIN, loadingStart, loadingError, loadingSuccess } from "./slice";
 import { HttpClient } from "@/utils/HttpClient";
 import { HttpRequestSelectors as Selectors } from "./selectors";
+import { TResponse } from "@/typings/httpClient";
+import { SagaIterator } from "redux-saga";
 
-const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
-function* makeRequest() {
+function* makeRequest(): SagaIterator {
   const client = new HttpClient();
   const state = yield select();
   const [url, method, bodyMIME, headers] = [
     Selectors.getUrl(state),
     Selectors.getMethod(state),
     Selectors.getBodyMIME(state),
-    Selectors.getHeaders(state),
+    Selectors.getRequestReadyHeaders(state),
   ];
   try {
     yield put(loadingStart());
-    const resp = yield client.make(url, method, {
+    const resp: TResponse = yield call(client.make, url, method, {
       headers: {
         ...headers,
         "content-type": bodyMIME,
