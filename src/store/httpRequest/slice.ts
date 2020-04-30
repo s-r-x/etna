@@ -58,24 +58,24 @@ const slice = createSlice({
     },
     changeHeaderKey(
       state,
-      { payload }: PayloadAction<{ idx: number; key: string }>
+      { payload }: PayloadAction<{ id: number; key: string }>
     ) {
-      state.headers[payload.idx].key = payload.key;
+      state.headers[payload.id].key = payload.key;
     },
     changeHeaderValue(
       state,
-      { payload }: PayloadAction<{ idx: number; value: string }>
+      { payload }: PayloadAction<{ id: number; value: string }>
     ) {
-      state.headers[payload.idx].value = payload.value;
+      state.headers[payload.id].value = payload.value;
     },
     changeHeaderActive(
       state,
-      { payload }: PayloadAction<{ idx: number; active: boolean }>
+      { payload }: PayloadAction<{ id: number; active: boolean }>
     ) {
-      state.headers[payload.idx].active = payload.active;
+      state.headers[payload.id].active = payload.active;
     },
-    removeHeader(state, { payload: idx }: PayloadAction<number>) {
-      state.headers.splice(idx, 1);
+    removeHeader(state, { payload: id }: PayloadAction<number>) {
+      state.headers.splice(id, 1);
     },
 
     changeMethod(state, { payload }: PayloadAction<THTTPMethod>) {
