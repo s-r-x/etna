@@ -13,7 +13,7 @@ export const MethodSelect = (props: TProps) => {
     <Select
       size="large"
       value={props.value}
-      style={{ width: 120 }}
+      style={{ width: 130 }}
       defaultValue="GET"
       onChange={props.onChange}
     >

@@ -17,7 +17,7 @@ export class HttpClient {
     opts: TOpts = {}
   ): Promise<TResponse> => {
     const requestStart = performance.now();
-    let response = {} as TResponse;
+    const response = {} as TResponse;
     try {
       const clientResp = await axios({
         method,
@@ -25,16 +25,16 @@ export class HttpClient {
         cancelToken: this.cancelTokenSource.token,
         headers: opts.headers,
         data: opts.body,
+        // prevent json parsing
+        transformResponse: (r) => r,
       });
       response.data = clientResp.data;
       response.status = clientResp.status;
       response.statusText = clientResp.statusText;
     } catch (e) {
-      if (!axios.isCancel(e)) {
-        if (e.isAxiosError) {
-          response.status = e.response.status;
-          response.data = e.response.data;
-        }
+      if (!axios.isCancel(e) && e.isAxiosError) {
+        response.status = e.response.status;
+        response.data = e.response.data;
       }
     } finally {
       const requestEnd = performance.now();

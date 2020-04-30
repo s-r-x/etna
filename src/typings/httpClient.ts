@@ -8,6 +8,6 @@ export type TResponse = {
   responseTime: number;
   error?: any;
   status?: number;
-  data?: any;
+  data?: string;
   statusText?: string;
 };

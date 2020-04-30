@@ -1,17 +1,12 @@
 import {
-  take,
   put,
-  fork,
-  cancel,
   select,
   cancelled,
   call,
-  takeEvery,
-  delay,
   all,
   takeLatest,
 } from "redux-saga/effects";
-import { DOMAIN, loadingStart, loadingError, loadingSuccess } from "./slice";
+import { DOMAIN, loadingStart, loadingSuccess } from "./slice";
 import { HttpClient } from "@/utils/HttpClient";
 import { HttpRequestSelectors as Selectors } from "./selectors";
 import { TResponse } from "@/typings/httpClient";

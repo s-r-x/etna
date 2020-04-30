@@ -11,6 +11,7 @@ const HTTPRequestForm = (props: TProviderProps) => {
       <MethodSelect value={props.method} onChange={props.changeMethod} />
       <URLInput value={props.url} onChange={props.changeUrl} />
       <Button
+        disabled={!props.url || props.url.length === 0}
         size="large"
         type="primary"
         onClick={() => props.makeRequest()}
