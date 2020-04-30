@@ -12,6 +12,7 @@ type TProps = TProviderProps & {
 const HttpOptsTabs = (props: TProps) => {
   return (
     <Tabs
+      type="card"
       destroyInactiveTabPane
       animated={false}
       defaultActiveKey="headers"

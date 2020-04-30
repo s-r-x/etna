@@ -4,10 +4,11 @@ import HeadersEditor from "./HeadersEditor";
 import QueryEditor from "./QueryEditor";
 import BodyEditor from "./BodyEditor";
 import AuthEditor from "./AuthEditor";
+import cls from "./index.less";
 
 const HttpRequestOpts = () => {
   return (
-    <div>
+    <div className={cls.container}>
       <Tabs
         AuthEditor={<AuthEditor />}
         QueryEditor={<QueryEditor />}
