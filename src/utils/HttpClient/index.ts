@@ -1,19 +1,7 @@
-import axios, { CancelTokenSource, AxiosResponse } from "axios";
+import axios, { CancelTokenSource } from "axios";
 import { THTTPMethod } from "@/typings/http";
+import { TResponse, TOpts } from "@/typings/httpClient";
 
-type Opts = {
-  headers?: {
-    [key: string]: any;
-  };
-  body?: any;
-};
-type Response = {
-  responseTime: number;
-  error?: any;
-  status?: number;
-  data?: any;
-  statusText?: string;
-};
 export class HttpClient {
   private cancelTokenSource: CancelTokenSource;
   constructor() {
@@ -26,10 +14,10 @@ export class HttpClient {
   make = async (
     url: string,
     method: THTTPMethod,
-    opts: Opts = {}
-  ): Promise<Response> => {
+    opts: TOpts = {}
+  ): Promise<TResponse> => {
     const requestStart = performance.now();
-    let response = {} as Response;
+    let response = {} as TResponse;
     try {
       const clientResp = await axios({
         method,

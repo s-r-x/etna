@@ -40,7 +40,7 @@ const getParsedQuery = createSelector(getUrl, (url) => {
   const query = qs.parse(parsedUrl.search);
   return query;
 });
-
+const getResponse = (state: TRootState) => state.httpRequest.response;
 export const HttpRequestSelectors = {
   getActiveBodyEditor,
   getActiveOptsEditor,
@@ -53,5 +53,6 @@ export const HttpRequestSelectors = {
   getLoading,
   getMethod,
   getParsedQuery,
+  getResponse,
   getUrl,
 };

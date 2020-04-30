@@ -1,5 +1,6 @@
 import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 import { TKeyValue } from "@/typings/keyValue";
+import { TResponse } from "@/typings/httpClient";
 
 export type TAuthStrategy = "bearer_token" | "basic" | "none";
 export type TOptsKey = "headers" | "body" | "query" | "auth";
@@ -25,4 +26,5 @@ export type TState = {
   bodyMime: THTTPBodyMIME;
   bodyText: string;
   bodyKV: TKeyValue[];
+  response: TResponse;
 };

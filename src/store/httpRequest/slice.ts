@@ -3,6 +3,7 @@ import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 import { UUID } from "@/utils/uuid";
 import { TOptsKey, TState, TAuthStrategy } from "@/typings/store/httpRequest";
 import { TKeyValue } from "@/typings/keyValue";
+import { TResponse } from "@/typings/httpClient";
 
 export const DOMAIN = "httpRequest";
 
@@ -41,7 +42,8 @@ const slice = createSlice({
     loadingStart(state) {
       state.loading = true;
     },
-    loadingSuccess(state) {
+    loadingSuccess(state, { payload }: PayloadAction<TResponse>) {
+      state.response = payload;
       state.loading = false;
     },
     loadingError(state) {

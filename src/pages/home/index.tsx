@@ -3,6 +3,7 @@ import HttpRequestOpts from "@/components/modules/HttpRequestOpts";
 import { Row, Col } from "antd";
 import HttpRequestForm from "@/components/modules/HttpRequestForm";
 import HttpRequestHistory from "@/components/modules/HttpRequestHistory";
+import HttpResponse from "@/components/modules/HttpResponse";
 import { Card } from "antd";
 
 export const HomePage = () => {
@@ -12,6 +13,9 @@ export const HomePage = () => {
         <Card title="Request">
           <HttpRequestForm />
           <HttpRequestOpts />
+        </Card>
+        <Card style={{ marginTop: "24px" }} title="Response">
+          <HttpResponse />
         </Card>
       </Col>
       <Col span={7}>
