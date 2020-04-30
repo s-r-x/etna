@@ -6,7 +6,7 @@ import { TKeyValue } from "@/typings/keyValue";
 
 export const DOMAIN = "httpRequest";
 
-const genVoidHeader = (): TKeyValue => ({
+const genVoidKV = (): TKeyValue => ({
   id: UUID.gen(),
   active: true,
   key: "",
@@ -18,11 +18,11 @@ const slice = createSlice({
   initialState: {
     url: "",
     method: "GET",
-    headers: [genVoidHeader()],
+    headers: [genVoidKV()],
     activeOptsEditor: "headers",
     bodyMime: "application/json",
     bodyText: "",
-    bodyKV: [],
+    bodyKV: [genVoidKV()],
     loading: false,
     auth: {
       strategy: "none",
@@ -48,7 +48,10 @@ const slice = createSlice({
       state.loading = false;
     },
     addHeader(state) {
-      state.headers.push(genVoidHeader());
+      state.headers.push(genVoidKV());
+    },
+    addBodyKV(state) {
+      state.bodyKV.push(genVoidKV());
     },
     changeHeaderKey(
       state,
@@ -116,6 +119,7 @@ const slice = createSlice({
 
 export const makeRequest = createAction(`${DOMAIN}/makeRequest`);
 export const {
+  addBodyKV,
   addHeader,
   changeAuthStrategy,
   changeBodyText,

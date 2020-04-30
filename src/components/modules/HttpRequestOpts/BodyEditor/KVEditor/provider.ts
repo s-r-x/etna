@@ -1,16 +1,23 @@
 import { HttpRequestSelectors as Selectors } from "@/store/httpRequest/selectors";
 import { connect, ConnectedProps } from "react-redux";
 import { TRootState } from "@/store/rootReducer";
-import { changeBodyText, changeBodyMIME } from "@/store/httpRequest/slice";
+import {
+  addBodyKV,
+  changeBodyKVActive,
+  changeBodyKVValue,
+  changeBodyKVKey,
+  removeBodyKV,
+} from "@/store/httpRequest/slice";
 
 const mSp = (state: TRootState) => ({
-  bodyText: Selectors.getBodyText(state),
-  bodyMIME: Selectors.getBodyMIME(state),
-  activeEditor: Selectors.getActiveBodyEditor(state),
+  items: Selectors.getBodyKV(state),
 });
 const mDp = {
-  changeBodyText,
-  changeBodyMIME,
+  addBodyKV,
+  changeBodyKVActive,
+  changeBodyKVValue,
+  changeBodyKVKey,
+  removeBodyKV,
 };
 
 export const provide = connect(mSp, mDp);

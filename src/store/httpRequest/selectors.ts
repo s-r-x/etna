@@ -11,6 +11,22 @@ const getBodyMIME = (state: TRootState) => state.httpRequest.bodyMime;
 const getUrl = (state: TRootState) => state.httpRequest.url;
 const getMethod = (state: TRootState) => state.httpRequest.method;
 const getLoading = (state: TRootState) => state.httpRequest.loading;
+const getActiveBodyEditor = createSelector(getBodyMIME, (mime) => {
+  switch (mime) {
+    case "application/json":
+    case "application/xml":
+    case "text/html":
+    case "text/plain":
+      return "text";
+    case "application/x-www-form-urlencoded":
+    case "multipart/form-data":
+      return "kv";
+    case "binary":
+      return "file";
+    default:
+      throw new Error(`unknown mime received: ${mime}`);
+  }
+});
 const getActiveOptsEditor = (state: TRootState) =>
   state.httpRequest.activeOptsEditor;
 // TODO:: performance refactor
@@ -26,6 +42,7 @@ const getParsedQuery = createSelector(getUrl, (url) => {
 });
 
 export const HttpRequestSelectors = {
+  getActiveBodyEditor,
   getActiveOptsEditor,
   getAuthData,
   getAuthStrategy,

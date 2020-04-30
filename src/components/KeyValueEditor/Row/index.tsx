@@ -53,6 +53,10 @@ const Row = memo((props: TProps) => {
     },
     [props.idx, props.updateByIdx, item.id]
   );
+  const keyPlaceholder = `${props.keyPlaceholder || "Key"} ${props.idx + 1}`;
+  const valuePlaceholder = `${props.valuePlaceholder || "Value"} ${
+    props.idx + 1
+  }`;
   return (
     <div className={cls.container}>
       <div className={cls.utils}>
@@ -72,12 +76,12 @@ const Row = memo((props: TProps) => {
       </div>
       <Space size="small">
         <Input
-          placeholder={props.keyPlaceholder || "Key"}
+          placeholder={keyPlaceholder}
           value={item.key}
           onChange={onChangeKey}
         />
         <Input
-          placeholder={props.valuePlaceholder || "Value"}
+          placeholder={valuePlaceholder}
           value={item.value}
           onChange={onChangeValue}
         />
