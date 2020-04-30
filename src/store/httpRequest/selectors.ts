@@ -42,7 +42,7 @@ const getParsedQuery = createSelector(getUrl, (url) => {
   return query;
 });
 const getResponse = (state: TRootState) => state.httpRequest.response;
-const getResponseSize = createSelector(getResponse, (resp) => {
+const getRawResponseBody = createSelector(getResponse, (resp): string => {
   let stringified: string;
   if (resp) {
     if (_.isObject(resp.data)) {
@@ -53,8 +53,15 @@ const getResponseSize = createSelector(getResponse, (resp) => {
   } else {
     stringified = "";
   }
-  return new TextEncoder().encode(stringified).length;
+  return stringified;
 });
+const getResponseSize = createSelector(
+  getResponse,
+  getRawResponseBody,
+  (_res, raw): number => {
+    return new TextEncoder().encode(raw).length;
+  }
+);
 export const HttpRequestSelectors = {
   getActiveBodyEditor,
   getActiveOptsEditor,
@@ -68,6 +75,7 @@ export const HttpRequestSelectors = {
   getMethod,
   getParsedQuery,
   getResponse,
+  getRawResponseBody,
   getResponseSize,
   getUrl,
 };
