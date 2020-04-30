@@ -15,8 +15,8 @@ const BodyEditor = (props: TProviderProps) => {
         {CODE_EDITOR_MIME_SUPPORTS.has(props.bodyMIME) && (
           <CodeEditor
             mode={props.bodyMIME}
-            value={props.body}
-            onChange={props.changeBody}
+            value={props.bodyText}
+            onChange={props.changeBodyText}
           />
         )}
       </Space>

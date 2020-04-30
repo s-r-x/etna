@@ -1,16 +1,12 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 import { UUID } from "@/utils/uuid";
-import {
-  TOptsKey,
-  TState,
-  THeader,
-  TAuthStrategy,
-} from "@/typings/store/httpRequest";
+import { TOptsKey, TState, TAuthStrategy } from "@/typings/store/httpRequest";
+import { TKeyValue } from "@/typings/keyValue";
 
 export const DOMAIN = "httpRequest";
 
-const genVoidHeader = (): THeader => ({
+const genVoidHeader = (): TKeyValue => ({
   id: UUID.gen(),
   active: true,
   key: "",
@@ -24,11 +20,9 @@ const slice = createSlice({
     method: "GET",
     headers: [genVoidHeader()],
     activeOptsEditor: "headers",
-    body: {
-      mime: "application/json",
-      raw: true,
-      content: "",
-    },
+    bodyMime: "application/json",
+    bodyText: "",
+    bodyKV: [],
     loading: false,
     auth: {
       strategy: "none",
@@ -84,14 +78,32 @@ const slice = createSlice({
     changeUrl(state, { payload }: PayloadAction<string>) {
       state.url = payload;
     },
-    changeBody(state, { payload }: PayloadAction<string>) {
-      state.body.content = payload;
+    changeBodyText(state, { payload }: PayloadAction<string>) {
+      state.bodyText = payload;
+    },
+    changeBodyKVKey(
+      state,
+      { payload }: PayloadAction<{ id: number; key: string }>
+    ) {
+      state.bodyKV[payload.id].key = payload.key;
+    },
+    changeBodyKVValue(
+      state,
+      { payload }: PayloadAction<{ id: number; value: string }>
+    ) {
+      state.bodyKV[payload.id].value = payload.value;
+    },
+    changeBodyKVActive(
+      state,
+      { payload }: PayloadAction<{ id: number; active: boolean }>
+    ) {
+      state.bodyKV[payload.id].active = payload.active;
+    },
+    removeBodyKV(state, { payload: id }: PayloadAction<number>) {
+      state.bodyKV.splice(id, 1);
     },
     changeBodyMIME(state, { payload }: PayloadAction<THTTPBodyMIME>) {
-      state.body.mime = payload;
-    },
-    toggleBodyInputStrategy(state) {
-      state.body.raw = !state.body.raw;
+      state.bodyMime = payload;
     },
     changeActiveOptsEditor(state, { payload }: PayloadAction<TOptsKey>) {
       state.activeOptsEditor = payload;
@@ -106,7 +118,10 @@ export const makeRequest = createAction(`${DOMAIN}/makeRequest`);
 export const {
   addHeader,
   changeAuthStrategy,
-  changeBody,
+  changeBodyText,
+  changeBodyKVActive,
+  changeBodyKVKey,
+  changeBodyKVValue,
   changeBodyMIME,
   changeHeaderKey,
   changeHeaderValue,
@@ -117,6 +132,7 @@ export const {
   loadingError,
   loadingStart,
   loadingSuccess,
+  removeBodyKV,
   removeHeader,
 } = slice.actions;
 

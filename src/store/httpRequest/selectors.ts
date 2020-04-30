@@ -5,8 +5,9 @@ import qs from "query-string";
 const getAuthStrategy = (state: TRootState) => state.httpRequest.auth.strategy;
 const getAuthData = (state: TRootState) => state.httpRequest.auth.data;
 const getHeaders = (state: TRootState) => state.httpRequest.headers;
-const getBody = (state: TRootState) => state.httpRequest.body.content;
-const getBodyMIME = (state: TRootState) => state.httpRequest.body.mime;
+const getBodyText = (state: TRootState) => state.httpRequest.bodyText;
+const getBodyKV = (state: TRootState) => state.httpRequest.bodyKV;
+const getBodyMIME = (state: TRootState) => state.httpRequest.bodyMime;
 const getUrl = (state: TRootState) => state.httpRequest.url;
 const getMethod = (state: TRootState) => state.httpRequest.method;
 const getLoading = (state: TRootState) => state.httpRequest.loading;
@@ -29,7 +30,8 @@ export const HttpRequestSelectors = {
   getAuthData,
   getAuthStrategy,
   getHeaders,
-  getBody,
+  getBodyText,
+  getBodyKV,
   getBodyMIME,
   getLoading,
   getMethod,

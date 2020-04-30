@@ -1,15 +1,15 @@
 import { HttpRequestSelectors as Selectors } from "@/store/httpRequest/selectors";
 import { connect, ConnectedProps } from "react-redux";
 import { TRootState } from "@/store/rootReducer";
-import { changeBody, changeBodyMIME } from "@/store/httpRequest/slice";
+import { changeBodyText, changeBodyMIME } from "@/store/httpRequest/slice";
 
 const mSp = (state: TRootState) => ({
   headers: Selectors.getHeaders(state),
-  body: Selectors.getBody(state),
+  bodyText: Selectors.getBodyText(state),
   bodyMIME: Selectors.getBodyMIME(state),
 });
 const mDp = {
-  changeBody,
+  changeBodyText,
   changeBodyMIME,
 };
 
