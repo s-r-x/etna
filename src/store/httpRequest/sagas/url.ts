@@ -1,12 +1,13 @@
-import { put, debounce } from "redux-saga/effects";
-import { PayloadAction } from "@reduxjs/toolkit";
+import { put, debounce, select } from "redux-saga/effects";
 import { DOMAIN, setQuery } from "../slice";
 import { SagaIterator } from "redux-saga";
 import _ from "lodash";
 import { URLUtils } from "@/utils/url";
+import { HttpRequestSelectors as Selectors } from "../selectors";
 
-function* urlSaga(action: PayloadAction<string>): SagaIterator {
-  const search = URLUtils.extractSearch(action.payload);
+function* urlSaga(): SagaIterator {
+  const url: string = yield select(Selectors.getUrl);
+  const search = URLUtils.extractSearch(url);
   if (_.isUndefined(search)) {
     yield put(setQuery([]));
   } else {
@@ -15,5 +16,9 @@ function* urlSaga(action: PayloadAction<string>): SagaIterator {
   }
 }
 export default function* watchUrl() {
-  yield debounce(200, `${DOMAIN}/changeUrl`, urlSaga);
+  yield debounce(
+    200,
+    [`${DOMAIN}/changeUrl`, `${DOMAIN}/restoreRequest`],
+    urlSaga
+  );
 }
