@@ -4,7 +4,7 @@ import { Button, Space, message } from "antd";
 import { WebApi } from "@/utils/webapi";
 import { TProviderProps } from "../provider";
 
-type TProps = Pick<TProviderProps, "makeRequest"> & {
+type TProps = Pick<TProviderProps, "makeRequest" | "loading"> & {
   body: string;
 };
 const Actions = (props: TProps) => {
@@ -19,7 +19,11 @@ const Actions = (props: TProps) => {
   return (
     <div>
       <Space size="small">
-        <Button icon={<SyncOutlined />} onClick={onRequest}>
+        <Button
+          icon={<SyncOutlined />}
+          loading={props.loading}
+          onClick={onRequest}
+        >
           Send Again
         </Button>
         <Button icon={<SaveOutlined />} onClick={onSave}>

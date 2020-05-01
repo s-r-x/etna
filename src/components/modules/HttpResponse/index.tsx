@@ -15,7 +15,11 @@ const HttpResponse = (props: TProviderProps) => {
     <div>
       <div className={cls.topBar}>
         <Stats response={response} responseSize={props.responseSize} />
-        <Actions makeRequest={props.makeRequest} body={props.response.data} />
+        <Actions
+          loading={props.loading}
+          makeRequest={props.makeRequest}
+          body={props.response.data}
+        />
       </div>
       <div className={cls.dataViewer}>
         <DataViewer responseType={props.responseType} response={response} />
