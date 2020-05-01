@@ -12,7 +12,5 @@ export const URLInput = (props: TProps) => {
     },
     [props.onChange]
   );
-  return (
-    <Input size="large" value={props.value} allowClear onChange={onChange} />
-  );
+  return <Input value={props.value} allowClear onChange={onChange} />;
 };

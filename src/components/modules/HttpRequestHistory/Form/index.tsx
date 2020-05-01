@@ -27,7 +27,6 @@ const HistorySearchForm = (props: TProps) => {
         labelCol={{
           span: 4,
         }}
-        size="large"
         onValuesChange={onChange}
         initialValues={props.searchForm}
       >

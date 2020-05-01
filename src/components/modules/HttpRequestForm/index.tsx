@@ -20,7 +20,6 @@ const HTTPRequestForm = (props: TProviderProps) => {
       <Button
         htmlType="submit"
         disabled={!props.url}
-        size="large"
         type="primary"
         loading={props.loading}
       >
