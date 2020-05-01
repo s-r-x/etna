@@ -13,13 +13,19 @@ import {
 } from "@ant-design/icons";
 import { Color } from "@/utils/color";
 
-type TData = Pick<TProviderProps, "history" | "removeItem">;
+type TData = Pick<TProviderProps, "history" | "removeItem" | "restoreRequest">;
 const SearchItem = memo((props: ListChildComponentProps) => {
   const data: TData = props.data;
   const item = data.history[props.index];
   const onRemove = useCallback(() => {
     data.removeItem(item.id);
   }, [item.id, data.removeItem]);
+  const onRestore = useCallback(() => {
+    data.restoreRequest({
+      method: item.method,
+      url: item.url,
+    });
+  }, [data.restoreRequest, item]);
   return (
     <div className={cls.container} style={props.style}>
       <div className={cls.topStats}>
@@ -51,7 +57,8 @@ const SearchItem = memo((props: ListChildComponentProps) => {
               type="primary"
               shape="circle"
               size="small"
-              title="Rerun request"
+              onClick={onRestore}
+              title="Restore request"
             />
             <Button
               danger

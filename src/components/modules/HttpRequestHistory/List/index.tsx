@@ -5,14 +5,18 @@ import { FixedSizeList as VirtualList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { Empty } from "antd";
 
-type TProps = Pick<TProviderProps, "history" | "removeItem">;
+type TProps = Pick<TProviderProps, "history" | "removeItem" | "restoreRequest">;
 const SearchList = (props: TProps) => {
   if (props.history.length === 0) {
     return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
   }
   const itemProps = useMemo(() => {
-    return { history: props.history, removeItem: props.removeItem };
-  }, [props.history, props.removeItem]);
+    return {
+      history: props.history,
+      removeItem: props.removeItem,
+      restoreRequest: props.restoreRequest,
+    };
+  }, [props.history, props.removeItem, props.restoreRequest]);
   return (
     <div style={{ flex: 1 }}>
       <AutoSizer>

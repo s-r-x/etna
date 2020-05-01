@@ -6,6 +6,7 @@ import {
   updateSearchForm,
   removeItem,
 } from "@/store/history/slice";
+import { restoreRequest } from "@/store/httpRequest/slice";
 
 const mSp = (state: TRootState) => ({
   history: Selectors.getHistory(state),
@@ -15,6 +16,7 @@ const mDp = {
   changeSearch,
   updateSearchForm,
   removeItem,
+  restoreRequest,
 };
 
 export const provide = connect(mSp, mDp);

@@ -5,6 +5,7 @@ import {
   TState,
   TAuthStrategy,
   TQuery,
+  TRestoreParams,
 } from "@/typings/store/httpRequest";
 import { TKeyValue } from "@/typings/keyValue";
 import { TResponse } from "@/typings/httpClient";
@@ -144,6 +145,10 @@ const slice = createSlice({
     setQuery(state, { payload }: PayloadAction<TQuery[]>) {
       state.query = payload;
     },
+    restoreRequest(state, { payload }: PayloadAction<TRestoreParams>) {
+      state.method = payload.method;
+      state.url = payload.url;
+    },
   },
 });
 
@@ -172,6 +177,7 @@ export const {
   removeBodyKV,
   removeHeader,
   removeQuery,
+  restoreRequest,
   setQuery,
 } = slice.actions;
 
