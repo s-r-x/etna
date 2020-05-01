@@ -4,7 +4,7 @@ import { URLInput } from "./URLInput";
 import { Button } from "antd";
 import { provide, TProviderProps } from "./provider";
 import cls from "./index.less";
-import { SendOutlined } from "@ant-design/icons";
+import { SendOutlined, StopOutlined } from "@ant-design/icons";
 
 const HTTPRequestForm = (props: TProviderProps) => {
   const onSubmit = useCallback(
@@ -26,6 +26,15 @@ const HTTPRequestForm = (props: TProviderProps) => {
         loading={props.loading}
       >
         Send
+      </Button>
+      <Button
+        htmlType="button"
+        danger
+        disabled={!props.url || !props.loading}
+        type="primary"
+        icon={<StopOutlined />}
+      >
+        Cancel
       </Button>
     </form>
   );
