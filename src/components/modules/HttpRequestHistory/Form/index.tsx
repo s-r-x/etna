@@ -4,9 +4,9 @@ import { TProviderProps } from "../provider";
 import { Form, Select } from "antd";
 import { HTTP_METHODS } from "@/misc/http";
 import _ from "lodash";
-const { Search } = Input;
 import { AutoComplete } from "antd";
 import { HTTP_STATUS_CODES } from "@/misc/http";
+const { Search } = Input;
 
 const statusSelectOpts = HTTP_STATUS_CODES.map((code) => ({
   value: "" + code.value,
