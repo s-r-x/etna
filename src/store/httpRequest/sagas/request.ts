@@ -3,12 +3,11 @@ import {
   select,
   cancelled,
   call,
-  all,
   takeLatest,
 } from "redux-saga/effects";
-import { DOMAIN, loadingStart, loadingSuccess } from "./slice";
+import { DOMAIN, loadingStart, loadingSuccess } from "../slice";
 import { HttpClient } from "@/utils/HttpClient";
-import { HttpRequestSelectors as Selectors } from "./selectors";
+import { HttpRequestSelectors as Selectors } from "../selectors";
 import { TResponse } from "@/typings/httpClient";
 import { SagaIterator } from "redux-saga";
 
@@ -38,10 +37,6 @@ function* makeRequest(): SagaIterator {
     }
   }
 }
-function* watchMakeRequest() {
+export default function* watchMakeRequest() {
   yield takeLatest(`${DOMAIN}/makeRequest`, makeRequest);
-}
-
-export default function* () {
-  yield all([watchMakeRequest()]);
 }

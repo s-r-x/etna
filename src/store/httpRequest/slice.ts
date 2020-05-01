@@ -1,10 +1,14 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 import { UUID } from "@/utils/uuid";
-import { TOptsKey, TState, TAuthStrategy } from "@/typings/store/httpRequest";
+import {
+  TOptsKey,
+  TState,
+  TAuthStrategy,
+  TQuery,
+} from "@/typings/store/httpRequest";
 import { TKeyValue } from "@/typings/keyValue";
 import { TResponse } from "@/typings/httpClient";
-import { URLUtils } from "@/utils/url";
 
 export const DOMAIN = "httpRequest";
 
@@ -57,6 +61,12 @@ const slice = createSlice({
     addBodyKV(state) {
       state.bodyKV.push(genVoidKV());
     },
+    addQuery(state) {
+      state.query.push({
+        key: "",
+        value: "",
+      });
+    },
     changeHeaderKey(
       state,
       { payload }: PayloadAction<{ id: number; key: string }>
@@ -84,13 +94,24 @@ const slice = createSlice({
     },
     changeUrl(state, { payload }: PayloadAction<string>) {
       state.url = payload;
-      // we probably should move query parsing to webworker or something
-      const search = URLUtils.extractSearch(payload);
-      if (search) {
-        state.query = URLUtils.parseSearchAsArray(search);
-      } else {
-        state.query = [];
-      }
+    },
+    _changeUrlWithoutTouchingQuery(state, { payload }: PayloadAction<string>) {
+      state.url = payload;
+    },
+    changeQueryKey(
+      state,
+      { payload }: PayloadAction<{ id: number; key: string }>
+    ) {
+      state.query[payload.id].key = payload.key;
+    },
+    changeQueryValue(
+      state,
+      { payload }: PayloadAction<{ id: number; value: string }>
+    ) {
+      state.query[payload.id].value = payload.value;
+    },
+    removeQuery(state, { payload: idx }: PayloadAction<number>) {
+      state.query.splice(idx, 1);
     },
     changeBodyText(state, { payload }: PayloadAction<string>) {
       state.bodyText = payload;
@@ -125,6 +146,9 @@ const slice = createSlice({
     changeAuthStrategy(state, { payload }: PayloadAction<TAuthStrategy>) {
       state.auth.strategy = payload;
     },
+    setQuery(state, { payload }: PayloadAction<TQuery[]>) {
+      state.query = payload;
+    },
   },
 });
 
@@ -132,6 +156,8 @@ export const makeRequest = createAction(`${DOMAIN}/makeRequest`);
 export const {
   addBodyKV,
   addHeader,
+  addQuery,
+  changeActiveOptsEditor,
   changeAuthStrategy,
   changeBodyText,
   changeBodyKVActive,
@@ -142,13 +168,17 @@ export const {
   changeHeaderValue,
   changeHeaderActive,
   changeMethod,
+  changeQueryKey,
+  changeQueryValue,
   changeUrl,
-  changeActiveOptsEditor,
+  _changeUrlWithoutTouchingQuery,
   loadingError,
   loadingStart,
   loadingSuccess,
   removeBodyKV,
   removeHeader,
+  removeQuery,
+  setQuery,
 } = slice.actions;
 
 export default slice.reducer;

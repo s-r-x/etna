@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Button, Space } from "antd";
 import Row from "./Row";
 import { PlusOutlined } from "@ant-design/icons";
 import { TProps } from "@/typings/components/keyValueEditor";
 
 const KeyValueEditor = (props: TProps) => {
+  const onAdd = useCallback(() => {
+    props.onAdd();
+  }, [props.onAdd]);
   return (
     <Space direction="vertical" style={{ display: "flex" }}>
       {props.items.map((item, idx) => (
@@ -23,7 +26,7 @@ const KeyValueEditor = (props: TProps) => {
       ))}
       <Button
         title={props.addPlaceholder || "Add new"}
-        onClick={props.onAdd}
+        onClick={onAdd}
         type="primary"
         block
         icon={<PlusOutlined />}

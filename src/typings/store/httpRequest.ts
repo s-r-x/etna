@@ -16,11 +16,12 @@ export type TAuth = {
     };
   };
 };
+export type TQuery = { key: string; value: string };
 export type TState = {
   method: THTTPMethod;
   url: string;
   baseUrl: string;
-  query: { key: string; value: string }[];
+  query: TQuery[];
   headers: TKeyValue[];
   activeOptsEditor: TOptsKey;
   loading: boolean;
