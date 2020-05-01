@@ -1,7 +1,11 @@
 import { HistorySelectors as Selectors } from "@/store/history/selectors";
 import { connect, ConnectedProps } from "react-redux";
 import { TRootState } from "@/store/rootReducer";
-import { changeSearch, updateSearchForm } from "@/store/history/slice";
+import {
+  changeSearch,
+  updateSearchForm,
+  removeItem,
+} from "@/store/history/slice";
 
 const mSp = (state: TRootState) => ({
   history: Selectors.getHistory(state),
@@ -10,6 +14,7 @@ const mSp = (state: TRootState) => ({
 const mDp = {
   changeSearch,
   updateSearchForm,
+  removeItem,
 };
 
 export const provide = connect(mSp, mDp);

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TState, THistoryItem, TSearchForm } from "@/typings/store/history";
+import { UUID } from "@/utils/uuid";
 
 const DOMAIN = "history";
 
@@ -19,8 +20,11 @@ const slice = createSlice({
     changeSearch(state, { payload }: PayloadAction<string>) {
       state.search = payload;
     },
-    addItem(state, { payload }: PayloadAction<THistoryItem>) {
-      state.items.push(payload);
+    addItem(state, { payload }: PayloadAction<Omit<THistoryItem, "id">>) {
+      state.items.unshift({
+        ...payload,
+        id: UUID.gen(),
+      });
     },
     removeItem(state, { payload }: PayloadAction<string>) {
       const idx = state.items.findIndex(({ id }) => id === payload);

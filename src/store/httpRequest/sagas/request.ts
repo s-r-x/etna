@@ -5,6 +5,7 @@ import { HttpRequestSelectors as Selectors } from "../selectors";
 import { TResponse } from "@/typings/httpClient";
 import { SagaIterator } from "redux-saga";
 import { message } from "antd";
+import { addItem as addHistoryItem } from "@/store/history/slice";
 
 function* makeRequest(): SagaIterator {
   const client = new HttpClient();
@@ -27,6 +28,17 @@ function* makeRequest(): SagaIterator {
       message.error(resp.data);
     }
     yield put(loadingEnd(resp));
+    if (resp.status) {
+      yield put(
+        addHistoryItem({
+          method,
+          url,
+          date: new Date().toISOString(),
+          wait: resp.responseTime,
+          status: resp.status,
+        })
+      );
+    }
   } finally {
     if (yield cancelled()) {
       client.cancel();

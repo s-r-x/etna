@@ -10,7 +10,7 @@ const HttpRequestHistory = (props: TProviderProps) => {
         searchForm={props.searchForm}
         updateSearchForm={props.updateSearchForm}
       />
-      <List history={props.history} />
+      <List removeItem={props.removeItem} history={props.history} />
     </>
   );
 };

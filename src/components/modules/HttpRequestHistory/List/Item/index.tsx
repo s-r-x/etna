@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { ListChildComponentProps } from "react-window";
 import { TProviderProps } from "../../provider";
 import cls from "./index.less";
@@ -11,18 +11,24 @@ import {
   SyncOutlined,
   DeleteFilled,
 } from "@ant-design/icons";
+import { Color } from "@/utils/color";
 
-type TData = Pick<TProviderProps, "history">;
+type TData = Pick<TProviderProps, "history" | "removeItem">;
 const SearchItem = memo((props: ListChildComponentProps) => {
   const data: TData = props.data;
   const item = data.history[props.index];
+  const onRemove = useCallback(() => {
+    data.removeItem(item.id);
+  }, [item.id, data.removeItem]);
   return (
     <div className={cls.container} style={props.style}>
       <div className={cls.topStats}>
         <Tag style={{ marginRight: "5px" }} color="magenta">
           {item.method}
         </Tag>
-        <Tag color="green">{item.status}</Tag>
+        <Tag color={Color.getColorForHttpStatus(item.status)}>
+          {item.status}
+        </Tag>
         <div className={cls.responseTime}>
           <ClockCircleFilled />
           <span style={{ marginLeft: "5px" }}>{ms(item.wait)}</span>
@@ -51,6 +57,7 @@ const SearchItem = memo((props: ListChildComponentProps) => {
               danger
               shape="circle"
               size="small"
+              onClick={onRemove}
               title="Remove"
               icon={<DeleteFilled />}
             />
