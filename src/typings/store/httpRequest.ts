@@ -19,6 +19,8 @@ export type TAuth = {
 export type TState = {
   method: THTTPMethod;
   url: string;
+  baseUrl: string;
+  query: { key: string; value: string }[];
   headers: TKeyValue[];
   activeOptsEditor: TOptsKey;
   loading: boolean;

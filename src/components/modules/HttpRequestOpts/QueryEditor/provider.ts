@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { TRootState } from "@/store/rootReducer";
 
 const mSp = (state: TRootState) => ({
-  query: Selectors.getParsedQuery(state),
+  query: Selectors.getQuery(state),
 });
 const mDp = {};
 

@@ -4,6 +4,7 @@ import { UUID } from "@/utils/uuid";
 import { TOptsKey, TState, TAuthStrategy } from "@/typings/store/httpRequest";
 import { TKeyValue } from "@/typings/keyValue";
 import { TResponse } from "@/typings/httpClient";
+import { URLUtils } from "@/utils/url";
 
 export const DOMAIN = "httpRequest";
 
@@ -18,6 +19,7 @@ const slice = createSlice({
   name: DOMAIN,
   initialState: {
     url: "",
+    query: [],
     method: "GET",
     headers: [genVoidKV()],
     activeOptsEditor: "headers",
@@ -73,8 +75,8 @@ const slice = createSlice({
     ) {
       state.headers[payload.id].active = payload.active;
     },
-    removeHeader(state, { payload: id }: PayloadAction<number>) {
-      state.headers.splice(id, 1);
+    removeHeader(state, { payload: idx }: PayloadAction<number>) {
+      state.headers.splice(idx, 1);
     },
 
     changeMethod(state, { payload }: PayloadAction<THTTPMethod>) {
@@ -82,6 +84,13 @@ const slice = createSlice({
     },
     changeUrl(state, { payload }: PayloadAction<string>) {
       state.url = payload;
+      // we probably should move query parsing to webworker or something
+      const search = URLUtils.extractSearch(payload);
+      if (search) {
+        state.query = URLUtils.parseSearchAsArray(search);
+      } else {
+        state.query = [];
+      }
     },
     changeBodyText(state, { payload }: PayloadAction<string>) {
       state.bodyText = payload;
@@ -104,8 +113,8 @@ const slice = createSlice({
     ) {
       state.bodyKV[payload.id].active = payload.active;
     },
-    removeBodyKV(state, { payload: id }: PayloadAction<number>) {
-      state.bodyKV.splice(id, 1);
+    removeBodyKV(state, { payload: idx }: PayloadAction<number>) {
+      state.bodyKV.splice(idx, 1);
     },
     changeBodyMIME(state, { payload }: PayloadAction<THTTPBodyMIME>) {
       state.bodyMime = payload;

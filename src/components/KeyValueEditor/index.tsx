@@ -11,7 +11,7 @@ const KeyValueEditor = (props: TProps) => {
         <Row
           item={item}
           idx={idx}
-          key={item.id}
+          key={props.useIdxAsKey ? idx : item.id}
           onChangeActive={props.onChangeActive}
           onChangeKey={props.onChangeKey}
           onChangeValue={props.onChangeValue}

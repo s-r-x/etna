@@ -38,16 +38,7 @@ const getActiveBodyEditor = createSelector(getBodyMIME, (mime) => {
 const getActiveOptsEditor = (state: TRootState) =>
   state.httpRequest.activeOptsEditor;
 // TODO:: performance refactor
-const getParsedQuery = createSelector(getUrl, (url) => {
-  let parsedUrl: URL;
-  try {
-    parsedUrl = new URL(url);
-  } catch (e) {
-    return {};
-  }
-  const query = qs.parse(parsedUrl.search);
-  return query;
-});
+const getQuery = (state: TRootState) => state.httpRequest.query;
 const getResponse = (state: TRootState) => state.httpRequest.response;
 const getResponseSize = createSelector(getResponse, (res): number => {
   return new TextEncoder().encode(res?.data ?? "").length;
@@ -63,7 +54,7 @@ export const HttpRequestSelectors = {
   getBodyMIME,
   getLoading,
   getMethod,
-  getParsedQuery,
+  getQuery,
   getRequestReadyHeaders,
   getResponse,
   getResponseSize,
