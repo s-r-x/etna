@@ -46,11 +46,8 @@ const slice = createSlice({
     loadingStart(state) {
       state.loading = true;
     },
-    loadingSuccess(state, { payload }: PayloadAction<TResponse>) {
+    loadingEnd(state, { payload }: PayloadAction<TResponse>) {
       state.response = payload;
-      state.loading = false;
-    },
-    loadingError(state) {
       state.loading = false;
     },
     addHeader(state) {
@@ -170,9 +167,8 @@ export const {
   changeQueryValue,
   changeUrl,
   _changeUrlWithoutTouchingQuery,
-  loadingError,
+  loadingEnd,
   loadingStart,
-  loadingSuccess,
   removeBodyKV,
   removeHeader,
   removeQuery,

@@ -1,15 +1,10 @@
-import {
-  put,
-  select,
-  cancelled,
-  call,
-  takeLatest,
-} from "redux-saga/effects";
-import { DOMAIN, loadingStart, loadingSuccess } from "../slice";
+import { put, select, cancelled, call, takeLatest } from "redux-saga/effects";
+import { DOMAIN, loadingStart, loadingEnd } from "../slice";
 import { HttpClient } from "@/utils/HttpClient";
 import { HttpRequestSelectors as Selectors } from "../selectors";
 import { TResponse } from "@/typings/httpClient";
 import { SagaIterator } from "redux-saga";
+import { message } from "antd";
 
 function* makeRequest(): SagaIterator {
   const client = new HttpClient();
@@ -28,12 +23,13 @@ function* makeRequest(): SagaIterator {
         "content-type": bodyMIME,
       },
     });
-    yield put(loadingSuccess(resp));
+    if (resp.error) {
+      message.error(resp.data);
+    }
+    yield put(loadingEnd(resp));
   } finally {
     if (yield cancelled()) {
-      if (client) {
-        client.cancel();
-      }
+      client.cancel();
     }
   }
 }

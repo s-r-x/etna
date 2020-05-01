@@ -4,7 +4,7 @@ import { TProviderProps, provide } from "./provider";
 import Stats from "./Stats";
 import cls from "./index.less";
 import Actions from "./Actions";
-//import CodeEditor from '@/components/CodeEditor';
+import DataViewer from "./DataViewer";
 
 const HttpResponse = (props: TProviderProps) => {
   const { response } = props;
@@ -16,6 +16,9 @@ const HttpResponse = (props: TProviderProps) => {
       <div className={cls.topBar}>
         <Stats response={response} responseSize={props.responseSize} />
         <Actions body={props.response.data} />
+      </div>
+      <div className={cls.dataViewer}>
+        <DataViewer responseType={props.responseType} response={response} />
       </div>
     </div>
   );

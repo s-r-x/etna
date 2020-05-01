@@ -1,17 +1,18 @@
 import React, { useMemo } from "react";
-import cls from "./index.less";
 import ms from "pretty-ms";
 import pb from "pretty-bytes";
 import { Color } from "@/utils/color";
 import { HTTP_STATUS_CODES } from "@/misc/http";
-import { Typography, Tooltip, Tag } from "antd";
 import { TProviderProps } from "../provider";
-const { Text } = Typography;
+import View from "./view";
 
 type TProps = Pick<TProviderProps, "response" | "responseSize">;
 
 const Stats = ({ response, responseSize }: TProps) => {
   const statusHint = useMemo(() => {
+    if (!response.status) {
+      return "Unknown code";
+    }
     const meta = HTTP_STATUS_CODES.find(
       ({ value }) => value === response.status
     );
@@ -22,31 +23,13 @@ const Stats = ({ response, responseSize }: TProps) => {
     }
   }, [response.status]);
   return (
-    <div className={cls.container}>
-      <div className={cls.sect}>
-        <Text type="secondary">Status: </Text>
-        <Tooltip title={statusHint}>
-          <Tag
-            color={Color.getColorForHttpStatus(response.status)}
-            style={{
-              cursor: "help",
-            }}
-          >
-            {response.status}
-          </Tag>
-        </Tooltip>
-      </div>
-      <div className={cls.sect}>
-        <Text type="secondary">Time: </Text>
-        <Tag>{ms(response.responseTime)}</Tag>
-      </div>
-      {response.data && (
-        <div className={cls.sect}>
-          <Text type="secondary">Size: </Text>
-          <Tag>{pb(responseSize)}</Tag>
-        </div>
-      )}
-    </div>
+    <View
+      status={response.status}
+      statusColor={Color.getColorForHttpStatus(response.status)}
+      statusHint={statusHint}
+      size={responseSize && pb(responseSize)}
+      time={ms(response.responseTime)}
+    />
   );
 };
 

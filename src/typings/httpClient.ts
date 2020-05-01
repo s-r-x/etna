@@ -6,8 +6,9 @@ export type TOpts = {
 };
 export type TResponse = {
   responseTime: number;
-  error?: any;
+  error?: boolean;
   status?: number;
   data?: string;
   statusText?: string;
+  headers?: { [key: string]: string };
 };

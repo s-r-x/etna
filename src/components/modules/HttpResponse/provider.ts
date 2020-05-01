@@ -6,6 +6,7 @@ const mSp = (state: TRootState) => ({
   loading: Selectors.getLoading(state),
   response: Selectors.getResponse(state),
   responseSize: Selectors.getResponseSize(state),
+  responseType: Selectors.getResponseContentType(state),
 });
 
 export const provide = connect(mSp);

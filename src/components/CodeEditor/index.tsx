@@ -1,15 +1,15 @@
 import React, { useCallback } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
-import { THTTPBodyMIME} from "@/typings/http";
 import { provide, TProviderProps } from "./provider";
 require("codemirror/mode/javascript/javascript");
 require("codemirror/mode/xml/xml");
 require("codemirror/keymap/vim");
 
 type TProps = TProviderProps & {
-  mode: THTTPBodyMIME;
-  onChange(value: string): void;
+  mode: string;
+  onChange?(value: string): void;
   value: string;
+  readOnly?: boolean;
 };
 const CodeEditor = (props: TProps) => {
   const onChange = useCallback(
@@ -27,6 +27,7 @@ const CodeEditor = (props: TProps) => {
         mode: props.mode,
         theme: props.theme,
         lineNumbers: true,
+        readOnly: props.readOnly,
       }}
       onBeforeChange={onChange}
     />

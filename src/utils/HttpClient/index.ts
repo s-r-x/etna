@@ -31,10 +31,16 @@ export class HttpClient {
       response.data = clientResp.data;
       response.status = clientResp.status;
       response.statusText = clientResp.statusText;
+      response.headers = clientResp.headers;
     } catch (e) {
+      response.error = true;
       if (!axios.isCancel(e) && e.isAxiosError) {
-        response.status = e.response.status;
-        response.data = e.response.data;
+        console.dir(e);
+        response.status = e?.response?.status;
+        response.data = e?.response?.data ?? e?.message;
+        response.headers = e?.response?.headers;
+      } else {
+        response.data = e?.message;
       }
     } finally {
       const requestEnd = performance.now();
