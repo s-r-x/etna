@@ -1,13 +1,10 @@
 export type TItem = {
-  id?: string;
   key: string;
   value: string;
   active?: boolean;
 };
 export type TProps = {
   items: TItem[];
-  updateByIdx?: boolean;
-  useIdxAsKey?: boolean;
   addPlaceholder?: string;
   keyPlaceholder?: string;
   valuePlaceholder?: string;

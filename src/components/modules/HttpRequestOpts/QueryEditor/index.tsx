@@ -6,8 +6,6 @@ const QueryEditor = (props: TProviderProps) => {
   return (
     <div>
       <KeyValueEditor
-        useIdxAsKey
-        updateByIdx
         onChangeKey={props.changeQueryKey}
         onChangeValue={props.changeQueryValue}
         onRemove={props.removeQuery}

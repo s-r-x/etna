@@ -14,7 +14,6 @@ type TProps = Pick<
   | "onChangeKey"
   | "onChangeValue"
   | "onRemove"
-  | "updateByIdx"
   | "keyPlaceholder"
   | "valuePlaceholder"
 > & {
@@ -27,31 +26,31 @@ const Row = memo((props: TProps) => {
     (e: CheckboxChangeEvent) => {
       props.onChangeActive({
         active: e.target.checked,
-        id: props.updateByIdx ? props.idx : item.id,
+        id: props.idx,
       });
     },
-    [item.id, props.updateByIdx, props.idx]
+    [props.idx]
   );
   const onRemove = useCallback(() => {
-    props.onRemove(props.updateByIdx ? props.idx : item.id);
-  }, [props.idx, props.updateByIdx, item.id]);
+    props.onRemove(props.idx);
+  }, [props.idx]);
   const onChangeKey = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       props.onChangeKey({
-        id: props.updateByIdx ? props.idx : item.id,
+        id: props.idx,
         key: e.target.value,
       });
     },
-    [props.idx, props.updateByIdx, item.id]
+    [props.idx]
   );
   const onChangeValue = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       props.onChangeValue({
-        id: props.updateByIdx ? props.idx : item.id,
+        id: props.idx,
         value: e.target.value,
       });
     },
-    [props.idx, props.updateByIdx, item.id]
+    [props.idx]
   );
   const keyPlaceholder = `${props.keyPlaceholder || "Key"} ${props.idx + 1}`;
   const valuePlaceholder = `${props.valuePlaceholder || "Value"} ${

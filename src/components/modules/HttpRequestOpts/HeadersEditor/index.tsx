@@ -6,7 +6,6 @@ const HeadersEditor = (props: TProviderProps) => {
   return (
     <div>
       <KeyValueEditor
-        updateByIdx
         keyPlaceholder="Header"
         items={props.headers}
         onChangeActive={props.changeHeaderActive}

@@ -5,7 +5,6 @@ import KVEditor from "@/components/KeyValueEditor";
 const BodyKVEditor = (props: TProviderProps) => {
   return (
     <KVEditor
-      updateByIdx
       items={props.items}
       onAdd={props.addBodyKV}
       onChangeValue={props.changeBodyKVValue}

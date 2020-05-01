@@ -14,14 +14,13 @@ const KeyValueEditor = (props: TProps) => {
         <Row
           item={item}
           idx={idx}
-          key={props.useIdxAsKey ? idx : item.id}
+          key={idx}
           onChangeActive={props.onChangeActive}
           onChangeKey={props.onChangeKey}
           onChangeValue={props.onChangeValue}
           onRemove={props.onRemove}
           keyPlaceholder={props.keyPlaceholder}
           valuePlaceholder={props.valuePlaceholder}
-          updateByIdx={props.updateByIdx}
         />
       ))}
       <Button

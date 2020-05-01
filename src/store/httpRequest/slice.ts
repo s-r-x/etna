@@ -1,6 +1,5 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
-import { UUID } from "@/utils/uuid";
 import {
   TOptsKey,
   TState,
@@ -13,7 +12,6 @@ import { TResponse } from "@/typings/httpClient";
 export const DOMAIN = "httpRequest";
 
 const genVoidKV = (): TKeyValue => ({
-  id: UUID.gen(),
   active: true,
   key: "",
   value: "",
