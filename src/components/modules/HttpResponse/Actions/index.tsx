@@ -30,6 +30,7 @@ const Actions = (props: TProps) => {
     <div>
       <Space size="small">
         <Button
+          disabled={props.loading}
           icon={<SyncOutlined />}
           loading={props.loading}
           onClick={onRequest}

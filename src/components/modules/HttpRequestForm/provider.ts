@@ -5,6 +5,7 @@ import {
   changeMethod,
   changeUrl,
   makeRequest,
+  cancelRequest,
 } from "@/store/httpRequest/slice";
 
 const mSp = (state: TRootState) => ({
@@ -16,6 +17,7 @@ const mDp = {
   changeMethod,
   changeUrl,
   makeRequest,
+  cancelRequest,
 };
 
 export const provide = connect(mSp, mDp);

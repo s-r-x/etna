@@ -1,9 +1,19 @@
-import { put, select, cancelled, call, takeLatest } from "redux-saga/effects";
+import {
+  put,
+  select,
+  cancelled,
+  call,
+  fork,
+  take,
+  cancel,
+  race,
+  TakeEffect,
+} from "redux-saga/effects";
 import { DOMAIN, loadingStart, loadingEnd } from "../slice";
 import { HttpClient } from "@/utils/HttpClient";
 import { HttpRequestSelectors as Selectors } from "../selectors";
 import { TResponse } from "@/typings/httpClient";
-import { SagaIterator } from "redux-saga";
+import { SagaIterator, Task } from "redux-saga";
 import { message } from "antd";
 import { addItem as addHistoryItem } from "@/store/history/slice";
 import { setResponse } from "@/store/httpResponse/slice";
@@ -28,7 +38,6 @@ function* makeRequest(): SagaIterator {
     if (resp.error) {
       message.error(resp.data);
     }
-    yield put(loadingEnd());
     yield put(setResponse(resp));
     if (resp.status) {
       yield put(
@@ -42,11 +51,21 @@ function* makeRequest(): SagaIterator {
       );
     }
   } finally {
+    yield put(loadingEnd());
     if (yield cancelled()) {
       client.cancel();
     }
   }
 }
-export default function* watchMakeRequest() {
-  yield takeLatest(`${DOMAIN}/makeRequest`, makeRequest);
+export default function* watchMakeRequest(): SagaIterator {
+  while (yield take(`${DOMAIN}/makeRequest`)) {
+    const task: Task = yield fork(makeRequest);
+    const [cancelCase, _successCase]: TakeEffect[] = yield race([
+      take(`${DOMAIN}/cancelRequest`),
+      take(`${DOMAIN}/loadingEnd`),
+    ]);
+    if (cancelCase) {
+      yield cancel(task);
+    }
+  }
 }

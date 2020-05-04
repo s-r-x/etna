@@ -151,6 +151,7 @@ const slice = createSlice({
 });
 
 export const makeRequest = createAction(`${DOMAIN}/makeRequest`);
+export const cancelRequest = createAction(`${DOMAIN}/cancelRequest`);
 export const {
   addBodyKV,
   addHeader,

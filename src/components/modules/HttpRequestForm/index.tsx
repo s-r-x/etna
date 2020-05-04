@@ -14,13 +14,16 @@ const HTTPRequestForm = (props: TProviderProps) => {
     },
     [props.makeRequest]
   );
+  const onCancel = useCallback(() => {
+    props.cancelRequest();
+  }, [props.cancelRequest]);
   return (
     <form onSubmit={onSubmit} className={cls.container}>
       <MethodSelect value={props.method} onChange={props.changeMethod} />
       <URLInput value={props.url} onChange={props.changeUrl} />
       <Button
         htmlType="submit"
-        disabled={!props.url}
+        disabled={!props.url || props.loading}
         type="primary"
         icon={<SendOutlined />}
         loading={props.loading}
@@ -28,6 +31,7 @@ const HTTPRequestForm = (props: TProviderProps) => {
         Send
       </Button>
       <Button
+        onClick={onCancel}
         htmlType="button"
         danger
         disabled={!props.url || !props.loading}
