@@ -1,26 +1,29 @@
 import React from "react";
 import {
   SyncOutlined,
-  SaveOutlined,
   CopyOutlined,
+  StopOutlined,
   ShrinkOutlined,
   ArrowsAltOutlined,
 } from "@ant-design/icons";
-import { Button, Space, message } from "antd";
+import { Button, Space, message, Tooltip } from "antd";
 import { WebApi } from "@/utils/webapi";
 import { TProviderProps } from "../provider";
+import SaveResponse from "./SaveResponse";
 
 type TProps = Pick<
   TProviderProps,
-  "makeRequest" | "loading" | "toggleEditorExpanded"
+  | "makeRequest"
+  | "loading"
+  | "toggleEditorExpanded"
+  | "cancelRequest"
+  | "rawBody"
+  | "prettyBody"
 > & {
   editorExpanded: boolean;
   body: string;
 };
 const Actions = (props: TProps) => {
-  const onSave = () => {
-    WebApi.downloadFile(props.body, "response");
-  };
   const onCopy = () => {
     WebApi.copyToClipboard(props.body);
     message.info("Copied to clipboard");
@@ -29,20 +32,40 @@ const Actions = (props: TProps) => {
   return (
     <div>
       <Space size="small">
-        <Button
-          disabled={props.loading}
-          icon={<SyncOutlined />}
-          loading={props.loading}
-          onClick={onRequest}
-        />
-        <Button
-          icon={
-            props.editorExpanded ? <ShrinkOutlined /> : <ArrowsAltOutlined />
+        <Tooltip title="Cancel request">
+          <Button
+            disabled={!props.loading}
+            icon={<StopOutlined />}
+            danger
+            onClick={props.cancelRequest}
+          />
+        </Tooltip>
+        <Tooltip title="Send again">
+          <Button
+            disabled={props.loading}
+            icon={<SyncOutlined />}
+            loading={props.loading}
+            onClick={onRequest}
+          />
+        </Tooltip>
+        <Tooltip
+          title={
+            props.editorExpanded
+              ? "Shrink response body"
+              : "Expand response body"
           }
-          onClick={props.toggleEditorExpanded}
-        />
-        <Button icon={<SaveOutlined />} onClick={onSave} />
-        <Button icon={<CopyOutlined />} onClick={onCopy} />
+        >
+          <Button
+            icon={
+              props.editorExpanded ? <ShrinkOutlined /> : <ArrowsAltOutlined />
+            }
+            onClick={props.toggleEditorExpanded}
+          />
+        </Tooltip>
+        <SaveResponse prettyBody={props.prettyBody} rawBody={props.rawBody} />
+        <Tooltip title="Copy to clipboard">
+          <Button icon={<CopyOutlined />} onClick={onCopy} />
+        </Tooltip>
       </Space>
     </div>
   );

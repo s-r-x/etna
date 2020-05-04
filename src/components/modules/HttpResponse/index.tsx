@@ -18,10 +18,13 @@ const HttpResponse = (props: TProviderProps) => {
       <div className={cls.topBar}>
         <Stats response={response} responseSize={props.responseSize} />
         <Actions
+          cancelRequest={props.cancelRequest}
           editorExpanded={props.editorOpts.expanded}
           toggleEditorExpanded={props.toggleEditorExpanded}
           loading={props.loading}
           makeRequest={props.makeRequest}
+          rawBody={props.rawBody}
+          prettyBody={props.prettyBody}
           body={props.response.data}
         />
       </div>
