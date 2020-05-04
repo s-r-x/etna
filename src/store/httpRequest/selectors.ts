@@ -37,18 +37,6 @@ const getActiveBodyEditor = createSelector(getBodyMIME, (mime) => {
 const getActiveOptsEditor = (state: TRootState) =>
   state.httpRequest.activeOptsEditor;
 const getQuery = (state: TRootState) => state.httpRequest.query;
-const getResponse = (state: TRootState) => state.httpRequest.response;
-const getResponseSize = createSelector(getResponse, (res): number => {
-  return new TextEncoder().encode(res?.data ?? "").length;
-});
-// TODO
-const getResponseContentType = createSelector(getResponse, (res): string => {
-  const type = res?.headers?.["content-type"];
-  if (type) {
-    return type.replace(/;.*/, "");
-  }
-  return type;
-});
 export const HttpRequestSelectors = {
   getActiveBodyEditor,
   getActiveOptsEditor,
@@ -62,8 +50,5 @@ export const HttpRequestSelectors = {
   getMethod,
   getQuery,
   getRequestReadyHeaders,
-  getResponse,
-  getResponseSize,
-  getResponseContentType,
   getUrl,
 };

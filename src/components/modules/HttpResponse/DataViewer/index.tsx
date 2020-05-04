@@ -3,14 +3,17 @@ import CodeEditor from "@/components/CodeEditor";
 import { TProviderProps } from "../provider";
 import { CodeFormatter } from "@/utils/CodeFormatter";
 
-type TProps = Pick<TProviderProps, "response" | "responseType">;
+type TProps = Pick<TProviderProps, "response" | "responseType"> & {
+  expanded: boolean;
+};
 
-const ResponseViewer = ({ response, responseType }: TProps) => {
+const ResponseViewer = (props: TProps) => {
   return (
     <CodeEditor
-      value={CodeFormatter.format(response.data, responseType)}
+      expanded={props.expanded}
+      value={CodeFormatter.format(props.response.data, props.responseType)}
       readOnly
-      mode={responseType}
+      mode={props.responseType}
     />
   );
 };

@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import counter from "./counter/slice";
 import history from "./history/slice";
 import httpRequest from "./httpRequest/slice";
+import httpResponse from "./httpResponse/slice";
 import codeEditor from "./codeEditor/slice";
 
 const reducer = combineReducers({
@@ -9,6 +10,7 @@ const reducer = combineReducers({
   counter,
   history,
   httpRequest,
+  httpResponse,
 });
 export default reducer;
 

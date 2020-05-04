@@ -16,13 +16,19 @@ const HttpResponse = (props: TProviderProps) => {
       <div className={cls.topBar}>
         <Stats response={response} responseSize={props.responseSize} />
         <Actions
+          editorExpanded={props.editorOpts.expanded}
+          toggleEditorExpanded={props.toggleEditorExpanded}
           loading={props.loading}
           makeRequest={props.makeRequest}
           body={props.response.data}
         />
       </div>
       <div className={cls.dataViewer}>
-        <DataViewer responseType={props.responseType} response={response} />
+        <DataViewer
+          responseType={props.responseType}
+          expanded={props.editorOpts.expanded}
+          response={response}
+        />
       </div>
     </div>
   );

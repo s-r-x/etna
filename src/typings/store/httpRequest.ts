@@ -1,6 +1,5 @@
 import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 import { TKeyValue } from "@/typings/keyValue";
-import { TResponse } from "@/typings/httpClient";
 
 export type TRestoreParams = {
   method: THTTPMethod;
@@ -33,5 +32,4 @@ export type TState = {
   bodyMime: THTTPBodyMIME;
   bodyText: string;
   bodyKV: TKeyValue[];
-  response: TResponse;
 };
