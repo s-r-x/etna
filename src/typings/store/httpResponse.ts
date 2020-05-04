@@ -1,6 +1,5 @@
 import { TResponse } from "@/typings/httpClient";
 
-export type TCategory = "body" | "headers";
 export type TBodyFormatMode = "pretty" | "raw";
 export type TState = {
   editor: {
@@ -9,5 +8,5 @@ export type TState = {
     format: TBodyFormatMode;
   };
   response: TResponse;
-  category: TCategory;
+  category: string;
 };

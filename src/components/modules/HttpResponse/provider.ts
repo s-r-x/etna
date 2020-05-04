@@ -3,7 +3,10 @@ import { HttpResponseSelectors as ResSelectors } from "@/store/httpResponse/sele
 import { connect, ConnectedProps } from "react-redux";
 import { TRootState } from "@/store/rootReducer";
 import { makeRequest } from "@/store/httpRequest/slice";
-import { toggleEditorExpanded } from '@/store/httpResponse/slice';
+import {
+  toggleEditorExpanded,
+  changeCategory,
+} from "@/store/httpResponse/slice";
 
 const mSp = (state: TRootState) => ({
   loading: ReqSelectors.getLoading(state),
@@ -11,10 +14,14 @@ const mSp = (state: TRootState) => ({
   responseSize: ResSelectors.getResponseSize(state),
   responseType: ResSelectors.getResponseContentType(state),
   editorOpts: ResSelectors.getEditorOpts(state),
+  rawBody: ResSelectors.getRawBody(state),
+  prettyBody: ResSelectors.getPrettyBody(state),
+  category: ResSelectors.getCategory(state),
 });
 const mDp = {
   makeRequest,
   toggleEditorExpanded,
+  changeCategory,
 };
 
 export const provide = connect(mSp, mDp);

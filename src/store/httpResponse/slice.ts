@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   TState,
   TBodyFormatMode,
-  TCategory,
 } from "@/typings/store/httpResponse";
 import { TResponse } from "@/typings/httpClient";
 
@@ -28,10 +27,10 @@ const slice = createSlice({
     changeEditorFormat(state, { payload }: PayloadAction<TBodyFormatMode>) {
       state.editor.format = payload;
     },
-    changeEditorSearch(state, {payload}: PayloadAction<string>) {
+    changeEditorSearch(state, { payload }: PayloadAction<string>) {
       state.editor.search = payload;
     },
-    changeCategory(state, { payload }: PayloadAction<TCategory>) {
+    changeCategory(state, { payload }: PayloadAction<string>) {
       state.category = payload;
     },
   },

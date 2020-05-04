@@ -4,7 +4,9 @@ import { TProviderProps, provide } from "./provider";
 import Stats from "./Stats";
 import cls from "./index.less";
 import Actions from "./Actions";
-import DataViewer from "./DataViewer";
+import BodyViewer from "./BodyViewer";
+import Tabs from "./Tabs";
+import Headers from "./Headers";
 
 const HttpResponse = (props: TProviderProps) => {
   const { response } = props;
@@ -23,11 +25,18 @@ const HttpResponse = (props: TProviderProps) => {
           body={props.response.data}
         />
       </div>
-      <div className={cls.dataViewer}>
-        <DataViewer
-          responseType={props.responseType}
-          expanded={props.editorOpts.expanded}
-          response={response}
+      <div className={cls.content}>
+        <Tabs
+          Body={
+            <BodyViewer
+              responseType={props.responseType}
+              expanded={props.editorOpts.expanded}
+              body={props.prettyBody}
+            />
+          }
+          Headers={<Headers />}
+          category={props.category}
+          changeCategory={props.changeCategory}
         />
       </div>
     </div>
