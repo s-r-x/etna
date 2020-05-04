@@ -5,6 +5,8 @@ import { changeActiveOptsEditor } from "@/store/httpRequest/slice";
 
 const mSp = (state: TRootState) => ({
   active: Selectors.getActiveOptsEditor(state),
+  headersLength: Selectors.getHeadersLength(state),
+  queryLength: Selectors.getQueryLength(state),
 });
 const mDp = {
   onChange: changeActiveOptsEditor,

@@ -1,7 +1,9 @@
 import React from "react";
-import { Tabs } from "antd";
+import { Tabs, Badge } from "antd";
 import { TProviderProps, provide } from "./provider";
 const { TabPane } = Tabs;
+
+const BADGE_COLOR = "#52c41a";
 
 type TProps = TProviderProps & {
   HeadersEditor: React.ReactElement;
@@ -19,10 +21,50 @@ const HttpOptsTabs = (props: TProps) => {
       activeKey={props.active}
       onChange={props.onChange}
     >
-      <TabPane tab="Headers" key="headers">
+      <TabPane
+        tab={
+          <div
+            style={{
+              paddingRight: "25px",
+            }}
+          >
+            <Badge
+              showZero
+              style={{
+                backgroundColor: BADGE_COLOR,
+              }}
+              offset={[17, 1]}
+              count={props.headersLength}
+            >
+              Headers
+            </Badge>
+          </div>
+        }
+        key="headers"
+      >
         {props.HeadersEditor}
       </TabPane>
-      <TabPane tab="Query" key="query">
+      <TabPane
+        tab={
+          <div
+            style={{
+              paddingRight: "25px",
+            }}
+          >
+            <Badge
+              showZero
+              style={{
+                backgroundColor: BADGE_COLOR,
+              }}
+              offset={[17, 1]}
+              count={props.queryLength}
+            >
+              Query
+            </Badge>
+          </div>
+        }
+        key="query"
+      >
         {props.QueryEditor}
       </TabPane>
       <TabPane tab="Body" key="body">

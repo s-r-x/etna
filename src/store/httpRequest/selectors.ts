@@ -4,6 +4,12 @@ import { TRootState } from "@/store/rootReducer";
 const getAuthStrategy = (state: TRootState) => state.httpRequest.auth.strategy;
 const getAuthData = (state: TRootState) => state.httpRequest.auth.data;
 const getHeaders = (state: TRootState) => state.httpRequest.headers;
+const getActiveHeaders = createSelector(getHeaders, (headers) =>
+  headers.filter((h) => h.active)
+);
+const getHeadersLength = createSelector(getActiveHeaders, (headers) => {
+  return headers.length;
+});
 const getRequestReadyHeaders = createSelector(getHeaders, (raw) => {
   return raw.reduce((acc, header) => {
     if (header.key) {
@@ -37,18 +43,23 @@ const getActiveBodyEditor = createSelector(getBodyMIME, (mime) => {
 const getActiveOptsEditor = (state: TRootState) =>
   state.httpRequest.activeOptsEditor;
 const getQuery = (state: TRootState) => state.httpRequest.query;
+const getQueryLength = createSelector(getQuery, (query) => {
+  return query.length;
+});
 export const HttpRequestSelectors = {
   getActiveBodyEditor,
   getActiveOptsEditor,
   getAuthData,
   getAuthStrategy,
   getHeaders,
+  getHeadersLength,
   getBodyText,
   getBodyKV,
   getBodyMIME,
   getLoading,
   getMethod,
   getQuery,
+  getQueryLength,
   getRequestReadyHeaders,
   getUrl,
 };
