@@ -18,6 +18,7 @@ const HttpResponse = (props: TProviderProps) => {
       <div className={cls.topBar}>
         <Stats response={response} responseSize={props.responseSize} />
         <Actions
+          filename={props.filename}
           cancelRequest={props.cancelRequest}
           editorExpanded={props.editorOpts.expanded}
           toggleEditorExpanded={props.toggleEditorExpanded}

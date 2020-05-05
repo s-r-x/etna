@@ -17,6 +17,7 @@ const mSp = (state: TRootState) => ({
   response: ResSelectors.getResponse(state),
   responseSize: ResSelectors.getResponseSize(state),
   responseType: ResSelectors.getResponseContentType(state),
+  filename: ResSelectors.getFilename(state),
 });
 const mDp = {
   cancelRequest,

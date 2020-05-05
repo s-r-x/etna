@@ -5,14 +5,14 @@ import { TProviderProps } from "../provider";
 
 import { SaveOutlined, SaveFilled } from "@ant-design/icons";
 
-type TProps = Pick<TProviderProps, "prettyBody" | "rawBody">;
+type TProps = Pick<TProviderProps, "prettyBody" | "rawBody" | "filename">;
 const SaveResponse = (props: TProps) => {
   const menu = useCallback(() => {
     const onSave = (pretty: boolean) => {
       if (pretty) {
-        WebApi.downloadFile(props.prettyBody, "response");
+        WebApi.downloadFile(props.prettyBody, props.filename);
       } else {
-        WebApi.downloadFile(props.rawBody, "response");
+        WebApi.downloadFile(props.rawBody, props.filename);
       }
     };
     return (
@@ -25,7 +25,7 @@ const SaveResponse = (props: TProps) => {
         </Menu.Item>
       </Menu>
     );
-  }, [props.prettyBody, props.rawBody]);
+  }, [props.prettyBody, props.rawBody, props.filename]);
   return (
     <Dropdown trigger={["click"]} overlay={menu}>
       <Button icon={<SaveOutlined />} />

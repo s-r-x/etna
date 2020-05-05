@@ -19,6 +19,7 @@ type TProps = Pick<
   | "cancelRequest"
   | "rawBody"
   | "prettyBody"
+  | "filename"
 > & {
   editorExpanded: boolean;
   body: string;
@@ -62,7 +63,11 @@ const Actions = (props: TProps) => {
             onClick={props.toggleEditorExpanded}
           />
         </Tooltip>
-        <SaveResponse prettyBody={props.prettyBody} rawBody={props.rawBody} />
+        <SaveResponse
+          filename={props.filename}
+          prettyBody={props.prettyBody}
+          rawBody={props.rawBody}
+        />
         <Tooltip title="Copy to clipboard">
           <Button icon={<CopyOutlined />} onClick={onCopy} />
         </Tooltip>

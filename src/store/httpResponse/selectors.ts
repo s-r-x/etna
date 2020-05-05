@@ -26,9 +26,24 @@ const getPrettyBody = createSelector(
     return CodeFormatter.format(body, type);
   }
 );
+const getFilename = createSelector(getResponseContentType, (type) => {
+  let ext: string;
+  if (!type) return "response.txt";
+  if (type.endsWith("json")) {
+    ext = ".json";
+  } else if (type.endsWith("xml")) {
+    ext = ".xml";
+  } else if (type.endsWith("html")) {
+    ext = ".html";
+  } else {
+    ext = ".txt";
+  }
+  return "response" + ext;
+});
 export const HttpResponseSelectors = {
   getCategory,
   getEditorOpts,
+  getFilename,
   getRawBody,
   getPrettyBody,
   getResponse,
