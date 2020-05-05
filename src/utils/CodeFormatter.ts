@@ -20,4 +20,7 @@ export const CodeFormatter = {
         return code;
     }
   },
+  formatHeaders(headers: { key: string; value: string }[]) {
+    return headers.map(({ key, value }) => `${key}: ${value}`).join("\n");
+  },
 };

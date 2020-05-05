@@ -1,27 +1,31 @@
 import React, { useCallback } from "react";
-import { Menu, Dropdown, Button, Tooltip } from "antd";
+import { Menu, Dropdown, Button, Tooltip, message } from "antd";
 import { WebApi } from "@/utils/webapi";
 import { CodeFormatter } from "@/utils/CodeFormatter";
 import { TProviderProps } from "../provider";
 
-import { SaveOutlined, SaveFilled, BarsOutlined } from "@ant-design/icons";
+import {
+  SaveOutlined,
+  SaveFilled,
+  BarsOutlined,
+  CopyOutlined,
+} from "@ant-design/icons";
 
-type TProps = Pick<
-  TProviderProps,
-  "prettyBody" | "rawBody" | "filename" | "headers"
->;
-const SaveResponse = (props: TProps) => {
+type TProps = Pick<TProviderProps, "prettyBody" | "rawBody" | "headers">;
+const CopyResponse = (props: TProps) => {
   const menu = useCallback(() => {
     const onSaveBody = (pretty: boolean) => {
       if (pretty) {
-        WebApi.downloadFile(props.prettyBody, props.filename);
+        WebApi.copyToClipboard(props.prettyBody);
       } else {
-        WebApi.downloadFile(props.rawBody, props.filename);
+        WebApi.copyToClipboard(props.rawBody);
       }
+      message.info("Copied to clipboard");
     };
     const onSaveHeaders = () => {
       const pretty = CodeFormatter.formatHeaders(props.headers);
-      WebApi.downloadFile(pretty, "headers");
+      WebApi.copyToClipboard(pretty);
+      message.info("Copied to clipboard");
     };
     return (
       <Menu>
@@ -36,13 +40,13 @@ const SaveResponse = (props: TProps) => {
         </Menu.Item>
       </Menu>
     );
-  }, [props.prettyBody, props.rawBody, props.filename, props.headers]);
+  }, [props.prettyBody, props.rawBody, props.headers]);
   return (
-    <Tooltip title="Save">
+    <Tooltip title="Copy to clipboard">
       <Dropdown overlay={menu}>
-        <Button icon={<SaveOutlined />} />
+        <Button icon={<CopyOutlined />} />
       </Dropdown>
     </Tooltip>
   );
 };
-export default SaveResponse;
+export default CopyResponse;

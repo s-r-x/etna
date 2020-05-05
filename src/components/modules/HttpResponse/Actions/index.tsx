@@ -1,15 +1,14 @@
 import React from "react";
 import {
   SyncOutlined,
-  CopyOutlined,
   StopOutlined,
   ShrinkOutlined,
   ArrowsAltOutlined,
 } from "@ant-design/icons";
-import { Button, Space, message, Tooltip } from "antd";
-import { WebApi } from "@/utils/webapi";
+import { Button, Space, Tooltip } from "antd";
 import { TProviderProps } from "../provider";
 import SaveResponse from "./SaveResponse";
+import CopyResponse from "./CopyResponse";
 
 type TProps = Pick<
   TProviderProps,
@@ -26,10 +25,6 @@ type TProps = Pick<
   body: string;
 };
 const Actions = (props: TProps) => {
-  const onCopy = () => {
-    WebApi.copyToClipboard(props.body);
-    message.info("Copied to clipboard");
-  };
   const onRequest = () => props.makeRequest();
   return (
     <div>
@@ -70,9 +65,11 @@ const Actions = (props: TProps) => {
           prettyBody={props.prettyBody}
           rawBody={props.rawBody}
         />
-        <Tooltip title="Copy to clipboard">
-          <Button icon={<CopyOutlined />} onClick={onCopy} />
-        </Tooltip>
+        <CopyResponse
+          headers={props.headers}
+          prettyBody={props.prettyBody}
+          rawBody={props.rawBody}
+        />
       </Space>
     </div>
   );
