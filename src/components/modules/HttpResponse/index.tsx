@@ -37,6 +37,7 @@ const HttpResponse = (props: TProviderProps) => {
           headersLength={props.headers.length}
           Body={
             <BodyRenderer
+              isPdf={props.isPdf}
               isPrettyBodySupported={props.isPrettyBodySupported}
               isImage={props.isImage}
               changeEditorFormat={props.changeEditorFormat}

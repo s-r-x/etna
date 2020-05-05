@@ -65,6 +65,9 @@ const isImage = createSelector(getResponseContentType, (type): boolean => {
       return false;
   }
 });
+const isPdf = createSelector(getResponseContentType, (type): boolean => {
+  return type === "application/pdf";
+});
 export const HttpResponseSelectors = {
   getCategory,
   getEditorOpts,
@@ -76,5 +79,6 @@ export const HttpResponseSelectors = {
   getResponseSize,
   getResponseContentType,
   isImage,
+  isPdf,
   isPrettyBodySupported,
 };

@@ -22,6 +22,7 @@ const mSp = (state: TRootState) => ({
   headers: ResSelectors.getHeaders(state),
   isPrettyBodySupported: ResSelectors.isPrettyBodySupported(state),
   isImage: ResSelectors.isImage(state),
+  isPdf: ResSelectors.isPdf(state),
 });
 const mDp = {
   cancelRequest,

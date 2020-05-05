@@ -2,6 +2,7 @@ import React from "react";
 import { TProviderProps } from "../provider";
 import ImageRenderer from "./Image";
 import TextRenderer from "./Text";
+import PdfRenderer from "./Pdf";
 
 type TProps = Pick<
   TProviderProps,
@@ -12,11 +13,15 @@ type TProps = Pick<
   | "changeEditorFormat"
   | "isPrettyBodySupported"
   | "isImage"
+  | "isPdf"
 >;
 
 const BodyRenderer = (props: TProps) => {
   if (props.isImage) {
     return <ImageRenderer body={props.rawBody} />;
+  }
+  if (props.isPdf) {
+    return <PdfRenderer document={props.rawBody} />;
   }
   return (
     <TextRenderer
