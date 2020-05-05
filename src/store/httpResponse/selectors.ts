@@ -3,9 +3,6 @@ import { TRootState } from "@/store/rootReducer";
 import { CodeFormatter } from "@/utils/CodeFormatter";
 
 const getResponse = (state: TRootState) => state.httpResponse.response;
-const getResponseSize = createSelector(getResponse, (res): number => {
-  return new TextEncoder().encode(res?.data ?? "").length;
-});
 const getEditorOpts = (state: TRootState) => state.httpResponse.editor;
 const getResponseContentType = createSelector(getResponse, (res): string => {
   const type = res?.headers?.["content-type"];
@@ -40,13 +37,24 @@ const getFilename = createSelector(getResponseContentType, (type) => {
   }
   return "response" + ext;
 });
-const getHeaders = createSelector(getResponse, (res) => {
-  const headers = res?.headers ?? {};
+const getRawHeaders = createSelector(getResponse, (res) => res?.headers ?? {});
+const getHeaders = createSelector(getRawHeaders, (headers) => {
   return Object.keys(headers).map((key) => ({
     key,
     value: headers[key] as string,
   }));
 });
+const getResponseSize = createSelector(
+  getRawBody,
+  getRawHeaders,
+  (body, headers): number => {
+    if ("content-length" in headers) {
+      return Number(headers["content-length"]);
+    } else {
+      return new TextEncoder().encode(body || "").length;
+    }
+  }
+);
 export const HttpResponseSelectors = {
   getCategory,
   getEditorOpts,
