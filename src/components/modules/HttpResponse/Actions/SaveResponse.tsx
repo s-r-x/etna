@@ -9,15 +9,16 @@ import { SaveOutlined, SaveFilled, BarsOutlined } from "@ant-design/icons";
 type TProps = Pick<
   TProviderProps,
   "prettyBody" | "rawBody" | "filename" | "headers" | "isPrettyBodySupported"
->;
+> & {
+  isBinary: boolean;
+};
 const SaveResponse = (props: TProps) => {
   const menu = useCallback(() => {
     const onSaveBody = (pretty: boolean) => {
-      if (pretty) {
-        WebApi.downloadFile(props.prettyBody, props.filename);
-      } else {
-        WebApi.downloadFile(props.rawBody, props.filename);
-      }
+      const content = pretty ? props.prettyBody : props.rawBody;
+      WebApi.downloadFile(content, props.filename, {
+        shouldCreateBlob: !props.isBinary,
+      });
     };
     const onSaveHeaders = () => {
       const pretty = CodeFormatter.formatHeaders(props.headers);
@@ -44,6 +45,7 @@ const SaveResponse = (props: TProps) => {
     props.filename,
     props.headers,
     props.isPrettyBodySupported,
+    props.isBinary,
   ]);
   return (
     <Tooltip title="Save">

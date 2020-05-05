@@ -4,7 +4,7 @@ import { TProviderProps, provide } from "./provider";
 import Stats from "./Stats";
 import cls from "./index.less";
 import Actions from "./Actions";
-import BodyViewer from "./BodyViewer";
+import BodyRenderer from "./BodyRenderer";
 import Tabs from "./Tabs";
 import Headers from "./Headers";
 
@@ -18,6 +18,7 @@ const HttpResponse = (props: TProviderProps) => {
       <div className={cls.topBar}>
         <Stats response={response} responseSize={props.responseSize} />
         <Actions
+          isBinary={props.response?.isBinary}
           category={props.category}
           isPrettyBodySupported={props.isPrettyBodySupported}
           headers={props.headers}
@@ -35,7 +36,9 @@ const HttpResponse = (props: TProviderProps) => {
         <Tabs
           headersLength={props.headers.length}
           Body={
-            <BodyViewer
+            <BodyRenderer
+              isPrettyBodySupported={props.isPrettyBodySupported}
+              isImage={props.isImage}
               changeEditorFormat={props.changeEditorFormat}
               editorOpts={props.editorOpts}
               responseType={props.responseType}

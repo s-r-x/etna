@@ -4,6 +4,7 @@ import HeadersEditor from "./HeadersEditor";
 import QueryEditor from "./QueryEditor";
 import BodyEditor from "./BodyEditor";
 import AuthEditor from "./AuthEditor";
+import Settings from "./Settings";
 import cls from "./index.less";
 
 const HttpRequestOpts = () => {
@@ -14,6 +15,7 @@ const HttpRequestOpts = () => {
         QueryEditor={<QueryEditor />}
         BodyEditor={<BodyEditor />}
         HeadersEditor={<HeadersEditor />}
+        Settings={<Settings />}
       />
     </div>
   );

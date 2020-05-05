@@ -9,6 +9,7 @@ type TProps = TProviderProps & {
   QueryEditor: React.ReactElement;
   BodyEditor: React.ReactElement;
   AuthEditor: React.ReactElement;
+  Settings: React.ReactElement;
 };
 const HttpOptsTabs = (props: TProps) => {
   return (
@@ -71,6 +72,9 @@ const HttpOptsTabs = (props: TProps) => {
       </TabPane>
       <TabPane tab="Auth" key="auth">
         {props.AuthEditor}
+      </TabPane>
+      <TabPane tab="Settings" key="settings">
+        {props.Settings}
       </TabPane>
     </Tabs>
   );

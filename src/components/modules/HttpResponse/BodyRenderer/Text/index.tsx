@@ -1,6 +1,6 @@
 import React from "react";
 import CodeEditor from "@/components/CodeEditor";
-import { TProviderProps } from "../provider";
+import { TProviderProps } from "../../provider";
 import Mode from "./Mode";
 
 type TProps = Pick<
@@ -10,14 +10,16 @@ type TProps = Pick<
   | "rawBody"
   | "responseType"
   | "changeEditorFormat"
+  | "isPrettyBodySupported"
 >;
 
-const BodyViewer = (props: TProps) => {
+const TextRenderer = (props: TProps) => {
   const { format } = props.editorOpts;
   const isRaw = format === "Raw";
   return (
     <>
       <Mode
+        isPrettyBodySupported={props.isPrettyBodySupported}
         changeEditorFormat={props.changeEditorFormat}
         editorOpts={props.editorOpts}
       />
@@ -31,4 +33,4 @@ const BodyViewer = (props: TProps) => {
   );
 };
 
-export default BodyViewer;
+export default TextRenderer;

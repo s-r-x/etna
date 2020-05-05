@@ -21,17 +21,19 @@ import { setResponse } from "@/store/httpResponse/slice";
 function* makeRequest(): SagaIterator {
   const client = new HttpClient();
   const state = yield select();
-  const [url, method, headers] = [
+  const [url, method, headers, settings] = [
     Selectors.getUrl(state),
     Selectors.getMethod(state),
     Selectors.getRequestReadyHeaders(state),
+    Selectors.getSettings(state),
   ];
   try {
     yield put(loadingStart());
     const resp: TResponse = yield call(client.make, url, method, {
       headers,
+      expectBinary: settings.expectBinary,
     });
-    if (resp.error) {
+    if (resp.error && resp.data) {
       message.error(resp.data);
     }
     yield put(setResponse(resp));

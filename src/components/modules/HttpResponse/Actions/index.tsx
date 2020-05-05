@@ -24,6 +24,7 @@ type TProps = Pick<
   | "category"
 > & {
   editorExpanded: boolean;
+  isBinary: boolean;
 };
 const Actions = (props: TProps) => {
   const onRequest = () => props.makeRequest();
@@ -62,6 +63,7 @@ const Actions = (props: TProps) => {
           />
         </Tooltip>
         <SaveResponse
+          isBinary={props.isBinary}
           isPrettyBodySupported={props.isPrettyBodySupported}
           headers={props.headers}
           filename={props.filename}

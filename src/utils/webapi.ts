@@ -1,9 +1,16 @@
+type TDownloadOpts = {
+  shouldCreateBlob?: boolean;
+};
 export const WebApi = {
-  downloadFile(content: string, name: string, type?: string): void {
+  downloadFile(content: string, name: string, opts: TDownloadOpts = {}): void {
     const a = document.createElement("a");
-    const file = new Blob([content], { type: type || "text/plain" });
-    a.href = URL.createObjectURL(file);
     a.download = name;
+    if (opts.shouldCreateBlob) {
+      const file = new Blob([content], { type: "text/plain" });
+      a.href = URL.createObjectURL(file);
+    } else {
+      a.href = content;
+    }
     a.click();
   },
   copyToClipboard(text: string): void {

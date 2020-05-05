@@ -6,6 +6,7 @@ import {
   TAuthStrategy,
   TQuery,
   TRestoreParams,
+  TRequestSettings,
 } from "@/typings/store/httpRequest";
 import { TKeyValue } from "@/typings/keyValue";
 
@@ -30,6 +31,9 @@ const slice = createSlice({
         active: true,
       },
     ],
+    settings: {
+      expectBinary: false,
+    },
     activeOptsEditor: "headers",
     bodyMime: "application/json",
     bodyText: "",
@@ -161,6 +165,15 @@ const slice = createSlice({
       state.method = payload.method;
       state.url = payload.url;
     },
+    updateSettings(
+      state,
+      { payload }: PayloadAction<Partial<TRequestSettings>>
+    ) {
+      for (const key in payload) {
+        const val: string = payload[key];
+        state.settings[key] = val;
+      }
+    },
   },
 });
 
@@ -192,6 +205,7 @@ export const {
   removeQuery,
   restoreRequest,
   setQuery,
+  updateSettings,
 } = slice.actions;
 
 export default slice.reducer;

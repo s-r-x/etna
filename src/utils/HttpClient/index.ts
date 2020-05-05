@@ -1,9 +1,21 @@
-import axios, { CancelTokenSource } from "axios";
+import axios, { CancelTokenSource, AxiosResponse } from "axios";
 import { THTTPMethod } from "@/typings/http";
 import { TResponse, TOpts } from "@/typings/httpClient";
 
 export class HttpClient {
   private cancelTokenSource: CancelTokenSource;
+  private extractBodySize(res: AxiosResponse): number {
+    if (!res.data) {
+      return 0;
+    }
+    if ("content-length" in res.headers) {
+      return Number(res.headers["content-length"]);
+    }
+    if (res.data instanceof Blob) {
+      return res.data.size;
+    }
+    return new TextEncoder().encode(res.data).length;
+  }
   constructor() {
     const CancelToken = axios.CancelToken;
     this.cancelTokenSource = CancelToken.source();
@@ -17,9 +29,11 @@ export class HttpClient {
     opts: TOpts = {}
   ): Promise<TResponse> => {
     const requestStart = performance.now();
-    const response = {} as TResponse;
+    const response = {
+      isBinary: false,
+    } as TResponse;
     try {
-      const clientResp = await axios({
+      const axiosResp = await axios({
         method,
         url,
         cancelToken: this.cancelTokenSource.token,
@@ -27,11 +41,20 @@ export class HttpClient {
         data: opts.body,
         // prevent json parsing
         transformResponse: (r) => r,
+        responseType: opts.expectBinary ? "blob" : "json",
       });
-      response.data = clientResp.data;
-      response.status = clientResp.status;
-      response.statusText = clientResp.statusText;
-      response.headers = clientResp.headers;
+      response.status = axiosResp.status;
+      response.statusText = axiosResp.statusText;
+      response.headers = axiosResp.headers;
+      response.bodySize = this.extractBodySize(axiosResp);
+      if (axiosResp.data) {
+        if (opts.expectBinary) {
+          response.data = URL.createObjectURL(axiosResp.data);
+          response.isBinary = true;
+        } else {
+          response.data = axiosResp.data;
+        }
+      }
     } catch (e) {
       response.error = true;
       if (!axios.isCancel(e) && e.isAxiosError) {
@@ -39,6 +62,7 @@ export class HttpClient {
         response.status = e?.response?.status;
         response.data = e?.response?.data ?? e?.message;
         response.headers = e?.response?.headers;
+        response.bodySize = response?.data?.length ?? 0;
       } else {
         response.data = e?.message;
       }

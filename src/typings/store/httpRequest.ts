@@ -6,7 +6,7 @@ export type TRestoreParams = {
   url: string;
 };
 export type TAuthStrategy = "bearer_token" | "basic" | "none";
-export type TOptsKey = "headers" | "body" | "query" | "auth";
+export type TOptsKey = "headers" | "body" | "query" | "auth" | "settings";
 export type TAuth = {
   strategy: TAuthStrategy;
   data: {
@@ -18,6 +18,10 @@ export type TAuth = {
       token: string;
     };
   };
+};
+export type TRequestSettings = {
+  [key: string]: any;
+  expectBinary: boolean;
 };
 export type TQuery = { key: string; value: string };
 export type TState = {
@@ -32,4 +36,5 @@ export type TState = {
   bodyMime: THTTPBodyMIME;
   bodyText: string;
   bodyKV: TKeyValue[];
+  settings: TRequestSettings;
 };

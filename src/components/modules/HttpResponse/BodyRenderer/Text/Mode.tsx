@@ -1,9 +1,12 @@
 import React from "react";
 import { Radio } from "antd";
-import { TProviderProps } from "../provider";
+import { TProviderProps } from "../../provider";
 import { TBodyFormatMode } from "@/typings/store/httpResponse";
 
-type TProps = Pick<TProviderProps, "editorOpts" | "changeEditorFormat">;
+type TProps = Pick<
+  TProviderProps,
+  "editorOpts" | "changeEditorFormat" | "isPrettyBodySupported"
+>;
 const BodyViewerMode = (props: TProps) => {
   const { format } = props.editorOpts;
   return (
@@ -14,7 +17,9 @@ const BodyViewerMode = (props: TProps) => {
         props.changeEditorFormat(target.value as TBodyFormatMode)
       }
     >
-      <Radio.Button value="Pretty">Pretty</Radio.Button>
+      {props.isPrettyBodySupported && (
+        <Radio.Button value="Pretty">Pretty</Radio.Button>
+      )}
       <Radio.Button value="Raw">Raw</Radio.Button>
       <Radio.Button value="Preview">Preview</Radio.Button>
     </Radio.Group>

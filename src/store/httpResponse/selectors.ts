@@ -38,18 +38,8 @@ const getPrettyBody = createSelector(
   }
 );
 const getFilename = createSelector(getResponseContentType, (type) => {
-  let ext: string;
   if (!type) return "response.txt";
-  if (type.endsWith("json")) {
-    ext = ".json";
-  } else if (type.endsWith("xml")) {
-    ext = ".xml";
-  } else if (type.endsWith("html")) {
-    ext = ".html";
-  } else {
-    ext = ".txt";
-  }
-  return "response" + ext;
+  return "response." + type.replace(/.*\//, "").replace(/\+/, "");
 });
 const getRawHeaders = createSelector(getResponse, (res) => res?.headers ?? {});
 const getHeaders = createSelector(getRawHeaders, (headers) => {
@@ -59,16 +49,22 @@ const getHeaders = createSelector(getRawHeaders, (headers) => {
   }));
 });
 const getResponseSize = createSelector(
-  getRawBody,
-  getRawHeaders,
-  (body, headers): number => {
-    if ("content-length" in headers) {
-      return Number(headers["content-length"]);
-    } else {
-      return new TextEncoder().encode(body || "").length;
-    }
-  }
+  getResponse,
+  (res) => res?.bodySize ?? 0
 );
+const isImage = createSelector(getResponseContentType, (type): boolean => {
+  switch (type) {
+    case "image/gif":
+    case "image/jpeg":
+    case "image/pjpeg":
+    case "image/png":
+    case "image/svg+xml":
+    case "image/webp":
+      return true;
+    default:
+      return false;
+  }
+});
 export const HttpResponseSelectors = {
   getCategory,
   getEditorOpts,
@@ -79,5 +75,6 @@ export const HttpResponseSelectors = {
   getResponse,
   getResponseSize,
   getResponseContentType,
+  isImage,
   isPrettyBodySupported,
 };
