@@ -1,9 +1,8 @@
 import React from "react";
 import { Tabs, Badge } from "antd";
 import { TProviderProps, provide } from "./provider";
+import { BADGE_COLOR } from "@/misc/color";
 const { TabPane } = Tabs;
-
-const BADGE_COLOR = "#52c41a";
 
 type TProps = TProviderProps & {
   HeadersEditor: React.ReactElement;

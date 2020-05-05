@@ -31,6 +31,7 @@ const HttpResponse = (props: TProviderProps) => {
       </div>
       <div className={cls.content}>
         <Tabs
+          headersLength={props.headers.length}
           Body={
             <BodyViewer
               responseType={props.responseType}
@@ -38,7 +39,7 @@ const HttpResponse = (props: TProviderProps) => {
               body={props.prettyBody}
             />
           }
-          Headers={<Headers />}
+          Headers={<Headers headers={props.headers} />}
           category={props.category}
           changeCategory={props.changeCategory}
         />

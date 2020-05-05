@@ -40,10 +40,18 @@ const getFilename = createSelector(getResponseContentType, (type) => {
   }
   return "response" + ext;
 });
+const getHeaders = createSelector(getResponse, (res) => {
+  const headers = res?.headers ?? {};
+  return Object.keys(headers).map((key) => ({
+    key,
+    value: headers[key] as string,
+  }));
+});
 export const HttpResponseSelectors = {
   getCategory,
   getEditorOpts,
   getFilename,
+  getHeaders,
   getRawBody,
   getPrettyBody,
   getResponse,
