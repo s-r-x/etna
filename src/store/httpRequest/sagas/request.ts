@@ -21,19 +21,15 @@ import { setResponse } from "@/store/httpResponse/slice";
 function* makeRequest(): SagaIterator {
   const client = new HttpClient();
   const state = yield select();
-  const [url, method, bodyMIME, headers] = [
+  const [url, method, headers] = [
     Selectors.getUrl(state),
     Selectors.getMethod(state),
-    Selectors.getBodyMIME(state),
     Selectors.getRequestReadyHeaders(state),
   ];
   try {
     yield put(loadingStart());
     const resp: TResponse = yield call(client.make, url, method, {
-      headers: {
-        ...headers,
-        "content-type": bodyMIME,
-      },
+      headers,
     });
     if (resp.error) {
       message.error(resp.data);
@@ -60,7 +56,7 @@ function* makeRequest(): SagaIterator {
 export default function* watchMakeRequest(): SagaIterator {
   while (yield take(`${DOMAIN}/makeRequest`)) {
     const task: Task = yield fork(makeRequest);
-    const [cancelCase, _successCase]: TakeEffect[] = yield race([
+    const [cancelCase]: TakeEffect[] = yield race([
       take(`${DOMAIN}/cancelRequest`),
       take(`${DOMAIN}/loadingEnd`),
     ]);

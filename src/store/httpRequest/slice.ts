@@ -23,7 +23,13 @@ const slice = createSlice({
     url: "",
     query: [],
     method: "GET",
-    headers: [genVoidKV()],
+    headers: [
+      {
+        key: "Content-Type",
+        value: "application/json",
+        active: true,
+      },
+    ],
     activeOptsEditor: "headers",
     bodyMime: "application/json",
     bodyText: "",
@@ -49,8 +55,16 @@ const slice = createSlice({
     loadingEnd(state) {
       state.loading = false;
     },
-    addHeader(state) {
-      state.headers.push(genVoidKV());
+    addHeader(state, { payload }: PayloadAction<Partial<TKeyValue>>) {
+      if (payload) {
+        state.headers.push({
+          key: payload.key || "",
+          value: payload.value || "",
+          active: payload.active || false,
+        });
+      } else {
+        state.headers.push(genVoidKV());
+      }
     },
     addBodyKV(state) {
       state.bodyKV.push(genVoidKV());
