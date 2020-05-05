@@ -20,6 +20,7 @@ type TProps = Pick<
   | "rawBody"
   | "prettyBody"
   | "filename"
+  | "headers"
 > & {
   editorExpanded: boolean;
   body: string;
@@ -64,6 +65,7 @@ const Actions = (props: TProps) => {
           />
         </Tooltip>
         <SaveResponse
+          headers={props.headers}
           filename={props.filename}
           prettyBody={props.prettyBody}
           rawBody={props.rawBody}
