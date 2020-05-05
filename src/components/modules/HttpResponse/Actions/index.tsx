@@ -20,9 +20,10 @@ type TProps = Pick<
   | "prettyBody"
   | "filename"
   | "headers"
+  | "isPrettyBodySupported"
+  | "category"
 > & {
   editorExpanded: boolean;
-  body: string;
 };
 const Actions = (props: TProps) => {
   const onRequest = () => props.makeRequest();
@@ -53,6 +54,7 @@ const Actions = (props: TProps) => {
           }
         >
           <Button
+            disabled={props.category !== "body"}
             icon={
               props.editorExpanded ? <ShrinkOutlined /> : <ArrowsAltOutlined />
             }
@@ -60,12 +62,14 @@ const Actions = (props: TProps) => {
           />
         </Tooltip>
         <SaveResponse
+          isPrettyBodySupported={props.isPrettyBodySupported}
           headers={props.headers}
           filename={props.filename}
           prettyBody={props.prettyBody}
           rawBody={props.rawBody}
         />
         <CopyResponse
+          isPrettyBodySupported={props.isPrettyBodySupported}
           headers={props.headers}
           prettyBody={props.prettyBody}
           rawBody={props.rawBody}

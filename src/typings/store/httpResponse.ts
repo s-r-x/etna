@@ -1,6 +1,6 @@
 import { TResponse } from "@/typings/httpClient";
 
-export type TBodyFormatMode = "pretty" | "raw";
+export type TBodyFormatMode = "Pretty" | "Raw" | "Preview";
 export type TState = {
   editor: {
     expanded: boolean;

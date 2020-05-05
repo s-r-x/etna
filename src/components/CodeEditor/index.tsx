@@ -26,6 +26,7 @@ const CodeEditor = (props: TProps) => {
       className={cn(props.expanded && cls.expanded)}
       value={props.value}
       options={{
+        lineWrapping: true,
         viewportMargin: props.expanded ? Infinity : 10,
         keyMap: props.keyMap,
         tabSize: props.tabSize,

@@ -8,7 +8,7 @@ import { SaveOutlined, SaveFilled, BarsOutlined } from "@ant-design/icons";
 
 type TProps = Pick<
   TProviderProps,
-  "prettyBody" | "rawBody" | "filename" | "headers"
+  "prettyBody" | "rawBody" | "filename" | "headers" | "isPrettyBodySupported"
 >;
 const SaveResponse = (props: TProps) => {
   const menu = useCallback(() => {
@@ -28,15 +28,23 @@ const SaveResponse = (props: TProps) => {
         <Menu.Item onClick={() => onSaveBody(false)} icon={<SaveOutlined />}>
           Raw Body
         </Menu.Item>
-        <Menu.Item onClick={() => onSaveBody(true)} icon={<SaveFilled />}>
-          Pretty Body
-        </Menu.Item>
+        {props.isPrettyBodySupported && (
+          <Menu.Item onClick={() => onSaveBody(true)} icon={<SaveFilled />}>
+            Pretty Body
+          </Menu.Item>
+        )}
         <Menu.Item onClick={onSaveHeaders} icon={<BarsOutlined />}>
           Headers
         </Menu.Item>
       </Menu>
     );
-  }, [props.prettyBody, props.rawBody, props.filename, props.headers]);
+  }, [
+    props.prettyBody,
+    props.rawBody,
+    props.filename,
+    props.headers,
+    props.isPrettyBodySupported,
+  ]);
   return (
     <Tooltip title="Save">
       <Dropdown overlay={menu}>

@@ -6,6 +6,7 @@ import { makeRequest, cancelRequest } from "@/store/httpRequest/slice";
 import {
   toggleEditorExpanded,
   changeCategory,
+  changeEditorFormat,
 } from "@/store/httpResponse/slice";
 
 const mSp = (state: TRootState) => ({
@@ -19,12 +20,14 @@ const mSp = (state: TRootState) => ({
   responseType: ResSelectors.getResponseContentType(state),
   filename: ResSelectors.getFilename(state),
   headers: ResSelectors.getHeaders(state),
+  isPrettyBodySupported: ResSelectors.isPrettyBodySupported(state),
 });
 const mDp = {
   cancelRequest,
   changeCategory,
   makeRequest,
   toggleEditorExpanded,
+  changeEditorFormat,
 };
 
 export const provide = connect(mSp, mDp);

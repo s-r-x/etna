@@ -18,6 +18,8 @@ const HttpResponse = (props: TProviderProps) => {
       <div className={cls.topBar}>
         <Stats response={response} responseSize={props.responseSize} />
         <Actions
+          category={props.category}
+          isPrettyBodySupported={props.isPrettyBodySupported}
           headers={props.headers}
           filename={props.filename}
           cancelRequest={props.cancelRequest}
@@ -27,7 +29,6 @@ const HttpResponse = (props: TProviderProps) => {
           makeRequest={props.makeRequest}
           rawBody={props.rawBody}
           prettyBody={props.prettyBody}
-          body={props.response.data}
         />
       </div>
       <div className={cls.content}>
@@ -35,9 +36,11 @@ const HttpResponse = (props: TProviderProps) => {
           headersLength={props.headers.length}
           Body={
             <BodyViewer
+              changeEditorFormat={props.changeEditorFormat}
+              editorOpts={props.editorOpts}
               responseType={props.responseType}
-              expanded={props.editorOpts.expanded}
-              body={props.prettyBody}
+              prettyBody={props.prettyBody}
+              rawBody={props.rawBody}
             />
           }
           Headers={<Headers headers={props.headers} />}

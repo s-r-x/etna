@@ -11,7 +11,10 @@ import {
   CopyOutlined,
 } from "@ant-design/icons";
 
-type TProps = Pick<TProviderProps, "prettyBody" | "rawBody" | "headers">;
+type TProps = Pick<
+  TProviderProps,
+  "prettyBody" | "rawBody" | "headers" | "isPrettyBodySupported"
+>;
 const CopyResponse = (props: TProps) => {
   const menu = useCallback(() => {
     const onSaveBody = (pretty: boolean) => {
@@ -32,15 +35,22 @@ const CopyResponse = (props: TProps) => {
         <Menu.Item onClick={() => onSaveBody(false)} icon={<SaveOutlined />}>
           Raw Body
         </Menu.Item>
-        <Menu.Item onClick={() => onSaveBody(true)} icon={<SaveFilled />}>
-          Pretty Body
-        </Menu.Item>
+        {props.isPrettyBodySupported && (
+          <Menu.Item onClick={() => onSaveBody(true)} icon={<SaveFilled />}>
+            Pretty Body
+          </Menu.Item>
+        )}
         <Menu.Item onClick={onSaveHeaders} icon={<BarsOutlined />}>
           Headers
         </Menu.Item>
       </Menu>
     );
-  }, [props.prettyBody, props.rawBody, props.headers]);
+  }, [
+    props.prettyBody,
+    props.rawBody,
+    props.headers,
+    props.isPrettyBodySupported,
+  ]);
   return (
     <Tooltip title="Copy to clipboard">
       <Dropdown overlay={menu}>

@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  TState,
-  TBodyFormatMode,
-} from "@/typings/store/httpResponse";
+import { TState, TBodyFormatMode } from "@/typings/store/httpResponse";
 import { TResponse } from "@/typings/httpClient";
 
 export const DOMAIN = "httpRequest";
@@ -12,7 +9,7 @@ const slice = createSlice({
   initialState: {
     editor: {
       expanded: false,
-      format: "pretty",
+      format: "Pretty",
       search: "",
     },
     category: "body",

@@ -13,11 +13,25 @@ const getResponseContentType = createSelector(getResponse, (res): string => {
 });
 const getCategory = (state: TRootState) => state.httpResponse.category;
 const getRawBody = createSelector(getResponse, (res) => res?.data);
+const isPrettyBodySupported = createSelector(
+  getResponseContentType,
+  (type): boolean => {
+    switch (type) {
+      case "application/xml":
+      case "text/html":
+      case "application/json":
+        return true;
+      default:
+        return false;
+    }
+  }
+);
 const getPrettyBody = createSelector(
   getRawBody,
   getResponseContentType,
-  (body, type) => {
-    if (!body || !type) {
+  isPrettyBodySupported,
+  (body, type, supports) => {
+    if (!supports || !body || !type) {
       return body;
     }
     return CodeFormatter.format(body, type);
@@ -65,4 +79,5 @@ export const HttpResponseSelectors = {
   getResponse,
   getResponseSize,
   getResponseContentType,
+  isPrettyBodySupported,
 };
