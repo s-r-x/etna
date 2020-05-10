@@ -21,8 +21,9 @@ const SaveResponse = (props: TProps) => {
       });
     };
     const onSaveHeaders = () => {
-      const pretty = CodeFormatter.formatHeaders(props.headers);
-      WebApi.downloadFile(pretty, "headers");
+      const prettyHeaders = CodeFormatter.formatHeaders(props.headers);
+      console.log(prettyHeaders);
+      WebApi.downloadFile(prettyHeaders, "headers.txt");
     };
     return (
       <Menu>

@@ -41,7 +41,7 @@ export class HttpClient {
         data: opts.body,
         // prevent json parsing
         transformResponse: (r) => r,
-        responseType: opts.expectBinary ? "blob" : "json",
+        responseType: opts.expectBinary ? "blob" : "text",
       });
       response.status = axiosResp.status;
       response.statusText = axiosResp.statusText;

@@ -21,7 +21,6 @@ const BodyViewerMode = (props: TProps) => {
         <Radio.Button value="Pretty">Pretty</Radio.Button>
       )}
       <Radio.Button value="Raw">Raw</Radio.Button>
-      <Radio.Button value="Preview">Preview</Radio.Button>
     </Radio.Group>
   );
 };

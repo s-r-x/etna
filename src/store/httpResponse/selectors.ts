@@ -60,6 +60,7 @@ const isImage = createSelector(getResponseContentType, (type): boolean => {
     case "image/png":
     case "image/svg+xml":
     case "image/webp":
+    case "image/x-icon":
       return true;
     default:
       return false;
