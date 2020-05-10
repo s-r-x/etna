@@ -36,14 +36,16 @@ const BodyRenderer = (props: TProps) => {
         <Empty description="Turn on 'Expect binary response' option to preview the response" />
       );
     }
-    <TextRenderer
-      editorOpts={props.editorOpts}
-      prettyBody={props.prettyBody}
-      rawBody={props.rawBody}
-      responseType={props.responseType}
-      changeEditorFormat={props.changeEditorFormat}
-      isPrettyBodySupported={props.isPrettyBodySupported}
-    />;
+    return (
+      <TextRenderer
+        editorOpts={props.editorOpts}
+        prettyBody={props.prettyBody}
+        rawBody={props.rawBody}
+        responseType={props.responseType}
+        changeEditorFormat={props.changeEditorFormat}
+        isPrettyBodySupported={props.isPrettyBodySupported}
+      />
+    );
   }
 };
 

@@ -9,7 +9,7 @@ export const WebApi = {
       const file = new Blob([content], { type: "text/plain" });
       a.href = URL.createObjectURL(file);
     } else {
-      a.href = "data:text/plain;charset=utf-8," + content;
+      a.href = content;
     }
     a.click();
   },
