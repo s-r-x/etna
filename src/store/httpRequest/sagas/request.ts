@@ -21,12 +21,14 @@ import { setResponse } from "@/store/httpResponse/slice";
 function* makeRequest(): SagaIterator {
   const client = new HttpClient();
   const state = yield select();
-  const [url, method, headers, settings, body] = [
+  const [url, method, headers, settings, body, authStrategy, basicAuth] = [
     Selectors.getUrl(state),
     Selectors.getMethod(state),
     Selectors.getRequestReadyHeaders(state),
     Selectors.getSettings(state),
     Selectors.getRequestReadyBody(state),
+    Selectors.getAuthStrategy(state),
+    Selectors.getBasicAuthData(state),
   ];
   try {
     yield put(loadingStart());
@@ -34,6 +36,7 @@ function* makeRequest(): SagaIterator {
       headers,
       expectBinary: settings.expectBinary,
       body,
+      auth: authStrategy === "basic" ? basicAuth : null,
     });
     if (resp.error && resp.data) {
       message.error(resp.data);

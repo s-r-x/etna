@@ -43,7 +43,7 @@ const slice = createSlice({
       strategy: "none",
       data: {
         basic: {
-          user: "",
+          username: "",
           password: "",
         },
         bearer_token: {
@@ -158,6 +158,11 @@ const slice = createSlice({
     changeAuthStrategy(state, { payload }: PayloadAction<TAuthStrategy>) {
       state.auth.strategy = payload;
     },
+    updateBasicAuthForm(state, { payload }: PayloadAction<TStringDict>) {
+      for (const key in payload) {
+        state.auth.data.basic[key] = payload[key];
+      }
+    },
     setQuery(state, { payload }: PayloadAction<TQuery[]>) {
       state.query = payload;
     },
@@ -205,6 +210,7 @@ export const {
   removeQuery,
   restoreRequest,
   setQuery,
+  updateBasicAuthForm,
   updateSettings,
 } = slice.actions;
 

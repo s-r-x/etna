@@ -6,6 +6,7 @@ import filesStore from "@/store/_files";
 
 const getAuthStrategy = (state: TRootState) => state.httpRequest.auth.strategy;
 const getAuthData = (state: TRootState) => state.httpRequest.auth.data;
+const getBasicAuthData = createSelector(getAuthData, (data) => data.basic);
 const getHeaders = (state: TRootState) => state.httpRequest.headers;
 const getActiveHeaders = createSelector(getHeaders, (headers) =>
   headers.filter((h) => h.active)
@@ -83,6 +84,7 @@ export const HttpRequestSelectors = {
   getActiveOptsEditor,
   getAuthData,
   getAuthStrategy,
+  getBasicAuthData,
   getHeaders,
   getHeadersLength,
   getBodyText,

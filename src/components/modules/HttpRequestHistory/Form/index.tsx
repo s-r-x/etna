@@ -16,7 +16,7 @@ const statusSelectOpts = HTTP_STATUS_CODES.map((code) => ({
 type TProps = Pick<TProviderProps, "searchForm" | "updateSearchForm">;
 const HistorySearchForm = (props: TProps) => {
   const onChange = useCallback(
-    _.debounce((changed: { [key: string]: any }) => {
+    _.debounce((changed: TAnyDict) => {
       props.updateSearchForm(changed);
     }, 175),
     [props.searchForm]

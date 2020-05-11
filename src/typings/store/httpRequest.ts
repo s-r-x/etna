@@ -11,7 +11,8 @@ export type TAuth = {
   strategy: TAuthStrategy;
   data: {
     basic: {
-      user: string;
+      [key: string]: string;
+      username: string;
       password: string;
     };
     bearer_token: {

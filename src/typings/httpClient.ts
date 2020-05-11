@@ -4,6 +4,10 @@ export type TOpts = {
   };
   body?: any;
   expectBinary?: boolean;
+  auth?: {
+    username: string;
+    password: string;
+  };
 };
 export type TResponse = {
   responseTime: number;
