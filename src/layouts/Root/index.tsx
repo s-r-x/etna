@@ -2,18 +2,37 @@ import React from "react";
 import cls from "./index.less";
 import { Layout, Menu, Typography } from "antd";
 import { HomeOutlined, SettingOutlined } from "@ant-design/icons";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { SelectParam } from "antd/lib/menu";
 
 const { Header, Content, Sider } = Layout;
+type TProps = RouteComponentProps;
+type TState = {
+  collapsed: boolean;
+  activeRoute: string;
+};
 
-export default class RootLayout extends React.Component {
-  state = {
-    collapsed: true,
-  };
-
+class RootLayout extends React.Component<TProps, TState> {
+  constructor(props: TProps) {
+    super(props);
+    this.state = {
+      collapsed: true,
+      activeRoute: props.location.pathname,
+    };
+  }
   onCollapse = (collapsed: boolean) => {
     this.setState({ collapsed });
   };
-
+  onSelect = ({ key }: SelectParam) => {
+    this.props.history.push(key);
+  };
+  componentDidMount() {
+    this.props.history.listen((listener) => {
+      this.setState({
+        activeRoute: listener.pathname,
+      });
+    });
+  }
   render() {
     return (
       <Layout style={{ minHeight: "100vh" }}>
@@ -27,12 +46,21 @@ export default class RootLayout extends React.Component {
               Etna
             </Typography.Title>
           </div>
-          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-            <Menu.Item icon={<HomeOutlined />} key="1">
-              <span>Home</span>
+          <Menu
+            onSelect={this.onSelect}
+            theme="dark"
+            selectedKeys={[this.state.activeRoute]}
+            mode="inline"
+          >
+            <Menu.Item icon={<HomeOutlined />} key="/">
+              <Link className={cls.link} to="/">
+                Home
+              </Link>
             </Menu.Item>
-            <Menu.Item icon={<SettingOutlined />} key="2">
-              <span>Settings</span>
+            <Menu.Item icon={<SettingOutlined />} key="/settings">
+              <Link className={cls.link} to="/settings">
+                Settings
+              </Link>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -46,3 +74,5 @@ export default class RootLayout extends React.Component {
     );
   }
 }
+
+export default withRouter(RootLayout);
