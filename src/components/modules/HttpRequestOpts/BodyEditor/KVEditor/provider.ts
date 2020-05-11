@@ -8,9 +8,10 @@ import {
   changeBodyKVKey,
   removeBodyKV,
 } from "@/store/httpRequest/slice";
-
+//
 const mSp = (state: TRootState) => ({
   items: Selectors.getBodyKV(state),
+  mime: Selectors.getBodyMIME(state),
 });
 const mDp = {
   addBodyKV,

@@ -15,7 +15,6 @@ const FilesList = (props: TProps) => {
       size="small"
       locale={{ emptyText: <span /> }}
       split
-      bordered
       dataSource={props.items}
       rowKey="id"
       renderItem={(item) => (

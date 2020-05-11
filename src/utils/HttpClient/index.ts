@@ -33,6 +33,7 @@ export class HttpClient {
       isBinary: false,
     } as TResponse;
     try {
+      console.log(opts.body);
       const axiosResp = await axios({
         method,
         url,

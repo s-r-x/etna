@@ -1,3 +1,4 @@
+import { TFileObject } from "@/typings/file";
 type TDownloadOpts = {
   shouldCreateBlob?: boolean;
 };
@@ -20,5 +21,17 @@ export const WebApi = {
     el.select();
     document.execCommand("copy");
     document.body.removeChild(el);
+  },
+  createFormData(dict: TStringDict, files?: TFileObject[]) {
+    const body = new FormData();
+    if (files) {
+      for (const file of files) {
+        body.append(file.file.name, file.file);
+      }
+    }
+    for (const key in dict) {
+      body.set(key, dict[key]);
+    }
+    return body;
   },
 };

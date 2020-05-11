@@ -1,5 +1,8 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { TRootState } from "@/store/rootReducer";
+import qs from "query-string";
+import { WebApi } from "@/utils/webapi";
+import filesStore from "@/store/_files";
 
 const getAuthStrategy = (state: TRootState) => state.httpRequest.auth.strategy;
 const getAuthData = (state: TRootState) => state.httpRequest.auth.data;
@@ -10,17 +13,47 @@ const getActiveHeaders = createSelector(getHeaders, (headers) =>
 const getHeadersLength = createSelector(getActiveHeaders, (headers) => {
   return headers.length;
 });
-const getRequestReadyHeaders = createSelector(getHeaders, (raw) => {
+const getRequestReadyHeaders = createSelector(getActiveHeaders, (raw) => {
   return raw.reduce((acc, header) => {
     if (header.key) {
       acc[header.key] = header.value;
     }
     return acc;
-  }, {} as { [key: string]: string });
+  }, {} as TStringDict);
 });
 const getBodyText = (state: TRootState) => state.httpRequest.bodyText;
 const getBodyKV = (state: TRootState) => state.httpRequest.bodyKV;
+const getRequestReadyBodyKV = createSelector(getBodyKV, (kv) => {
+  return kv
+    .filter(({ active }) => active)
+    .reduce((acc, { key, value }) => {
+      acc[key] = value;
+      return acc;
+    }, {} as TStringDict);
+});
+const getFiles = () => filesStore.getFiles();
 const getBodyMIME = (state: TRootState) => state.httpRequest.bodyMime;
+const getRequestReadyBody = createSelector(
+  getBodyText,
+  getRequestReadyBodyKV,
+  getBodyMIME,
+  getFiles,
+  (text, kv, mime, files): string | FormData => {
+    switch (mime) {
+      case "application/json":
+      case "text/html":
+      case "text/plain":
+      case "application/xml":
+        return text;
+      case "application/x-www-form-urlencoded":
+        return qs.stringify(kv);
+      case "multipart/form-data":
+        return WebApi.createFormData(kv, files);
+      default:
+        return null;
+    }
+  }
+);
 const getUrl = (state: TRootState) => state.httpRequest.url;
 const getMethod = (state: TRootState) => state.httpRequest.method;
 const getLoading = (state: TRootState) => state.httpRequest.loading;
@@ -34,8 +67,6 @@ const getActiveBodyEditor = createSelector(getBodyMIME, (mime) => {
     case "application/x-www-form-urlencoded":
     case "multipart/form-data":
       return "kv";
-    case "binary":
-      return "file";
     default:
       throw new Error(`unknown mime received: ${mime}`);
   }
@@ -62,6 +93,7 @@ export const HttpRequestSelectors = {
   getQuery,
   getQueryLength,
   getRequestReadyHeaders,
+  getRequestReadyBody,
   getSettings,
   getUrl,
 };
