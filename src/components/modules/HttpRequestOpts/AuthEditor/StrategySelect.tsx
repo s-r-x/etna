@@ -19,9 +19,11 @@ const StrategySelect = (props: TProps) => {
         <Option key="basic" value="basic">
           Basic auth
         </Option>
+        {/*
         <Option key="bearer_token" value="bearer_token">
           Bearer token
         </Option>
+        */}
       </Select>
     </div>
   );

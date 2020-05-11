@@ -3,6 +3,8 @@ import { THTTPMethod } from "@/typings/http";
 export type TSearchForm = Pick<THistoryItem, "url" | "status" | "method"> & {
   [key: string]: any;
   sort: string;
+  sortDir: "asc" | "desc";
+  dateRange: [string, string];
 };
 export type THistoryItem = {
   method: THTTPMethod;

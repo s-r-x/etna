@@ -8,7 +8,9 @@ import { Empty } from "antd";
 type TProps = Pick<TProviderProps, "history" | "removeItem" | "restoreRequest">;
 const SearchList = (props: TProps) => {
   if (props.history.length === 0) {
-    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+    return (
+      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Empty history" />
+    );
   }
   const itemProps = useMemo(() => {
     return {

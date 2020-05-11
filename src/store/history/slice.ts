@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TState, THistoryItem, TSearchForm } from "@/typings/store/history";
 import { UUID } from "@/utils/uuid";
+import { Moment } from "moment";
 
 const DOMAIN = "history";
 
@@ -10,10 +11,12 @@ const slice = createSlice({
     search: "",
     items: [],
     searchForm: {
-      method: undefined,
-      url: undefined,
-      status: undefined,
-      sort: undefined,
+      method: null,
+      url: null,
+      status: null,
+      sort: null,
+      sortDir: "asc",
+      dateRange: [null, null],
     },
   } as TState,
   reducers: {
@@ -34,8 +37,14 @@ const slice = createSlice({
     },
     updateSearchForm(state, { payload }: PayloadAction<Partial<TSearchForm>>) {
       for (const key in payload) {
-        const val: string = payload[key];
-        state.searchForm[key] = val && val.trim();
+        if (key === "dateRange") {
+          const value = (payload[key] as unknown) as [Moment, Moment];
+          state.searchForm[key][0] = value?.[0]?.toISOString() ?? null;
+          state.searchForm[key][1] = value?.[1]?.toISOString() ?? null;
+        } else {
+          const val: string = payload[key];
+          state.searchForm[key] = val && val.trim();
+        }
       }
     },
   },
