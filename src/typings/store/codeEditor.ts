@@ -8,4 +8,6 @@ export type TState = {
   keyMap: TCodeEditorKeyMap;
   theme: TCodeEditorTheme;
   tabSize: TCodeEditorTabSize;
+  lineNumbers: boolean;
+  lineWrapping: boolean;
 };

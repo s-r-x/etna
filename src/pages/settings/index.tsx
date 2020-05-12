@@ -1,16 +1,17 @@
 import React from "react";
 import CodeEditor from "@/components/modules/Settings/CodeEditor";
-import { Collapse } from "antd";
-const { Panel } = Collapse;
+import { Card, Row, Col } from "antd";
 
 const SettingsPage = () => {
   return (
     <div>
-      <Collapse defaultActiveKey={["editor"]}>
-        <Panel key="editor" header="Code editor">
-          <CodeEditor />
-        </Panel>
-      </Collapse>
+      <Row>
+        <Col span={12}>
+          <Card title="Text editor">
+            <CodeEditor />
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 };

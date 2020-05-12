@@ -11,8 +11,10 @@ const slice = createSlice({
   name: DOMAIN,
   initialState: {
     tabSize: 2,
-    keyMap: "vim",
+    keyMap: "default",
     theme: "material",
+    lineNumbers: true,
+    lineWrapping: true,
   } as TState,
   reducers: {
     changeTabSize(state, { payload }: PayloadAction<TCodeEditorTabSize>) {
@@ -24,8 +26,20 @@ const slice = createSlice({
     changeKeyMap(state, { payload }: PayloadAction<TCodeEditorKeyMap>) {
       state.keyMap = payload;
     },
+    toggleLineNumbers(state, { payload }: PayloadAction<boolean>) {
+      state.lineNumbers = payload;
+    },
+    toggleLineWrap(state, { payload }: PayloadAction<boolean>) {
+      state.lineWrapping = payload;
+    },
   },
 });
-export const { changeKeyMap, changeTabSize, changeTheme } = slice.actions;
+export const {
+  changeKeyMap,
+  changeTabSize,
+  changeTheme,
+  toggleLineWrap,
+  toggleLineNumbers,
+} = slice.actions;
 
 export default slice.reducer;
