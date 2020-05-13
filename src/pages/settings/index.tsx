@@ -1,17 +1,18 @@
 import React from "react";
 import CodeEditor from "@/components/modules/Settings/CodeEditor";
-import { Card, Row, Col } from "antd";
+import Proxy from "@/components/modules/Settings/Proxy";
+import { Card } from "antd";
+import cls from "./index.less";
 
 const SettingsPage = () => {
   return (
-    <div>
-      <Row>
-        <Col span={12}>
-          <Card title="Text editor">
-            <CodeEditor />
-          </Card>
-        </Col>
-      </Row>
+    <div className={cls.container}>
+      <Card title="Text editor">
+        <CodeEditor />
+      </Card>
+      <Card title="Proxy">
+        <Proxy />
+      </Card>
     </div>
   );
 };

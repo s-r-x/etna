@@ -24,7 +24,7 @@ const CodeEditorSettings = (props: TProviderProps) => {
     <Form
       onValuesChange={onChange}
       initialValues={props.form}
-      labelCol={{ span: 3 }}
+      labelCol={{ span: 2 }}
     >
       <Form.Item label="Key mapping" name="keyMap">
         <Radio.Group>

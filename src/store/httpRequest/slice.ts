@@ -9,6 +9,7 @@ import {
   TRequestSettings,
 } from "@/typings/store/httpRequest";
 import { TKeyValue } from "@/typings/keyValue";
+import _ from "lodash";
 
 export const DOMAIN = "httpRequest";
 
@@ -33,6 +34,7 @@ const slice = createSlice({
     ],
     settings: {
       expectBinary: false,
+      useProxy: false,
     },
     activeOptsEditor: "headers",
     bodyMime: "application/json",
@@ -49,6 +51,14 @@ const slice = createSlice({
         bearer_token: {
           token: "",
         },
+      },
+    },
+    proxy: {
+      host: "",
+      port: null,
+      auth: {
+        username: "",
+        password: "",
       },
     },
   } as TState,
@@ -159,9 +169,7 @@ const slice = createSlice({
       state.auth.strategy = payload;
     },
     updateBasicAuthForm(state, { payload }: PayloadAction<TStringDict>) {
-      for (const key in payload) {
-        state.auth.data.basic[key] = payload[key];
-      }
+      _.merge(state.auth.data.basic, payload);
     },
     setQuery(state, { payload }: PayloadAction<TQuery[]>) {
       state.query = payload;
@@ -174,10 +182,10 @@ const slice = createSlice({
       state,
       { payload }: PayloadAction<Partial<TRequestSettings>>
     ) {
-      for (const key in payload) {
-        const val: string = payload[key];
-        state.settings[key] = val;
-      }
+      _.merge(state.settings, payload);
+    },
+    updateProxy(state, { payload }: PayloadAction<TAnyDict>) {
+      _.merge(state.proxy, payload);
     },
   },
 });
@@ -212,6 +220,7 @@ export const {
   setQuery,
   updateBasicAuthForm,
   updateSettings,
+  updateProxy,
 } = slice.actions;
 
 export default slice.reducer;

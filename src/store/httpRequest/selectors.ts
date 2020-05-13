@@ -79,6 +79,7 @@ const getQueryLength = createSelector(getQuery, (query) => {
   return query.length;
 });
 const getSettings = (state: TRootState) => state.httpRequest.settings;
+const getProxy = (state: TRootState) => state.httpRequest.proxy;
 export const HttpRequestSelectors = {
   getActiveBodyEditor,
   getActiveOptsEditor,
@@ -92,6 +93,7 @@ export const HttpRequestSelectors = {
   getBodyMIME,
   getLoading,
   getMethod,
+  getProxy,
   getQuery,
   getQueryLength,
   getRequestReadyHeaders,
