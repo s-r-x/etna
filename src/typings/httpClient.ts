@@ -8,6 +8,7 @@ export type TOpts = {
     username: string;
     password: string;
   };
+  useProxy?: boolean;
 };
 export type TResponse = {
   responseTime: number;

@@ -5,7 +5,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const notifier = require('./parts/notifier');
 const styleLoaders = require('./parts/styleLoaders');
 const common = require('./webpack.common');
-const {STYLE_REGEX, DST, ASSETS_PATH} = require('./constants');
+const {STYLE_REGEX, DST, ASSETS_PATH, ENV_ROOT} = require('./constants');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -30,6 +30,9 @@ const config = {
     notifier,
     new CopyPlugin([{from: ASSETS_PATH, to: DST}]),
     new CleanWebpackPlugin(),
+    new Dotenv({
+      path: path.resolve(ENV_ROOT, 'prod.env'),
+    }),
   ],
   optimization: {
     splitChunks: {

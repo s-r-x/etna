@@ -1,4 +1,4 @@
-import { THTTPMethod, THTTPBodyMIME, THTTPProxy } from "@/typings/http";
+import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
 import { TKeyValue } from "@/typings/keyValue";
 
 export type TRestoreParams = {
@@ -39,5 +39,4 @@ export type TState = {
   bodyText: string;
   bodyKV: TKeyValue[];
   settings: TRequestSettings;
-  proxy: THTTPProxy;
 };

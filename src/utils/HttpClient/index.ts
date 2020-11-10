@@ -1,6 +1,11 @@
-import axios, { CancelTokenSource, AxiosResponse } from "axios";
+import axios, {
+  CancelTokenSource,
+  AxiosResponse,
+  AxiosRequestConfig,
+} from "axios";
 import { THTTPMethod } from "@/typings/http";
 import { TResponse, TOpts } from "@/typings/httpClient";
+import { ETNA_PROXY } from "@/constants";
 
 export class HttpClient {
   private cancelTokenSource: CancelTokenSource;
@@ -34,17 +39,17 @@ export class HttpClient {
     } as TResponse;
     try {
       console.log(opts.body);
-      const axiosResp = await axios({
-        method,
-        url,
+      const axiosOpts: AxiosRequestConfig = {
+        url: opts.useProxy ? ETNA_PROXY : url,
         cancelToken: this.cancelTokenSource.token,
         headers: opts.headers,
         data: opts.body,
-        // prevent json parsing
         transformResponse: (r) => r,
+        method,
         responseType: opts.expectBinary ? "blob" : "text",
         ...(opts.auth && { auth: opts.auth }),
-      });
+      };
+      const axiosResp = await axios(axiosOpts);
       response.status = axiosResp.status;
       response.statusText = axiosResp.statusText;
       response.headers = axiosResp.headers;

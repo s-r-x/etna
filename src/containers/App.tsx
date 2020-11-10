@@ -1,5 +1,5 @@
+import React from 'react';
 import '@/styles/index.less';
-import * as React from 'react';
 import Router from '@/containers/Router';
 
 const App = () => <Router />;

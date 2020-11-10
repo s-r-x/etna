@@ -1,11 +1,3 @@
-export type THTTPProxy = {
-  host: string;
-  port: number;
-  auth?: {
-    username: string;
-    password: string;
-  };
-};
 export type THTTPMethod =
   | "POST"
   | "PUT"

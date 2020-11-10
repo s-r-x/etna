@@ -1,6 +1,6 @@
 import React from "react";
-import CodeEditor from "@/components/modules/Settings/CodeEditor";
-import Proxy from "@/components/modules/Settings/Proxy";
+import CodeEditor from "@/domains/settings/components/CodeEditor";
+import Proxy from "@/domains/settings/components/Proxy";
 import { Card } from "antd";
 import cls from "./index.less";
 
