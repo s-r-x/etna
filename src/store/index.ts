@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import { updateSearchForm } from "@/domains/http-request-history/store/slice";
 
 const persistConfig = {
   key: "root",
@@ -29,7 +30,15 @@ const store = configureStore({
   middleware: [
     ...getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+          updateSearchForm.type,
+        ],
       },
     }),
     ...middleware,

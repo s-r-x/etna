@@ -3,7 +3,7 @@ import { ListChildComponentProps } from "react-window";
 import { TConnectorProps } from "../../../connectors";
 import cls from "./index.less";
 import { Tag, Tooltip, Button, Space } from "antd";
-import day from "dayjs";
+import moment from "moment";
 import ms from "pretty-ms";
 import {
   ClockCircleFilled,
@@ -42,7 +42,7 @@ const SearchItem = memo((props: ListChildComponentProps) => {
         <div className={cls.date}>
           <CalendarFilled />
           <span style={{ marginLeft: "5px" }}>
-            {day(item.date).format("MM-DD-YYYY HH:mm")}
+            {moment(item.date).format("MM-DD-YYYY HH:mm")}
           </span>
         </div>
       </div>
