@@ -23,7 +23,7 @@ const getHistory = createSelector(
     let filtered: THistoryItem[];
     if (form.status || form.method || url || hasDateRange) {
       filtered = history.filter((item) => {
-        const date = form.dateRange ? moment(item.date) : null;
+        const date = hasDateRange ? moment(item.date) : null;
         return (
           (form.status ? item.status == form.status : true) &&
           (form.method ? item.method === form.method : true) &&
