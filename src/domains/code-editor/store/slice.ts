@@ -15,6 +15,7 @@ const slice = createSlice({
     theme: "material",
     lineNumbers: true,
     lineWrapping: true,
+    autoCloseBrackets: true,
   } as TState,
   reducers: {
     changeTabSize(state, { payload }: PayloadAction<TCodeEditorTabSize>) {
@@ -22,6 +23,9 @@ const slice = createSlice({
     },
     changeTheme(state, { payload }: PayloadAction<TCodeEditorTheme>) {
       state.theme = payload;
+    },
+    changeAutoCloseBrackets(state, { payload }: PayloadAction<boolean>) {
+      state.autoCloseBrackets = payload;
     },
     changeKeyMap(state, { payload }: PayloadAction<TCodeEditorKeyMap>) {
       state.keyMap = payload;
@@ -35,6 +39,7 @@ const slice = createSlice({
   },
 });
 export const {
+  changeAutoCloseBrackets,
   changeKeyMap,
   changeTabSize,
   changeTheme,

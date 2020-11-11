@@ -8,5 +8,6 @@ export const connector = connect((state: TRootState) => ({
   keyMap: Selectors.getKeyMap(state),
   lineNumbers: Selectors.getLineNumbers(state),
   lineWrapping: Selectors.getLineWrapping(state),
+  autoCloseBrackets: Selectors.getAutoCloseBrackets(state),
 }));
 export type TConnectorProps = ConnectedProps<typeof connector>;

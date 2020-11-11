@@ -17,6 +17,8 @@ const CodeEditorSettings = (props: TConnectorProps) => {
         props.toggleLineNumbers(val);
       } else if (key === "lineWrapping") {
         props.toggleLineWrap(val);
+      } else if (key === "autoCloseBrackets") {
+        props.changeAutoCloseBrackets(val);
       }
     }
   };
@@ -53,6 +55,13 @@ const CodeEditorSettings = (props: TConnectorProps) => {
         <Switch />
       </Form.Item>
       <Form.Item label="Wrap lines" valuePropName="checked" name="lineWrapping">
+        <Switch />
+      </Form.Item>
+      <Form.Item
+        label="Autoclose brackets"
+        valuePropName="checked"
+        name="autoCloseBrackets"
+      >
         <Switch />
       </Form.Item>
     </Form>

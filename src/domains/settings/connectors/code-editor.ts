@@ -7,6 +7,7 @@ import {
   changeTheme,
   toggleLineNumbers,
   toggleLineWrap,
+  changeAutoCloseBrackets,
 } from "@/domains/code-editor/store/slice";
 
 export const connector = connect(
@@ -14,6 +15,7 @@ export const connector = connect(
     form: CodeEditorSelectors.getOptions(state),
   }),
   {
+    changeAutoCloseBrackets,
     changeKeyMap,
     changeTabSize,
     changeTheme,

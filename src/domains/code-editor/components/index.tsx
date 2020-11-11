@@ -65,7 +65,7 @@ const CodeEditor = (props: TProps) => {
               lineWrapping: props.lineWrapping,
               viewportMargin: props.expanded ? Infinity : 10,
               matchBrackets: true,
-              autoCloseBrackets: true,
+              autoCloseBrackets: props.autoCloseBrackets,
               keyMap: props.keyMap,
               tabSize: props.tabSize,
               mode: props.mode,
