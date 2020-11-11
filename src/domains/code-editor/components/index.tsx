@@ -1,12 +1,23 @@
 import React, { useCallback, Suspense, useMemo } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import { connector, TConnectorProps } from "../connectors";
-require("codemirror/mode/javascript/javascript");
-require("codemirror/mode/xml/xml");
+// @ts-ignore
+import { JSHINT } from "jshint";
+import "codemirror/mode/javascript/javascript";
+import "codemirror/mode/xml/xml";
+import "codemirror/addon/lint/lint";
+import "codemirror/addon/hint/show-hint";
+import "codemirror/addon/lint/json-lint";
+// @ts-ignore
+import jsonlint from "jsonlint-mod";
 import cn from "classnames";
 import cls from "./index.less";
 import DefaultMapping from "./mappings/default";
 import { Spin } from "antd";
+// @ts-ignore
+window.JSHINT = JSHINT;
+// @ts-ignore
+window.jsonlint = jsonlint;
 
 const VimMapping = React.lazy(() => import("./mappings/vim"));
 const SublimeMapping = React.lazy(() => import("./mappings/sublime"));
@@ -47,6 +58,8 @@ const CodeEditor = (props: TProps) => {
             className={cn(props.expanded && cls.expanded)}
             value={props.value}
             options={{
+              gutters: ["CodeMirror-lint-markers"],
+              lint: true,
               lineWrapping: props.lineWrapping,
               viewportMargin: props.expanded ? Infinity : 10,
               keyMap: props.keyMap,
