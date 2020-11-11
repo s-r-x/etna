@@ -8,6 +8,8 @@ import "codemirror/mode/xml/xml";
 import "codemirror/addon/lint/lint";
 import "codemirror/addon/hint/show-hint";
 import "codemirror/addon/lint/json-lint";
+import "codemirror/addon/edit/matchbrackets";
+import "codemirror/addon/edit/closebrackets";
 // @ts-ignore
 import jsonlint from "jsonlint-mod";
 import cn from "classnames";
@@ -62,6 +64,8 @@ const CodeEditor = (props: TProps) => {
               lint: true,
               lineWrapping: props.lineWrapping,
               viewportMargin: props.expanded ? Infinity : 10,
+              matchBrackets: true,
+              autoCloseBrackets: true,
               keyMap: props.keyMap,
               tabSize: props.tabSize,
               mode: props.mode,
