@@ -14,4 +14,5 @@ export type THTTPBodyMIME =
   | "application/xml"
   | "text/plain"
   | "application/x-www-form-urlencoded"
-  | "multipart/form-data";
+  | "multipart/form-data"
+  | "application/graphql";

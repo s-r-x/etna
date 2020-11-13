@@ -3,6 +3,7 @@ import CodeEditor from "@/domains/code-editor/components";
 import { TConnectorProps, connector } from "../../connectors/body";
 import MIMESelect from "./MimeSelect";
 import KVEditor from "./KV";
+import Gql from "./Gql";
 import { Space } from "antd";
 import FilesUpload from "./Files";
 
@@ -19,6 +20,9 @@ const BodyEditor = (props: TConnectorProps) => {
             value={props.bodyText}
             onChange={props.changeBodyText}
           />
+        )}
+        {props.activeEditor === "graphql" && (
+          <Gql value={props.bodyText} onChange={props.changeBodyText} />
         )}
       </Space>
     </div>

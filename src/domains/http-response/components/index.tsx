@@ -13,15 +13,14 @@ const HttpResponse = (props: TConnectorProps) => {
   const { response } = props;
   if (!response) {
     return (
-      <Card style={{ marginTop: "24px" }} title="Response">
+      <Card title="Response">
         <Empty />
       </Card>
     );
   }
   return (
-    <Card style={{ marginTop: "24px" }} title="Response">
+    <Card title="Response">
       <div className={cls.topBar}>
-        <Stats response={response} responseSize={props.responseSize} />
         <Actions
           isBinary={props.response?.isBinary}
           category={props.category}
@@ -36,6 +35,7 @@ const HttpResponse = (props: TConnectorProps) => {
           rawBody={props.rawBody}
           prettyBody={props.prettyBody}
         />
+        <Stats response={response} responseSize={props.responseSize} />
       </div>
       <div className={cls.content}>
         <Tabs

@@ -59,7 +59,7 @@ const Actions = (props: TProps) => {
             icon={
               props.editorExpanded ? <ShrinkOutlined /> : <ArrowsAltOutlined />
             }
-            onClick={props.toggleEditorExpanded}
+            onClick={() => props.toggleEditorExpanded()}
           />
         </Tooltip>
         <SaveResponse

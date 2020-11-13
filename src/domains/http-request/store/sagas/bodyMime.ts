@@ -1,5 +1,5 @@
 import { put, select, debounce } from "redux-saga/effects";
-import { DOMAIN } from "../slice";
+import { changeBodyMIME } from "../slice";
 import { SagaIterator } from "redux-saga";
 import { HttpRequestSelectors as Selectors } from "../selectors";
 import { changeHeaderValue, addHeader } from "../slice";
@@ -24,5 +24,5 @@ function* bodyMimeSaga(): SagaIterator {
   }
 }
 export default function* watchBodyMime() {
-  yield debounce(200, `${DOMAIN}/changeBodyMIME`, bodyMimeSaga);
+  yield debounce(200, changeBodyMIME.type, bodyMimeSaga);
 }

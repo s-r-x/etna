@@ -38,7 +38,6 @@ export class HttpClient {
       isBinary: false,
     } as TResponse;
     try {
-      console.log(opts.body);
       const axiosOpts: AxiosRequestConfig = {
         url: opts.useProxy ? ETNA_PROXY : url,
         cancelToken: this.cancelTokenSource.token,

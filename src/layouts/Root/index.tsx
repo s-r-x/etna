@@ -66,7 +66,7 @@ class RootLayout extends React.Component<TProps, TState> {
         </Sider>
         <Layout>
           <Header />
-          <Content style={{ margin: "20px", height: "100%" }}>
+          <Content style={{ margin: "12px", height: "100%" }}>
             {this.props.children}
           </Content>
         </Layout>

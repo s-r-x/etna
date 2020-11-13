@@ -35,8 +35,16 @@ export type TState = {
   activeOptsEditor: TOptsKey;
   loading: boolean;
   auth: TAuth;
-  bodyMime: THTTPBodyMIME;
-  bodyText: string;
-  bodyKV: TKeyValue[];
+  body: {
+    mime: THTTPBodyMIME;
+    text: string;
+    kv: TKeyValue[];
+  };
+  gql: {
+    schema: string;
+    loading: boolean;
+    error: any;
+    vars: string;
+  };
   settings: TRequestSettings;
 };

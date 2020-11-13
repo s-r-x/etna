@@ -36,10 +36,18 @@ const slice = createSlice({
       expectBinary: false,
       useProxy: true,
     },
+    body: {
+      mime: "application/json",
+      text: "",
+      kv: [genVoidKV()],
+    },
+    gql: {
+      schema: null,
+      loading: false,
+      error: null,
+      vars: "{}",
+    },
     activeOptsEditor: "headers",
-    bodyMime: "application/json",
-    bodyText: "",
-    bodyKV: [genVoidKV()],
     loading: false,
     auth: {
       strategy: "none",
@@ -73,7 +81,7 @@ const slice = createSlice({
       }
     },
     addBodyKV(state) {
-      state.bodyKV.push(genVoidKV());
+      state.body.kv.push(genVoidKV());
     },
     addQuery(state) {
       state.query.push({
@@ -128,31 +136,31 @@ const slice = createSlice({
       state.query.splice(idx, 1);
     },
     changeBodyText(state, { payload }: PayloadAction<string>) {
-      state.bodyText = payload;
+      state.body.text = payload;
     },
     changeBodyKVKey(
       state,
       { payload }: PayloadAction<{ id: number; key: string }>
     ) {
-      state.bodyKV[payload.id].key = payload.key;
+      state.body.kv[payload.id].key = payload.key;
     },
     changeBodyKVValue(
       state,
       { payload }: PayloadAction<{ id: number; value: string }>
     ) {
-      state.bodyKV[payload.id].value = payload.value;
+      state.body.kv[payload.id].value = payload.value;
     },
     changeBodyKVActive(
       state,
       { payload }: PayloadAction<{ id: number; active: boolean }>
     ) {
-      state.bodyKV[payload.id].active = payload.active;
+      state.body.kv[payload.id].active = payload.active;
     },
     removeBodyKV(state, { payload: idx }: PayloadAction<number>) {
-      state.bodyKV.splice(idx, 1);
+      state.body.kv.splice(idx, 1);
     },
     changeBodyMIME(state, { payload }: PayloadAction<THTTPBodyMIME>) {
-      state.bodyMime = payload;
+      state.body.mime = payload;
     },
     changeActiveOptsEditor(state, { payload }: PayloadAction<TOptsKey>) {
       state.activeOptsEditor = payload;
@@ -176,11 +184,28 @@ const slice = createSlice({
     ) {
       _.merge(state.settings, payload);
     },
+    loadGqlSchemaStart(state) {
+      state.gql.loading = true;
+      state.gql.error = null;
+    },
+    loadGqlSchemaEnd(state, { payload }: PayloadAction<string>) {
+      state.gql.loading = false;
+      if (payload) {
+        state.gql.schema = payload;
+      }
+    },
+    updateGqlVars(state, { payload }: PayloadAction<string>) {
+      state.gql.vars = payload;
+    },
   },
 });
 
 export const makeRequest = createAction(`${DOMAIN}/makeRequest`);
 export const cancelRequest = createAction(`${DOMAIN}/cancelRequest`);
+export const loadGqlSchema = createAction(`${DOMAIN}/loadGqlSchema`);
+export const cancelLoadGqlSchema = createAction(
+  `${DOMAIN}/cancelLoadGqlSchema`
+);
 export const {
   addBodyKV,
   addHeader,
@@ -209,6 +234,9 @@ export const {
   setQuery,
   updateBasicAuthForm,
   updateSettings,
+  updateGqlVars,
+  loadGqlSchemaStart,
+  loadGqlSchemaEnd,
 } = slice.actions;
 
 export default slice.reducer;

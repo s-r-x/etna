@@ -1,6 +1,5 @@
 import { DOMAIN } from "./slice";
 import { TRootState } from "@/store/rootReducer";
-import { createSelector } from "@reduxjs/toolkit";
 import { createStructuredSelector } from "reselect";
 
 const getTabSize = (state: TRootState) => state[DOMAIN].tabSize;

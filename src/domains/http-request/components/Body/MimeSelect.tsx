@@ -26,6 +26,9 @@ const MIMESelect = (props: TProps) => {
         </Option>
         <Option value="multipart/form-data">Multipart form-data</Option>
       </OptGroup>
+      <OptGroup label="Other">
+        <Option value="application/graphql">Graphql</Option>
+      </OptGroup>
     </Select>
   );
 };
