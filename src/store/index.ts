@@ -12,8 +12,8 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { updateSearchForm } from "@/domains/http-request-history/store/slice";
+import storage from "localforage";
 
 const persistConfig = {
   key: "root",
