@@ -39,8 +39,9 @@ function* gqlSchemaSaga(): SagaIterator {
     });
     if (res.error) {
       message.error(res.data);
+    } else {
+      message.success("Schema has been loaded");
     }
-    message.success("Schema has been loaded");
     yield put(loadGqlSchemaEnd(res.data));
   } catch (_e) {
     yield put(loadGqlSchemaEnd(null));
