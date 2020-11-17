@@ -8,7 +8,8 @@
     "start": "NODE_ENV=development webpack-dev-server --mode=development --client-log-level warning --config .internals/webpack.dev.js",
     "build": "NODE_ENV=production webpack --mode=production --config .internals/webpack.prod.js",
     "test": "NODE_ENV=test jest",
-    "test-watch": "NODE_ENV=test jest --watch"
+    "test-watch": "NODE_ENV=test jest --watch",
+    "postinstall": "rm -rf node_modules/@types/react-native"
   },
   "keywords": [],
   "author": "",
@@ -58,6 +59,7 @@
     "reselect": "^4.0.0",
     "split-on-first": "^2.0.0",
     "store": "^2.0.12",
+    "styled-components": "^5.2.1",
     "urijs": "^1.19.2",
     "uuid": "^7.0.3"
   },
@@ -72,6 +74,7 @@
     "@types/react-dom": "^16.9.4",
     "@types/react-redux": "^7.1.5",
     "@types/react-router-dom": "^5.1.2",
+    "@types/styled-components": "^5.1.4",
     "@types/webpack-env": "^1.14.1",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
