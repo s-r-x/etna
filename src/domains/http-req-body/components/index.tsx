@@ -1,10 +1,10 @@
 import React from "react";
-import CodeEditor from "@/domains/code-editor/components";
 import { TConnectorProps, connector } from "../connectors/body";
 import KVEditor from "./KV";
 import Gql from "./Gql";
 import { Space } from "antd";
 import FilesUpload from "./Files";
+import TextEditor from "./Text";
 
 const BodyEditor = (props: TConnectorProps) => {
   return (
@@ -13,10 +13,10 @@ const BodyEditor = (props: TConnectorProps) => {
         {props.MIME === "multipart/form-data" && <FilesUpload />}
         {props.activeEditor === "kv" && <KVEditor />}
         {props.activeEditor === "text" && (
-          <CodeEditor
-            mode={props.MIME}
-            value={props.text}
-            onChange={props.changeText}
+          <TextEditor
+            MIME={props.MIME}
+            text={props.text}
+            changeText={props.changeText}
           />
         )}
         {props.activeEditor === "graphql" && (
