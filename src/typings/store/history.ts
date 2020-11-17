@@ -1,18 +1,34 @@
+import { THttpReqBodyState } from "@/domains/http-req-body/typings/store";
 import { THTTPMethod } from "@/typings/http";
+import { TResponse } from "../httpClient";
+import { TState as TReqState } from "./httpRequest";
 
-export type TSearchForm = Pick<THistoryItem, "url" | "status" | "method"> & {
+export type THistoryRequest = Pick<
+  TReqState,
+  "headers" | "url" | "method" | "query" | "auth"
+> & {
+  date: string;
+};
+export type THistoryBody = Pick<THttpReqBodyState, "mime" | "text" | "kv"> & {
+  gql: {
+    vars: string;
+  };
+};
+export type THistoryResponse = TResponse;
+export type THistoryItem = {
+  id: string;
+  req: THistoryRequest;
+  res: THistoryResponse;
+  body: THistoryBody;
+};
+export type TSearchForm = {
+  url: string;
+  status: number;
+  method: THTTPMethod;
   [key: string]: any;
   sort: string;
   sortDir: "asc" | "desc";
   dateRange: [string, string];
-};
-export type THistoryItem = {
-  method: THTTPMethod;
-  date: string;
-  url: string;
-  wait: number;
-  status: number;
-  id: string;
 };
 
 export type TState = {

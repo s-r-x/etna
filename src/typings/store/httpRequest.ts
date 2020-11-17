@@ -1,4 +1,4 @@
-import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
+import { THTTPMethod } from "@/typings/http";
 import { TKeyValue } from "@/typings/keyValue";
 
 export type TRestoreParams = {
@@ -6,7 +6,13 @@ export type TRestoreParams = {
   url: string;
 };
 export type TAuthStrategy = "bearer_token" | "basic" | "none";
-export type TOptsKey = "headers" | "body" | "query" | "auth" | "settings";
+export type TOptsKey =
+  | "headers"
+  | "body"
+  | "query"
+  | "auth"
+  | "settings"
+  | "history";
 export type TAuth = {
   strategy: TAuthStrategy;
   data: {
@@ -29,22 +35,10 @@ export type TQuery = { key: string; value: string };
 export type TState = {
   method: THTTPMethod;
   url: string;
-  baseUrl: string;
   query: TQuery[];
   headers: TKeyValue[];
   activeOptsEditor: TOptsKey;
   loading: boolean;
   auth: TAuth;
-  body: {
-    mime: THTTPBodyMIME;
-    text: string;
-    kv: TKeyValue[];
-  };
-  gql: {
-    schema: string;
-    loading: boolean;
-    error: any;
-    vars: string;
-  };
   settings: TRequestSettings;
 };

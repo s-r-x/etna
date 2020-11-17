@@ -1,22 +1,26 @@
 import { combineReducers } from "redux";
 import httpRequest, {
   DOMAIN as REQ_DOMAIN,
-} from "@/domains/http-request/store/slice";
+} from "@/domains/http-req/store/slice";
 import httpResponse, {
   DOMAIN as RES_DOMAIN,
-} from "@/domains/http-response/store/slice";
+} from "@/domains/http-res/store/slice";
 import history, {
   DOMAIN as HISTORY_DOMAIN,
-} from "@/domains/http-request-history/store/slice";
+} from "@/domains/http-req-history/store/slice";
 import codeEditor, {
   DOMAIN as CODE_EDITOR_DOMAIN,
 } from "@/domains/code-editor/store/slice";
+import httpRequestBody, {
+  DOMAIN as REQ_BODY_DOMAIN,
+} from "@/domains/http-req-body/store/slice";
 
 const reducer = combineReducers({
   [REQ_DOMAIN]: httpRequest,
   [RES_DOMAIN]: httpResponse,
   [HISTORY_DOMAIN]: history,
   [CODE_EDITOR_DOMAIN]: codeEditor,
+  [REQ_BODY_DOMAIN]: httpRequestBody,
 });
 export default reducer;
 

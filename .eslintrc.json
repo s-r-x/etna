@@ -16,6 +16,7 @@
   "plugins": ["@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "createDefaultProgram": true,
     "project": "tsconfig.json",
     "tsconfigRootDir": ".",
     "ecmaFeatures": {

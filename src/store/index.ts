@@ -12,7 +12,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import { updateSearchForm } from "@/domains/http-request-history/store/slice";
+import { updateSearchForm } from "@/domains/http-req-history/store/slice";
 import storage from "localforage";
 
 const persistConfig = {

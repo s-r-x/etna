@@ -62,7 +62,7 @@ const CodeEditor = (props: TProps) => {
           <div className={cls.container}>
             {props.extra && <div className={cls.extra}>{props.extra}</div>}
             <CodeMirror
-              className={cn(props.expanded && cls.expanded)}
+              className={cls.expanded}
               value={props.value}
               options={{
                 gutters: ["CodeMirror-lint-markers"],
@@ -77,7 +77,6 @@ const CodeEditor = (props: TProps) => {
                     schema: props.gqlSchema,
                   },
                 lineWrapping: props.lineWrapping,
-                viewportMargin: props.expanded ? Infinity : 10,
                 matchBrackets: true,
                 autoCloseBrackets: props.autoCloseBrackets,
                 keyMap: props.keyMap,
