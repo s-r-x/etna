@@ -9,6 +9,7 @@ import Settings from "../Settings";
 import CountTab from "@/components/atoms/CountTab";
 import History from "@/domains/http-req-history/components";
 import { Container } from "./styled";
+import BodyTab from "./BodyTab";
 const { TabPane } = Tabs;
 
 const Editors = (props: TConnectorProps) => {
@@ -34,9 +35,16 @@ const Editors = (props: TConnectorProps) => {
         >
           <QueryEditor />
         </TabPane>
-        <TabPane tab={<div>
-          Body
-        </div>} key="body">
+        <TabPane
+          tab={
+            <BodyTab
+              mime={props.mime}
+              changeMime={props.changeMime}
+              isActive={props.active === "body"}
+            />
+          }
+          key="body"
+        >
           <BodyEditor />
         </TabPane>
         <TabPane tab="Auth" key="auth">
