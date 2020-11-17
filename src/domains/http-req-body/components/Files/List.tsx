@@ -21,6 +21,7 @@ const FileUploadList = (props: TProps) => {
         <List.Item
           actions={[
             <Button
+              key={item.id}
               type="primary"
               danger
               onClick={() => props.onRemove(item.id)}

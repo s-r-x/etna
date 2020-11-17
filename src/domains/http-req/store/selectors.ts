@@ -13,26 +13,9 @@ const getActiveHeaders = createSelector(getHeaders, (headers) =>
 const getHeadersLength = createSelector(getActiveHeaders, (headers) => {
   return headers.length;
 });
-const getBodyMIME = (state: TRootState) => state[DOMAIN].body.mime;
 const getUrl = (state: TRootState) => state[DOMAIN].url;
 const getMethod = (state: TRootState) => state[DOMAIN].method;
 const getLoading = (state: TRootState) => state[DOMAIN].loading;
-const getActiveBodyEditor = createSelector(getBodyMIME, (mime) => {
-  switch (mime) {
-    case "application/json":
-    case "application/xml":
-    case "text/html":
-    case "text/plain":
-      return "text";
-    case "application/x-www-form-urlencoded":
-    case "multipart/form-data":
-      return "kv";
-    case "application/graphql":
-      return "graphql";
-    default:
-      throw new Error(`unknown mime received: ${mime}`);
-  }
-});
 const getActiveOptsEditor = (state: TRootState) =>
   state[DOMAIN].activeOptsEditor;
 const getQuery = (state: TRootState) => state[DOMAIN].query;
@@ -64,14 +47,12 @@ const getRequestReadyHeaders = createSelector(
 
 export const HttpRequestSelectors = {
   getRequest,
-  getActiveBodyEditor,
   getActiveOptsEditor,
   getAuthData,
   getAuthStrategy,
   getBasicAuthData,
   getHeaders,
   getHeadersLength,
-  getBodyMIME,
   getLoading,
   getMethod,
   getQuery,

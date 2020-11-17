@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Switch } from "antd";
 import { connector, TConnectorProps } from "../connectors/proxy";
-import _ from "lodash";
 
 const ProxySettings = (props: TConnectorProps) => {
   const onUseProxyChange = (changed: TAnyDict) => {

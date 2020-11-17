@@ -14,6 +14,14 @@
     "@typescript-eslint/no-empty-interface": 0
   },
   "plugins": ["@typescript-eslint"],
+  "overrides": [
+    {
+      "files": ["**/*.tsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "createDefaultProgram": true,

@@ -2,7 +2,6 @@ import { HttpReqBodySelectors as Selectors } from "../store/selectors";
 import { connect, ConnectedProps } from "react-redux";
 import { TRootState } from "@/store/rootReducer";
 import { HttpReqBodyActions as Actions } from "../store/slice";
-import _ from "lodash";
 
 export const connector = connect(
   (state: TRootState) => ({

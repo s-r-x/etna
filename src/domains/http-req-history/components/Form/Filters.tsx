@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Select, Collapse, Radio, DatePicker } from "antd";
 import { HTTP_METHODS } from "@/misc/http";
-import _ from "lodash";
 import { AutoComplete } from "antd";
 import { HTTP_STATUS_CODES } from "@/misc/http";
 import { SettingOutlined } from "@ant-design/icons";
@@ -55,11 +54,7 @@ const HistorySearchFilters = () => {
             <Radio value="desc">DESC</Radio>
           </Radio.Group>
         </Form.Item>
-        <Form.Item
-          label="Date"
-          name="dateRange"
-          rules={[{ type: "array" }]}
-        >
+        <Form.Item label="Date" name="dateRange" rules={[{ type: "array" }]}>
           <RangePicker showTime />
         </Form.Item>
       </Panel>
