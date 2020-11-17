@@ -6,7 +6,7 @@ type TProps = {
   count: number;
   title: string;
 };
-const CountTab: React.FC<TProps> = (props) => (
+const CountTab = (props: TProps) => (
   <div
     style={{
       paddingRight: "25px",

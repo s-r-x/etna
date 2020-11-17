@@ -34,7 +34,9 @@ const Editors = (props: TConnectorProps) => {
         >
           <QueryEditor />
         </TabPane>
-        <TabPane tab="Body" key="body">
+        <TabPane tab={<div>
+          Body
+        </div>} key="body">
           <BodyEditor />
         </TabPane>
         <TabPane tab="Auth" key="auth">

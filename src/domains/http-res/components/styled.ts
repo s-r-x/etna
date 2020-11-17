@@ -3,13 +3,13 @@ import { Card as BaseCard } from "antd";
 
 export const Card = styled(BaseCard)`
   height: 100%;
-  max-height: calc(100vh - 200px);
+  max-height: var(--safe-card-height);
 `;
 export const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: var(--card-utils-approx-height);
+  margin-bottom: var(--card-utils-offset);
 `;
-export const Content = styled.div`
-  margin-top: 15px;
-`;
+export const Content = styled.div``;

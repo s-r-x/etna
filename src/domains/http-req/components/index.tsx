@@ -1,16 +1,16 @@
 import React from "react";
 import Editors from "./EditorsTabs";
 import Form from "./MainForm";
-import { Card } from "antd";
+import * as S from "./styled";
 
 const HttpRequest = () => {
   return (
-    <Card style={{ height: "100%" }}>
+    <S.Card>
       <>
         <Form />
         <Editors />
       </>
-    </Card>
+    </S.Card>
   );
 };
 
