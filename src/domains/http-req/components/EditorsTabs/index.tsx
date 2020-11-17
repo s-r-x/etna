@@ -6,14 +6,14 @@ import QueryEditor from "../Query";
 import BodyEditor from "@/domains/http-req-body/components";
 import Auth from "../Auth";
 import Settings from "../Settings";
-import cls from "./index.less";
 import CountTab from "@/components/atoms/CountTab";
 import History from "@/domains/http-req-history/components";
+import { Container } from "./styled";
 const { TabPane } = Tabs;
 
 const Editors = (props: TConnectorProps) => {
   return (
-    <div className={cls.container}>
+    <Container>
       <Tabs
         type="card"
         destroyInactiveTabPane
@@ -47,7 +47,7 @@ const Editors = (props: TConnectorProps) => {
           <History />
         </TabPane>
       </Tabs>
-    </div>
+    </Container>
   );
 };
 export default connector(Editors);

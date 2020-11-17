@@ -1,6 +1,6 @@
 import React from "react";
-import cls from "./index.less";
 import { Typography, Tooltip, Tag } from "antd";
+import * as S from "./styled";
 const { Text } = Typography;
 
 type TProps = {
@@ -13,8 +13,8 @@ type TProps = {
 
 const Stats = (props: TProps) => {
   return (
-    <div className={cls.container}>
-      <div className={cls.sect}>
+    <S.Container>
+      <S.Sect>
         {props.status && (
           <>
             <Text type="secondary">Status: </Text>
@@ -30,16 +30,16 @@ const Stats = (props: TProps) => {
             </Tooltip>
           </>
         )}
-      </div>
-      <div className={cls.sect}>
+      </S.Sect>
+      <S.Sect>
         <Text type="secondary">Time: </Text>
         <Tag>{props.time}</Tag>
-      </div>
-      <div className={cls.sect}>
+      </S.Sect>
+      <S.Sect>
         <Text type="secondary">Size: </Text>
         <Tag>{props.size}</Tag>
-      </div>
-    </div>
+      </S.Sect>
+    </S.Container>
   );
 };
 

@@ -1,12 +1,12 @@
 import React, { memo, useCallback } from "react";
 import { Input, Button, Checkbox, Space } from "antd";
-import cls from "./index.less";
 import { DeleteOutlined } from "@ant-design/icons";
 import {
   TProps as TRootProps,
   TItem,
 } from "@/typings/components/keyValueEditor";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
+import * as S from "./styled";
 
 type TProps = Pick<
   TRootProps,
@@ -57,8 +57,8 @@ const Row = memo((props: TProps) => {
     props.idx + 1
   }`;
   return (
-    <div className={cls.container}>
-      <div className={cls.utils}>
+    <S.Container>
+      <S.Utils>
         <Space size="small">
           {props.onChangeActive && (
             <Checkbox checked={item.active} onChange={onChangeActive} />
@@ -72,8 +72,8 @@ const Row = memo((props: TProps) => {
             onClick={onRemove}
           />
         </Space>
-      </div>
-      <Space className={cls.inputs} size="small">
+      </S.Utils>
+      <S.Inputs size="small">
         <Input
           placeholder={keyPlaceholder}
           value={item.key}
@@ -84,8 +84,8 @@ const Row = memo((props: TProps) => {
           value={item.value}
           onChange={onChangeValue}
         />
-      </Space>
-    </div>
+      </S.Inputs>
+    </S.Container>
   );
 });
 Row.displayName = "KeyValueEditorRow";

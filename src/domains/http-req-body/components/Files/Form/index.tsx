@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
-import cls from "./index.less";
 import { UploadOutlined } from "@ant-design/icons";
+import * as S from "./styled";
 
 type TProps = {
   addFiles(files: File[]): void;
@@ -14,11 +14,10 @@ const FileUploadForm = (props: TProps) => {
     [props.addFiles]
   );
   return (
-    <div className={cls.controls}>
-      <input
+    <S.Container>
+      <S.UploadInput
         multiple
         onChange={addFiles}
-        className={cls.fileUpload}
         id="file-upload"
         type="file"
       />
@@ -29,7 +28,7 @@ const FileUploadForm = (props: TProps) => {
       >
         <UploadOutlined /> Upload file(s)
       </label>
-    </div>
+    </S.Container>
   );
 };
 export default FileUploadForm;

@@ -1,7 +1,6 @@
 import React, { memo, useCallback } from "react";
 import { ListChildComponentProps } from "react-window";
 import { TConnectorProps } from "../../../connectors";
-import cls from "./index.less";
 import { Tag, Tooltip, Button, Space } from "antd";
 import moment from "moment";
 import ms from "pretty-ms";
@@ -12,6 +11,7 @@ import {
   DeleteFilled,
 } from "@ant-design/icons";
 import { Color } from "@/utils/color";
+import * as S from "./styled";
 
 type TData = Pick<TConnectorProps, "history" | "removeItem" | "restore">;
 const SearchItem = memo((props: ListChildComponentProps) => {
@@ -24,30 +24,30 @@ const SearchItem = memo((props: ListChildComponentProps) => {
     data.restore(item);
   }, [data.restore, item]);
   return (
-    <div className={cls.container} style={props.style}>
-      <div className={cls.topStats}>
+    <S.Container style={props.style}>
+      <S.TopStats>
         <Tag style={{ marginRight: "5px" }} color="magenta">
           {item.req.method}
         </Tag>
         <Tag color={Color.getColorForHttpStatus(item.res.status)}>
           {item.res.status}
         </Tag>
-        <div className={cls.responseTime}>
+        <S.ResponseTime>
           <ClockCircleFilled />
           <span style={{ marginLeft: "5px" }}>{ms(item.res.responseTime)}</span>
-        </div>
-        <div className={cls.date}>
+        </S.ResponseTime>
+        <S.RequestDate>
           <CalendarFilled />
           <span style={{ marginLeft: "5px" }}>
             {moment(item.req.date).format("MM-DD-YYYY HH:mm")}
           </span>
-        </div>
-      </div>
-      <div className={cls.main}>
+        </S.RequestDate>
+      </S.TopStats>
+      <S.UrlAndActions>
         <Tooltip title={item.req.url}>
-          <span className={cls.url}>{item.req.url}</span>
+          <S.RequestUrl>{item.req.url}</S.RequestUrl>
         </Tooltip>
-        <div className={cls.actions}>
+        <S.Actions>
           <Space size="small">
             <Button
               icon={<SyncOutlined />}
@@ -66,9 +66,9 @@ const SearchItem = memo((props: ListChildComponentProps) => {
               icon={<DeleteFilled />}
             />
           </Space>
-        </div>
-      </div>
-    </div>
+        </S.Actions>
+      </S.UrlAndActions>
+    </S.Container>
   );
 });
 SearchItem.displayName = "HistorySearchListItem";

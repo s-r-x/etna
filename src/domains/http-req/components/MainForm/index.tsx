@@ -2,9 +2,9 @@ import React from "react";
 import MethodSelect from "./HttpMethodSelect";
 import URLInput from "./UrlRequestInput";
 import { TConnectorProps, connector } from "../../connectors/form";
-import cls from "./index.less";
 import CancelButton from "./CancelRequestButton";
 import SubmitButton from "./MakeRequestButton";
+import { Container } from "./styled";
 
 const HTTPRequestForm = (props: TConnectorProps) => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -12,7 +12,7 @@ const HTTPRequestForm = (props: TConnectorProps) => {
     props.makeRequest();
   };
   return (
-    <form onSubmit={onSubmit} className={cls.container}>
+    <Container onSubmit={onSubmit}>
       <MethodSelect value={props.method} onChange={props.changeMethod} />
       <URLInput value={props.url} onChange={props.changeUrl} />
       <SubmitButton
@@ -23,7 +23,7 @@ const HTTPRequestForm = (props: TConnectorProps) => {
         disabled={!props.url || !props.loading}
         onClick={props.cancelRequest}
       />
-    </form>
+    </Container>
   );
 };
 

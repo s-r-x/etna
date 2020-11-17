@@ -1,19 +1,19 @@
 import React from "react";
-import cls from "./index.less";
 import { Empty, Collapse } from "antd";
 import { useFileStore } from "@/hooks/filesListStore";
 import List from "./List";
 import Controls from "./Form";
 import _ from "lodash";
+import * as S from "./styled";
 const { Panel } = Collapse;
 
 const FilesUpload = () => {
   const [files, store] = useFileStore();
   return (
-    <div className={cls.wrap}>
+    <S.Container>
       <Collapse>
         <Panel key="file" header="Files">
-          <div className={cls.container}>
+          <S.InnerContainer>
             <Controls addFiles={store.addFiles} />
             {_.isEmpty(files) ? (
               <Empty
@@ -23,10 +23,10 @@ const FilesUpload = () => {
             ) : (
               <List items={files} onRemove={store.removeFile} />
             )}
-          </div>
+          </S.InnerContainer>
         </Panel>
       </Collapse>
-    </div>
+    </S.Container>
   );
 };
 

@@ -11,13 +11,12 @@ import "codemirror/addon/lint/json-lint";
 import "codemirror/addon/edit/matchbrackets";
 import "codemirror/addon/edit/closebrackets";
 import jsonlint from "jsonlint-mod";
-import cn from "classnames";
-import cls from "./index.less";
 import DefaultMapping from "./mappings/default";
 import { Spin } from "antd";
 import "codemirror-graphql/hint";
 import "codemirror-graphql/lint";
 import "codemirror-graphql/mode";
+import * as S from "./styled";
 window.JSHINT = JSHINT;
 window.jsonlint = jsonlint;
 
@@ -59,10 +58,9 @@ const CodeEditor = (props: TProps) => {
     <>
       <Suspense fallback={<Spin size="large" />}>
         <Mapping>
-          <div className={cls.container}>
-            {props.extra && <div className={cls.extra}>{props.extra}</div>}
+          <S.Container>
+            {props.extra && <S.Extra>{props.extra}</S.Extra>}
             <CodeMirror
-              className={cls.expanded}
               value={props.value}
               options={{
                 gutters: ["CodeMirror-lint-markers"],
@@ -88,7 +86,7 @@ const CodeEditor = (props: TProps) => {
               }}
               onBeforeChange={onChange}
             />
-          </div>
+          </S.Container>
         </Mapping>
       </Suspense>
     </>

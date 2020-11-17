@@ -2,25 +2,24 @@ import React from "react";
 import { Empty } from "antd";
 import { TConnectorProps, connector } from "../connectors";
 import Stats from "./Stats";
-import cls from "./index.less";
 import Actions from "./Actions";
 import BodyRenderer from "./BodyRenderer";
 import Tabs from "./Tabs";
 import Headers from "./Headers";
-import { Card } from "antd";
+import * as S from "./styled";
 
 const HttpResponse = (props: TConnectorProps) => {
   const { response } = props;
   if (!response) {
     return (
-      <Card className={cls.card}>
+      <S.Card>
         <Empty />
-      </Card>
+      </S.Card>
     );
   }
   return (
-    <Card id="res-card" className={cls.card}>
-      <div className={cls.topBar}>
+    <S.Card>
+      <S.TopBar>
         <Actions
           isBinary={props.response?.isBinary}
           category={props.category}
@@ -36,8 +35,8 @@ const HttpResponse = (props: TConnectorProps) => {
           prettyBody={props.prettyBody}
         />
         <Stats response={response} responseSize={props.responseSize} />
-      </div>
-      <div className={cls.content}>
+      </S.TopBar>
+      <S.Content>
         <Tabs
           headersLength={props.headers.length}
           Body={
@@ -57,8 +56,8 @@ const HttpResponse = (props: TConnectorProps) => {
           category={props.category}
           changeCategory={props.changeCategory}
         />
-      </div>
-    </Card>
+      </S.Content>
+    </S.Card>
   );
 };
 

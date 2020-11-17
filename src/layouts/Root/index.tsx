@@ -1,9 +1,9 @@
 import React from "react";
-import cls from "./index.less";
 import { Layout, Menu, Typography } from "antd";
 import { HomeOutlined, SettingOutlined } from "@ant-design/icons";
-import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { SelectParam } from "antd/lib/menu";
+import * as S from "./styled";
 
 const { Header, Content, Sider } = Layout;
 type TProps = RouteComponentProps;
@@ -41,11 +41,11 @@ class RootLayout extends React.Component<TProps, TState> {
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
         >
-          <div className={cls.logo}>
+          <S.Logo>
             <Typography.Title level={3} style={{ color: "white" }}>
               Etna
             </Typography.Title>
-          </div>
+          </S.Logo>
           <Menu
             onSelect={this.onSelect}
             theme="dark"
@@ -53,14 +53,10 @@ class RootLayout extends React.Component<TProps, TState> {
             mode="inline"
           >
             <Menu.Item icon={<HomeOutlined />} key="/">
-              <Link className={cls.link} to="/">
-                Home
-              </Link>
+              <S.Link to="/">Home</S.Link>
             </Menu.Item>
             <Menu.Item icon={<SettingOutlined />} key="/settings">
-              <Link className={cls.link} to="/settings">
-                Settings
-              </Link>
+              <S.Link to="/settings">Settings</S.Link>
             </Menu.Item>
           </Menu>
         </Sider>
