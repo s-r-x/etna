@@ -1,7 +1,7 @@
 import React from "react";
 import CodeEditor from "@/domains/code-editor/components";
 import { connector, TConnectorProps } from "../../connectors/gql";
-import { Typography, Button } from "antd";
+import { Button } from "antd";
 import { SyncOutlined } from "@ant-design/icons";
 import * as S from "./styled";
 

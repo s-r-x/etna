@@ -1,9 +1,11 @@
 import React, { useCallback } from "react";
 import { Input } from "antd";
 import { TConnectorProps } from "../../connectors";
-import { Form } from "antd";
+import { Form, Button, Popover } from "antd";
 import _ from "lodash";
 import Filters from "./Filters";
+import { Container } from "./styled";
+import { SettingOutlined } from "@ant-design/icons";
 const { Search } = Input;
 
 type TProps = Pick<TConnectorProps, "searchForm" | "updateSearchForm">;
@@ -21,10 +23,14 @@ const HistorySearchForm = (props: TProps) => {
         onValuesChange={onChange}
         initialValues={props.searchForm}
       >
-        <Form.Item name="url">
-          <Search placeholder="URL" allowClear />
-        </Form.Item>
-        <Filters />
+        <Container>
+          <Form.Item name="url">
+            <Search placeholder="URL" allowClear />
+          </Form.Item>
+          <Popover trigger={["click"]} content={<Filters />}>
+            <Button title="Filters" icon={<SettingOutlined />} />
+          </Popover>
+        </Container>
       </Form>
     </>
   );
