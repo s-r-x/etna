@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
   padding: 10px;
+  padding-bottom: 0;
 `;
 export const TopStats = styled.div`
   display: flex;
@@ -25,5 +26,5 @@ export const RequestUrl = styled.span`
 export const UrlAndActions = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 10px;
 `;

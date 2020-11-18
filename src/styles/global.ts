@@ -13,4 +13,20 @@ export const GlobalStyle = createGlobalStyle`
     --tab-full-height: calc(var(--tab-height) + var(--tab-content-offset));
     --card-editor-offset-top: calc(var(--card-pad) + var(--navbar-height) + var(--card-utils-offset) + var(--tab-full-height));
   }
+  .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .ant-tabs {
+    display: flex;
+    flex-direction: column;
+  }
+  .ant-tabs-content, .ant-tabs-tabpane {
+    height: 100%;
+  }
+  .ant-tabs-tabpane {
+    display: flex;
+    flex-direction: column;
+  }
 `;

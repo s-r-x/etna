@@ -20,7 +20,7 @@ const SearchList = (props: TProps) => {
     };
   }, [props.history, props.removeItem, props.restore]);
   return (
-    <div style={{ height: "400px" }}>
+    <div style={{ flex: 1 }}>
       <AutoSizer>
         {({ width, height }) => {
           return (
@@ -28,7 +28,7 @@ const SearchList = (props: TProps) => {
               itemData={itemProps}
               width={width}
               height={height}
-              itemSize={85}
+              itemSize={75}
               itemCount={props.history.length}
             >
               {Item}

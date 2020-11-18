@@ -3,7 +3,9 @@ import { Card as BaseCard } from "antd";
 
 export const Card = styled(BaseCard)`
   height: 100%;
-  max-height: var(--safe-card-height);
+  .ant-tabs {
+    flex: 1;
+  }
 `;
 export const TopBar = styled.div`
   display: flex;
@@ -12,4 +14,3 @@ export const TopBar = styled.div`
   height: var(--card-utils-approx-height);
   margin-bottom: var(--card-utils-offset);
 `;
-export const Content = styled.div``;

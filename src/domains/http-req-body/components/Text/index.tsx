@@ -8,11 +8,13 @@ type TProps = Pick<TConnectorProps, "MIME" | "text" | "changeText">;
 const TextEditor = (props: TProps) => {
   return (
     <Container>
-      <CodeEditor
-        mode={props.MIME}
-        value={props.text}
-        onChange={props.changeText}
-      />
+      <div>
+        <CodeEditor
+          mode={props.MIME}
+          value={props.text}
+          onChange={props.changeText}
+        />
+      </div>
     </Container>
   );
 };

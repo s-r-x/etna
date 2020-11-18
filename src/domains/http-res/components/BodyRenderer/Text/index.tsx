@@ -19,19 +19,21 @@ const TextRenderer = (props: TProps) => {
   const isRaw = format === "Raw";
   return (
     <Container>
-      <CodeEditor
-        extra={
-          <Mode
-            isPrettyBodySupported={props.isPrettyBodySupported}
-            changeEditorFormat={props.changeEditorFormat}
-            editorOpts={props.editorOpts}
-          />
-        }
-        expanded={props.editorOpts.expanded}
-        value={isRaw ? props.rawBody : props.prettyBody}
-        readOnly
-        mode={isRaw ? "text/plain" : props.responseType}
-      />
+      <div>
+        <CodeEditor
+          extra={
+            <Mode
+              isPrettyBodySupported={props.isPrettyBodySupported}
+              changeEditorFormat={props.changeEditorFormat}
+              editorOpts={props.editorOpts}
+            />
+          }
+          expanded={props.editorOpts.expanded}
+          value={isRaw ? props.rawBody : props.prettyBody}
+          readOnly
+          mode={isRaw ? "text/plain" : props.responseType}
+        />
+      </div>
     </Container>
   );
 };
