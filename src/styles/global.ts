@@ -29,4 +29,13 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
   }
+
+  .ant-btn-primary {
+    background-color: ${({ theme }) => theme.colors[1]};
+    border-color: ${({ theme }) => theme.colors[1]};
+    :focus, :hover {
+      background-color: ${({ theme }) => theme.colors[2]};
+      border-color: ${({ theme }) => theme.colors[2]};
+    }
+  }
 `;

@@ -4,6 +4,7 @@ import { HomeOutlined, SettingOutlined } from "@ant-design/icons";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { SelectParam } from "antd/lib/menu";
 import * as S from "./styled";
+import ThemeToggler from "@/domains/theme/components/Toggler";
 
 const { Header, Content, Sider } = Layout;
 type TProps = RouteComponentProps;
@@ -61,7 +62,9 @@ class RootLayout extends React.Component<TProps, TState> {
           </Menu>
         </Sider>
         <Layout>
-          <Header />
+          <S.Header>
+            <ThemeToggler/>
+          </S.Header>
           <Content style={{ margin: "12px", height: "100%" }}>
             {this.props.children}
           </Content>

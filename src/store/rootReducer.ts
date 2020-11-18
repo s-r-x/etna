@@ -14,8 +14,10 @@ import codeEditor, {
 import httpRequestBody, {
   DOMAIN as REQ_BODY_DOMAIN,
 } from "@/domains/http-req-body/store/slice";
+import theme, { DOMAIN as THEME_DOMAIN } from "@/domains/theme/store/slice";
 
 const reducer = combineReducers({
+  [THEME_DOMAIN]: theme,
   [REQ_DOMAIN]: httpRequest,
   [RES_DOMAIN]: httpResponse,
   [HISTORY_DOMAIN]: history,
