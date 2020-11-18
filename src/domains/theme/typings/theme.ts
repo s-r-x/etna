@@ -10,5 +10,6 @@ export type TTheme = {
     paper: string;
     layout: string;
     elevate: string;
+    border: TColorVariants;
   };
 };

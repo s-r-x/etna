@@ -2,6 +2,10 @@ import { TTheme } from "../typings/theme";
 
 export const lightTheme: TTheme = {
   colors: {
+    border: {
+      main: "#d9d9d9",
+      accent: "",
+    },
     primary: {
       main: "#722ed1",
       accent: "#9254de",

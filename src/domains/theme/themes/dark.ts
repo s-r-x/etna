@@ -2,6 +2,10 @@ import { TTheme } from "../typings/theme";
 
 export const darkTheme: TTheme = {
   colors: {
+    border: {
+      main: "#494949",
+      accent: "",
+    },
     primary: {
       main: "#642ab5",
       accent: "#854eca",
