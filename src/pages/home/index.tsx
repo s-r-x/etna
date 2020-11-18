@@ -6,7 +6,7 @@ import HttpRequest from "@/domains/http-req/components";
 export const HomePage = () => {
   return (
     <>
-      <Row style={{ height: "100%" }} gutter={12}>
+      <Row style={{ flex: 1 }} gutter={12}>
         <Col span={12}>
           <HttpRequest />
         </Col>

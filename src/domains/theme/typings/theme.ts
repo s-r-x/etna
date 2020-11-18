@@ -1,8 +1,14 @@
+type TColorVariants = {
+  main: string;
+  accent: string;
+};
 export type TTheme = {
   colors: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
+    primary: TColorVariants;
+    secondary: TColorVariants;
+    font: TColorVariants;
+    paper: string;
+    layout: string;
+    elevate: string;
   };
 };

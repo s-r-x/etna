@@ -1,10 +1,21 @@
-import { TTheme } from '../typings/theme';
+import { TTheme } from "../typings/theme";
 
 export const lightTheme: TTheme = {
   colors: {
-    1: '#47286C',
-    2: '#BD4084',
-    3: '#F9889D',
-    4: ''
-  }
-}
+    primary: {
+      main: "#722ed1",
+      accent: "#9254de",
+    },
+    secondary: {
+      main: "#13c2c2",
+      accent: "#36cfc9",
+    },
+    font: {
+      main: "#fff",
+      accent: "rgba(255, 255,255,.8)",
+    },
+    paper: "#fff",
+    layout: "#f0f2f5",
+    elevate: "#494949",
+  },
+};

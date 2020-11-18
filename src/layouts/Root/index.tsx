@@ -6,7 +6,7 @@ import { SelectParam } from "antd/lib/menu";
 import * as S from "./styled";
 import ThemeToggler from "@/domains/theme/components/Toggler";
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 type TProps = RouteComponentProps;
 type TState = {
   collapsed: boolean;
@@ -37,38 +37,17 @@ class RootLayout extends React.Component<TProps, TState> {
   render() {
     return (
       <Layout style={{ minHeight: "100vh" }}>
-        <Sider
-          collapsible
-          collapsed={this.state.collapsed}
-          onCollapse={this.onCollapse}
-        >
+        <S.Header>
           <S.Logo>
             <Typography.Title level={3} style={{ color: "white" }}>
               Etna
             </Typography.Title>
           </S.Logo>
-          <Menu
-            onSelect={this.onSelect}
-            theme="dark"
-            selectedKeys={[this.state.activeRoute]}
-            mode="inline"
-          >
-            <Menu.Item icon={<HomeOutlined />} key="/">
-              <S.Link to="/">Home</S.Link>
-            </Menu.Item>
-            <Menu.Item icon={<SettingOutlined />} key="/settings">
-              <S.Link to="/settings">Settings</S.Link>
-            </Menu.Item>
-          </Menu>
-        </Sider>
-        <Layout>
-          <S.Header>
-            <ThemeToggler/>
-          </S.Header>
-          <Content style={{ margin: "12px", height: "100%" }}>
-            {this.props.children}
-          </Content>
-        </Layout>
+          <ThemeToggler />
+        </S.Header>
+        <Content style={{ margin: "12px", display: "flex" }}>
+          {this.props.children}
+        </Content>
       </Layout>
     );
   }
