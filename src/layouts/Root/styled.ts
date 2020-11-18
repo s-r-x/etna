@@ -16,4 +16,7 @@ export const Header = styled(Layout.Header)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: ${({ theme }) => theme.colors.primary.accent};
+  line-height: 50px;
+  height: 50px;
 `;

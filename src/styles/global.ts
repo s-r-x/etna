@@ -38,6 +38,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   .ant-btn {
     background-color: ${({ theme }) => theme.colors.elevate};
+    color: ${({ theme }) => theme.colors.font.accent};
   }
   .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background: ${({ theme }) => theme.colors.primary.main};
@@ -46,6 +47,9 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.paper};
     border-color: transparent;
     color: ${({ theme }) => theme.colors.font.main};
+  }
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: ${({ theme }) => theme.colors.elevate};
   }
   .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
     background-color: ${({ theme }) => theme.colors.elevate};
@@ -59,6 +63,10 @@ export const GlobalStyle = createGlobalStyle`
   }
   .ant-layout {
     background: ${({ theme }) => theme.colors.layout};
+  }
+  .ant-switch-checked {
+    background-color: ${({ theme }) => theme.colors.primary.main};
+
   }
   .ant-btn-primary {
     background-color: ${({ theme }) => theme.colors.primary.main};

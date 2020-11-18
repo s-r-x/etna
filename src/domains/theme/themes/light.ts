@@ -11,11 +11,11 @@ export const lightTheme: TTheme = {
       accent: "#36cfc9",
     },
     font: {
-      main: "#fff",
-      accent: "rgba(255, 255,255,.8)",
+      main: "#000",
+      accent: "rgba(0, 0, 0, .75)",
     },
     paper: "#fff",
     layout: "#f0f2f5",
-    elevate: "#494949",
+    elevate: "#fff",
   },
 };
