@@ -15,6 +15,7 @@ import httpRequestBody, {
   DOMAIN as REQ_BODY_DOMAIN,
 } from "@/domains/http-req-body/store/slice";
 import theme, { DOMAIN as THEME_DOMAIN } from "@/domains/theme/store/slice";
+import ws, { DOMAIN as WS_DOMAIN } from "@/domains/ws/store/slice";
 
 const reducer = combineReducers({
   [THEME_DOMAIN]: theme,
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   [HISTORY_DOMAIN]: history,
   [CODE_EDITOR_DOMAIN]: codeEditor,
   [REQ_BODY_DOMAIN]: httpRequestBody,
+  [WS_DOMAIN]: ws,
 });
 export default reducer;
 
