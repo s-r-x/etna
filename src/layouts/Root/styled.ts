@@ -39,6 +39,7 @@ export const Link = styled(BaseLink)`
   text-align: center;
   color: white;
   transition: background-color 0.25s ease;
+  font-size: 16px;
   :hover,
   :focus {
     background-color: ${({ theme }) => theme.colors.secondary.accent};

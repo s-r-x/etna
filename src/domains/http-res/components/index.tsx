@@ -7,18 +7,19 @@ import BodyRenderer from "./BodyRenderer";
 import Tabs from "./Tabs";
 import Headers from "./Headers";
 import * as S from "./styled";
+import FullHeightCard from "@/components/atoms/FullHeightCard";
 
 const HttpResponse = (props: TConnectorProps) => {
   const { response } = props;
   if (!response) {
     return (
-      <S.Card>
+      <FullHeightCard>
         <Empty />
-      </S.Card>
+      </FullHeightCard>
     );
   }
   return (
-    <S.Card>
+    <FullHeightCard>
       <S.TopBar>
         <Actions
           isBinary={props.response?.isBinary}
@@ -53,7 +54,7 @@ const HttpResponse = (props: TConnectorProps) => {
         category={props.category}
         changeCategory={props.changeCategory}
       />
-    </S.Card>
+    </FullHeightCard>
   );
 };
 

@@ -1,9 +1,10 @@
 import React from "react";
-import { Layout, Menu, Typography } from "antd";
+import { Layout, Typography } from "antd";
 import { HomeOutlined, SettingOutlined } from "@ant-design/icons";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import * as S from "./styled";
 import ThemeToggler from "@/domains/theme/components/Toggler";
+import WebsocketIcon from "@/components/icons/Websocket";
 
 const { Content } = Layout;
 type TProps = RouteComponentProps;
@@ -51,6 +52,11 @@ class RootLayout extends React.Component<TProps, TState> {
             <li>
               <S.Link activeClassName="link-active" to="/settings">
                 <SettingOutlined />
+              </S.Link>
+            </li>
+            <li>
+              <S.Link activeClassName="link-active" to="/websocket">
+                <WebsocketIcon style={{ fontSize: "20px" }} />
               </S.Link>
             </li>
           </S.Menu>

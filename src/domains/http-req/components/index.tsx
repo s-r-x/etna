@@ -1,16 +1,16 @@
+import FullHeightCard from "@/components/atoms/FullHeightCard";
 import React from "react";
 import Editors from "./EditorsTabs";
 import Form from "./MainForm";
-import * as S from "./styled";
 
 const HttpRequest = () => {
   return (
-    <S.Card>
+    <FullHeightCard>
       <>
         <Form />
         <Editors />
       </>
-    </S.Card>
+    </FullHeightCard>
   );
 };
 
