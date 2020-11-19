@@ -1,1 +1,1 @@
-type TWsProvider = "raw" | "socket.io" | "phoenix";
+type TWsProvider = "raw" | "socketIo" | "phoenix";

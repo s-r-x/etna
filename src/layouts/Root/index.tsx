@@ -55,7 +55,7 @@ class RootLayout extends React.Component<TProps, TState> {
               </S.Link>
             </li>
             <li>
-              <S.Link activeClassName="link-active" to="/websocket">
+              <S.Link activeClassName="link-active" to="/ws">
                 <WebsocketIcon style={{ fontSize: "20px" }} />
               </S.Link>
             </li>

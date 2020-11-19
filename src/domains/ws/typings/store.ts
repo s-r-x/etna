@@ -1,4 +1,10 @@
+type TProvidersMeta = {
+  [key in TWsProvider]: {
+    url: string;
+    connected: boolean;
+  };
+};
 export type TState = {
-  url: string;
-  provider: TWsProvider;
+  activeProvider: TWsProvider;
+  providers: TProvidersMeta;
 };
