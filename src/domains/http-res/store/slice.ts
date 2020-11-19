@@ -9,7 +9,6 @@ const slice = createSlice({
   name: DOMAIN,
   initialState: {
     editor: {
-      expanded: false,
       format: "Pretty",
       search: "",
     },
@@ -22,9 +21,6 @@ const slice = createSlice({
     },
     setResponse(state, { payload }: PayloadAction<TResponse>) {
       state.response = payload;
-    },
-    toggleEditorExpanded(state) {
-      state.editor.expanded = !state.editor.expanded;
     },
     changeEditorFormat(state, { payload }: PayloadAction<TBodyFormatMode>) {
       state.editor.format = payload;
@@ -41,7 +37,6 @@ const slice = createSlice({
 export const {
   restoreFromHistory,
   setResponse,
-  toggleEditorExpanded,
   changeEditorFormat,
   changeCategory,
 } = slice.actions;

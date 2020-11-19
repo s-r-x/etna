@@ -3,7 +3,6 @@ import { TResponse } from "@/typings/httpClient";
 export type TBodyFormatMode = "Pretty" | "Raw";
 export type TState = {
   editor: {
-    expanded: boolean;
     search: string;
     format: TBodyFormatMode;
   };

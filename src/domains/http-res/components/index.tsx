@@ -27,8 +27,6 @@ const HttpResponse = (props: TConnectorProps) => {
           headers={props.headers}
           filename={props.filename}
           cancelRequest={props.cancelRequest}
-          editorExpanded={props.editorOpts.expanded}
-          toggleEditorExpanded={props.toggleEditorExpanded}
           loading={props.loading}
           makeRequest={props.makeRequest}
           rawBody={props.rawBody}

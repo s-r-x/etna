@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  SyncOutlined,
-  StopOutlined,
-  ShrinkOutlined,
-  ArrowsAltOutlined,
-} from "@ant-design/icons";
+import { SyncOutlined, StopOutlined } from "@ant-design/icons";
 import { Button, Space, Tooltip } from "antd";
 import { TConnectorProps } from "../../connectors";
 import SaveResponse from "./SaveResponse";
@@ -14,7 +9,6 @@ type TProps = Pick<
   TConnectorProps,
   | "makeRequest"
   | "loading"
-  | "toggleEditorExpanded"
   | "cancelRequest"
   | "rawBody"
   | "prettyBody"
@@ -23,7 +17,6 @@ type TProps = Pick<
   | "isPrettyBodySupported"
   | "category"
 > & {
-  editorExpanded: boolean;
   isBinary: boolean;
 };
 const Actions = (props: TProps) => {
@@ -45,21 +38,6 @@ const Actions = (props: TProps) => {
             icon={<SyncOutlined />}
             loading={props.loading}
             onClick={onRequest}
-          />
-        </Tooltip>
-        <Tooltip
-          title={
-            props.editorExpanded
-              ? "Shrink response body"
-              : "Expand response body"
-          }
-        >
-          <Button
-            disabled={props.category !== "body"}
-            icon={
-              props.editorExpanded ? <ShrinkOutlined /> : <ArrowsAltOutlined />
-            }
-            onClick={() => props.toggleEditorExpanded()}
           />
         </Tooltip>
         <SaveResponse

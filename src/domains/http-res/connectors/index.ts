@@ -4,7 +4,6 @@ import { connect, ConnectedProps } from "react-redux";
 import { TRootState } from "@/store/rootReducer";
 import { makeRequest, cancelRequest } from "@/domains/http-req/store/slice";
 import {
-  toggleEditorExpanded,
   changeCategory,
   changeEditorFormat,
 } from "@/domains/http-res/store/slice";
@@ -29,7 +28,6 @@ export const connector = connect(
     cancelRequest,
     changeCategory,
     makeRequest,
-    toggleEditorExpanded,
     changeEditorFormat,
   }
 );
