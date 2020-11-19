@@ -2,7 +2,6 @@ import React from "react";
 import { Layout, Menu, Typography } from "antd";
 import { HomeOutlined, SettingOutlined } from "@ant-design/icons";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { SelectParam } from "antd/lib/menu";
 import * as S from "./styled";
 import ThemeToggler from "@/domains/theme/components/Toggler";
 
@@ -24,7 +23,7 @@ class RootLayout extends React.Component<TProps, TState> {
   onCollapse = (collapsed: boolean) => {
     this.setState({ collapsed });
   };
-  onSelect = ({ key }: SelectParam) => {
+  onSelect = ({ key }: { key: string }) => {
     this.props.history.push(key);
   };
   componentDidMount() {
@@ -43,6 +42,18 @@ class RootLayout extends React.Component<TProps, TState> {
               Etna
             </Typography.Title>
           </S.Logo>
+          <S.Menu>
+            <li>
+              <S.Link exact activeClassName="link-active" to="/">
+                <HomeOutlined />
+              </S.Link>
+            </li>
+            <li>
+              <S.Link activeClassName="link-active" to="/settings">
+                <SettingOutlined />
+              </S.Link>
+            </li>
+          </S.Menu>
           <ThemeToggler />
         </S.Header>
         <Content style={{ margin: "12px", display: "flex" }}>
