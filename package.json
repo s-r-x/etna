@@ -26,7 +26,7 @@
     "@types/store": "^2.0.2",
     "@types/urijs": "^1.19.8",
     "@types/uuid": "^7.0.2",
-    "antd": "^4.2.0",
+    "antd": "^4.8.4",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "codemirror": "^5.53.2",
