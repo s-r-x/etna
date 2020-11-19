@@ -3,6 +3,7 @@ import CodeEditor from "@/domains/code-editor/components";
 import { TConnectorProps } from "../../../connectors";
 import Mode from "./Mode";
 import { Container } from "./styled";
+import FullParentHeight from "@/components/FullParentHeight";
 
 type TProps = Pick<
   TConnectorProps,
@@ -19,7 +20,7 @@ const TextRenderer = (props: TProps) => {
   const isRaw = format === "Raw";
   return (
     <Container>
-      <div>
+      <FullParentHeight>
         <CodeEditor
           extra={
             <Mode
@@ -33,7 +34,7 @@ const TextRenderer = (props: TProps) => {
           readOnly
           mode={isRaw ? "text/plain" : props.responseType}
         />
-      </div>
+      </FullParentHeight>
     </Container>
   );
 };

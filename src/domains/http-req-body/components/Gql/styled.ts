@@ -13,7 +13,6 @@ export const QueryContainer = styled.div`
   flex: 1;
 `;
 export const VarsContainer = styled.div`
-  position: relative;
-  min-height: 30px;
+  min-height: 1px;
   max-height: 200px;
 `;

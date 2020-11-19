@@ -4,6 +4,7 @@ import { connector, TConnectorProps } from "../../connectors/gql";
 import { Button } from "antd";
 import { SyncOutlined } from "@ant-design/icons";
 import * as S from "./styled";
+import FullParentHeight from "@/components/FullParentHeight";
 
 type TProps = {
   value: string;
@@ -13,27 +14,28 @@ const GqlEditor = (props: TProps) => {
   return (
     <S.Container>
       <S.QueryContainer>
-        {/*<Typography.Text strong>Query</Typography.Text>*/}
-        <CodeEditor
-          extra={
-            <Button
-              onClick={() =>
-                props.loading
-                  ? props.cancelLoadGqlSchema()
-                  : props.loadGqlSchema()
-              }
-              loading={props.loading}
-              icon={<SyncOutlined />}
-              size="small"
-            >
-              Schema
-            </Button>
-          }
-          value={props.value}
-          onChange={props.onChange}
-          mode="graphql"
-          gqlSchema={props.schema}
-        />
+        <FullParentHeight>
+          <CodeEditor
+            extra={
+              <Button
+                onClick={() =>
+                  props.loading
+                    ? props.cancelLoadGqlSchema()
+                    : props.loadGqlSchema()
+                }
+                loading={props.loading}
+                icon={<SyncOutlined />}
+                size="small"
+              >
+                Schema
+              </Button>
+            }
+            value={props.value}
+            onChange={props.onChange}
+            mode="graphql"
+            gqlSchema={props.schema}
+          />
+        </FullParentHeight>
       </S.QueryContainer>
       <S.VarsContainer>
         {/*<Typography.Text strong>Variables(JSON)</Typography.Text>*/}
