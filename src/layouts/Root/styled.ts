@@ -34,13 +34,10 @@ export const Menu = styled.ul`
 `;
 
 export const Link = styled(BaseLink)`
-  color: white;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
+  display: block;
   height: 100%;
   text-align: center;
+  color: white;
   transition: background-color 0.25s ease;
   :hover,
   :focus {
