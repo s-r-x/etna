@@ -8,9 +8,9 @@ export type TProps = {
   addPlaceholder?: string;
   keyPlaceholder?: string;
   valuePlaceholder?: string;
-  onChangeKey(arg: { id: string | number; key: string }): void;
-  onChangeValue(arg: { id: string | number; value: string }): void;
-  onChangeActive?(arg: { id: string | number; active: boolean }): void;
-  onRemove(id: string | number): void;
+  onChangeKey(arg: { id: any; key: string }): void;
+  onChangeValue(arg: { id: any; value: string }): void;
+  onChangeActive?(arg: { id: any; active: boolean }): void;
+  onRemove(id: any): void;
   onAdd(): void;
 };

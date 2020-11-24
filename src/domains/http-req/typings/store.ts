@@ -42,3 +42,4 @@ export type TState = {
   auth: TAuth;
   settings: TRequestSettings;
 };
+

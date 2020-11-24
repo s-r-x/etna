@@ -7,5 +7,7 @@ declare module "*.jpeg";
 declare module "styled-components" {
   export interface DefaultTheme extends TTheme {}
 }
-declare type TStringDict = { [key: string]: string };
-declare type TAnyDict = { [key: string]: any };
+declare global {
+  type TStringDict = { [key: string]: string };
+  type TAnyDict = { [key: string]: any };
+}

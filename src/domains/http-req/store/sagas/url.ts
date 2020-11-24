@@ -1,5 +1,5 @@
 import { put, debounce, select } from "redux-saga/effects";
-import { DOMAIN, setQuery } from "../slice";
+import { DOMAIN, HttpReqActions as Actions } from "../slice";
 import { SagaIterator } from "redux-saga";
 import _ from "lodash";
 import { URLUtils } from "@/utils/url";
@@ -9,10 +9,10 @@ function* urlSaga(): SagaIterator {
   const url: string = yield select(Selectors.getUrl);
   const search = URLUtils.extractSearch(url);
   if (_.isUndefined(search)) {
-    yield put(setQuery([]));
+    yield put(Actions.setQuery([]));
   } else {
     const newQuery = URLUtils.parseSearchAsArray(search);
-    yield put(setQuery(newQuery));
+    yield put(Actions.setQuery(newQuery));
   }
 }
 export default function* watchUrl() {

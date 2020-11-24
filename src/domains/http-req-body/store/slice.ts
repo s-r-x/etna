@@ -1,5 +1,5 @@
 import { THTTPBodyMIME } from "@/typings/http";
-import { THistoryBody } from "@/typings/store/history";
+import { THistoryBody } from "@/domains/http-req-history/typings/store";
 import { genVoidKV } from "@/utils/kv";
 import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
 import { THttpReqBodyState } from "../typings/store";

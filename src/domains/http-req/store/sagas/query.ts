@@ -1,11 +1,5 @@
 import { put, select, debounce } from "redux-saga/effects";
-import {
-  _changeUrlWithoutTouchingQuery,
-  changeQueryKey,
-  changeQueryValue,
-  removeQuery,
-  addQuery,
-} from "../slice";
+import { HttpReqActions as Actions } from "../slice";
 import { SagaIterator } from "redux-saga";
 import { HttpRequestSelectors as Selectors } from "../selectors";
 import { URLUtils } from "@/utils/url";
@@ -22,16 +16,16 @@ function* querySaga(): SagaIterator {
     const search = query.map(({ key, value }) => key + "=" + value).join("&");
     parsed.query("?" + search);
   }
-  yield put(_changeUrlWithoutTouchingQuery(parsed.toString()));
+  yield put(Actions._changeUrlWithoutTouchingQuery(parsed.toString()));
 }
 export default function* watchQuery() {
   yield debounce(
     200,
     [
-      changeQueryKey.type,
-      changeQueryValue.type,
-      removeQuery.type,
-      addQuery.type,
+      Actions.changeQueryKey.type,
+      Actions.changeQueryValue.type,
+      Actions.removeQuery.type,
+      Actions.addQuery.type,
     ],
     querySaga
   );

@@ -1,20 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TState, TBodyFormatMode } from "@/typings/store/httpResponse";
+import { TState, TBodyFormatMode } from "../typings/store";
 import { TResponse } from "@/typings/httpClient";
-import { THistoryResponse } from "@/typings/store/history";
+import { THistoryResponse } from "@/domains/http-req-history/typings/store";
 
 export const DOMAIN = "httpRes";
 
+const initialState: TState = {
+  editor: {
+    format: "Pretty",
+    search: "",
+  },
+  category: "body",
+  response: null,
+};
 const slice = createSlice({
   name: DOMAIN,
-  initialState: {
-    editor: {
-      format: "Pretty",
-      search: "",
-    },
-    category: "body",
-    response: null,
-  } as TState,
+  initialState,
   reducers: {
     restoreFromHistory(state, { payload }: PayloadAction<THistoryResponse>) {
       state.response = payload;

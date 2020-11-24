@@ -1,23 +1,24 @@
 import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
-import { TState, THistoryItem, TSearchForm } from "@/typings/store/history";
+import { TState, THistoryItem, TSearchForm } from "../typings/store";
 import { Moment } from "moment";
 
 export const DOMAIN = "history";
 
+const initialState: TState = {
+  search: "",
+  items: [],
+  searchForm: {
+    method: null,
+    url: null,
+    status: null,
+    sort: null,
+    sortDir: "asc",
+    dateRange: [null, null],
+  },
+};
 const slice = createSlice({
   name: DOMAIN,
-  initialState: {
-    search: "",
-    items: [],
-    searchForm: {
-      method: null,
-      url: null,
-      status: null,
-      sort: null,
-      sortDir: "asc",
-      dateRange: [null, null],
-    },
-  } as TState,
+  initialState,
   reducers: {
     changeSearch(state, { payload }: PayloadAction<string>) {
       state.search = payload;

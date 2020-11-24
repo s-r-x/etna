@@ -29,7 +29,6 @@ const TextRenderer = (props: TProps) => {
               editorOpts={props.editorOpts}
             />
           }
-          expanded={props.editorOpts.expanded}
           value={isRaw ? props.rawBody : props.prettyBody}
           readOnly
           mode={isRaw ? "text/plain" : props.responseType}

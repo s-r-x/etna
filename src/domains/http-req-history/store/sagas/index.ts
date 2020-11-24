@@ -6,8 +6,8 @@ import { extractItem, addItem, restoreItem } from "../slice";
 import { UUID } from "@/utils/uuid";
 import _ from "lodash";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { THistoryItem } from "@/typings/store/history";
-import { restoreFromHistory as restoreReq } from "@/domains/http-req/store/slice";
+import { THistoryItem } from "@/domains/http-req-history/typings/store";
+import { HttpReqActions } from "@/domains/http-req/store/slice";
 import { restoreFromHistory as restoreRes } from "@/domains/http-res/store/slice";
 import { HttpReqBodyActions as BodyActions } from "@/domains/http-req-body/store/slice";
 import { HttpReqBodySelectors as BodySelectors } from "@/domains/http-req-body/store/selectors";
@@ -40,7 +40,7 @@ function* watchExtractSaga() {
 
 function* restoreSaga({ payload }: PayloadAction<THistoryItem>): SagaIterator {
   yield put(restoreRes(payload.res));
-  yield put(restoreReq(payload.req));
+  yield put(HttpReqActions.restoreFromHistory(payload.req));
   yield put(BodyActions.restoreFromHistory(payload.body));
 }
 function* watchRestoreSaga(): SagaIterator {

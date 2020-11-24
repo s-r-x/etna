@@ -6,10 +6,8 @@ import Form from "./MainForm";
 const HttpRequest = () => {
   return (
     <FullHeightCard>
-      <>
-        <Form />
-        <Editors />
-      </>
+      <Form />
+      <Editors />
     </FullHeightCard>
   );
 };

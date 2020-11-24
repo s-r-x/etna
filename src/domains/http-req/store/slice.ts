@@ -1,54 +1,61 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
-import { THTTPMethod } from "@/typings/http";
-import {
-  TOptsKey,
-  TState,
-  TAuthStrategy,
-  TQuery,
-  TRestoreParams,
-  TRequestSettings,
-} from "@/typings/store/httpRequest";
-import { TKeyValue } from "@/typings/keyValue";
+import { TOptsKey, TState } from "../typings/store";
 import _ from "lodash";
 import { genVoidKV } from "@/utils/kv";
-import { THistoryRequest } from "@/typings/store/history";
+import {
+  TAddHeaderDto,
+  TChangeAuthStrategyDto,
+  TChangeHeaderActiveDto,
+  TChangeHeaderKeyDto,
+  TChangeHeaderValueDto,
+  TChangeMethodDto,
+  TChangeUrlDto,
+  TRemoveHeaderDto,
+  TRemoveQueryDto,
+  TRestoreFromHistoryDto,
+  TRestoreRequestDto,
+  TSetQueryDto,
+  TUpdateBasicAuthDto,
+  TUpdateSettingsDto,
+} from "../typings/dto";
 
 export const DOMAIN = "httpReq";
 
+const initialState: TState = {
+  url: "",
+  query: [],
+  method: "GET",
+  headers: [
+    {
+      key: "Content-Type",
+      value: "application/json",
+      active: true,
+    },
+  ],
+  settings: {
+    expectBinary: false,
+    useProxy: true,
+  },
+  activeOptsEditor: "headers",
+  loading: false,
+  auth: {
+    strategy: "none",
+    data: {
+      basic: {
+        username: "",
+        password: "",
+      },
+      bearer_token: {
+        token: "",
+      },
+    },
+  },
+};
 const slice = createSlice({
   name: DOMAIN,
-  initialState: {
-    url: "",
-    query: [],
-    method: "GET",
-    headers: [
-      {
-        key: "Content-Type",
-        value: "application/json",
-        active: true,
-      },
-    ],
-    settings: {
-      expectBinary: false,
-      useProxy: true,
-    },
-    activeOptsEditor: "headers",
-    loading: false,
-    auth: {
-      strategy: "none",
-      data: {
-        basic: {
-          username: "",
-          password: "",
-        },
-        bearer_token: {
-          token: "",
-        },
-      },
-    },
-  } as TState,
+  initialState,
   reducers: {
-    restoreFromHistory(state, { payload }: PayloadAction<THistoryRequest>) {
+    restoreFromHistory(state, { payload }: TRestoreFromHistoryDto) {
       state.headers = payload.headers;
       state.url = payload.url;
       state.query = payload.query;
@@ -61,7 +68,7 @@ const slice = createSlice({
     loadingEnd(state) {
       state.loading = false;
     },
-    addHeader(state, { payload }: PayloadAction<Partial<TKeyValue>>) {
+    addHeader(state, { payload }: TAddHeaderDto) {
       if (payload) {
         state.headers.push({
           key: payload.key || "",
@@ -78,32 +85,23 @@ const slice = createSlice({
         value: "",
       });
     },
-    changeHeaderKey(
-      state,
-      { payload }: PayloadAction<{ id: number; key: string }>
-    ) {
+    changeHeaderKey(state, { payload }: TChangeHeaderKeyDto) {
       state.headers[payload.id].key = payload.key;
     },
-    changeHeaderValue(
-      state,
-      { payload }: PayloadAction<{ id: number; value: string }>
-    ) {
+    changeHeaderValue(state, { payload }: TChangeHeaderValueDto) {
       state.headers[payload.id].value = payload.value;
     },
-    changeHeaderActive(
-      state,
-      { payload }: PayloadAction<{ id: number; active: boolean }>
-    ) {
+    changeHeaderActive(state, { payload }: TChangeHeaderActiveDto) {
       state.headers[payload.id].active = payload.active;
     },
-    removeHeader(state, { payload: idx }: PayloadAction<number>) {
+    removeHeader(state, { payload: idx }: TRemoveHeaderDto) {
       state.headers.splice(idx, 1);
     },
 
-    changeMethod(state, { payload }: PayloadAction<THTTPMethod>) {
+    changeMethod(state, { payload }: TChangeMethodDto) {
       state.method = payload;
     },
-    changeUrl(state, { payload }: PayloadAction<string>) {
+    changeUrl(state, { payload }: TChangeUrlDto) {
       state.url = payload;
     },
     _changeUrlWithoutTouchingQuery(state, { payload }: PayloadAction<string>) {
@@ -121,58 +119,37 @@ const slice = createSlice({
     ) {
       state.query[payload.id].value = payload.value;
     },
-    removeQuery(state, { payload: idx }: PayloadAction<number>) {
+    removeQuery(state, { payload: idx }: TRemoveQueryDto) {
       state.query.splice(idx, 1);
     },
     changeActiveOptsEditor(state, { payload }: PayloadAction<TOptsKey>) {
       state.activeOptsEditor = payload;
     },
-    changeAuthStrategy(state, { payload }: PayloadAction<TAuthStrategy>) {
+    changeAuthStrategy(state, { payload }: TChangeAuthStrategyDto) {
       state.auth.strategy = payload;
     },
-    updateBasicAuthForm(state, { payload }: PayloadAction<TStringDict>) {
+    updateBasicAuthForm(state, { payload }: TUpdateBasicAuthDto) {
       _.merge(state.auth.data.basic, payload);
     },
-    setQuery(state, { payload }: PayloadAction<TQuery[]>) {
+    setQuery(state, { payload }: TSetQueryDto) {
       state.query = payload;
     },
-    restoreRequest(state, { payload }: PayloadAction<TRestoreParams>) {
+    restoreRequest(state, { payload }: TRestoreRequestDto) {
       state.method = payload.method;
       state.url = payload.url;
     },
-    updateSettings(
-      state,
-      { payload }: PayloadAction<Partial<TRequestSettings>>
-    ) {
+    updateSettings(state, { payload }: TUpdateSettingsDto) {
       _.merge(state.settings, payload);
     },
   },
 });
 
-export const makeRequest = createAction(`${DOMAIN}/makeRequest`);
-export const cancelRequest = createAction(`${DOMAIN}/cancelRequest`);
-export const {
-  addHeader,
-  addQuery,
-  changeActiveOptsEditor,
-  changeAuthStrategy,
-  changeHeaderKey,
-  changeHeaderValue,
-  changeHeaderActive,
-  changeMethod,
-  changeQueryKey,
-  changeQueryValue,
-  changeUrl,
-  _changeUrlWithoutTouchingQuery,
-  loadingEnd,
-  loadingStart,
-  removeHeader,
-  removeQuery,
-  restoreRequest,
-  setQuery,
-  restoreFromHistory,
-  updateBasicAuthForm,
-  updateSettings,
-} = slice.actions;
+const makeRequest = createAction(`${DOMAIN}/makeRequest`);
+const cancelRequest = createAction(`${DOMAIN}/cancelRequest`);
+export const HttpReqActions = {
+  ...slice.actions,
+  makeRequest,
+  cancelRequest,
+};
 
 export default slice.reducer;

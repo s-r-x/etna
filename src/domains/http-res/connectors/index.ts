@@ -2,7 +2,7 @@ import { HttpRequestSelectors as ReqSelectors } from "@/domains/http-req/store/s
 import { HttpResponseSelectors as ResSelectors } from "../store/selectors";
 import { connect, ConnectedProps } from "react-redux";
 import { TRootState } from "@/store/rootReducer";
-import { makeRequest, cancelRequest } from "@/domains/http-req/store/slice";
+import { HttpReqActions } from "@/domains/http-req/store/slice";
 import {
   changeCategory,
   changeEditorFormat,
@@ -25,9 +25,9 @@ export const connector = connect(
     isPdf: ResSelectors.isPdf(state),
   }),
   {
-    cancelRequest,
+    cancelRequest: HttpReqActions.cancelRequest,
     changeCategory,
-    makeRequest,
+    makeRequest: HttpReqActions.makeRequest,
     changeEditorFormat,
   }
 );

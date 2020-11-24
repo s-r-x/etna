@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TState } from "@/typings/store/codeEditor";
+import { TState } from "../typings/store";
 import {
   TCodeEditorTabSize,
   TCodeEditorTheme,
   TCodeEditorKeyMap,
-} from "@/typings/codeEditor";
+} from "../typings";
 
 export const DOMAIN = "codeEditor";
 const slice = createSlice({

@@ -3,31 +3,33 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { WsSelectors } from "../../store/selectors";
 import { WSActions } from "../../store/slice";
+import { EWsClient } from "../../typings";
+import SocketIoRequest from "../SocketIo";
 
-const tabsList: { key: TWsProvider; tab: string }[] = [
+const tabsList: { key: EWsClient; tab: string }[] = [
   {
-    key: "raw",
+    key: EWsClient.RAW,
     tab: "Raw WS",
   },
   {
-    key: "socketIo",
+    key: EWsClient.SOCKET_IO,
     tab: "Socket.IO",
   },
   {
-    key: "phoenix",
+    key: EWsClient.PHOENIX,
     tab: "Phoenix",
   },
 ];
 const WsRequest = () => {
-  const provider = useSelector(WsSelectors.getActiveProvider);
+  const client = useSelector(WsSelectors.getActiveClient);
   const dispatch = useDispatch();
   return (
     <FullHeightCard
-      activeTabKey={provider}
-      onTabChange={(k: TWsProvider) => dispatch(WSActions.changeProvider(k))}
+      activeTabKey={client}
+      onTabChange={(k: EWsClient) => dispatch(WSActions.changeActiveClient(k))}
       tabList={tabsList}
     >
-      ws request here
+      {client === EWsClient.SOCKET_IO && <SocketIoRequest />}
     </FullHeightCard>
   );
 };

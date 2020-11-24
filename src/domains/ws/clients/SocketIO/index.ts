@@ -1,47 +1,101 @@
 import { AbstractWsClient } from "../Abstract";
 import io from "socket.io-client";
-import { TAnyDict } from "@/Global";
 import wildcard from "socketio-wildcard";
+import { IConnectSocketIoDto } from "../../typings/clients";
+import { EWsLogLevel, EWsRouteType } from "../../typings/store";
+import { JsonService } from "@/services/json";
+import _ from "lodash";
 
-export class SocketIOClient extends AbstractWsClient {
-  static instance: SocketIOClient;
-  private socket: Socket;
+type TIOMessage = {
+  type: number;
+  data: [string, any];
+};
+export class SocketIoClient extends AbstractWsClient {
+  private static instance: SocketIoClient;
+  private clientConfig: SocketIOClient.ConnectOpts = {
+    reconnectionDelay: 3000,
+  };
+  private socket: SocketIOClient.Socket;
   private constructor() {
     super();
   }
-  public static getInstance(): SocketIOClient {
-    if (!SocketIOClient.instance) {
-      SocketIOClient.instance = new SocketIOClient();
+  public static getInstance(): SocketIoClient {
+    if (!SocketIoClient.instance) {
+      SocketIoClient.instance = new SocketIoClient();
     }
-    return SocketIOClient.instance;
+    return SocketIoClient.instance;
   }
-  connect(url: string, path = "/socket.io", query?: TAnyDict) {
-    this.socket = io(url, {
-      path,
-      query,
+  connect = (data: IConnectSocketIoDto) => {
+    if (this.socket) {
+      this.socket.disconnect();
+    }
+    this.socket = io(data.url, {
+      ...this.clientConfig,
+      path: data.path,
+      query: data.query,
+      ...(!_.isEmpty(data.headers) && {
+        transportOptions: {
+          polling: {
+            extraHeaders: data.headers,
+          },
+        },
+      }),
     });
     wildcard(io.Manager)(this.socket);
     this.socket.on("connect", this.onConnect);
     this.socket.on("disconnect", this.onDisconnect);
     this.socket.on("*", this.onMessage);
-    console.log("connect method call");
-  }
-  disconnect() {
-    if (this.socket && this.socket.connected) {
+    this.socket.on("connect_error", this.onError);
+    this.socket.on("reconnect_error", this.onError);
+    this.socket.on("error", this.onError);
+  };
+  disconnect = () => {
+    if (this.socket?.connected) {
       this.socket.disconnect();
     }
-    console.log("disconnect method call");
-  }
-  send(e: string, payload: any) {
-    console.log(e, payload);
-  }
-  private onConnect() {
-    console.log("connect");
-  }
-  private onDisconnect() {
-    console.log("disconnect");
-  }
-  onMessage(data: any) {
-    console.log("message", data);
-  }
+  };
+
+  send = (ev: string, msg: any) => {
+    if (this.socket?.connected) {
+      this.socket.emit(ev, msg);
+      this.log({
+        ev,
+        lvl: EWsLogLevel.INFO,
+        msg: JsonService.stringify(msg),
+        route: EWsRouteType.OUT,
+      });
+    }
+  };
+  private onError = (e: any) => {
+    this.log({
+      ev: "error",
+      lvl: EWsLogLevel.ERR,
+      msg: e,
+      route: EWsRouteType.OUT,
+    });
+  };
+  private onConnect = () => {
+    this.log({
+      ev: "connected",
+      lvl: EWsLogLevel.OK,
+      msg: `Socket has been connected`,
+      route: EWsRouteType.OUT,
+    });
+  };
+  private onDisconnect = (e: any) => {
+    this.log({
+      ev: "disconnected",
+      lvl: EWsLogLevel.ERR,
+      msg: String(e),
+      route: EWsRouteType.OUT,
+    });
+  };
+  private onMessage = ({ data: [ev, msg] }: TIOMessage) => {
+    this.log({
+      ev,
+      lvl: EWsLogLevel.INFO,
+      msg: JsonService.stringify(msg),
+      route: EWsRouteType.IN,
+    });
+  };
 }

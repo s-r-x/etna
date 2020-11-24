@@ -9,7 +9,7 @@ import {
   race,
   TakeEffect,
 } from "redux-saga/effects";
-import { loadingStart, loadingEnd, makeRequest, cancelRequest } from "../slice";
+import { HttpReqActions as Actions } from "../slice";
 import { HttpClient } from "@/utils/HttpClient";
 import { HttpRequestSelectors as Selectors } from "../selectors";
 import { TResponse } from "@/typings/httpClient";
@@ -32,7 +32,7 @@ function* makeRequestSaga(): SagaIterator {
     Selectors.getBasicAuthData(state),
   ];
   try {
-    yield put(loadingStart());
+    yield put(Actions.loadingStart());
     const resp: TResponse = yield call(client.make, url, method, {
       headers,
       expectBinary: settings.expectBinary,
@@ -48,18 +48,18 @@ function* makeRequestSaga(): SagaIterator {
       yield put(extractItem());
     }
   } finally {
-    yield put(loadingEnd());
+    yield put(Actions.loadingEnd());
     if (yield cancelled()) {
       client.cancel();
     }
   }
 }
 export default function* watchMakeRequest(): SagaIterator {
-  while (yield take(makeRequest.type)) {
+  while (yield take(Actions.makeRequest.type)) {
     const task: Task = yield fork(makeRequestSaga);
     const [cancelCase]: TakeEffect[] = yield race([
-      take(cancelRequest.type),
-      take(loadingEnd.type),
+      take(Actions.cancelRequest.type),
+      take(Actions.loadingEnd.type),
     ]);
     if (cancelCase) {
       yield cancel(task);

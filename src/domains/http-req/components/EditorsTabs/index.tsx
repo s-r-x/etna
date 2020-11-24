@@ -14,9 +14,7 @@ const { TabPane } = Tabs;
 const Editors = (props: TConnectorProps) => {
   return (
     <Tabs
-      type="card"
       destroyInactiveTabPane
-      animated={false}
       defaultActiveKey="headers"
       activeKey={props.active}
       onChange={props.onChange}

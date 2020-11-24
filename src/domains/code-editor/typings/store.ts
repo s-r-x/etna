@@ -1,8 +1,4 @@
-import {
-  TCodeEditorKeyMap,
-  TCodeEditorTheme,
-  TCodeEditorTabSize,
-} from "../codeEditor";
+import { TCodeEditorKeyMap, TCodeEditorTheme, TCodeEditorTabSize } from "./";
 
 export type TState = {
   keyMap: TCodeEditorKeyMap;

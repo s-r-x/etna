@@ -4,7 +4,7 @@ import RootLayout from "@/layouts/Root";
 
 import HomePage from "@/pages/home";
 import SettingsPage from "@/pages/settings";
-import WsPage from "@/pages/ws";
+import SocketIOPage from "@/pages/socketio";
 
 const Router = () => (
   <BrowserRouter>
@@ -12,7 +12,7 @@ const Router = () => (
       <RootLayout>
         <Route path="/" exact component={HomePage} />
         <Route path="/settings" component={SettingsPage} />
-        <Route path="/ws" component={WsPage} />
+        <Route path="/socketio" component={SocketIOPage} />
       </RootLayout>
     </Switch>
   </BrowserRouter>

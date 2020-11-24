@@ -4,7 +4,6 @@ import rootReducer from "./rootReducer";
 import rootSaga from "./rootSaga";
 import {
   persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -13,20 +12,12 @@ import {
   REGISTER,
 } from "redux-persist";
 import { updateSearchForm } from "@/domains/http-req-history/store/slice";
-import storage from "localforage";
-
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage,
-};
-const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const sagaMiddleware = createSagaMiddleware();
 
 const middleware = [sagaMiddleware];
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: [
     ...getDefaultMiddleware({
       serializableCheck: {

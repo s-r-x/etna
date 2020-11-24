@@ -1,7 +1,8 @@
 import React from "react";
 import { Radio } from "antd";
 import { TConnectorProps } from "../../../connectors";
-import { TBodyFormatMode } from "@/typings/store/httpResponse";
+import { TBodyFormatMode } from "@/domains/http-res/typings/store";
+
 
 type TProps = Pick<
   TConnectorProps,
