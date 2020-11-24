@@ -6,6 +6,11 @@ export interface IConnectSocketIoDto {
   query?: TStringDict;
   headers?: TStringDict;
 }
+export interface IConnectPhoenixDto {
+  url: string;
+  query?: TStringDict;
+  headers?: TStringDict;
+}
 export interface IDisconnectDto {
   client: TWsClientLabel;
 }

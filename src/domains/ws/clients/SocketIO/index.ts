@@ -25,7 +25,7 @@ export class SocketIoClient extends AbstractWsClient {
     }
     return SocketIoClient.instance;
   }
-  connect = (data: IConnectSocketIoDto) => {
+  public connect = (data: IConnectSocketIoDto) => {
     if (this.socket) {
       this.socket.disconnect();
     }
@@ -49,14 +49,17 @@ export class SocketIoClient extends AbstractWsClient {
     this.socket.on("reconnect_error", this.onError);
     this.socket.on("error", this.onError);
   };
-  disconnect = () => {
-    if (this.socket?.connected) {
+  private get isConnected() {
+    return this.socket?.connected;
+  }
+  public disconnect = () => {
+    if (this.isConnected) {
       this.socket.disconnect();
     }
   };
 
-  send = (ev: string, msg: any) => {
-    if (this.socket?.connected) {
+  public send = (ev: string, msg: any) => {
+    if (this.isConnected) {
       this.socket.emit(ev, msg);
       this.log({
         ev,
