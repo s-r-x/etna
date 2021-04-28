@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge } from "antd";
-import { BADGE_COLOR } from "@/misc/color";
+import { BADGE_COLOR } from "@/constants/color";
 
 type TProps = {
   count: number;

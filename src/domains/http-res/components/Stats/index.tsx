@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import ms from "pretty-ms";
 import pb from "pretty-bytes";
 import { Color } from "@/utils/color";
-import { HTTP_STATUS_CODES } from "@/misc/http";
+import { HTTP_STATUS_CODES } from "@/constants/http";
 import { TConnectorProps } from "../../connectors";
 import View from "./view";
 

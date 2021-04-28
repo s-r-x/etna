@@ -5,7 +5,7 @@ import axios, {
 } from "axios";
 import { THTTPMethod } from "@/typings/http";
 import { TResponse, TOpts } from "@/typings/httpClient";
-import { ETNA_PROXY } from "@/constants";
+import { ETNA_PROXY } from "@/constants/proxy";
 
 export class HttpClient {
   private cancelTokenSource: CancelTokenSource;

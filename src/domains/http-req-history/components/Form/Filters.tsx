@@ -1,8 +1,7 @@
 import React from "react";
 import { Form, Select, Radio, DatePicker } from "antd";
-import { HTTP_METHODS } from "@/misc/http";
 import { AutoComplete } from "antd";
-import { HTTP_STATUS_CODES } from "@/misc/http";
+import { HTTP_STATUS_CODES, HTTP_METHODS } from "@/constants/http";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
