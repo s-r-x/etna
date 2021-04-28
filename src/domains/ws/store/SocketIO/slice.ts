@@ -54,7 +54,7 @@ const slice = createSlice({
       state.input.data = payload;
     },
 
-    addHeader(state, { payload }: PayloadAction<Partial<TKeyValue>>) {
+    addHeader(state, { payload }: PayloadAction<Partial<TKeyValue> | null>) {
       if (payload) {
         state.headers.push({
           key: payload.key || "",

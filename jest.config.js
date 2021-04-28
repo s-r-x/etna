@@ -1,13 +1,9 @@
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'enzyme',
-  setupFilesAfterEnv: ['jest-enzyme'],
-  testEnvironmentOptions: {
-    enzymeAdapter: 'react16',
-  },
-  modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  preset: "ts-jest",
+  modulePathIgnorePatterns: ["<rootDir>/dist/"],
+  setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
   moduleNameMapper: {
-    '@/(.*)$': '<rootDir>/src/$1',
-    '\\.less': 'identity-obj-proxy',
+    "@/(.*)$": "<rootDir>/src/$1",
+    "@testing$": "<rootDir>/src/testing/index.tsx",
   },
 };

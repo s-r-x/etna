@@ -11,7 +11,7 @@ const HeadersEditor = (props: TConnectorProps) => {
         onChangeActive={props.changeHeaderActive}
         onChangeValue={props.changeHeaderValue}
         onChangeKey={props.changeHeaderKey}
-        onAdd={props.addHeader}
+        onAdd={() => props.addHeader(null)}
         onRemove={props.removeHeader}
       />
     </div>

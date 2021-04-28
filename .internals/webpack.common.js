@@ -1,25 +1,26 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {FILE_REGEX} = require('./constants');
-const {SRC, DST} = require('./constants');
-const alias = require('./aliases');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { FILE_REGEX } = require("./constants");
+const { SRC, DST } = require("./constants");
+const alias = require("./aliases");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
+  target: "web",
   entry: {
-    app: path.join(SRC, 'index.tsx'),
+    app: path.join(SRC, "index.tsx"),
   },
   output: {
-    filename: isProd ? '[name].[chunkhash:8].js' : '[name].js',
-    chunkFilename: isProd ? '[name].[chunkhash:8].js' : '[id].js',
+    filename: isProd ? "[name].[chunkhash:8].js" : "[name].js",
+    chunkFilename: isProd ? "[name].[chunkhash:8].js" : "[id].js",
 
     path: DST,
   },
   resolve: {
     alias,
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: [".ts", ".tsx", ".js"],
   },
   module: {
     rules: [
@@ -28,7 +29,7 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         use: [
           {
-            loader: 'ts-loader',
+            loader: "ts-loader",
             options: {
               transpileOnly: true,
             },
@@ -38,9 +39,9 @@ module.exports = {
       {
         test: FILE_REGEX,
         use: {
-          loader: 'file-loader',
+          loader: "file-loader",
           options: {
-            name: '[name].[hash:8].[ext]',
+            name: "[name].[hash:8].[ext]",
           },
         },
       },
@@ -48,10 +49,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(SRC, 'index.html'),
+      template: path.join(SRC, "index.html"),
     }),
     new ForkTsCheckerWebpackPlugin({
-      eslint: true,
+      eslint: {
+        files: "./src/**/*.{ts,tsx,js,jsx}", // required - same as command `eslint ./src/**/*.{ts,tsx,js,jsx} --ext .ts,.tsx,.js,.jsx`
+      },
     }),
   ],
 };

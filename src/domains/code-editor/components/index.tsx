@@ -1,8 +1,6 @@
-// @ts-nocheck
 import React, { useCallback, Suspense, useMemo } from "react";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import { connector, TConnectorProps } from "../connectors";
-import { JSHINT } from "jshint";
 import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/xml/xml";
 import "codemirror/addon/lint/lint";
@@ -10,6 +8,7 @@ import "codemirror/addon/hint/show-hint";
 import "codemirror/addon/lint/json-lint";
 import "codemirror/addon/edit/matchbrackets";
 import "codemirror/addon/edit/closebrackets";
+// @ts-ignore
 import jsonlint from "jsonlint-mod";
 import DefaultMapping from "./mappings/default";
 import { Spin } from "antd";
@@ -17,7 +16,9 @@ import "codemirror-graphql/hint";
 import "codemirror-graphql/lint";
 import "codemirror-graphql/mode";
 import * as S from "./styled";
-window.JSHINT = JSHINT;
+// @ts-ignore
+require("jshint/dist/jshint");
+// @ts-ignore
 window.jsonlint = jsonlint;
 
 const VimMapping = React.lazy(() => import("./mappings/vim"));

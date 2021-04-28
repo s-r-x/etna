@@ -13,7 +13,7 @@ const SocketIoHeadersEditor = () => {
       onChangeActive={(e) => dispatch(Actions.changeHeaderActive(e))}
       onChangeValue={(e) => dispatch(Actions.changeHeaderValue(e))}
       onChangeKey={(e) => dispatch(Actions.changeHeaderKey(e))}
-      onAdd={() => dispatch(Actions.addHeader())}
+      onAdd={() => dispatch(Actions.addHeader(null))}
       onRemove={(e) => dispatch(Actions.removeHeader(e))}
       items={headers}
     />

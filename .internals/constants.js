@@ -1,6 +1,5 @@
 const path = require('path');
 
-module.exports.ENV_ROOT = path.resolve(__dirname, '..', '.env');
 module.exports.SRC = path.resolve(__dirname, '..', 'src');
 module.exports.DST = path.resolve(__dirname, '..', 'dist');
 module.exports.ASSETS_PATH = path.resolve(__dirname, '..', 'assets');

@@ -12,7 +12,7 @@ import {
 export type TChangeMethodDto = PayloadAction<THTTPMethod>;
 export type TRestoreRequestDto = PayloadAction<TRestoreParams>;
 export type TUpdateSettingsDto = PayloadAction<Partial<TRequestSettings>>;
-export type TAddHeaderDto = PayloadAction<Partial<TKeyValue>>;
+export type TAddHeaderDto = PayloadAction<Partial<TKeyValue> | null>;
 export type TChangeHeaderKeyDto = PayloadAction<{ id: number; key: string }>;
 export type TChangeHeaderValueDto = PayloadAction<{
   id: number;

@@ -1,4 +1,5 @@
 import { TTheme } from "@/domains/theme/typings/theme";
+
 declare module "*.svg";
 declare module "*.png";
 declare module "*.jpg";
