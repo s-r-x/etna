@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "antd";
-import PhoenixModule from "@/domains/ws/components/Phoenix";
-import PhoenixLogger from "@/domains/ws/components/Logger/Phoenix";
+import PhoenixModule from "@/domains/ws/phoenix/components";
+import PhoenixLogger from "@phoenix/components/Logger";
 
 export const PhoenixPage = () => {
   return (

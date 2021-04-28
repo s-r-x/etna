@@ -4,12 +4,15 @@
     "noImplicitAny": false,
     "esModuleInterop": true,
     "module": "ESNext",
-    "target": "es5",
+    "target": "es6",
     "jsx": "react",
     "allowJs": true,
     "lib": ["es2018", "dom"],
     "paths": {
       "@/*": ["./src/*"],
+      "@socket-io/*": ["./src/domains/ws/socket-io/*"],
+      "@phoenix/*": ["./src/domains/ws/phoenix/*"],
+      "@ws/*": ["./src/domains/ws/*"],
       "@testing": ["./src/testing/index.tsx"]
     },
     "outDir": "./dist/",

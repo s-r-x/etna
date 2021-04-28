@@ -1,4 +1,4 @@
-import { HttpRequestSelectors as ReqSelectors } from "@/domains/http-req/Root/store/selectors";
+import { HttpRequestSelectors as ReqSelectors } from "@/domains/http-req/root/store/selectors";
 import { HttpResponseSelectors as ResSelectors } from "@/domains/http-res/store/selectors";
 import { SagaIterator } from "redux-saga";
 import { all, select, takeEvery, put } from "redux-saga/effects";
@@ -7,10 +7,10 @@ import { UUID } from "@/utils/uuid";
 import _ from "lodash";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { THistoryItem } from "@/domains/http-req-history/typings/store";
-import { HttpReqActions } from "@/domains/http-req/Root/store/slice";
+import { HttpReqActions } from "@/domains/http-req/root/store/slice";
 import { restoreFromHistory as restoreRes } from "@/domains/http-res/store/slice";
-import { HttpReqBodyActions as BodyActions } from "@/domains/http-req/Body/store/slice";
-import { HttpReqBodySelectors as BodySelectors } from "@/domains/http-req/Body/store/selectors";
+import { HttpReqBodyActions as BodyActions } from "@/domains/http-req/body/store/slice";
+import { HttpReqBodySelectors as BodySelectors } from "@/domains/http-req/body/store/selectors";
 
 function* extractSaga(): SagaIterator {
   const state = yield select();

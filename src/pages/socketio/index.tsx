@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "antd";
-import SocketIoRequest from "@/domains/ws/components/SocketIo";
-import SocketIOLogger from "@/domains/ws/components/Logger/SocketIO";
+import SocketIoRequest from "@/domains/ws/socket-io/components";
+import SocketIOLogger from "@socket-io/components/Logger";
 
 export const SocketIOPage = () => {
   return (

@@ -63,4 +63,4 @@ const CodeEditor = (props: TProps) => {
   );
 };
 
-export default React.memo(CodeEditor);
+export default CodeEditor;

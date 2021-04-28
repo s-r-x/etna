@@ -1,8 +1,8 @@
-import { HttpRequestSelectors as ReqSelectors } from "@/domains/http-req/Root/store/selectors";
+import { HttpRequestSelectors as ReqSelectors } from "@/domains/http-req/root/store/selectors";
 import { HttpResponseSelectors as ResSelectors } from "../store/selectors";
 import { connect, ConnectedProps } from "react-redux";
 import { TRootState } from "@/store/rootReducer";
-import { HttpReqActions } from "@/domains/http-req/Root/store/slice";
+import { HttpReqActions } from "@/domains/http-req/root/store/slice";
 import {
   changeCategory,
   changeEditorFormat,
