@@ -1,31 +1,13 @@
-import React, { useCallback, Suspense, useMemo } from "react";
+import React, { useCallback, Suspense } from "react";
+import "./global-deps";
 import { Controlled as CodeMirror } from "react-codemirror2";
-import { connector, TConnectorProps } from "../connectors";
-import "codemirror/mode/javascript/javascript";
-import "codemirror/mode/xml/xml";
-import "codemirror/addon/lint/lint";
-import "codemirror/addon/hint/show-hint";
-import "codemirror/addon/lint/json-lint";
-import "codemirror/addon/edit/matchbrackets";
-import "codemirror/addon/edit/closebrackets";
-// @ts-ignore
-import jsonlint from "jsonlint-mod";
-import DefaultMapping from "./mappings/default";
 import { Spin } from "antd";
-import "codemirror-graphql/hint";
-import "codemirror-graphql/lint";
-import "codemirror-graphql/mode";
 import * as S from "./styled";
-// @ts-ignore
-require("jshint/dist/jshint");
-// @ts-ignore
-window.jsonlint = jsonlint;
+import { CodeEditorSelectors as Selectors } from "../store/selectors";
+import { useSelector } from "react-redux";
+import { useKeyMapComponent } from "../hooks/use-key-map-component";
 
-const VimMapping = React.lazy(() => import("./mappings/vim"));
-const SublimeMapping = React.lazy(() => import("./mappings/sublime"));
-const EmacsMapping = React.lazy(() => import("./mappings/emacs"));
-
-type TProps = TConnectorProps & {
+type TProps = {
   gqlSchema?: TAnyDict;
   mode: string;
   onChange?(value: string): void;
@@ -35,63 +17,50 @@ type TProps = TConnectorProps & {
   extra?: React.ReactNode;
 };
 const CodeEditor = (props: TProps) => {
+  const opts = useSelector(Selectors.getOptions);
   const onChange = useCallback(
     (_editor: any, _data: any, value: string) => {
       props.onChange(value);
     },
     [props.onChange]
   );
-  const Mapping = useMemo(() => {
-    const map = props.keyMap;
-    switch (map) {
-      case "vim":
-        return VimMapping;
-      case "sublime":
-        return SublimeMapping;
-      case "emacs":
-        return EmacsMapping;
-      default:
-        return DefaultMapping;
-    }
-  }, [props.keyMap]);
+  const Mapping = useKeyMapComponent();
   const isGraphql = props.mode === "graphql";
   return (
-    <>
-      <Suspense fallback={<Spin size="large" />}>
-        <Mapping>
-          <S.Container>
-            {props.extra && <S.Extra>{props.extra}</S.Extra>}
-            <CodeMirror
-              value={props.value}
-              options={{
-                gutters: ["CodeMirror-lint-markers"],
-                lint:
-                  isGraphql && props.gqlSchema
-                    ? {
-                        schema: props.gqlSchema,
-                      }
-                    : true,
-                hintOptions: isGraphql &&
-                  props.gqlSchema && {
-                    schema: props.gqlSchema,
-                  },
-                lineWrapping: props.lineWrapping,
-                matchBrackets: true,
-                autoCloseBrackets: props.autoCloseBrackets,
-                keyMap: props.keyMap,
-                tabSize: props.tabSize,
-                mode: props.mode,
-                theme: props.theme,
-                lineNumbers: props.lineNumbers,
-                readOnly: props.readOnly,
-              }}
-              onBeforeChange={onChange}
-            />
-          </S.Container>
-        </Mapping>
-      </Suspense>
-    </>
+    <Suspense fallback={<Spin size="large" />}>
+      <Mapping>
+        <S.Container>
+          {props.extra && <S.Extra>{props.extra}</S.Extra>}
+          <CodeMirror
+            value={props.value}
+            options={{
+              gutters: ["CodeMirror-lint-markers"],
+              lint:
+                isGraphql && props.gqlSchema
+                  ? {
+                      schema: props.gqlSchema,
+                    }
+                  : true,
+              hintOptions: isGraphql &&
+                props.gqlSchema && {
+                  schema: props.gqlSchema,
+                },
+              tabSize: opts.keyMap,
+              lineWrapping: opts.lineWrapping,
+              matchBrackets: true,
+              autoCloseBrackets: opts.autoCloseBrackets,
+              keyMap: opts.keyMap,
+              mode: props.mode,
+              theme: opts.theme,
+              lineNumbers: opts.lineNumbers,
+              readOnly: props.readOnly,
+            }}
+            onBeforeChange={onChange}
+          />
+        </S.Container>
+      </Mapping>
+    </Suspense>
   );
 };
 
-export default connector(CodeEditor);
+export default React.memo(CodeEditor);

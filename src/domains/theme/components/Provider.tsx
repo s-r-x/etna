@@ -5,20 +5,10 @@ import { ThemeSelectors } from "../store/selectors";
 import { darkTheme } from "../themes/dark";
 import { lightTheme } from "../themes/light";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
-import { useThemeSwitcher } from "react-css-theme-switcher";
-import { Spin } from "antd";
 
 const themes = {
   dark: "/dark-theme.css",
   light: "/light-theme.css",
-};
-
-const ThemeLoader: React.FC = (props) => {
-  const { status } = useThemeSwitcher();
-  if (status !== "loaded") {
-    return <Spin size="large" />;
-  }
-  return <>{props.children}</>;
 };
 
 const ThemeProvider: React.FC = (props) => {
@@ -30,7 +20,7 @@ const ThemeProvider: React.FC = (props) => {
       defaultTheme={mode}
     >
       <Provider theme={mode === "light" ? lightTheme : darkTheme}>
-        <ThemeLoader>{props.children}</ThemeLoader>
+        {props.children}
       </Provider>
     </ThemeSwitcherProvider>
   );
