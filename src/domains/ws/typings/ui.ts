@@ -4,6 +4,7 @@ import { EWsRouteType } from "./store";
 export type TWsLogUIItem = {
   id: string;
   typography: BaseType;
+  room?: string;
   message: string;
   event: string;
   date: string;

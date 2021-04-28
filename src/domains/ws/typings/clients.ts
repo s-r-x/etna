@@ -1,5 +1,7 @@
 import { TWsClientLabel } from ".";
+import { TStorePhoenixChannel } from "./store";
 
+export type TSyncPhoenixChannelsDto = TStorePhoenixChannel[];
 export interface IConnectSocketIoDto {
   url: string;
   path?: string;
@@ -9,7 +11,7 @@ export interface IConnectSocketIoDto {
 export interface IConnectPhoenixDto {
   url: string;
   query?: TStringDict;
-  headers?: TStringDict;
+  channels?: TStorePhoenixChannel[];
 }
 export interface IDisconnectDto {
   client: TWsClientLabel;

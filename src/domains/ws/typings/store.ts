@@ -12,6 +12,7 @@ export enum EWsRouteType {
 }
 export type TWsLogItem = {
   id: string;
+  room?: string;
   date: string;
   ev: string;
   lvl: EWsLogLevel;
@@ -21,9 +22,36 @@ export type TWsLogItem = {
 export type TWsState = {
   activeClient: EWsClient;
 };
+export type TStorePhoenixChannel = {
+  topic: string;
+};
+export type TPhoenixCreateChannelForm = {
+  topic: string;
+};
+export type TStorePhoenixEvent = {
+  id: string;
+  ev: string;
+  ch: string;
+};
+export type TPhoenixEventForm = {
+  channel: string;
+  event: string;
+};
 export type TPhoenixState = {
   connected: boolean;
   url: string;
+  tab: string;
+  connTab: string;
+  query: { key: string; value: string }[];
+  channels: TStorePhoenixChannel[];
+  channelsConnStatuses: {
+    topic: string;
+    connected: boolean;
+  }[];
+  events: TStorePhoenixEvent[];
+  createChForm: TPhoenixCreateChannelForm;
+  createEvForm: TPhoenixEventForm;
+  logs: TWsLogItem[];
 };
 export type TSocketIOState = {
   connected: boolean;

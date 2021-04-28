@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "antd";
 import HttpResponse from "@/domains/http-res/components";
-import HttpRequest from "@/domains/http-req/components";
+import HttpRequest from "@/domains/http-req/Root/components";
 
 export const HomePage = () => {
   return (

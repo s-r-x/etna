@@ -28,8 +28,6 @@ export default function* socketIoEventsSaga(): SagaIterator {
       yield call(connectedSaga);
     } else if (payload.ev === "disconnected") {
       yield call(disconnectedSaga);
-    } else {
-      console.log(payload);
     }
   }
 }

@@ -1,10 +1,14 @@
 import { AbstractWsClient } from "../Abstract";
-import { Socket } from "phoenix";
-import { IConnectPhoenixDto } from "../../typings/clients";
+import { PhoenixSocket } from "./Socket";
+import {
+  IConnectPhoenixDto,
+  TSyncPhoenixChannelsDto,
+} from "../../typings/clients";
 import { EWsLogLevel, EWsRouteType } from "../../typings/store";
+import { PhoenixChannel } from "./Channel";
 
 export class PhoenixClient extends AbstractWsClient {
-  private socket: Socket;
+  private socket: PhoenixSocket;
   private static instance: PhoenixClient;
 
   private constructor() {
@@ -16,27 +20,74 @@ export class PhoenixClient extends AbstractWsClient {
     }
     return PhoenixClient.instance;
   }
-  connect = (data: IConnectPhoenixDto) => {
-    console.log(data);
+  public connect = (data: IConnectPhoenixDto) => {
     if (this.socket) {
       this.socket.disconnect();
     }
-    const socket = new Socket("ws://0.0.0.0:4567/socket", {
+    const socket = new PhoenixSocket(data.url, {
       reconnectAfterMs() {
         return 3000;
       },
-      params: {
-        token:
-          "SFMyNTY.g3QAAAACZAAEZGF0YXQAAAABZAAHdXNlcl9pZG0AAAADMTIzZAAGc2lnbmVkbgYAeSpC-nUB.TKS-dSD8yQi_U0ZP4_a2W5WWUFd8xEmpojEUO-Mnl4E",
-      },
+      params: data.query,
     });
+    socket.channels = [];
     socket.connect();
     socket.onOpen(this.onConnect);
     socket.onError(this.onError);
     socket.onClose(this.onDisconnect);
     this.socket = socket;
-
-    console.log("connect phoenix");
+    if (data.channels) {
+      this.syncChannels(data.channels);
+    }
+  };
+  private get channels() {
+    return this.socket.channels;
+  }
+  private set channels(channels: PhoenixChannel[]) {
+    this.socket.channels = channels;
+  }
+  private createChannel = (topic: string, params?: TStringDict) => {
+    const channel = new PhoenixChannel(
+      {
+        topic,
+        params,
+        socket: this.socket,
+      },
+      this.log
+    );
+    return channel;
+  };
+  private findChannel = (topic: string) => {
+    return this.channels.find((ch) => ch.topic === topic);
+  };
+  private syncChannels = (channels: TSyncPhoenixChannelsDto) => {
+    this.channels.forEach((ch) => ch.leave());
+    this.channels = channels.map(
+      (ch) =>
+        new PhoenixChannel(
+          {
+            topic: ch.topic,
+            socket: this.socket,
+          },
+          this.log
+        )
+    );
+  };
+  public connectChannel = (topic: string, params?: TStringDict) => {
+    const ch = this.findChannel(topic);
+    if (ch) {
+      ch.join();
+    } else {
+      this.createChannel(topic, params).join();
+    }
+  };
+  public disconnectChannel = (topic: string) => {
+    const ch = this.findChannel(topic);
+    ch?.leave();
+  };
+  public removeChannel = (topic: string) => {
+    const ch = this.findChannel(topic);
+    ch?.leave();
   };
   private onError = (e: any) => {
     console.error(e);
@@ -48,6 +99,7 @@ export class PhoenixClient extends AbstractWsClient {
     });
   };
   private onDisconnect = (e: any) => {
+    this.channels.forEach((ch) => ch.leave());
     this.log({
       ev: "disconnected",
       lvl: EWsLogLevel.ERR,
@@ -65,7 +117,6 @@ export class PhoenixClient extends AbstractWsClient {
   };
   public disconnect = () => {
     this.socket?.disconnect();
-    console.log("disconnect phoenix");
   };
   public send = () => {
     console.log("send phoenix");

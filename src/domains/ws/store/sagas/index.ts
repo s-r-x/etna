@@ -4,6 +4,7 @@ import socketIoEvents from "../SocketIO/sagas/events";
 import socketIoMessage from "../SocketIO/sagas/message";
 import phoenixConnect from "../Phoenix/sagas/connect";
 import phoenixEvents from "../Phoenix/sagas/events";
+import phoenixChannels from "../Phoenix/sagas/channels";
 
 export default function* wsSaga() {
   yield all([
@@ -12,5 +13,6 @@ export default function* wsSaga() {
     socketIoMessage(),
     phoenixConnect(),
     phoenixEvents(),
+    phoenixChannels(),
   ]);
 }

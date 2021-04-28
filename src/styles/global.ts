@@ -13,10 +13,14 @@ export const GlobalStyle = createGlobalStyle`
     --tab-full-height: calc(var(--tab-height) + var(--tab-content-offset));
     --card-editor-offset-top: calc(var(--card-pad) + var(--navbar-height) + var(--card-utils-offset) + var(--tab-full-height));
   }
-  .ant-card-body {
+  .ant-card {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    .ant-card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
   }
   .ant-tabs {
     display: flex;

@@ -6,15 +6,35 @@ import { PhoenixSelectors as Selectors } from "../selectors";
 import { message } from "antd";
 import { PhoenixClient } from "@/domains/ws/clients/Phoenix";
 
-function* connectedSaga(): SagaIterator {
-  yield put(Actions.changeConnectStatus(true));
-  message.success("Connected");
+function* connectedSaga(payload: INotifySagaDto): SagaIterator {
+  if (payload.room) {
+    yield put(
+      Actions.changeChannelConnectStatus({
+        topic: payload.room,
+        connected: true,
+      })
+    );
+    message.success(`Channel ${payload.room} connected`);
+  } else {
+    yield put(Actions.changeConnectStatus(true));
+    message.success("Socket connected");
+  }
 }
-function* disconnectedSaga(): SagaIterator {
-  yield put(Actions.changeConnectStatus(false));
-  message.error("Disconnected");
+function* disconnectedSaga(payload: INotifySagaDto): SagaIterator {
+  if (payload.room) {
+    yield put(
+      Actions.changeChannelConnectStatus({
+        topic: payload.room,
+        connected: false,
+      })
+    );
+    message.error(`Channel ${payload.room} disconnected`);
+  } else {
+    yield put(Actions.changeConnectStatus(false));
+    message.error("Socket disconnected");
+  }
 }
-export default function* socketIoEventsSaga(): SagaIterator {
+export default function* phoenixEventsSaga(): SagaIterator {
   const client: PhoenixClient = yield select(Selectors.getClient);
   const chan: EventChannel<INotifySagaDto> = yield call(
     client.creataSagaChannel
@@ -22,14 +42,11 @@ export default function* socketIoEventsSaga(): SagaIterator {
   while (true) {
     const payload: INotifySagaDto = yield take(chan);
 
-    // yield put(Actions.log(payload));
-
+    yield put(Actions.log(payload));
     if (payload.ev === "connected") {
-      yield call(connectedSaga);
+      yield call(connectedSaga, payload);
     } else if (payload.ev === "disconnected") {
-      yield call(disconnectedSaga);
-    } else {
-      console.log(payload);
+      yield call(disconnectedSaga, payload);
     }
   }
 }

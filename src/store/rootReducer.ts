@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import httpRequest, {
   DOMAIN as REQ_DOMAIN,
-} from "@/domains/http-req/store/slice";
+} from "@/domains/http-req/Root/store/slice";
 import httpResponse, {
   DOMAIN as RES_DOMAIN,
 } from "@/domains/http-res/store/slice";
@@ -13,7 +13,7 @@ import codeEditor, {
 } from "@/domains/code-editor/store/slice";
 import httpRequestBody, {
   DOMAIN as REQ_BODY_DOMAIN,
-} from "@/domains/http-req-body/store/slice";
+} from "@/domains/http-req/Body/store/slice";
 import theme, { DOMAIN as THEME_DOMAIN } from "@/domains/theme/store/slice";
 import ws, { DOMAIN as WS_DOMAIN } from "@/domains/ws/store/slice";
 import socketIO, {
@@ -35,7 +35,7 @@ const persistConfig = {
 const socketIOConfig = {
   key: SOCKET_IO_DOMAIN,
   storage,
-  blacklist: ["connected"],
+  blacklist: ["connected", "logs"],
 };
 const reqConfig = {
   key: REQ_DOMAIN,
@@ -45,7 +45,7 @@ const reqConfig = {
 const phoenixConfig = {
   key: PHOENIX_DOMAIN,
   storage,
-  blacklist: ["loading"],
+  blacklist: ["connected", "logs", "channelsConnStatuses"],
 };
 
 const reducer = persistReducer(
