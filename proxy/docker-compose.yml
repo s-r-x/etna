@@ -1,0 +1,14 @@
+version: '3'
+services:
+  nginx:
+    container_name: etna-proxy
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/scripts:/etc/nginx/scripts
+    ports:
+      - "9999:80"
+    restart: unless-stopped
+
