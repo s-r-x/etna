@@ -1,4 +1,3 @@
-import { TResponse } from "@/typings/httpClient";
 import { HttpClient } from "@/utils/HttpClient";
 import { SagaIterator, Task } from "redux-saga";
 import {
@@ -7,11 +6,11 @@ import {
   take,
   fork,
   race,
-  TakeEffect,
   cancel,
   cancelled,
   call,
-} from "redux-saga/effects";
+} from "typed-redux-saga";
+import { TakeEffect } from "redux-saga/effects";
 import { HttpReqBodyActions as Actions } from "../slice";
 import { message } from "antd";
 import { HttpRequestSelectors } from "@/domains/http-req/root/store/selectors";
@@ -19,12 +18,16 @@ import { HttpRequestSelectors } from "@/domains/http-req/root/store/selectors";
 function* gqlSchemaSaga(): SagaIterator {
   const client = new HttpClient();
   try {
-    yield put(Actions.loadGqlSchemaStart());
-    const url: string = yield select(HttpRequestSelectors.getUrl);
-    const res: TResponse = yield call(client.make, url, "POST", {
+    yield* put(Actions.loadGqlSchemaStart());
+    const url = yield* select(HttpRequestSelectors.getUrl);
+    const headers = yield* select(HttpRequestSelectors.getRequestReadyHeaders);
+    const auth = yield* select(HttpRequestSelectors.getAuth);
+    const res = yield* call(client.make, url, "POST", {
       headers: {
+        ...headers,
         "content-type": "application/json",
       },
+      auth,
       body: {
         operationName: "IntrospectionQuery",
         variables: {},
@@ -37,12 +40,12 @@ function* gqlSchemaSaga(): SagaIterator {
     } else {
       message.success("Schema has been loaded");
     }
-    yield put(Actions.loadGqlSchemaEnd(res.data));
+    yield* put(Actions.loadGqlSchemaEnd(res.data));
   } catch (_e) {
-    yield put(Actions.loadGqlSchemaEnd(null));
+    yield* put(Actions.loadGqlSchemaEnd(null));
   } finally {
-    if (yield cancelled()) {
-      yield put(Actions.loadGqlSchemaEnd(null));
+    if (yield* cancelled()) {
+      yield* put(Actions.loadGqlSchemaEnd(null));
       client.cancel();
     }
   }

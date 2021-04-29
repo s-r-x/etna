@@ -1,26 +1,28 @@
-import { put, select, debounce } from "redux-saga/effects";
+import { put, select, debounce } from "typed-redux-saga";
 import { HttpReqBodyActions as Actions } from "../slice";
 import { SagaIterator } from "redux-saga";
 import { HttpReqBodySelectors as Selectors } from "../selectors";
 import { HttpRequestSelectors } from "@/domains/http-req/root/store/selectors";
 import { HttpReqActions } from "@/domains/http-req/root/store/slice";
+import { THTTPBodyMIME } from "@/typings/http";
 
 function* bodyMimeSaga(): SagaIterator {
-  const state = yield select();
-  const mime = Selectors.getMIME(state),
-    headers = HttpRequestSelectors.getHeaders(state);
+  const mime = yield* select(Selectors.getMIME);
+  const headers = yield* select(HttpRequestSelectors.getHeaders);
+  const newMime: THTTPBodyMIME =
+    mime === "application/graphql" ? "application/json" : mime;
   const contentHeaderIdx = headers.findIndex(
     ({ key }) => key === "Content-Type"
   );
   if (contentHeaderIdx !== -1) {
-    yield put(
-      HttpReqActions.changeHeaderValue({ id: contentHeaderIdx, value: mime })
+    yield* put(
+      HttpReqActions.changeHeaderValue({ id: contentHeaderIdx, value: newMime })
     );
   } else {
-    yield put(
+    yield* put(
       HttpReqActions.addHeader({
         key: "Content-Type",
-        value: mime,
+        value: newMime,
         active: true,
       })
     );

@@ -22,14 +22,13 @@ import { HttpReqBodySelectors } from "@/domains/http-req/body/store/selectors";
 function* makeRequestSaga(): SagaIterator {
   const client = new HttpClient();
   const state = yield select();
-  const [url, method, headers, settings, body, authStrategy, basicAuth] = [
+  const [url, method, headers, settings, body, auth] = [
     Selectors.getUrl(state),
     Selectors.getMethod(state),
     Selectors.getRequestReadyHeaders(state),
     Selectors.getSettings(state),
     HttpReqBodySelectors.getRequestReadyBody(state),
-    Selectors.getAuthStrategy(state),
-    Selectors.getBasicAuthData(state),
+    Selectors.getAuth(state),
   ];
   try {
     yield put(Actions.loadingStart());
@@ -37,7 +36,7 @@ function* makeRequestSaga(): SagaIterator {
       headers,
       expectBinary: settings.expectBinary,
       body,
-      auth: authStrategy === "basic" ? basicAuth : null,
+      auth,
       useProxy: settings.useProxy,
     });
     if (resp.error && resp.data) {

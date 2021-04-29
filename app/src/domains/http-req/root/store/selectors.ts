@@ -6,6 +6,16 @@ const getRequest = (state: TRootState) => state[DOMAIN];
 const getAuthStrategy = (state: TRootState) => state[DOMAIN].auth.strategy;
 const getAuthData = (state: TRootState) => state[DOMAIN].auth.data;
 const getBasicAuthData = createSelector(getAuthData, (data) => data.basic);
+const getAuth = createSelector(
+  getAuthStrategy,
+  getBasicAuthData,
+  (strategy, basic) => {
+    if (strategy === "basic") {
+      return basic;
+    }
+    return null;
+  }
+);
 const getHeaders = (state: TRootState) => state[DOMAIN].headers;
 const getActiveHeaders = createSelector(getHeaders, (headers) =>
   headers.filter((h) => h.active)
@@ -48,6 +58,7 @@ const getRequestReadyHeaders = createSelector(
 export const HttpRequestSelectors = {
   getRequest,
   getActiveOptsEditor,
+  getAuth,
   getAuthData,
   getAuthStrategy,
   getBasicAuthData,
