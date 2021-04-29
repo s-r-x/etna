@@ -29,5 +29,5 @@ function* bodyMimeSaga(): SagaIterator {
   }
 }
 export default function* watchBodyMime() {
-  yield debounce(200, Actions.changeMIME.type, bodyMimeSaga);
+  yield* debounce(200, Actions.changeMIME.type, bodyMimeSaga);
 }

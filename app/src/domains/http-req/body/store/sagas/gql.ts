@@ -1,5 +1,5 @@
 import { HttpClient } from "@/utils/HttpClient";
-import { SagaIterator, Task } from "redux-saga";
+import { SagaIterator } from "redux-saga";
 import {
   put,
   select,
@@ -10,7 +10,6 @@ import {
   cancelled,
   call,
 } from "typed-redux-saga";
-import { TakeEffect } from "redux-saga/effects";
 import { HttpReqBodyActions as Actions } from "../slice";
 import { message } from "antd";
 import { HttpRequestSelectors } from "@/domains/http-req/root/store/selectors";
@@ -52,14 +51,14 @@ function* gqlSchemaSaga(): SagaIterator {
 }
 
 export default function* watchGqlSchema() {
-  while (yield take(Actions.loadGqlSchema.type)) {
-    const task: Task = yield fork(gqlSchemaSaga);
-    const [cancelCase]: TakeEffect[] = yield race([
+  while (yield* take(Actions.loadGqlSchema.type)) {
+    const task = yield* fork(gqlSchemaSaga);
+    const [cancelCase] = yield* race([
       take(Actions.cancelLoadGqlSchema.type),
       take(Actions.loadGqlSchemaEnd.type),
     ]);
     if (cancelCase) {
-      yield cancel(task);
+      yield* cancel(task);
     }
   }
 }
