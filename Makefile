@@ -1,12 +1,12 @@
 app_npm_prefix = npm --prefix ./app
 
-dev:
+app.dev:
 	$(app_npm_prefix) start
-prod:
+app.prod:
 	$(app_npm_prefix) run build
-test:
+app.test:
 	$(app_npm_prefix) npm test
-compile-themes:
+app.compile-themes:
 	$(app_npm_prefix) npx gulp less
-proxy.run:
+proxy.start:
 	docker-compose -f proxy/docker-compose.yml up nginx

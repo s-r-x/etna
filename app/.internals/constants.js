@@ -1,8 +1,10 @@
-const path = require('path');
+const path = require("path");
 
-module.exports.SRC = path.resolve(__dirname, '..', 'src');
-module.exports.DST = path.resolve(__dirname, '..', 'dist');
-module.exports.ASSETS_PATH = path.resolve(__dirname, '..', 'assets');
+const ROOT = path.resolve(__dirname, "..");
+module.exports.SRC = path.join(ROOT, "src");
+module.exports.DST = path.join(ROOT, "dist");
+module.exports.ASSETS_PATH = path.join(ROOT, "assets");
 module.exports.STYLE_REGEX = /(\.css)|(\.less)$/i;
 module.exports.FILE_REGEX = /\.(woff|woff2|otf|ttf|eot|svg|png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/i;
-
+module.exports.DEV_ENV = path.join(ROOT, ".env.dev");
+module.exports.PROD_ENV = path.join(ROOT, ".env.prod");

@@ -3,11 +3,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const styleLoaders = require("./parts/styleLoaders");
 const common = require("./webpack.common");
-const { STYLE_REGEX, DST, ASSETS_PATH } = require("./constants");
+const { STYLE_REGEX, DST, ASSETS_PATH, PROD_ENV } = require("./constants");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 const config = {
   devtool: false,
@@ -35,6 +36,9 @@ const config = {
       ],
     }),
     new CleanWebpackPlugin(),
+    new Dotenv({
+      path: PROD_ENV,
+    }),
   ],
   optimization: {
     minimize: true,
