@@ -11,6 +11,11 @@ const TextEditor = (props: TProps) => {
     <Container>
       <FullParentHeight>
         <CodeEditor
+          allowPrettify={
+            props.MIME === "application/json" ||
+            props.MIME === "application/xml" ||
+            props.MIME === "text/html"
+          }
           mode={props.MIME}
           value={props.text}
           onChange={props.changeText}

@@ -14,5 +14,11 @@ export const Extra = styled.div`
   position: absolute;
   right: 20px;
   top: 10px;
+  > * {
+    margin-right: 5px;
+    :last-child {
+      margin-right: 0;
+    }
+  }
   z-index: 10;
 `;

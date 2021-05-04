@@ -16,6 +16,7 @@ const GqlEditor = (props: TProps) => {
       <S.QueryContainer>
         <FullParentHeight>
           <CodeEditor
+            allowPrettify
             extra={
               <Button
                 onClick={() =>

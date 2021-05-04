@@ -6,6 +6,8 @@ import * as S from "./styled";
 import { CodeEditorSelectors as Selectors } from "../store/selectors";
 import { useSelector } from "react-redux";
 import { useKeyMapComponent } from "../hooks/use-key-map-component";
+import { Button } from "antd";
+import { CodeFormatter } from "@/utils/CodeFormatter";
 
 type TProps = {
   gqlSchema?: TAnyDict;
@@ -15,6 +17,7 @@ type TProps = {
   readOnly?: boolean;
   expanded?: boolean;
   extra?: React.ReactNode;
+  allowPrettify?: boolean;
 };
 const CodeEditor = (props: TProps) => {
   const opts = useSelector(Selectors.getOptions);
@@ -24,13 +27,23 @@ const CodeEditor = (props: TProps) => {
     },
     [props.onChange]
   );
+  const onPrettify = () => {
+    props.onChange(CodeFormatter.format(props.value, props.mode));
+  };
   const Mapping = useKeyMapComponent();
   const isGraphql = props.mode === "graphql";
   return (
     <Suspense fallback={<Spin size="large" />}>
       <Mapping>
         <S.Container>
-          {props.extra && <S.Extra>{props.extra}</S.Extra>}
+          <S.Extra>
+            {props.allowPrettify && (
+              <Button onClick={onPrettify} size="small">
+                Prettify
+              </Button>
+            )}
+            {props.extra}
+          </S.Extra>
           <CodeMirror
             value={props.value}
             options={{
