@@ -58,7 +58,7 @@ const CodeEditor = (props: TProps) => {
                 props.gqlSchema && {
                   schema: props.gqlSchema,
                 },
-              tabSize: opts.keyMap,
+              tabSize: opts.tabSize,
               lineWrapping: opts.lineWrapping,
               matchBrackets: true,
               autoCloseBrackets: opts.autoCloseBrackets,
