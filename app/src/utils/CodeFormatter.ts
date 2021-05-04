@@ -1,6 +1,6 @@
-import { html } from "js-beautify";
 import prettier from "prettier/standalone";
 import gqlParser from "prettier/parser-graphql";
+import htmlParser from "prettier/parser-html";
 // TODO:: lazyload
 
 const formatJson = (data: string): string => {
@@ -15,7 +15,10 @@ export const CodeFormatter = {
     switch (mime) {
       case "application/xml":
       case "text/html":
-        return html(code, { indent_size: 2 });
+        return prettier.format(code, {
+          parser: "html",
+          plugins: [htmlParser],
+        });
       case "application/json":
         return formatJson(code);
       case "graphql":
