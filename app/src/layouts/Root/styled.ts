@@ -50,3 +50,7 @@ export const Link = styled(BaseLink)`
     color: white;
   }
 `;
+export const Content = styled(Layout.Content)`
+  display: flex;
+  margin: var(--root-layout-offset);
+`

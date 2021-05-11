@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   :root {
-    --root-layout-offset: 12px;
+    --root-layout-offset: 0px;
     --card-pad: 12px;
     --tab-height: 40px;
     --tab-content-offset: 16px;
@@ -35,7 +35,6 @@ export const GlobalStyle = createGlobalStyle`
   }
   .ant-card-body {
     padding: var(--card-pad);
-    padding-bottom: 0;
   }
   .ant-card {
     border-color: transparent;

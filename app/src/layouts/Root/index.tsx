@@ -7,7 +7,6 @@ import ThemeToggler from "@/domains/theme/components/Toggler";
 import SocketIOIcon from "@/components/icons/SocketIO";
 import PhoenixIcon from "@/components/icons/Phoenix";
 
-const { Content } = Layout;
 type TProps = RouteComponentProps;
 type TState = {
   collapsed: boolean;
@@ -70,9 +69,7 @@ class RootLayout extends React.Component<TProps, TState> {
           </S.Menu>
           <ThemeToggler />
         </S.Header>
-        <Content style={{ margin: "12px", display: "flex" }}>
-          {this.props.children}
-        </Content>
+        <S.Content>{this.props.children}</S.Content>
       </Layout>
     );
   }
