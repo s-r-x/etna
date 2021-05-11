@@ -3,11 +3,11 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
   :root {
     --root-layout-offset: 12px;
-    --card-pad: 24px;
+    --card-pad: 12px;
     --tab-height: 40px;
     --tab-content-offset: 16px;
     --navbar-height: 50px;
-    --safe-card-height: calc(100vh - (var(--root-layout-offset) * 2) - var(--navbar-height));
+    --safe-card-height: calc(100vh - calc(var(--root-layout-offset) * 2) - var(--navbar-height));
     --card-utils-approx-height: 33px;
     --card-utils-offset: 10px;
     --tab-full-height: calc(var(--tab-height) + var(--tab-content-offset));
@@ -32,6 +32,10 @@ export const GlobalStyle = createGlobalStyle`
   .ant-tabs-tabpane {
     display: flex;
     flex-direction: column;
+  }
+  .ant-card-body {
+    padding: var(--card-pad);
+    padding-bottom: 0;
   }
   .ant-card {
     border-color: transparent;
