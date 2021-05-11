@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     --card-pad: 24px;
     --tab-height: 40px;
     --tab-content-offset: 16px;
-    --navbar-height: 64px;
+    --navbar-height: 50px;
     --safe-card-height: calc(100vh - (var(--root-layout-offset) * 2) - var(--navbar-height));
     --card-utils-approx-height: 33px;
     --card-utils-offset: 10px;

@@ -14,8 +14,8 @@ export const Header = styled(Layout.Header)`
   justify-content: space-between;
   align-items: center;
   background: ${({ theme }) => theme.colors.primary.main};
-  line-height: 50px;
-  height: 50px;
+  height: var(--navbar-height);
+  line-height: var(--navbar-height);
 `;
 export const Menu = styled.ul`
   list-style-type: none;
@@ -28,8 +28,8 @@ export const Menu = styled.ul`
   margin-left: 30px;
   li {
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: var(--navbar-height);
+    height: var(--navbar-height);
   }
 `;
 

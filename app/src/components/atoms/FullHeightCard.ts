@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Card } from "antd";
 
 const FullHeightCard = styled(Card)`
-  height: 100%;
+  height: var(--safe-card-height);
   .ant-tabs {
     flex: 1;
   }
