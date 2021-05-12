@@ -23,6 +23,7 @@ function* makeRequestSaga(): SagaIterator {
   const url = yield* select(Selectors.getUrl);
   const method = yield* select(Selectors.getMethod);
   const headers = yield* select(Selectors.getRequestReadyHeaders);
+  console.log(headers);
   const settings = yield* select(Selectors.getSettings);
   const body = yield* select(HttpReqBodySelectors.getRequestReadyBody);
   const auth = yield* select(Selectors.getAuth);
