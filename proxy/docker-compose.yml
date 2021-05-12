@@ -1,6 +1,8 @@
 version: '3'
 services:
   nginx:
+    environment: 
+      - "LUA_PATH=/etc/nginx/scripts/?.lua"
     container_name: etna-proxy
     build:
       context: ./nginx
