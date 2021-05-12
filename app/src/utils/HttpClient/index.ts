@@ -6,7 +6,15 @@ import axios, {
 import { THTTPMethod } from "@/typings/http";
 import { TResponse, TOpts } from "@/typings/httpClient";
 import { ETNA_PROXY } from "@/constants/proxy";
+import _ from "lodash";
 
+const validNonPrefixHeaders = [
+  "content-type",
+  "content-length",
+  "content-encoding",
+];
+const headerPrefix = "x-etna-header-";
+type THeaders = TResponse["headers"];
 export class HttpClient {
   private cancelTokenSource: CancelTokenSource;
   private extractBodySize(res: AxiosResponse): number {
@@ -20,6 +28,19 @@ export class HttpClient {
       return res.data.size;
     }
     return new TextEncoder().encode(res.data).length;
+  }
+  private extractResHeaders(headers: THeaders): THeaders {
+    if (_.isEmpty(headers)) {
+      return {};
+    }
+    return Object.entries(headers).reduce((acc, [k, v]) => {
+      if (k.startsWith(headerPrefix)) {
+        acc[k.replace(headerPrefix, "")] = v;
+      } else if (validNonPrefixHeaders.includes(k.toLowerCase())) {
+        acc[k] = v;
+      }
+      return acc;
+    }, {} as THeaders);
   }
   constructor() {
     const CancelToken = axios.CancelToken;
@@ -51,7 +72,7 @@ export class HttpClient {
       const axiosResp = await axios(axiosOpts);
       response.status = axiosResp.status;
       response.statusText = axiosResp.statusText;
-      response.headers = axiosResp.headers;
+      response.headers = this.extractResHeaders(axiosResp.headers);
       response.bodySize = this.extractBodySize(axiosResp);
       if (axiosResp.data) {
         if (opts.expectBinary) {
@@ -67,7 +88,7 @@ export class HttpClient {
         console.dir(e);
         response.status = e?.response?.status;
         response.data = e?.response?.data ?? e?.message;
-        response.headers = e?.response?.headers;
+        response.headers = this.extractResHeaders(e?.response?.headers);
         response.bodySize = response?.data?.length ?? 0;
       } else {
         response.data = e?.message;

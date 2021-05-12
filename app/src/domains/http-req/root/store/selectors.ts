@@ -52,7 +52,6 @@ const getRequestReadyHeaders = createSelector(
           acc[header.key] = header.value;
         }
       }
-      console.log(acc);
       return acc;
     }, {} as TStringDict);
     if (settings.useProxy) {
