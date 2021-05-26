@@ -18,5 +18,3 @@ if ngx.req.get_method() ~= 'OPTIONS' then
         end
     end
 end
-
-Cors.prevent_browser_errors();
