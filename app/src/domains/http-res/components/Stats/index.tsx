@@ -3,10 +3,9 @@ import { Color } from "@/utils/color";
 import { HTTP_STATUS_CODES } from "@/constants/http";
 import View from "./view";
 import { connect, ConnectedProps } from "react-redux";
-import { TRootState } from "@/store/rootReducer";
 import { HttpResponseSelectors as Selectors } from "../../store/selectors";
 
-const connector = connect((state: TRootState) => ({
+const connector = connect((state) => ({
   time: Selectors.getFormattedResponseTime(state),
   size: Selectors.getFormattedResponseSize(state),
   status: Selectors.getResponseStatus(state),
