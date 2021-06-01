@@ -1,36 +1,38 @@
 import React, { useMemo } from "react";
-import ms from "pretty-ms";
-import pb from "pretty-bytes";
 import { Color } from "@/utils/color";
 import { HTTP_STATUS_CODES } from "@/constants/http";
-import { TConnectorProps } from "../../connectors";
 import View from "./view";
+import { connect, ConnectedProps } from "react-redux";
+import { TRootState } from "@/store/rootReducer";
+import { HttpResponseSelectors as Selectors } from "../../store/selectors";
 
-type TProps = Pick<TConnectorProps, "response" | "responseSize">;
-
-const Stats = ({ response, responseSize }: TProps) => {
+const connector = connect((state: TRootState) => ({
+  time: Selectors.getFormattedResponseTime(state),
+  size: Selectors.getFormattedResponseSize(state),
+  status: Selectors.getResponseStatus(state),
+}));
+type TProps = ConnectedProps<typeof connector>;
+const Stats = (props: TProps) => {
   const statusHint = useMemo(() => {
-    if (!response.status) {
+    if (!props.status) {
       return "Unknown code";
     }
-    const meta = HTTP_STATUS_CODES.find(
-      ({ value }) => value === response.status
-    );
+    const meta = HTTP_STATUS_CODES.find(({ value }) => value === props.status);
     if (meta) {
       return meta.hint;
     } else {
       return "Unknown code";
     }
-  }, [response.status]);
+  }, [props.status]);
   return (
     <View
-      status={response.status}
-      statusColor={Color.getColorForHttpStatus(response.status)}
+      status={props.status}
+      statusColor={Color.getColorForHttpStatus(props.status)}
       statusHint={statusHint}
-      size={responseSize && pb(responseSize)}
-      time={ms(response.responseTime)}
+      size={props.size}
+      time={props.time}
     />
   );
 };
 
-export default Stats;
+export default connector(Stats);

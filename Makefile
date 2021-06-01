@@ -1,4 +1,5 @@
 app_npm_prefix = npm --prefix ./app
+proxy_npm_prefix = npm --prefix ./node-proxy
 
 app.dev:
 	$(app_npm_prefix) start
@@ -10,3 +11,5 @@ app.compile-themes:
 	$(app_npm_prefix) npx gulp less
 proxy.start:
 	docker-compose -f proxy/docker-compose.yml up nginx
+node-proxy.dev:
+	$(proxy_npm_prefix) run dev

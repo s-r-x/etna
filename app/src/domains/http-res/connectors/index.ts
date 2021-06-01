@@ -16,7 +16,6 @@ export const connector = connect(
     prettyBody: ResSelectors.getPrettyBody(state),
     rawBody: ResSelectors.getRawBody(state),
     response: ResSelectors.getResponse(state),
-    responseSize: ResSelectors.getResponseSize(state),
     responseType: ResSelectors.getResponseContentType(state),
     filename: ResSelectors.getFilename(state),
     headers: ResSelectors.getHeaders(state),

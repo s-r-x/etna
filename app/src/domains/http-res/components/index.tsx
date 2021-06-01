@@ -33,7 +33,7 @@ const HttpResponse = (props: TConnectorProps) => {
           rawBody={props.rawBody}
           prettyBody={props.prettyBody}
         />
-        <Stats response={response} responseSize={props.responseSize} />
+        <Stats />
       </S.TopBar>
       <Tabs
         headersLength={props.headers.length}

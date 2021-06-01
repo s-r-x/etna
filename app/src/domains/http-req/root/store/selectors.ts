@@ -39,7 +39,8 @@ const getRequestReadyHeaders = createSelector(
   getUrl,
   getActiveHeaders,
   getSettings,
-  (url, headers, settings) => {
+  getMethod,
+  (url, headers, settings, method) => {
     const norm = headers.reduce((acc, header) => {
       if (header.key) {
         if (settings.useProxy) {
@@ -56,6 +57,9 @@ const getRequestReadyHeaders = createSelector(
     }, {} as TStringDict);
     if (settings.useProxy) {
       norm["x-etna-target"] = url;
+    }
+    if (settings.useProxy) {
+      norm["x-etna-method"] = method;
     }
     return norm;
   }

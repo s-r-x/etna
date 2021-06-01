@@ -1,3 +1,5 @@
+import { THTTPMethod } from "./http";
+
 export type TOpts = {
   headers?: {
     [key: string]: any;
@@ -19,4 +21,13 @@ export type TResponse = {
   statusText?: string;
   isBinary: boolean;
   headers?: { [key: string]: string };
+};
+export type TProxyResponse = {
+  bin: boolean;
+  data: string;
+  headers: { [key: string]: string };
+  status: number;
+  method: THTTPMethod;
+  time: number;
+  size: number;
 };

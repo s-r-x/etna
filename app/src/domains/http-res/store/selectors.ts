@@ -2,6 +2,9 @@ import { createSelector } from "@reduxjs/toolkit";
 import { TRootState } from "@/store/rootReducer";
 import { CodeFormatter } from "@/utils/CodeFormatter";
 import { DOMAIN } from "./slice";
+import _ from "lodash";
+import ms from "pretty-ms";
+import pb from "pretty-bytes";
 
 const getResponse = (state: TRootState) => state[DOMAIN].response;
 const getEditorOpts = (state: TRootState) => state[DOMAIN].editor;
@@ -11,6 +14,12 @@ const getResponseContentType = createSelector(getResponse, (res): string => {
     return type.replace(/;.*/, "");
   }
   return type;
+});
+const getFormattedResponseTime = createSelector(getResponse, (res) => {
+  if (_.isNil(res.responseTime)) {
+    return ms(0);
+  }
+  return ms(res.responseTime);
 });
 const getCategory = (state: TRootState) => state[DOMAIN].category;
 const getRawBody = createSelector(getResponse, (res) => res?.data);
@@ -49,10 +58,18 @@ const getHeaders = createSelector(getRawHeaders, (headers) => {
     value: headers[key] as string,
   }));
 });
+const getResponseStatus = createSelector(getResponse, res => res.status);
 const getResponseSize = createSelector(
   getResponse,
   (res) => res?.bodySize ?? 0
 );
+const getFormattedResponseSize = createSelector(getResponseSize, (size) => {
+  if (_.isNil(size)) {
+    return pb(0);
+  }
+  return pb(size);
+});
+
 const isImage = createSelector(getResponseContentType, (type): boolean => {
   switch (type) {
     case "image/gif":
@@ -83,4 +100,8 @@ export const HttpResponseSelectors = {
   isImage,
   isPdf,
   isPrettyBodySupported,
+
+  getResponseStatus,
+  getFormattedResponseTime,
+  getFormattedResponseSize,
 };
