@@ -51,6 +51,7 @@ export class HttpClient {
       const axiosResp = await axios(axiosOpts);
       if (opts.useProxy) {
         const proxyData: TProxyResponse = axiosResp.data;
+        response.error = proxyData.error;
         response.data = this.extractProxyData(proxyData);
         response.headers = proxyData.headers;
         response.status = proxyData.status;

@@ -25,6 +25,7 @@ export type TResponse = {
 export type TProxyResponse = {
   bin: boolean;
   data: string;
+  error: boolean;
   headers: { [key: string]: string };
   status: number;
   method: THTTPMethod;

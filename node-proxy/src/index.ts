@@ -1,6 +1,7 @@
 import http, { IncomingHttpHeaders } from "http";
 import axios, { Method } from "axios";
 import FileType from "file-type";
+import { IProxyRes } from "./typings";
 
 const etnaHeaderRegex = /^x-etna-header-/;
 
@@ -46,8 +47,12 @@ const server = http.createServer(async (req, res) => {
   const method = extractMethod(req.headers);
   const target = extractTarget(req.headers);
   const proxyHeaders = normalizeHeaders(req.headers);
+  const proxyRes: Partial<IProxyRes> = {
+    url: target,
+    method,
+  };
+  const perfStart = Date.now();
   try {
-    const perfStart = Date.now();
     const {
       data: rawData,
       headers,
@@ -60,21 +65,32 @@ const server = http.createServer(async (req, res) => {
       responseType: "arraybuffer",
     });
     const { isBinary, data } = await normalizeResData(rawData);
-    const response = {
-      bin: isBinary,
-      data,
-      headers,
-      status,
-      method,
-      url: target,
-      time: Date.now() - perfStart,
-      size: rawData.byteLength,
-    };
-    res.end(JSON.stringify(response));
+    proxyRes.bin = isBinary;
+    proxyRes.data = data;
+    proxyRes.error = false;
+    proxyRes.status = status;
+    proxyRes.headers = headers;
+    proxyRes.size = rawData.byteLength;
   } catch (e) {
-    res.statusCode = e?.response?.status;
+    const axiosRes = e?.response;
+    proxyRes.status = axiosRes?.status;
+    proxyRes.headers = axiosRes?.headers;
+    proxyRes.error = true;
+    if (axiosRes?.data) {
+      const { isBinary, data } = await normalizeResData(axiosRes.data);
+      proxyRes.data = data;
+      proxyRes.bin = isBinary;
+      proxyRes.size = axiosRes.data.byteLength;
+    } else {
+      proxyRes.bin = false;
+      const msg = e?.message;
+      proxyRes.data = msg;
+      proxyRes.size = msg?.length ?? 0;
+    }
     console.error(e);
-    res.end("error here");
+  } finally {
+    proxyRes.time = Date.now() - perfStart;
+    res.end(JSON.stringify(proxyRes));
   }
 });
 server.listen(3000, () => {
