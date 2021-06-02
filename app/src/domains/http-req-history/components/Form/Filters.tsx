@@ -31,16 +31,16 @@ const HistorySearchFilters = () => {
       </Form.Item>
       <Form.Item label="Sort by" name="sort">
         <Select allowClear>
-          <Option key="date" value="date">
+          <Option key="date" value="req.date">
             Date
           </Option>
-          <Option key="url" value="url">
+          <Option key="url" value="req.url">
             URL
           </Option>
-          <Option key="wait" value="wait">
+          <Option key="wait" value="res.responseTime">
             Response time
           </Option>
-          <Option key="status" value="status">
+          <Option key="status" value="res.status">
             Status
           </Option>
         </Select>
