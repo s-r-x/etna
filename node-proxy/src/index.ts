@@ -72,8 +72,7 @@ const server = http.createServer(async (req, res) => {
     };
     res.end(JSON.stringify(response));
   } catch (e) {
-    // TODO:: eror
-    res.statusCode = 400;
+    res.statusCode = e?.response?.status;
     console.error(e);
     res.end("error here");
   }
