@@ -7,7 +7,7 @@ export type THistoryRequest = Pick<
   TReqState,
   "headers" | "url" | "method" | "query" | "auth"
 > & {
-  date: string;
+  date: number;
 };
 export type THistoryBody = Pick<THttpReqBodyState, "mime" | "text" | "kv"> & {
   gql: {

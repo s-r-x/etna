@@ -21,7 +21,7 @@ function* extractSaga(): SagaIterator {
       id: UUID.gen(),
       req: {
         ..._.pick(req, ["headers", "url", "method", "query", "auth"]),
-        date: new Date().toISOString(),
+        date: new Date().getTime(),
       },
       res,
       body: {
