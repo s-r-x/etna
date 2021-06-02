@@ -51,16 +51,7 @@ export class HttpClient {
       const axiosResp = await axios(axiosOpts);
       if (opts.useProxy) {
         const proxyData: TProxyResponse = axiosResp.data;
-        if (proxyData.bin) {
-          const blob = base64toBlob(
-            proxyData.data,
-            proxyData.headers["content-type"]
-          );
-
-          response.data = URL.createObjectURL(blob);
-        } else {
-          response.data = proxyData.data;
-        }
+        response.data = this.extractProxyData(proxyData);
         response.headers = proxyData.headers;
         response.status = proxyData.status;
         response.responseTime = proxyData.time;
@@ -97,6 +88,18 @@ export class HttpClient {
       return response;
     }
   };
+  private extractProxyData(proxyData: TProxyResponse) {
+    if (proxyData.bin) {
+      const blob = base64toBlob(
+        proxyData.data,
+        proxyData.headers["content-type"]
+      );
+
+      return URL.createObjectURL(blob);
+    } else {
+      return proxyData.data;
+    }
+  }
   private cancelTokenSource: CancelTokenSource;
   private extractBodySize(res: AxiosResponse): number {
     if (!res.data) {
