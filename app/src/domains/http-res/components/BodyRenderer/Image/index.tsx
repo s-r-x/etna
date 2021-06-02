@@ -1,18 +1,14 @@
 import React from "react";
+import * as S from "./styled";
 
 type TProps = {
   body: string;
 };
 const ImageRenderer = (props: TProps) => {
   return (
-    <img
-      style={{
-        maxWidth: "100%",
-        height: "auto",
-      }}
-      src={props.body}
-      alt="response"
-    />
+    <div>
+      <S.Image src={props.body} alt="response" />
+    </div>
   );
 };
 
