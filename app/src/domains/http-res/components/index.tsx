@@ -22,6 +22,7 @@ const HttpResponse = (props: TConnectorProps) => {
     <FullHeightCard>
       <S.TopBar>
         <Actions
+          responseType={props.responseType}
           isBinary={props.response?.isBinary}
           category={props.category}
           isPrettyBodySupported={props.isPrettyBodySupported}

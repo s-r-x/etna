@@ -1,18 +1,8 @@
 import { TFileObject } from "@/typings/file";
-type TDownloadOpts = {
-  shouldCreateBlob?: boolean;
-};
+import FileSaver from "file-saver";
 export const WebApi = {
-  downloadFile(content: string, name: string, opts: TDownloadOpts = {}): void {
-    const a = document.createElement("a");
-    a.download = name;
-    if (opts.shouldCreateBlob) {
-      const file = new Blob([content], { type: "text/plain" });
-      a.href = URL.createObjectURL(file);
-    } else {
-      a.href = content;
-    }
-    a.click();
+  downloadFile(content: string | Blob, name: string): void {
+    FileSaver.saveAs(content, name);
   },
   copyToClipboard(text: string): void {
     const el = document.createElement("textarea");

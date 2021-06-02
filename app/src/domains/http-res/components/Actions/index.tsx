@@ -16,6 +16,7 @@ type TProps = Pick<
   | "headers"
   | "isPrettyBodySupported"
   | "category"
+  | "responseType"
 > & {
   isBinary: boolean;
 };
@@ -41,6 +42,7 @@ const Actions = (props: TProps) => {
           />
         </Tooltip>
         <SaveResponse
+          responseType={props.responseType}
           isBinary={props.isBinary}
           isPrettyBodySupported={props.isPrettyBodySupported}
           headers={props.headers}
