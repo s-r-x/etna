@@ -7,6 +7,7 @@ import { THTTPMethod } from "@/typings/http";
 import { TResponse, TOpts, TProxyResponse } from "@/typings/httpClient";
 import { ETNA_PROXY } from "@/constants/proxy";
 import _ from "lodash";
+import { base64toBlob } from "../base64";
 
 const validNonPrefixHeaders = [
   "content-type",
@@ -50,11 +51,21 @@ export class HttpClient {
       const axiosResp = await axios(axiosOpts);
       if (opts.useProxy) {
         const proxyData: TProxyResponse = axiosResp.data;
-        response.data = proxyData.data;
+        if (proxyData.bin) {
+          const blob = base64toBlob(
+            proxyData.data,
+            proxyData.headers["content-type"]
+          );
+
+          response.data = URL.createObjectURL(blob);
+        } else {
+          response.data = proxyData.data;
+        }
         response.headers = proxyData.headers;
         response.status = proxyData.status;
         response.responseTime = proxyData.time;
         response.bodySize = proxyData.size;
+        response.isBinary = proxyData.bin;
       } else {
         response.status = axiosResp.status;
         response.statusText = axiosResp.statusText;
