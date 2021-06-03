@@ -35,6 +35,7 @@ export const Menu = styled.ul`
 
 export const Link = styled(BaseLink)`
   display: block;
+  width: 100%;
   height: 100%;
   text-align: center;
   color: white;
