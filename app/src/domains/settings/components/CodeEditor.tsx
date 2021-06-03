@@ -1,9 +1,31 @@
 import React from "react";
 import { Form, Radio, InputNumber, Select, Switch } from "antd";
-import { connector, TConnectorProps } from "../connectors/code-editor";
+import { CodeEditorSelectors } from "@/domains/code-editor/store/selectors";
+import { connect, ConnectedProps } from "react-redux";
+import {
+  changeKeyMap,
+  changeTabSize,
+  changeTheme,
+  toggleLineNumbers,
+  toggleLineWrap,
+  changeAutoCloseBrackets,
+} from "@/domains/code-editor/store/slice";
 const { Option } = Select;
 
-const CodeEditorSettings = (props: TConnectorProps) => {
+const connector = connect(
+  (state) => ({
+    form: CodeEditorSelectors.getOptions(state),
+  }),
+  {
+    changeAutoCloseBrackets,
+    changeKeyMap,
+    changeTabSize,
+    changeTheme,
+    toggleLineNumbers,
+    toggleLineWrap,
+  }
+);
+const CodeEditorSettings = (props: ConnectedProps<typeof connector>) => {
   const onChange = (changed: TAnyDict) => {
     for (const key in changed) {
       const val = changed[key];
