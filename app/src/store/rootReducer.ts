@@ -19,6 +19,9 @@ import socketIO, { DOMAIN as SOCKET_IO_DOMAIN } from "@socket-io/store/slice";
 import { persistReducer } from "redux-persist";
 import phoenix, { DOMAIN as PHOENIX_DOMAIN } from "@phoenix/store/slice";
 import storage from "localforage";
+import settings, {
+  DOMAIN as SETTINGS_DOMAIN,
+} from "@/domains/settings/store/slice";
 
 const persistConfig = {
   key: "root",
@@ -54,6 +57,7 @@ const reducer = persistReducer(
     [REQ_BODY_DOMAIN]: httpRequestBody,
     [SOCKET_IO_DOMAIN]: persistReducer(socketIOConfig, socketIO),
     [PHOENIX_DOMAIN]: persistReducer(phoenixConfig, phoenix),
+    [SETTINGS_DOMAIN]: settings,
   })
 );
 export default reducer;
