@@ -1,8 +1,18 @@
 import React from "react";
 import { Form, Switch } from "antd";
-import { connector, TConnectorProps } from "../connectors/proxy";
+import { HttpRequestSelectors } from "@/domains/http-req/root/store/selectors";
+import { connect, ConnectedProps } from "react-redux";
+import { HttpReqActions } from "@/domains/http-req/root/store/slice";
 
-const ProxySettings = (props: TConnectorProps) => {
+const connector = connect(
+  (state) => ({
+    settings: HttpRequestSelectors.getSettings(state),
+  }),
+  {
+    updateSettings: HttpReqActions.updateSettings,
+  }
+);
+const ProxySettings = (props: ConnectedProps<typeof connector>) => {
   const onUseProxyChange = (changed: TAnyDict) => {
     props.updateSettings(changed);
   };
