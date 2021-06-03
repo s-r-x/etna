@@ -1,10 +1,11 @@
 import { TState } from "../typings/store";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const DOMAIN = "settings";
 
 const initialState: TState = {
   isOpen: false,
+  activeTab: "textEditor",
 };
 
 const slice = createSlice({
@@ -17,9 +18,12 @@ const slice = createSlice({
     close(state) {
       state.isOpen = false;
     },
+    changeActiveTab(state, { payload }: PayloadAction<string>) {
+      state.activeTab = payload;
+    },
   },
 });
 
-export const { open, close } = slice.actions;
+export const { open, close, changeActiveTab } = slice.actions;
 
 export default slice.reducer;

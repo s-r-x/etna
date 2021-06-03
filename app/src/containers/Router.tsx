@@ -3,7 +3,6 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import RootLayout from "@/layouts/Root";
 
 import HomePage from "@/pages/home";
-import SettingsPage from "@/pages/settings";
 import SocketIOPage from "@/pages/socketio";
 import PhoenixPage from "@/pages/phoenix";
 
@@ -12,7 +11,6 @@ const Router = () => (
     <Switch>
       <RootLayout>
         <Route path="/" exact component={HomePage} />
-        <Route path="/settings" component={SettingsPage} />
         <Route path="/socketio" component={SocketIOPage} />
         <Route path="/phoenix" component={PhoenixPage} />
       </RootLayout>

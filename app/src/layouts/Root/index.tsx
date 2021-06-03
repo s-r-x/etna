@@ -5,8 +5,13 @@ import * as S from "./styled";
 import ThemeToggler from "@/domains/theme/components/Toggler";
 import SocketIOIcon from "@/components/icons/SocketIO";
 import PhoenixIcon from "@/components/icons/Phoenix";
+import { connect, ConnectedProps } from "react-redux";
+import { open as openSettings } from "@/domains/settings/store/slice";
 
-const RootLayout: React.FC = (props) => {
+const connector = connect(null, {
+  openSettings,
+});
+const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <S.Header>
@@ -32,7 +37,7 @@ const RootLayout: React.FC = (props) => {
             </S.Link>
           </li>
           <li>
-            <S.Link as="button">
+            <S.Link as="button" onClick={props.openSettings}>
               <SettingOutlined style={{ fontSize: "20px" }} />
             </S.Link>
           </li>
@@ -44,4 +49,4 @@ const RootLayout: React.FC = (props) => {
   );
 };
 
-export default RootLayout;
+export default connector(RootLayout);

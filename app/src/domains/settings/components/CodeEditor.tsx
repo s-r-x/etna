@@ -23,11 +23,7 @@ const CodeEditorSettings = (props: TConnectorProps) => {
     }
   };
   return (
-    <Form
-      onValuesChange={onChange}
-      initialValues={props.form}
-      labelCol={{ span: 10 }}
-    >
+    <Form onValuesChange={onChange} initialValues={props.form}>
       <Form.Item label="Key mapping" name="keyMap">
         <Radio.Group>
           <Radio.Button value="vim">Vim</Radio.Button>

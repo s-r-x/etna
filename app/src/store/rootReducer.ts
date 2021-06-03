@@ -45,6 +45,11 @@ const phoenixConfig = {
   storage,
   blacklist: ["connected", "logs", "channelsConnStatuses"],
 };
+const settingsConfig = {
+  key: SETTINGS_DOMAIN,
+  storage,
+  blacklist: ["isOpen"],
+};
 
 const reducer = persistReducer(
   persistConfig,
@@ -57,7 +62,7 @@ const reducer = persistReducer(
     [REQ_BODY_DOMAIN]: httpRequestBody,
     [SOCKET_IO_DOMAIN]: persistReducer(socketIOConfig, socketIO),
     [PHOENIX_DOMAIN]: persistReducer(phoenixConfig, phoenix),
-    [SETTINGS_DOMAIN]: settings,
+    [SETTINGS_DOMAIN]: persistReducer(settingsConfig, settings),
   })
 );
 export default reducer;

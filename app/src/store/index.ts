@@ -12,6 +12,10 @@ import {
   REGISTER,
 } from "redux-persist";
 import { updateSearchForm } from "@/domains/http-req-history/store/slice";
+import {
+  close as closeSettings,
+  open as openSettings,
+} from "@/domains/settings/store/slice";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -29,6 +33,8 @@ const store = configureStore({
           PURGE,
           REGISTER,
           updateSearchForm.type,
+          openSettings.type,
+          closeSettings.type,
         ],
       },
     }),

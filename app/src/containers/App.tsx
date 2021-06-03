@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store, { persistor } from "@/store";
 import ThemeProvider from "@/domains/theme/components/Provider";
 import FullScreenSpin from "@/components/SullScreenSpin";
+import SettingsModal from "@/domains/settings/components/Modal";
 
 const App = () => (
   <Provider store={store}>
@@ -14,6 +15,7 @@ const App = () => (
       <ThemeProvider>
         <GlobalStyle />
         <Router />
+        <SettingsModal />
       </ThemeProvider>
     </PersistGate>
   </Provider>

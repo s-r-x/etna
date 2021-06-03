@@ -8,11 +8,7 @@ const ProxySettings = (props: TConnectorProps) => {
   };
   return (
     <div>
-      <Form
-        initialValues={props.settings}
-        onValuesChange={onUseProxyChange}
-        labelCol={{ span: 10 }}
-      >
+      <Form initialValues={props.settings} onValuesChange={onUseProxyChange}>
         <Form.Item label="Use proxy" name="useProxy" valuePropName="checked">
           <Switch />
         </Form.Item>
