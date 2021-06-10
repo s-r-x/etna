@@ -5,8 +5,13 @@ import { IProxyRes } from "./typings";
 
 const etnaHeaderRegex = /^x-etna-header-/;
 
+const IMMUTABLE_HEADERS = new Set(["authorization", "content-type"]);
 const normalizeHeaders = (headers: IncomingHttpHeaders) => {
   return Object.entries(headers).reduce((acc, [k, v]) => {
+    if (IMMUTABLE_HEADERS.has(k)) {
+      acc[k] = v;
+      return acc;
+    }
     const stripped = k.replace(etnaHeaderRegex, "");
     if (stripped !== k) {
       acc[stripped] = v;
@@ -87,7 +92,6 @@ const server = http.createServer(async (req, res) => {
       proxyRes.data = msg;
       proxyRes.size = msg?.length ?? 0;
     }
-    console.error(e);
   } finally {
     proxyRes.time = Date.now() - perfStart;
     res.end(JSON.stringify(proxyRes));
