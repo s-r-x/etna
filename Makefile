@@ -1,5 +1,6 @@
 app_npm_prefix = npm --prefix ./app
 proxy_npm_prefix = npm --prefix ./node-proxy
+fixture_npm_prefix = npm --prefix ./fixtures
 
 app.dev:
 	$(app_npm_prefix) start
@@ -12,4 +13,6 @@ app.compile-themes:
 proxy.start:
 	docker-compose -f proxy/docker-compose.yml up nginx
 node-proxy.dev:
-	$(proxy_npm_prefix) run dev
+	$(proxy_npm_prefix) dev
+fixture.http:
+	$(fixture_npm_prefix)/http start
