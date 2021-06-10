@@ -1,6 +1,7 @@
 import Express from "express";
 import path from "path";
 import fs from "fs";
+import basicAuth from "express-basic-auth";
 
 const ROOT = path.resolve(__dirname, "..");
 const BIN_ROOT = path.join(ROOT, "bin");
@@ -37,6 +38,7 @@ app.get("/html", (_req, res) => {
     </html>
   `);
 });
+
 app.get("/png", (_req, res) => {
   res.type(".png");
   fs.createReadStream(path.join(BIN_ROOT, "pic.png")).pipe(res);
@@ -65,6 +67,18 @@ app.get("/xIcon", (_req, res) => {
   res.type("image/x-icon");
   fs.createReadStream(path.join(BIN_ROOT, "pic.png")).pipe(res);
 });
+
+app.use(
+  "/basicAuth",
+  basicAuth({
+    users: {
+      admin: "admin",
+    },
+  }),
+  (_req, res) => {
+    res.send("authorized");
+  }
+);
 
 const server = app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
 

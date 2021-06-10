@@ -13,6 +13,6 @@ app.compile-themes:
 proxy.start:
 	docker-compose -f proxy/docker-compose.yml up nginx
 node-proxy.dev:
-	$(proxy_npm_prefix) dev
+	$(proxy_npm_prefix) run dev
 fixture.http:
 	$(fixture_npm_prefix)/http start
