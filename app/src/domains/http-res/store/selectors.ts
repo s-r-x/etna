@@ -76,6 +76,7 @@ const isImage = createSelector(getResponseContentType, (type): boolean => {
     case "image/jpeg":
     case "image/pjpeg":
     case "image/png":
+    case "image/bmp":
     case "image/svg+xml":
     case "image/webp":
     case "image/x-icon":
