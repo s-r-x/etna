@@ -1,7 +1,6 @@
 import { HttpRequestSelectors as ReqSelectors } from "@/domains/http-req/root/store/selectors";
 import { HttpResponseSelectors as ResSelectors } from "../store/selectors";
 import { connect, ConnectedProps } from "react-redux";
-import { TRootState } from "@/store/rootReducer";
 import { HttpReqActions } from "@/domains/http-req/root/store/slice";
 import {
   changeCategory,
@@ -9,18 +8,20 @@ import {
 } from "@/domains/http-res/store/slice";
 
 export const connector = connect(
-  (state: TRootState) => ({
+  (state) => ({
+    hasResponse: ResSelectors.hasResponse(state),
     category: ResSelectors.getCategory(state),
     editorOpts: ResSelectors.getEditorOpts(state),
     loading: ReqSelectors.getLoading(state),
     prettyBody: ResSelectors.getPrettyBody(state),
     rawBody: ResSelectors.getRawBody(state),
-    response: ResSelectors.getResponse(state),
     responseType: ResSelectors.getResponseContentType(state),
     filename: ResSelectors.getFilename(state),
     headers: ResSelectors.getHeaders(state),
     isPrettyBodySupported: ResSelectors.isPrettyBodySupported(state),
     isImage: ResSelectors.isImage(state),
+    isBinary: ResSelectors.isBinary(state),
+    isSvg: ResSelectors.isSvg(state),
     isPdf: ResSelectors.isPdf(state),
   }),
   {

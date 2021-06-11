@@ -7,6 +7,7 @@ import ms from "pretty-ms";
 import pb from "pretty-bytes";
 
 const getResponse = (state: TRootState) => state[DOMAIN].response;
+const hasResponse = createSelector(getResponse, (res) => Boolean(res));
 const getEditorOpts = (state: TRootState) => state[DOMAIN].editor;
 const getResponseContentType = createSelector(getResponse, (res): string => {
   const type = res?.headers?.["content-type"];
@@ -47,10 +48,6 @@ const getPrettyBody = createSelector(
     return CodeFormatter.format(body, type);
   }
 );
-const getFilename = createSelector(getResponseContentType, (type) => {
-  if (!type) return "response.txt";
-  return "response." + type.replace(/.*\//, "").replace(/\+/, "");
-});
 const getRawHeaders = createSelector(getResponse, (res) => res?.headers ?? {});
 const getHeaders = createSelector(getRawHeaders, (headers) => {
   return Object.keys(headers).map((key) => ({
@@ -58,7 +55,7 @@ const getHeaders = createSelector(getRawHeaders, (headers) => {
     value: headers[key] as string,
   }));
 });
-const getResponseStatus = createSelector(getResponse, res => res.status);
+const getResponseStatus = createSelector(getResponse, (res) => res.status);
 const getResponseSize = createSelector(
   getResponse,
   (res) => res?.bodySize ?? 0
@@ -70,6 +67,10 @@ const getFormattedResponseSize = createSelector(getResponseSize, (size) => {
   return pb(size);
 });
 
+const isBinary = createSelector(getResponse, (res) => res.isBinary);
+const isSvg = createSelector(getResponseContentType, (type) => {
+  return type === "image/svg+xml";
+});
 const isImage = createSelector(getResponseContentType, (type): boolean => {
   switch (type) {
     case "image/gif":
@@ -77,7 +78,6 @@ const isImage = createSelector(getResponseContentType, (type): boolean => {
     case "image/pjpeg":
     case "image/png":
     case "image/bmp":
-    case "image/svg+xml":
     case "image/webp":
     case "image/x-icon":
       return true;
@@ -88,7 +88,17 @@ const isImage = createSelector(getResponseContentType, (type): boolean => {
 const isPdf = createSelector(getResponseContentType, (type): boolean => {
   return type === "application/pdf";
 });
+
+const getFilename = createSelector(
+  [getResponseContentType, isSvg],
+  (type, isSvg) => {
+    if (!type) return "response.txt";
+    if (isSvg) return "response.svg";
+    return "response." + type.replace(/.*\//, "").replace(/\+/, "");
+  }
+);
 export const HttpResponseSelectors = {
+  hasResponse,
   getCategory,
   getEditorOpts,
   getFilename,
@@ -98,7 +108,9 @@ export const HttpResponseSelectors = {
   getResponse,
   getResponseSize,
   getResponseContentType,
+  isBinary,
   isImage,
+  isSvg,
   isPdf,
   isPrettyBodySupported,
 

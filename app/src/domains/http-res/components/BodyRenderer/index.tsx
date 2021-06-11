@@ -3,6 +3,7 @@ import ImageRenderer from "./Image";
 import TextRenderer from "./Text";
 import { Empty, Spin } from "antd";
 import { TConnectorProps } from "../../connectors";
+import SvgRenderer from "./Svg";
 const PdfRenderer = React.lazy(() => import("./Pdf"));
 
 type TProps = Pick<
@@ -15,11 +16,14 @@ type TProps = Pick<
   | "isPrettyBodySupported"
   | "isImage"
   | "isPdf"
-> & {
-  isBinary: boolean;
-};
+  | "isSvg"
+  | "isBinary"
+>;
 
 const BodyRenderer = (props: TProps) => {
+  if (props.isSvg) {
+    return <SvgRenderer svg={props.rawBody} />;
+  }
   if (props.isBinary) {
     if (props.isImage) {
       return <ImageRenderer body={props.rawBody} />;

@@ -10,8 +10,7 @@ import * as S from "./styled";
 import FullHeightCard from "@/components/atoms/FullHeightCard";
 
 const HttpResponse = (props: TConnectorProps) => {
-  const { response } = props;
-  if (!response) {
+  if (!props.hasResponse) {
     return (
       <FullHeightCard>
         <Empty />
@@ -23,7 +22,7 @@ const HttpResponse = (props: TConnectorProps) => {
       <S.TopBar>
         <Actions
           responseType={props.responseType}
-          isBinary={props.response?.isBinary}
+          isBinary={props.isBinary}
           category={props.category}
           isPrettyBodySupported={props.isPrettyBodySupported}
           headers={props.headers}
@@ -40,10 +39,11 @@ const HttpResponse = (props: TConnectorProps) => {
         headersLength={props.headers.length}
         Body={
           <BodyRenderer
-            isBinary={props.response?.isBinary}
+            isBinary={props.isBinary}
             isPdf={props.isPdf}
             isPrettyBodySupported={props.isPrettyBodySupported}
             isImage={props.isImage}
+            isSvg={props.isSvg}
             changeEditorFormat={props.changeEditorFormat}
             editorOpts={props.editorOpts}
             responseType={props.responseType}
