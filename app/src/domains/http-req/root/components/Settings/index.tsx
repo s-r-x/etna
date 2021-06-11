@@ -1,24 +1,36 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Form, Switch } from "antd";
-import { TConnectorProps, connector } from "../../connectors/settings";
 import _ from "lodash";
+import { HttpReqActions as Actions } from "@/domains/http-req/root/store/slice";
+import { HttpRequestSelectors as Selectors } from "@/domains/http-req/root/store/selectors";
+import { connect, ConnectedProps } from "react-redux";
 
-const HttpRequestSettings = (props: TConnectorProps) => {
-  const onChange = useCallback(
-    _.debounce((changed: { [key: string]: any }) => {
-      props.updateSettings(changed);
-    }, 175),
-    [props.settings, props.updateSettings]
-  );
+const connector = connect(
+  (state) => ({
+    settings: Selectors.getSettings(state),
+  }),
+  {
+    updateSettings: Actions.updateSettings,
+  }
+);
+const HttpRequestSettings = (props: ConnectedProps<typeof connector>) => {
+  const onChange = (changed: TAnyDict) => {
+    props.updateSettings(changed);
+  };
   return (
     <Form onValuesChange={onChange} initialValues={props.settings}>
-      <Form.Item
-        label="Expect binary response"
-        name="expectBinary"
-        valuePropName="checked"
-      >
-        <Switch></Switch>
+      <Form.Item label="Use etna proxy" name="useProxy" valuePropName="checked">
+        <Switch />
       </Form.Item>
+      {!props.settings.useProxy && (
+        <Form.Item
+          label="Expect binary response"
+          name="expectBinary"
+          valuePropName="checked"
+        >
+          <Switch />
+        </Form.Item>
+      )}
     </Form>
   );
 };
