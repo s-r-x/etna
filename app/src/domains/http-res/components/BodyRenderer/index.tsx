@@ -21,6 +21,9 @@ type TProps = Pick<
 >;
 
 const BodyRenderer = (props: TProps) => {
+  if (!props.rawBody) {
+    return <Empty description="Empty response" />;
+  }
   if (props.isSvg) {
     return <SvgRenderer svg={props.rawBody} />;
   }
