@@ -23,7 +23,7 @@ function* extractSaga(): SagaIterator {
         ..._.pick(req, ["headers", "url", "method", "query", "auth"]),
         date: new Date().getTime(),
       },
-      res,
+      res: res.isBinary ? _.omit(res, "data") : res,
       body: {
         ..._.pick(body, ["mime", "text", "kv"]),
         gql: {

@@ -19,7 +19,7 @@ const ProxySettings = (props: ConnectedProps<typeof connector>) => {
   return (
     <div>
       <Form initialValues={props.settings} onValuesChange={onUseProxyChange}>
-        <Form.Item label="Use proxy" name="useProxy" valuePropName="checked">
+        <Form.Item label="Use etna proxy" name="useProxy" valuePropName="checked">
           <Switch />
         </Form.Item>
       </Form>
