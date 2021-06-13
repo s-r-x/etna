@@ -26,14 +26,21 @@ const extractMethod = (headers: IncomingHttpHeaders) => {
   const method = (headers["x-etna-method"] || "GET") as Method;
   return method;
 };
+
+const checkIfBinary = async (data: ArrayBuffer) => {
+  const type = await FileType.fromBuffer(data);
+  if(!type) {
+    return false;
+  }
+  return type.mime !== 'application/xml'
+}
 const normalizeResData = async (
   data: ArrayBuffer
 ): Promise<{
   isBinary: boolean;
   data: string;
 }> => {
-  const type = await FileType.fromBuffer(data);
-  const isBinary = Boolean(type);
+  const isBinary = await checkIfBinary(data);
   return {
     isBinary,
     // @ts-ignore

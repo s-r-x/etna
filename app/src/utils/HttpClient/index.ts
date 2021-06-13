@@ -84,8 +84,9 @@ export class HttpClient {
         response.data = e?.message;
       }
     } finally {
-      const requestEnd = performance.now();
-      response.responseTime = requestEnd - requestStart;
+      if(!response.responseTime) {
+        response.responseTime = performance.now() - requestStart;
+      }
       return response;
     }
   };

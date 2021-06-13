@@ -8,6 +8,10 @@ const BIN_ROOT = path.join(ROOT, "bin");
 const PORT = 4567;
 
 const app = Express();
+app.use(Express.raw({ inflate: true, limit: '100kb', type: 'application/xml' }));
+app.use(Express.json());
+app.use(Express.text());
+app.use(Express.urlencoded());
 app.get("/text", (_req, res) => {
   res.type(".txt");
   res.send("hi");
@@ -83,6 +87,21 @@ app.use(
     res.send("authorized");
   }
 );
+
+app.post('/text', (req, res) => {
+  res.send(req.body);
+})
+app.post('/json', (req, res) => {
+  res.send(req.body);
+})
+app.post('/xml', (req, res) => {
+  res.type('.xml');
+  res.send(req.body);
+})
+app.post('/html', (req, res) => {
+  res.type('.html');
+  res.send(req.body);
+})
 
 const server = app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
 
