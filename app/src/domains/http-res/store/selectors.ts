@@ -67,7 +67,7 @@ const getFormattedResponseSize = createSelector(getResponseSize, (size) => {
   return pb(size);
 });
 
-const isBinary = createSelector(getResponse, (res) => res.isBinary);
+const isBinary = createSelector(getResponse, (res) => res?.isBinary);
 const isSvg = createSelector(getResponseContentType, (type) => {
   return type === "image/svg+xml";
 });
