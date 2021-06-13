@@ -67,6 +67,10 @@ app.get("/xIcon", (_req, res) => {
   res.type("image/x-icon");
   fs.createReadStream(path.join(BIN_ROOT, "pic.png")).pipe(res);
 });
+app.get("/pdf", (_req, res) => {
+  res.type(".pdf");
+  fs.createReadStream(path.join(BIN_ROOT, "file.pdf")).pipe(res);
+});
 
 app.use(
   "/basicAuth",
