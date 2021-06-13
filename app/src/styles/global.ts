@@ -47,6 +47,9 @@ export const GlobalStyle = createGlobalStyle`
   .ant-tabs {
     display: flex;
     flex-direction: column;
+    &-tab {
+      user-select: none;
+    }
   }
   .ant-tabs-content, .ant-tabs-tabpane {
     height: 100%;
