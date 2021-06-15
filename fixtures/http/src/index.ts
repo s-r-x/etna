@@ -8,6 +8,10 @@ const BIN_ROOT = path.join(ROOT, "bin");
 const PORT = 4567;
 
 const app = Express();
+app.use(Express.raw({ inflate: true, limit: '100kb', type: 'application/xml' }));
+app.use(Express.json());
+app.use(Express.text());
+app.use(Express.urlencoded());
 app.get("/text", (_req, res) => {
   res.type(".txt");
   res.send("hi");
@@ -67,6 +71,10 @@ app.get("/xIcon", (_req, res) => {
   res.type("image/x-icon");
   fs.createReadStream(path.join(BIN_ROOT, "pic.png")).pipe(res);
 });
+app.get("/pdf", (_req, res) => {
+  res.type(".pdf");
+  fs.createReadStream(path.join(BIN_ROOT, "file.pdf")).pipe(res);
+});
 
 app.use(
   "/basicAuth",
@@ -79,6 +87,21 @@ app.use(
     res.send("authorized");
   }
 );
+
+app.post('/text', (req, res) => {
+  res.send(req.body);
+})
+app.post('/json', (req, res) => {
+  res.send(req.body);
+})
+app.post('/xml', (req, res) => {
+  res.type('.xml');
+  res.send(req.body);
+})
+app.post('/html', (req, res) => {
+  res.type('.html');
+  res.send(req.body);
+})
 
 const server = app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
 

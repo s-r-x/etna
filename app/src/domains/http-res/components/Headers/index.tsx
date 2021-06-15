@@ -12,7 +12,7 @@ const ResponseHeaders = (props: TProps) => {
   return (
     <Table tableLayout="fixed" bordered pagination={false} dataSource={props.headers}>
       <Column width="50%" title="Key" dataIndex="key" key="key" />
-      <Column width="50%" title="Value" dataIndex="value" key="value" />
+      <Column width="50%" title="Value" dataIndex="value" key="value" render={v =>  Array.isArray(v) ? v.join(',') : v} />
     </Table>
   );
 };

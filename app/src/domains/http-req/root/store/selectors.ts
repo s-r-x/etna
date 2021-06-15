@@ -34,7 +34,14 @@ const getQueryLength = createSelector(getQuery, (query) => {
 });
 const getSettings = (state: TRootState) => state[DOMAIN].settings;
 
-const IMMUTABLE_HEADERS = "content-type";
+const IMMUTABLE_HEADERS = ["content-type", 'Content-type'];
+const normalizeHeaderKey = (rawKey: string, useProxy: boolean) => {
+  const key = rawKey.toLowerCase();
+  if (IMMUTABLE_HEADERS.includes(key)) {
+    return key;
+  }
+  return useProxy ? 'x-etna-header-' + key : key;
+}
 const getRequestReadyHeaders = createSelector(
   getUrl,
   getActiveHeaders,
@@ -43,18 +50,16 @@ const getRequestReadyHeaders = createSelector(
   (url, headers, settings, method) => {
     const norm = headers.reduce((acc, header) => {
       if (header.key) {
-        if (settings.useProxy) {
-          if (!IMMUTABLE_HEADERS.includes(header.key.toLowerCase())) {
-            acc["x-etna-header-" + header.key] = header.value;
-          } else {
-            acc[header.key] = header.value;
-          }
+        const key = normalizeHeaderKey(header.key, settings.useProxy);
+        if(key in acc) {
+          const v = acc[key];
+          acc[key] = Array.isArray(v) ? v.concat(header.value) : [v, header.value];
         } else {
-          acc[header.key] = header.value;
+          acc[key] = header.value;
         }
       }
       return acc;
-    }, {} as TStringDict);
+    }, {} as Record<string, string | string[]>);
     if (settings.useProxy) {
       norm["x-etna-target"] = url;
     }
