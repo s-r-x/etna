@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Switch } from "antd";
-import _ from "lodash";
 import { HttpReqActions as Actions } from "@/domains/http-req/root/store/slice";
 import { HttpRequestSelectors as Selectors } from "@/domains/http-req/root/store/selectors";
 import { connect, ConnectedProps } from "react-redux";
