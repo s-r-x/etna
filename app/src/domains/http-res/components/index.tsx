@@ -43,6 +43,7 @@ const HttpResponse = (props: TConnectorProps) => {
             isPdf={props.isPdf}
             isPrettyBodySupported={props.isPrettyBodySupported}
             isImage={props.isImage}
+            isVideo={props.isVideo}
             isSvg={props.isSvg}
             changeEditorFormat={props.changeEditorFormat}
             editorOpts={props.editorOpts}

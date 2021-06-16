@@ -20,6 +20,7 @@ export const connector = connect(
     headers: ResSelectors.getHeaders(state),
     isPrettyBodySupported: ResSelectors.isPrettyBodySupported(state),
     isImage: ResSelectors.isImage(state),
+    isVideo: ResSelectors.isVideo(state),
     isBinary: ResSelectors.isBinary(state),
     isSvg: ResSelectors.isSvg(state),
     isPdf: ResSelectors.isPdf(state),

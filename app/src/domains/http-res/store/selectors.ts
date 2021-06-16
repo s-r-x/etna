@@ -85,6 +85,14 @@ const isImage = createSelector(getResponseContentType, (type): boolean => {
       return false;
   }
 });
+const isVideo = createSelector(getResponseContentType, (type): boolean => {
+  switch (type) {
+    case "video/mp4":
+      return true;
+    default:
+      return false;
+  }
+});
 const isPdf = createSelector(getResponseContentType, (type): boolean => {
   return type === "application/pdf";
 });
@@ -110,6 +118,7 @@ export const HttpResponseSelectors = {
   getResponseContentType,
   isBinary,
   isImage,
+  isVideo,
   isSvg,
   isPdf,
   isPrettyBodySupported,

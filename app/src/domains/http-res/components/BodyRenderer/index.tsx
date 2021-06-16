@@ -4,6 +4,7 @@ import TextRenderer from "./Text";
 import { Empty, Spin } from "antd";
 import { TConnectorProps } from "../../connectors";
 import SvgRenderer from "./Svg";
+import VideoRenderer from "./Video";
 const PdfRenderer = React.lazy(() => import("./Pdf"));
 
 type TProps = Pick<
@@ -17,6 +18,7 @@ type TProps = Pick<
   | "isImage"
   | "isPdf"
   | "isSvg"
+  | "isVideo"
   | "isBinary"
 >;
 
@@ -36,6 +38,8 @@ const BodyRenderer = (props: TProps) => {
           <PdfRenderer document={props.rawBody} />
         </React.Suspense>
       );
+    } else if (props.isVideo) {
+      return <VideoRenderer body={props.rawBody} />;
     } else {
       return (
         <Empty description="Couldn't find appropriate renderer for this file format" />
