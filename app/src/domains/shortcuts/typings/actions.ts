@@ -1,4 +1,3 @@
 export enum EShortcutEv {
-  MAKE_REQUEST,
-  CANCEL_REQUEST,
+  MAKE_OR_CANCEL_REQUEST,
 }

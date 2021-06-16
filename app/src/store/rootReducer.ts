@@ -28,7 +28,6 @@ import shortcuts, {
 
 const persistConfig = {
   key: "root",
-  version: 1,
   storage,
   blacklist: [SOCKET_IO_DOMAIN, REQ_DOMAIN, PHOENIX_DOMAIN],
 };
@@ -36,6 +35,7 @@ const persistConfig = {
 const shortcutsConfig = {
   key: SHORTCUTS_DOMAIN,
   storage,
+  version: 3,
 };
 const socketIOConfig = {
   key: SOCKET_IO_DOMAIN,

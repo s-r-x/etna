@@ -1,5 +1,6 @@
 import { EShortcutEv } from "./actions";
 
 export type TState = {
-  bindings: Record<EShortcutEv, string>;
+  keysToEvents: Record<string, EShortcutEv>;
+  eventsToKeys: Record<EShortcutEv, string[]>;
 };
