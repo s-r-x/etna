@@ -81,6 +81,10 @@ app.get("/mp4", (_req, res) => {
   res.type(".mp4");
   fs.createReadStream(path.join(BIN_ROOT, "video.mp4")).pipe(res);
 });
+app.get("/webm", (_req, res) => {
+  res.type(".webm");
+  fs.createReadStream(path.join(BIN_ROOT, "video.webm")).pipe(res);
+});
 
 app.use(
   "/basicAuth",
