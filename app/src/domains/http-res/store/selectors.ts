@@ -88,6 +88,7 @@ const isImage = createSelector(getResponseContentType, (type): boolean => {
 const isVideo = createSelector(getResponseContentType, (type): boolean => {
   switch (type) {
     case "video/mp4":
+    case "video/webm":
       return true;
     default:
       return false;
