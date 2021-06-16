@@ -22,6 +22,9 @@ import storage from "localforage";
 import settings, {
   DOMAIN as SETTINGS_DOMAIN,
 } from "@/domains/settings/store/slice";
+import shortcuts, {
+  DOMAIN as SHORTCUTS_DOMAIN,
+} from "@/domains/shortcuts/store/slice";
 
 const persistConfig = {
   key: "root",
@@ -30,6 +33,10 @@ const persistConfig = {
   blacklist: [SOCKET_IO_DOMAIN, REQ_DOMAIN, PHOENIX_DOMAIN],
 };
 
+const shortcutsConfig = {
+  key: SHORTCUTS_DOMAIN,
+  storage,
+};
 const socketIOConfig = {
   key: SOCKET_IO_DOMAIN,
   storage,
@@ -63,6 +70,7 @@ const reducer = persistReducer(
     [SOCKET_IO_DOMAIN]: persistReducer(socketIOConfig, socketIO),
     [PHOENIX_DOMAIN]: persistReducer(phoenixConfig, phoenix),
     [SETTINGS_DOMAIN]: persistReducer(settingsConfig, settings),
+    [SHORTCUTS_DOMAIN]: persistReducer(shortcutsConfig, shortcuts),
   })
 );
 export default reducer;
