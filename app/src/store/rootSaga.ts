@@ -4,6 +4,7 @@ import historySaga from "@/domains/http-req-history/store/sagas";
 import httpReqBodySaga from "@/domains/http-req/body/store/sagas";
 import phoenixSaga from "@/domains/ws/phoenix/store/sagas";
 import socketIoSaga from "@/domains/ws/socket-io/store/sagas";
+import shortcutsSaga from "@/domains/shortcuts/store/sagas";
 
 export default function* rootSaga() {
   yield all([
@@ -12,5 +13,6 @@ export default function* rootSaga() {
     httpReqBodySaga(),
     phoenixSaga(),
     socketIoSaga(),
+    shortcutsSaga(),
   ]);
 }

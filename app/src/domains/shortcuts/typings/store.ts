@@ -2,8 +2,8 @@ import { Maybe } from "@/typings/utils";
 import { EShortcutEv } from "./actions";
 
 export type TState = {
-  keysToEvents: Record<string, EShortcutEv>;
-  eventsToKeys: Record<EShortcutEv, string[]>;
+  keyToEvent: Record<string, Maybe<EShortcutEv>>;
+  eventToKey: Record<EShortcutEv, Maybe<string>>;
   editor: {
     isOpen: boolean;
     event: Maybe<EShortcutEv>;

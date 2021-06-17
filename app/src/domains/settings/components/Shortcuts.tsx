@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ShortcutsSelectors as Selectors } from "@/domains/shortcuts/store/selectors";
 import { connect, ConnectedProps } from "react-redux";
 import { List, Button, Modal } from "antd";
@@ -7,10 +7,7 @@ import {
   removeShortcut,
   openEditor,
   closeEditor,
-  setEditorPressedCombo,
 } from "@/domains/shortcuts/store/slice";
-import { PlusOutlined } from "@ant-design/icons";
-import _ from "lodash";
 
 const connector = connect(
   (state) => ({
@@ -24,7 +21,6 @@ const connector = connect(
     removeShortcut,
     openEditor,
     closeEditor,
-    setEditorPressedCombo,
   }
 );
 
@@ -34,27 +30,19 @@ const Shortcuts = (props: TProps) => {
     <>
       <List
         dataSource={props.shortcuts}
-        renderItem={({ eventHr, shortcuts, event }) => (
+        renderItem={({ eventHr, shortcut, event }) => (
           <List.Item
             actions={[
-              shortcuts.map((s) => (
-                <Button
-                  onClick={() => props.openEditor({ event, key: s })}
-                  size="small"
-                  type="dashed"
-                  key={s}
-                >
-                  {s}
-                </Button>
-              )),
               <Button
+                onClick={() =>
+                  props.openEditor({ event, key: shortcut || null })
+                }
                 size="small"
-                key="add"
-                type="primary"
-                shape="circle"
-                onClick={() => props.openEditor({ event, key: null })}
-                icon={<PlusOutlined />}
-              />,
+                type="dashed"
+                key="shortcut"
+              >
+                {shortcut || "Empty"}
+              </Button>,
             ]}
           >
             <List.Item.Meta title={eventHr} />
@@ -66,7 +54,6 @@ const Shortcuts = (props: TProps) => {
         isOpen={props.isEditorOpen}
         event={props.editorEvent}
         pressedCombo={props.pressedCombo}
-        setPressedCombo={props.setEditorPressedCombo}
         addShortcut={props.addShortcut}
         removeShortcut={props.removeShortcut}
       />
@@ -78,55 +65,11 @@ type TModalProps = {
   isOpen: boolean;
   onClose: () => void;
   pressedCombo: TProps["pressedCombo"];
-  setPressedCombo: TProps["setEditorPressedCombo"];
   addShortcut: TProps["addShortcut"];
   removeShortcut: TProps["removeShortcut"];
   event: TProps["editorEvent"];
 };
 const AddShortcutModal = (props: TModalProps) => {
-  useEffect(() => {
-    if (props.isOpen) {
-      let pressed: string[] = [];
-      const upListener = (_e: KeyboardEvent) => {
-        if (!_.isEmpty(pressed)) {
-          if (_.isEqual(["escape"], pressed)) {
-            return props.onClose();
-          }
-        }
-        pressed = [];
-      };
-      const normalizeKey = (rawKey: string) => {
-        const key = rawKey.toLowerCase();
-        const specialKeyMapping = {
-          control: "ctrl",
-          " ": "space",
-        };
-        return key in specialKeyMapping ? specialKeyMapping[key] : key;
-      };
-      const downListener = (e: KeyboardEvent) => {
-        console.log(e);
-        e.preventDefault();
-        pressed.push(normalizeKey(e.key));
-        pressed = _.uniq(pressed);
-        pressed.sort((a, b) => {
-          if (a === "shift") {
-            return 1;
-          }
-          if (a === "ctrl") {
-            return b === "shift" ? -1 : 1;
-          }
-          return 0;
-        });
-        props.setPressedCombo(pressed);
-      };
-      document.addEventListener("keydown", downListener);
-      document.addEventListener("keyup", upListener);
-      return () => {
-        document.removeEventListener("keydown", downListener);
-        document.removeEventListener("keyup", upListener);
-      };
-    }
-  }, [props.isOpen]);
   return (
     <Modal
       keyboard={false}
