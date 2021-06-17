@@ -29,13 +29,14 @@ import shortcuts, {
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: [SOCKET_IO_DOMAIN, REQ_DOMAIN, PHOENIX_DOMAIN],
+  blacklist: [SOCKET_IO_DOMAIN, REQ_DOMAIN, PHOENIX_DOMAIN, SHORTCUTS_DOMAIN],
 };
 
 const shortcutsConfig = {
   key: SHORTCUTS_DOMAIN,
   storage,
   version: 3,
+  blacklist: ["editor"],
 };
 const socketIOConfig = {
   key: SOCKET_IO_DOMAIN,

@@ -6,11 +6,14 @@ import { close, changeActiveTab } from "../store/slice";
 import CodeEditor from "./CodeEditor";
 import Proxy from "./Proxy";
 import { Tabs } from "antd";
+import Shortcuts from "./Shortcuts";
+import { ShortcutsSelectors } from "@/domains/shortcuts/store/selectors";
 const { TabPane } = Tabs;
 
 const connector = connect(
   (state) => ({
     isOpen: SettingsSelectors.isOpen(state),
+    isShortcutEditorOpen: ShortcutsSelectors.isEditorOpen(state),
     activeTab: SettingsSelectors.getActiveTab(state),
   }),
   {
@@ -24,6 +27,7 @@ const SettingsModal = (props: ConnectedProps<typeof connector>) => {
       footer={null}
       onCancel={props.close}
       title="Settings"
+      keyboard={!props.isShortcutEditorOpen}
       visible={props.isOpen}
     >
       <Tabs
@@ -36,6 +40,9 @@ const SettingsModal = (props: ConnectedProps<typeof connector>) => {
         </TabPane>
         <TabPane tab="Proxy" key="proxy">
           <Proxy />
+        </TabPane>
+        <TabPane tab="Shortcuts" key="shortcuts">
+          <Shortcuts />
         </TabPane>
       </Tabs>
     </Modal>
