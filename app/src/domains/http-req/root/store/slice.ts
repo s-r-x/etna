@@ -146,9 +146,11 @@ const slice = createSlice({
 
 const makeRequest = createAction(`${DOMAIN}/makeRequest`);
 const cancelRequest = createAction(`${DOMAIN}/cancelRequest`);
+const makeOrCancelRequest = createAction(`${DOMAIN}/makeOrCancelRequest`);
 export const HttpReqActions = {
   ...slice.actions,
   makeRequest,
+  makeOrCancelRequest,
   cancelRequest,
 };
 

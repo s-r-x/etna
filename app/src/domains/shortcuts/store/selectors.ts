@@ -2,6 +2,7 @@ import { TRootState } from "@/store/rootReducer";
 import { createSelector } from "reselect";
 import { EShortcutEv } from "../typings/actions";
 import { DOMAIN } from "./slice";
+import _ from "lodash";
 
 const isEditorOpen = (state: TRootState) => state[DOMAIN].editor.isOpen;
 const getEditorEvent = (state: TRootState) => state[DOMAIN].editor.event;
@@ -15,6 +16,12 @@ const getEventsArray = createSelector(getEventsMap, (map) => {
     event,
     shortcut,
   }));
+});
+const getKeysForKeyboardWatcher = createSelector(getKeysMap, (map) => {
+  return Object.entries(map)
+    .filter(([_k, e]) => !_.isNil(e))
+    .map(([k]) => k)
+    .join(",");
 });
 
 const evI18nMap: Record<EShortcutEv, string> = {
@@ -31,6 +38,7 @@ const getEventsForSettingsRender = createSelector(getEventsMap, (map) => {
 export const ShortcutsSelectors = {
   isEditorOpen,
   getEditorEvent,
+  getKeysForKeyboardWatcher,
   getEditorPressedCombo,
   getKeysMap,
   getEventsMap,

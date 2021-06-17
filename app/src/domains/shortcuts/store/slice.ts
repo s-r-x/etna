@@ -10,10 +10,10 @@ import { TState } from "../typings/store";
 export const DOMAIN = "shortcuts";
 const initialState: TState = {
   keyToEvent: {
-    "mod+enter": Ev.MAKE_OR_CANCEL_REQUEST,
+    "ctrl+enter": Ev.MAKE_OR_CANCEL_REQUEST,
   },
   eventToKey: {
-    [Ev.MAKE_OR_CANCEL_REQUEST]: "mod+enter",
+    [Ev.MAKE_OR_CANCEL_REQUEST]: "ctrl+enter",
   },
   editor: {
     isOpen: false,

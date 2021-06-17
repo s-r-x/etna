@@ -7,6 +7,8 @@ import {
   take,
   cancel,
   race,
+  all,
+  takeLatest,
 } from "typed-redux-saga";
 import { HttpReqActions as Actions } from "../slice";
 import { HttpClient } from "@/utils/HttpClient";
@@ -49,7 +51,7 @@ function* makeRequestSaga(): SagaIterator {
     }
   }
 }
-export default function* watchMakeRequest() {
+function* watchMakeRequest() {
   while (yield* take(Actions.makeRequest.type)) {
     const task = yield* fork(makeRequestSaga);
     const [cancelCase] = yield* race([
@@ -60,4 +62,17 @@ export default function* watchMakeRequest() {
       yield* cancel(task);
     }
   }
+}
+function* makeOrCancelRequestSaga() {
+  yield takeLatest(Actions.makeOrCancelRequest, function* () {
+    if (yield* select(Selectors.getLoading)) {
+      yield put(Actions.cancelRequest());
+    } else {
+      yield put(Actions.makeRequest());
+    }
+  });
+}
+
+export default function* main() {
+  yield all([watchMakeRequest(), makeOrCancelRequestSaga()]);
 }
