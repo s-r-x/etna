@@ -21,8 +21,12 @@ import { setResponse } from "@/domains/http-res/store/slice";
 import { HttpReqBodySelectors } from "@/domains/http-req/body/store/selectors";
 
 function* makeRequestSaga(): SagaIterator {
-  const client = new HttpClient();
   const url = yield* select(Selectors.getUrl);
+  if (!url) {
+    yield* put(Actions.loadingEnd());
+    return;
+  }
+  const client = new HttpClient();
   const method = yield* select(Selectors.getMethod);
   const headers = yield* select(Selectors.getRequestReadyHeaders);
   const settings = yield* select(Selectors.getSettings);
