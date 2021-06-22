@@ -17,6 +17,7 @@ const initialState: TState = {
     "ctrl+shift+7": Ev.SELECT_DELETE_METHOD,
     "ctrl+shift+6": Ev.SELECT_PATCH_METHOD,
     "ctrl+shift+l": Ev.FOCUS_URL,
+    "ctrl+shift+h": Ev.COPY_URL,
   },
   eventToKey: {
     [Ev.MAKE_OR_CANCEL_REQUEST]: "ctrl+enter",
@@ -26,6 +27,7 @@ const initialState: TState = {
     [Ev.SELECT_DELETE_METHOD]: "ctrl+shift+7",
     [Ev.SELECT_PATCH_METHOD]: "ctrl+shift+6",
     [Ev.FOCUS_URL]: "ctrl+shift+l",
+    [Ev.COPY_URL]: "ctrl+shift+h",
   },
   editor: {
     isOpen: false,

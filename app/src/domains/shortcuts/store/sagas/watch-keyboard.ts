@@ -14,6 +14,9 @@ import hotkeys, { HotkeysEvent } from "hotkeys-js";
 import { ShortcutsSelectors } from "../selectors";
 import { EShortcutEv } from "../../typings/actions";
 import { HttpReqActions } from "@/domains/http-req/root/store/slice";
+import { WebApi } from "@/utils/webapi";
+import { message } from "antd";
+import { HttpRequestSelectors } from "@/domains/http-req/root/store/selectors";
 
 function createKeyboardChannel(keys: string) {
   return eventChannel<string>((emit) => {
@@ -30,6 +33,13 @@ function focusUrl() {
   const $input = document.getElementById("http-req-url-input");
   if ($input) {
     $input.focus();
+  }
+}
+function* copyUrl() {
+  const url = yield* select(HttpRequestSelectors.getUrl);
+  if (url) {
+    yield* call(WebApi.copyToClipboard, url);
+    yield* call(message.info, "URL copied to the clipboard");
   }
 }
 function* watchKeyboardSaga(): SagaIterator {
@@ -62,6 +72,9 @@ function* watchKeyboardSaga(): SagaIterator {
           case EShortcutEv.FOCUS_URL:
             yield* call(focusUrl);
             break;
+          case EShortcutEv.COPY_URL:
+            yield* call(copyUrl);
+            break;
           default:
             console.log(`Unknown shortcut. Key: ${shortcut}`);
         }
@@ -82,6 +95,6 @@ export default function* main() {
     yield* cancel(task);
     yield* take(closeEditor.type);
     // wait a little bit for redux to update shortcuts, if there was some updates
-    yield* delay(50);
+    yield* delay(25);
   }
 }

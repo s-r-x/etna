@@ -23,12 +23,12 @@ const CopyResponse = (props: TProps) => {
       } else {
         WebApi.copyToClipboard(props.rawBody);
       }
-      message.info("Copied to clipboard");
+      message.info("Copied to the clipboard");
     };
     const onSaveHeaders = () => {
       const pretty = CodeFormatter.formatHeaders(props.headers);
       WebApi.copyToClipboard(pretty);
-      message.info("Copied to clipboard");
+      message.info("Copied to the clipboard");
     };
     return (
       <Menu>
