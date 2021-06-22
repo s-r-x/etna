@@ -28,6 +28,7 @@ function createKeyboardChannel(keys: string) {
       rawEvent.preventDefault();
       emit(e.key);
     };
+    hotkeys.filter = () => true;
     hotkeys(keys, onPress);
     return () => hotkeys.unbind(keys, onPress);
   });
