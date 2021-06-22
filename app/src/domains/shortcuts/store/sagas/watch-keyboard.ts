@@ -42,6 +42,11 @@ function* copyUrl() {
     yield* call(message.info, "URL copied to the clipboard");
   }
 }
+function* toggleProxy() {
+  const useProxy = yield* select(HttpRequestSelectors.shouldUseProxy);
+  yield* put(HttpReqActions.toggleProxy());
+  yield* call(message.info, useProxy ? "Proxy disabled" : "Proxy enabled");
+}
 function* watchKeyboardSaga(): SagaIterator {
   const keys = yield* select(ShortcutsSelectors.getKeysForKeyboardWatcher);
   const chan = yield* call(createKeyboardChannel, keys);
@@ -73,7 +78,10 @@ function* watchKeyboardSaga(): SagaIterator {
             yield* call(focusUrl);
             break;
           case EShortcutEv.COPY_URL:
-            yield* call(copyUrl);
+            yield* fork(copyUrl);
+            break;
+          case EShortcutEv.TOGGLE_PROXY:
+            yield* fork(toggleProxy);
             break;
           default:
             console.log(`Unknown shortcut. Key: ${shortcut}`);

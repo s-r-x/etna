@@ -16,8 +16,9 @@ const initialState: TState = {
     "ctrl+shift+8": Ev.SELECT_PUT_METHOD,
     "ctrl+shift+7": Ev.SELECT_DELETE_METHOD,
     "ctrl+shift+6": Ev.SELECT_PATCH_METHOD,
-    "ctrl+shift+l": Ev.FOCUS_URL,
-    "ctrl+shift+h": Ev.COPY_URL,
+    "ctrl+shift+k": Ev.FOCUS_URL,
+    "ctrl+shift+l": Ev.COPY_URL,
+    "ctrl+shift+'": Ev.TOGGLE_PROXY,
   },
   eventToKey: {
     [Ev.MAKE_OR_CANCEL_REQUEST]: "ctrl+enter",
@@ -26,8 +27,9 @@ const initialState: TState = {
     [Ev.SELECT_PUT_METHOD]: "ctrl+shift+8",
     [Ev.SELECT_DELETE_METHOD]: "ctrl+shift+7",
     [Ev.SELECT_PATCH_METHOD]: "ctrl+shift+6",
-    [Ev.FOCUS_URL]: "ctrl+shift+l",
-    [Ev.COPY_URL]: "ctrl+shift+h",
+    [Ev.FOCUS_URL]: "ctrl+shift+k",
+    [Ev.COPY_URL]: "ctrl+shift+l",
+    [Ev.TOGGLE_PROXY]: "ctrl+shift+'",
   },
   editor: {
     isOpen: false,

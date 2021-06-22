@@ -33,15 +33,19 @@ const getQueryLength = createSelector(getQuery, (query) => {
   return query.length;
 });
 const getSettings = (state: TRootState) => state[DOMAIN].settings;
+const shouldUseProxy = createSelector(
+  getSettings,
+  (settings) => settings.useProxy
+);
 
-const IMMUTABLE_HEADERS = ["content-type", 'Content-type'];
+const IMMUTABLE_HEADERS = ["content-type", "Content-type"];
 const normalizeHeaderKey = (rawKey: string, useProxy: boolean) => {
   const key = rawKey.toLowerCase();
   if (IMMUTABLE_HEADERS.includes(key)) {
     return key;
   }
-  return useProxy ? 'x-etna-header-' + key : key;
-}
+  return useProxy ? "x-etna-header-" + key : key;
+};
 const getRequestReadyHeaders = createSelector(
   getUrl,
   getActiveHeaders,
@@ -51,9 +55,11 @@ const getRequestReadyHeaders = createSelector(
     const norm = headers.reduce((acc, header) => {
       if (header.key) {
         const key = normalizeHeaderKey(header.key, settings.useProxy);
-        if(key in acc) {
+        if (key in acc) {
           const v = acc[key];
-          acc[key] = Array.isArray(v) ? v.concat(header.value) : [v, header.value];
+          acc[key] = Array.isArray(v)
+            ? v.concat(header.value)
+            : [v, header.value];
         } else {
           acc[key] = header.value;
         }
@@ -86,4 +92,5 @@ export const HttpRequestSelectors = {
   getRequestReadyHeaders,
   getSettings,
   getUrl,
+  shouldUseProxy,
 };

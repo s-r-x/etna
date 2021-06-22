@@ -141,6 +141,9 @@ const slice = createSlice({
     updateSettings(state, { payload }: TUpdateSettingsDto) {
       _.merge(state.settings, payload);
     },
+    toggleProxy(state) {
+      state.settings.useProxy = !state.settings.useProxy;
+    },
   },
 });
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Switch } from "antd";
 import { HttpRequestSelectors } from "@/domains/http-req/root/store/selectors";
 import { connect, ConnectedProps } from "react-redux";
@@ -13,13 +13,22 @@ const connector = connect(
   }
 );
 const ProxySettings = (props: ConnectedProps<typeof connector>) => {
-  const onUseProxyChange = (changed: TAnyDict) => {
-    props.updateSettings(changed);
-  };
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue(props.settings);
+  }, [form, props.settings]);
   return (
     <div>
-      <Form initialValues={props.settings} onValuesChange={onUseProxyChange}>
-        <Form.Item label="Use etna proxy" name="useProxy" valuePropName="checked">
+      <Form
+        form={form}
+        initialValues={props.settings}
+        onValuesChange={props.updateSettings}
+      >
+        <Form.Item
+          label="Use etna proxy"
+          name="useProxy"
+          valuePropName="checked"
+        >
           <Switch />
         </Form.Item>
       </Form>

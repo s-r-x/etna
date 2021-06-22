@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Switch } from "antd";
 import { HttpReqActions as Actions } from "@/domains/http-req/root/store/slice";
 import { HttpRequestSelectors as Selectors } from "@/domains/http-req/root/store/selectors";
@@ -13,11 +13,16 @@ const connector = connect(
   }
 );
 const HttpRequestSettings = (props: ConnectedProps<typeof connector>) => {
-  const onChange = (changed: TAnyDict) => {
-    props.updateSettings(changed);
-  };
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue(props.settings);
+  }, [form, props.settings]);
   return (
-    <Form onValuesChange={onChange} initialValues={props.settings}>
+    <Form
+      form={form}
+      onValuesChange={props.updateSettings}
+      initialValues={props.settings}
+    >
       <Form.Item label="Use etna proxy" name="useProxy" valuePropName="checked">
         <Switch />
       </Form.Item>

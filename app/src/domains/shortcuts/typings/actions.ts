@@ -7,4 +7,5 @@ export enum EShortcutEv {
   SELECT_DELETE_METHOD,
   FOCUS_URL,
   COPY_URL,
+  TOGGLE_PROXY,
 }
