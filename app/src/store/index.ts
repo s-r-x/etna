@@ -2,20 +2,7 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import rootReducer from "./rootReducer";
 import rootSaga from "./rootSaga";
-import {
-  persistStore,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-import { updateSearchForm } from "@/domains/http-req-history/store/slice";
-import {
-  close as closeSettings,
-  open as openSettings,
-} from "@/domains/settings/store/slice";
+import { persistStore } from "redux-persist";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -24,19 +11,7 @@ const store = configureStore({
   reducer: rootReducer,
   middleware: [
     ...getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [
-          FLUSH,
-          REHYDRATE,
-          PAUSE,
-          PERSIST,
-          PURGE,
-          REGISTER,
-          updateSearchForm.type,
-          openSettings.type,
-          closeSettings.type,
-        ],
-      },
+      serializableCheck: false,
     }),
     ...middleware,
   ],
