@@ -19,6 +19,7 @@ const initialState: TState = {
     "ctrl+shift+k": Ev.FOCUS_URL,
     "ctrl+shift+l": Ev.COPY_URL,
     "ctrl+shift+'": Ev.TOGGLE_PROXY,
+    "ctrl+shift+/": Ev.SHOW_SHORTCUTS,
   },
   eventToKey: {
     [Ev.MAKE_OR_CANCEL_REQUEST]: "ctrl+enter",
@@ -30,6 +31,7 @@ const initialState: TState = {
     [Ev.FOCUS_URL]: "ctrl+shift+k",
     [Ev.COPY_URL]: "ctrl+shift+l",
     [Ev.TOGGLE_PROXY]: "ctrl+shift+'",
+    [Ev.SHOW_SHORTCUTS]: "ctrl+shift+/",
   },
   editor: {
     isOpen: false,

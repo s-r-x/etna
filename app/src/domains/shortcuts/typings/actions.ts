@@ -8,4 +8,5 @@ export enum EShortcutEv {
   FOCUS_URL,
   COPY_URL,
   TOGGLE_PROXY,
+  SHOW_SHORTCUTS,
 }

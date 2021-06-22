@@ -17,6 +17,10 @@ import { HttpReqActions } from "@/domains/http-req/root/store/slice";
 import { WebApi } from "@/utils/webapi";
 import { message } from "antd";
 import { HttpRequestSelectors } from "@/domains/http-req/root/store/selectors";
+import {
+  changeActiveTab,
+  open as openSettings,
+} from "@/domains/settings/store/slice";
 
 function createKeyboardChannel(keys: string) {
   return eventChannel<string>((emit) => {
@@ -46,6 +50,10 @@ function* toggleProxy() {
   const useProxy = yield* select(HttpRequestSelectors.shouldUseProxy);
   yield* put(HttpReqActions.toggleProxy());
   yield* call(message.info, useProxy ? "Proxy disabled" : "Proxy enabled");
+}
+function* showShortcuts() {
+  yield* put(changeActiveTab("shortcuts"));
+  yield* put(openSettings());
 }
 function* watchKeyboardSaga(): SagaIterator {
   const keys = yield* select(ShortcutsSelectors.getKeysForKeyboardWatcher);
@@ -82,6 +90,9 @@ function* watchKeyboardSaga(): SagaIterator {
             break;
           case EShortcutEv.TOGGLE_PROXY:
             yield* fork(toggleProxy);
+            break;
+          case EShortcutEv.SHOW_SHORTCUTS:
+            yield* call(showShortcuts);
             break;
           default:
             console.log(`Unknown shortcut. Key: ${shortcut}`);

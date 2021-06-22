@@ -34,6 +34,7 @@ const evI18nMap: Record<EEvent, string> = {
   [EEvent.FOCUS_URL]: "Focus URL",
   [EEvent.COPY_URL]: "Copy URL",
   [EEvent.TOGGLE_PROXY]: "Toggle etna proxy",
+  [EEvent.SHOW_SHORTCUTS]: "Show shortcuts",
 };
 const getEventsForSettingsRender = createSelector(getEventsMap, (map) => {
   return Object.entries(map).map(([event, shortcut]) => ({
