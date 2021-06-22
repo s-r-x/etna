@@ -35,7 +35,6 @@ const persistConfig = {
 const shortcutsConfig = {
   key: SHORTCUTS_DOMAIN,
   storage,
-  version: 3,
   blacklist: ["editor"],
 };
 const socketIOConfig = {

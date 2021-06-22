@@ -1,6 +1,6 @@
 import { TRootState } from "@/store/rootReducer";
 import { createSelector } from "reselect";
-import { EShortcutEv } from "../typings/actions";
+import { EShortcutEv as EEvent } from "../typings/actions";
 import { DOMAIN } from "./slice";
 import _ from "lodash";
 
@@ -24,12 +24,18 @@ const getKeysForKeyboardWatcher = createSelector(getKeysMap, (map) => {
     .join(",");
 });
 
-const evI18nMap: Record<EShortcutEv, string> = {
-  [EShortcutEv.MAKE_OR_CANCEL_REQUEST]: "Make/cancel request",
+const evI18nMap: Record<EEvent, string> = {
+  [EEvent.MAKE_OR_CANCEL_REQUEST]: "Make/cancel request",
+  [EEvent.SELECT_GET_METHOD]: "Select GET method",
+  [EEvent.SELECT_POST_METHOD]: "Select POST method",
+  [EEvent.SELECT_PUT_METHOD]: "Select PUT method",
+  [EEvent.SELECT_PATCH_METHOD]: "Select PATCH method",
+  [EEvent.SELECT_DELETE_METHOD]: "Select DELETE method",
+  [EEvent.FOCUS_URL]: "Focus URL",
 };
 const getEventsForSettingsRender = createSelector(getEventsMap, (map) => {
   return Object.entries(map).map(([event, shortcut]) => ({
-    event: (event as unknown) as EShortcutEv,
+    event: (event as unknown) as EEvent,
     eventHr: evI18nMap[event],
     shortcut,
   }));

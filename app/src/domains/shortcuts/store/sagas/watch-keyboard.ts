@@ -25,6 +25,13 @@ function createKeyboardChannel(keys: string) {
     return () => hotkeys.unbind(keys, onPress);
   });
 }
+
+function focusUrl() {
+  const $input = document.getElementById("http-req-url-input");
+  if ($input) {
+    $input.focus();
+  }
+}
 function* watchKeyboardSaga(): SagaIterator {
   const keys = yield* select(ShortcutsSelectors.getKeysForKeyboardWatcher);
   const chan = yield* call(createKeyboardChannel, keys);
@@ -36,6 +43,24 @@ function* watchKeyboardSaga(): SagaIterator {
         switch (keyToEvent[shortcut]) {
           case EShortcutEv.MAKE_OR_CANCEL_REQUEST:
             yield* put(HttpReqActions.makeOrCancelRequest());
+            break;
+          case EShortcutEv.SELECT_GET_METHOD:
+            yield* put(HttpReqActions.changeMethod("GET"));
+            break;
+          case EShortcutEv.SELECT_POST_METHOD:
+            yield* put(HttpReqActions.changeMethod("POST"));
+            break;
+          case EShortcutEv.SELECT_PUT_METHOD:
+            yield* put(HttpReqActions.changeMethod("PUT"));
+            break;
+          case EShortcutEv.SELECT_PATCH_METHOD:
+            yield* put(HttpReqActions.changeMethod("PATCH"));
+            break;
+          case EShortcutEv.SELECT_DELETE_METHOD:
+            yield* put(HttpReqActions.changeMethod("DELETE"));
+            break;
+          case EShortcutEv.FOCUS_URL:
+            yield* call(focusUrl);
             break;
           default:
             console.log(`Unknown shortcut. Key: ${shortcut}`);

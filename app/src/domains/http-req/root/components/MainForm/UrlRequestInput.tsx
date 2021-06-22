@@ -8,6 +8,7 @@ type TProps = {
 const URLInput = (props: TProps) => {
   return (
     <Input
+      id="http-req-url-input"
       value={props.value}
       allowClear
       onChange={({ target }) => props.onChange(target.value)}

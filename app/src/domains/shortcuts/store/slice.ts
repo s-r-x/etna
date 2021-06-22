@@ -11,9 +11,21 @@ export const DOMAIN = "shortcuts";
 const initialState: TState = {
   keyToEvent: {
     "ctrl+enter": Ev.MAKE_OR_CANCEL_REQUEST,
+    "ctrl+shift+0": Ev.SELECT_GET_METHOD,
+    "ctrl+shift+9": Ev.SELECT_POST_METHOD,
+    "ctrl+shift+8": Ev.SELECT_PUT_METHOD,
+    "ctrl+shift+7": Ev.SELECT_DELETE_METHOD,
+    "ctrl+shift+6": Ev.SELECT_PATCH_METHOD,
+    "ctrl+shift+l": Ev.FOCUS_URL,
   },
   eventToKey: {
     [Ev.MAKE_OR_CANCEL_REQUEST]: "ctrl+enter",
+    [Ev.SELECT_GET_METHOD]: "ctrl+shift+0",
+    [Ev.SELECT_POST_METHOD]: "ctrl+shift+9",
+    [Ev.SELECT_PUT_METHOD]: "ctrl+shift+8",
+    [Ev.SELECT_DELETE_METHOD]: "ctrl+shift+7",
+    [Ev.SELECT_PATCH_METHOD]: "ctrl+shift+6",
+    [Ev.FOCUS_URL]: "ctrl+shift+l",
   },
   editor: {
     isOpen: false,
@@ -38,7 +50,7 @@ const slice = createSlice({
         state.eventToKey[payload.event] = null;
       }
       if (payload.event) {
-        state.keyToEvent[payload.key] = null;
+        delete state.keyToEvent[payload.key];
       }
     },
     openEditor(state, { payload }: PayloadAction<TOpenShortcutEditorDto>) {
