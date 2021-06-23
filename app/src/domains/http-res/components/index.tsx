@@ -18,7 +18,7 @@ const HttpResponse = (props: TConnectorProps) => {
     );
   }
   return (
-    <FullHeightCard>
+    <FullHeightCard title="Response">
       <S.TopBar>
         <Actions
           responseType={props.responseType}

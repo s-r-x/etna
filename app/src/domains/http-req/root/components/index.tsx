@@ -5,7 +5,7 @@ import Form from "./MainForm";
 
 const HttpRequest = () => {
   return (
-    <FullHeightCard>
+    <FullHeightCard title="Request">
       <Form />
       <Editors />
     </FullHeightCard>
