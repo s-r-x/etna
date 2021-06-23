@@ -2,8 +2,7 @@ import React from "react";
 import CodeEditor from "@/domains/code-editor/components";
 import { TConnectorProps } from "../../../connectors";
 import Mode from "./Mode";
-import { Container } from "./styled";
-import FullParentHeight from "@/components/FullParentHeight";
+import { Container, InnerWrap } from "./styled";
 
 type TProps = Pick<
   TConnectorProps,
@@ -20,7 +19,7 @@ const TextRenderer = (props: TProps) => {
   const isRaw = format === "Raw";
   return (
     <Container>
-      <FullParentHeight>
+      <InnerWrap>
         <CodeEditor
           extra={
             <Mode
@@ -33,7 +32,7 @@ const TextRenderer = (props: TProps) => {
           readOnly
           mode={isRaw ? "text/plain" : props.responseType}
         />
-      </FullParentHeight>
+      </InnerWrap>
     </Container>
   );
 };

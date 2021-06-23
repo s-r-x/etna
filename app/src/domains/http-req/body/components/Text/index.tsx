@@ -1,15 +1,14 @@
 import React from "react";
 import CodeEditor from "@/domains/code-editor/components";
 import { TConnectorProps } from "../../connectors/body";
-import { Container } from "./styled";
-import FullParentHeight from "@/components/FullParentHeight";
+import { Container, InnerWrap } from "./styled";
 
 type TProps = Pick<TConnectorProps, "MIME" | "text" | "changeText">;
 
 const TextEditor = (props: TProps) => {
   return (
     <Container>
-      <FullParentHeight>
+      <InnerWrap>
         <CodeEditor
           allowPrettify={
             props.MIME === "application/json" ||
@@ -20,7 +19,7 @@ const TextEditor = (props: TProps) => {
           value={props.text}
           onChange={props.changeText}
         />
-      </FullParentHeight>
+      </InnerWrap>
     </Container>
   );
 };

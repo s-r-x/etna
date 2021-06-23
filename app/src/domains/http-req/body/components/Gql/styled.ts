@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import FullParentHeight from "@/components/FullParentHeight";
 
 export const Container = styled.div`
   display: flex;
@@ -15,4 +16,11 @@ export const QueryContainer = styled.div`
 export const VarsContainer = styled.div`
   min-height: 1px;
   max-height: 200px;
+`;
+
+export const MainEditorWrap = styled(FullParentHeight)`
+  @media (max-width: 991px) {
+    height: 300px;
+    position: static;
+  }
 `;

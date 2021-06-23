@@ -7,6 +7,9 @@ const FullHeightCard = styled(Card)`
   .ant-tabs {
     flex: 1;
   }
+  @media (max-width: 991px) {
+    height: auto;
+  }
 `;
 
 export default FullHeightCard;
