@@ -5,5 +5,8 @@ export const Container = styled.div`
   justify-content: flex-start;
 `;
 export const Sect = styled.div`
-  margin-right: 15px;
+  margin-right: 10px;
+  :last-child {
+    margin-right: 0;
+  }
 `;
