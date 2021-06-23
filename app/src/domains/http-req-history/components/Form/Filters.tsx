@@ -4,15 +4,23 @@ import { AutoComplete } from "antd";
 import { HTTP_STATUS_CODES, HTTP_METHODS } from "@/constants/http";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
+import { TConnectorProps } from "../../connectors";
 
 const statusSelectOpts = HTTP_STATUS_CODES.map((code) => ({
   value: "" + code.value,
   label: `${code.value} (${code.hr})`,
 }));
 
-const HistorySearchFilters = () => {
+type TProps = Pick<TConnectorProps, "searchForm"> & {
+  onChange: (v: any) => void;
+};
+const HistorySearchFilters = (props: TProps) => {
   return (
-    <>
+    <Form
+      onValuesChange={props.onChange}
+      initialValues={props.searchForm}
+      layout="vertical"
+    >
       <Form.Item label="Method" name="method">
         <Select allowClear>
           {HTTP_METHODS.map((method) => (
@@ -54,7 +62,7 @@ const HistorySearchFilters = () => {
       <Form.Item label="Date" name="dateRange" rules={[{ type: "array" }]}>
         <RangePicker showTime />
       </Form.Item>
-    </>
+    </Form>
   );
 };
 export default HistorySearchFilters;

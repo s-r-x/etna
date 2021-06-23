@@ -16,6 +16,10 @@ export const Header = styled(Layout.Header)`
   background: ${({ theme }) => theme.colors.primary.main};
   height: var(--navbar-height);
   line-height: var(--navbar-height);
+  padding: 0 30px;
+  @media (max-width: 991px) {
+    padding: 0 20px;
+  }
 `;
 export const Menu = styled.ul`
   list-style-type: none;
@@ -54,4 +58,7 @@ export const Link = styled(BaseLink)`
 export const Content = styled(Layout.Content)`
   display: flex;
   margin: var(--root-layout-offset);
-`
+  @media (max-width: 991px) {
+    display: block;
+  }
+`;

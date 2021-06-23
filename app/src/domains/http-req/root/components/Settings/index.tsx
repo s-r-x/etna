@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { Form, Switch } from "antd";
+import { Switch } from "antd";
 import { HttpReqActions as Actions } from "@/domains/http-req/root/store/slice";
 import { HttpRequestSelectors as Selectors } from "@/domains/http-req/root/store/selectors";
 import { connect, ConnectedProps } from "react-redux";
+import { Form } from "./styled";
 
 const connector = connect(
   (state) => ({

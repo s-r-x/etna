@@ -4,7 +4,7 @@ import URLInput from "./UrlRequestInput";
 import { TConnectorProps, connector } from "../../connectors/form";
 import CancelButton from "./CancelRequestButton";
 import SubmitButton from "./MakeRequestButton";
-import { Container } from "./styled";
+import { Container, ButtonsRoot, InputsRoot } from "./styled";
 
 const HTTPRequestForm = (props: TConnectorProps) => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -13,16 +13,20 @@ const HTTPRequestForm = (props: TConnectorProps) => {
   };
   return (
     <Container onSubmit={onSubmit}>
-      <MethodSelect value={props.method} onChange={props.changeMethod} />
-      <URLInput value={props.url} onChange={props.changeUrl} />
-      <SubmitButton
-        disabled={!props.url || props.loading}
-        loading={props.loading}
-      />
-      <CancelButton
-        disabled={!props.url || !props.loading}
-        onClick={props.cancelRequest}
-      />
+      <InputsRoot>
+        <MethodSelect value={props.method} onChange={props.changeMethod} />
+        <URLInput value={props.url} onChange={props.changeUrl} />
+      </InputsRoot>
+      <ButtonsRoot>
+        <SubmitButton
+          disabled={!props.url || props.loading}
+          loading={props.loading}
+        />
+        <CancelButton
+          disabled={!props.url || !props.loading}
+          onClick={props.cancelRequest}
+        />
+      </ButtonsRoot>
     </Container>
   );
 };

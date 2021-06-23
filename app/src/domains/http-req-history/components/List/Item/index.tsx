@@ -32,16 +32,20 @@ const SearchItem = memo((props: ListChildComponentProps) => {
         <Tag color={Color.getColorForHttpStatus(item.res.status)}>
           {item.res.status}
         </Tag>
-        <S.ResponseTime>
-          <ClockCircleFilled />
-          <span style={{ marginLeft: "5px" }}>{ms(item.res.responseTime)}</span>
-        </S.ResponseTime>
-        <S.RequestDate>
-          <CalendarFilled />
-          <span style={{ marginLeft: "5px" }}>
-            {moment(item.req.date).format("MM-DD-YYYY HH:mm")}
-          </span>
-        </S.RequestDate>
+        <S.TimeSect>
+          <S.ResponseTime>
+            <ClockCircleFilled />
+            <span style={{ marginLeft: "5px" }}>
+              {ms(item.res.responseTime)}
+            </span>
+          </S.ResponseTime>
+          <S.RequestDate>
+            <CalendarFilled />
+            <span style={{ marginLeft: "5px" }}>
+              {moment(item.req.date).format("L LT")}
+            </span>
+          </S.RequestDate>
+        </S.TimeSect>
       </S.TopStats>
       <S.UrlAndActions>
         <Tooltip title={item.req.url}>

@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import { Input } from "antd";
 import { TConnectorProps } from "../../connectors";
-import { Form, Button, Popover } from "antd";
+import { Button, Popover } from "antd";
 import _ from "lodash";
 import Filters from "./Filters";
-import { Container } from "./styled";
+import { Form, Container } from "./styled";
 import { SettingOutlined } from "@ant-design/icons";
 const { Search } = Input;
 
@@ -17,22 +17,19 @@ const HistorySearchForm = (props: TProps) => {
     [props.searchForm]
   );
   return (
-    <>
-      <Form
-        layout="vertical"
-        onValuesChange={onChange}
-        initialValues={props.searchForm}
-      >
-        <Container>
-          <Form.Item name="url">
-            <Search placeholder="URL" allowClear />
-          </Form.Item>
-          <Popover trigger={["click"]} content={<Filters />}>
-            <Button title="Filters" icon={<SettingOutlined />} />
-          </Popover>
-        </Container>
+    <Container>
+      <Form onValuesChange={onChange} initialValues={props.searchForm}>
+        <Form.Item name="url">
+          <Search placeholder="URL" allowClear />
+        </Form.Item>
       </Form>
-    </>
+      <Popover
+        trigger={["click"]}
+        content={<Filters onChange={onChange} searchForm={props.searchForm} />}
+      >
+        <Button title="Filters" icon={<SettingOutlined />} />
+      </Popover>
+    </Container>
   );
 };
 export default HistorySearchForm;

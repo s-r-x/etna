@@ -4,6 +4,7 @@ import { TConnectorProps } from "../../connectors";
 import { FixedSizeList as VirtualList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { Empty } from "antd";
+import { useMediaQuery } from "react-responsive";
 
 type TProps = Pick<TConnectorProps, "history" | "removeItem" | "restore">;
 const SearchList = (props: TProps) => {
@@ -19,6 +20,7 @@ const SearchList = (props: TProps) => {
       restore: props.restore,
     };
   }, [props.history, props.removeItem, props.restore]);
+  const isSmallScreen = useMediaQuery({ maxWidth: 450 });
   return (
     <div style={{ flex: 1 }}>
       <AutoSizer>
@@ -28,7 +30,7 @@ const SearchList = (props: TProps) => {
               itemData={itemProps}
               width={width}
               height={height}
-              itemSize={75}
+              itemSize={isSmallScreen ? 90 : 70}
               itemCount={props.history.length}
             >
               {Item}

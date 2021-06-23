@@ -1,10 +1,10 @@
 import React from "react";
 import { Layout, Typography, Button } from "antd";
-import { GlobalOutlined, SettingOutlined } from "@ant-design/icons";
+import { /*GlobalOutlined*/ SettingOutlined } from "@ant-design/icons";
 import * as S from "./styled";
 import ThemeToggler from "@/domains/theme/components/Toggler";
-import SocketIOIcon from "@/components/icons/SocketIO";
-import PhoenixIcon from "@/components/icons/Phoenix";
+//import SocketIOIcon from "@/components/icons/SocketIO";
+//import PhoenixIcon from "@/components/icons/Phoenix";
 import { connect, ConnectedProps } from "react-redux";
 import { open as openSettings } from "@/domains/settings/store/slice";
 
@@ -20,6 +20,7 @@ const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
             Etna
           </Typography.Title>
         </S.Logo>
+        {/*
         <S.Menu>
           <li>
             <S.Link exact activeClassName="link-active" to="/">
@@ -37,11 +38,12 @@ const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
             </S.Link>
           </li>
         </S.Menu>
+          */}
         <div>
           <ThemeToggler />
           <Button
             type="text"
-            style={{ marginLeft: "10px" }}
+            style={{ marginLeft: "10px", color: "white" }}
             onClick={props.openSettings}
             shape="circle"
             icon={<SettingOutlined />}

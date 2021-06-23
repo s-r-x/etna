@@ -7,12 +7,13 @@ export const Container = styled.div`
 `;
 export const TopStats = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 export const ResponseTime = styled.div`
-  margin: 0 10px;
+  margin-right: 10px;
 `;
 export const RequestDate = styled.div`
-  margin: 0 10px;
+  margin-right: 10px;
 `;
 export const Actions = styled.div`
   margin-left: 15px;
@@ -26,5 +27,8 @@ export const RequestUrl = styled.span`
 export const UrlAndActions = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 5px;
+`;
+export const TimeSect = styled.div`
+  display: flex;
 `;
