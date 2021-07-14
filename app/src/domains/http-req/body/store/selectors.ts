@@ -1,23 +1,26 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { TRootState } from "@/store/rootReducer";
 import { DOMAIN } from "./slice";
-import filesStore from "@/store/_files";
 import { buildClientSchema } from "graphql";
 import { WebApi } from "@/utils/webapi";
 import qs from "query-string";
+import _ from "lodash";
 
+export async function dataUrlToFile(
+  dataUrl: string,
+  mime: string,
+  fileName: string
+): Promise<File> {
+  const res: Response = await fetch(dataUrl);
+  const blob: Blob = await res.blob();
+  return new File([blob], fileName, { type: mime });
+}
 const getFullBody = (state: TRootState) => state[DOMAIN];
 const getText = (state: TRootState) => state[DOMAIN].text;
 const getMIME = (state: TRootState) => state[DOMAIN].mime;
 const getKV = (state: TRootState) => state[DOMAIN].kv;
-const getFiles = () => filesStore.getFiles();
 const getRequestReadyKV = createSelector(getKV, (kv) => {
-  return kv
-    .filter(({ active }) => active)
-    .reduce((acc, { key, value }) => {
-      acc[key] = value;
-      return acc;
-    }, {} as TStringDict);
+  return kv.filter(({ active }) => active);
 });
 const getActiveEditor = createSelector(getMIME, (mime) => {
   switch (mime) {
@@ -58,9 +61,8 @@ const getRequestReadyBody = createSelector(
   getText,
   getRequestReadyKV,
   getMIME,
-  getFiles,
   getParsedGqlVars,
-  (text, kv, mime, files, variables): string | FormData | object => {
+  async (text, kv, mime, variables): Promise<string | FormData | object> => {
     switch (mime) {
       case "application/json":
       case "text/html":
@@ -73,9 +75,22 @@ const getRequestReadyBody = createSelector(
           variables,
         };
       case "application/x-www-form-urlencoded":
-        return qs.stringify(kv);
+        return qs.stringify(
+          _.fromPairs(kv.map(({ key, value }) => [key, value]))
+        );
       case "multipart/form-data":
-        return WebApi.createFormData(kv, files);
+        const normalizedKv = await Promise.all(
+          kv.map(async (data) => {
+            return {
+              key: data.key,
+              fileName: data.fileName,
+              value: data.isFile
+                ? await dataUrlToFile(data.value, data.mime, data.fileName)
+                : data.value,
+            };
+          })
+        );
+        return WebApi.createFormData(normalizedKv);
       default:
         return null;
     }

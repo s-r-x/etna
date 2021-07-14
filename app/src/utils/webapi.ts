@@ -1,5 +1,11 @@
-import { TFileObject } from "@/typings/file";
 import FileSaver from "file-saver";
+
+type TCreateFormDataDto = {
+  key: string;
+  value: string | File;
+  fileName?: string;
+};
+
 export const WebApi = {
   downloadFile(content: string | Blob, name: string): void {
     FileSaver.saveAs(content, name);
@@ -12,16 +18,23 @@ export const WebApi = {
     document.execCommand("copy");
     document.body.removeChild(el);
   },
-  createFormData(dict: TStringDict, files?: TFileObject[]) {
+  createFormData(data: TCreateFormDataDto[]) {
     const body = new FormData();
-    if (files) {
-      for (const file of files) {
-        body.append(file.file.name, file.file);
+    data.forEach(({ key, value, fileName }) => {
+      if (value instanceof File) {
+        body.append(key, value, fileName);
+      } else {
+        body.set(key, value);
       }
-    }
-    for (const key in dict) {
-      body.set(key, dict[key]);
-    }
+    });
     return body;
+  },
+  fileToBase64(file: File): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.toString());
+      reader.onerror = (error) => reject(error);
+    });
   },
 };

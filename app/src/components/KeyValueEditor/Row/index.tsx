@@ -1,10 +1,7 @@
 import React, { memo, useCallback } from "react";
 import { Input, Button, Checkbox, Space } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import {
-  TProps as TRootProps,
-  TItem,
-} from "@/typings/components/keyValueEditor";
+import { TProps as TRootProps, TItem } from "../typings";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import * as S from "./styled";
 
@@ -16,6 +13,7 @@ type TProps = Pick<
   | "onRemove"
   | "keyPlaceholder"
   | "valuePlaceholder"
+  | "valueRenderer"
 > & {
   idx: number;
   item: TItem;
@@ -79,11 +77,19 @@ const Row = memo((props: TProps) => {
           value={item.key}
           onChange={onChangeKey}
         />
-        <Input
-          placeholder={valuePlaceholder}
-          value={item.value}
-          onChange={onChangeValue}
-        />
+        {props.valueRenderer ? (
+          props.valueRenderer({
+            row: item,
+            id: props.idx,
+            placeholder: valuePlaceholder,
+          })
+        ) : (
+          <Input
+            placeholder={valuePlaceholder}
+            value={item.value}
+            onChange={onChangeValue}
+          />
+        )}
       </S.Inputs>
     </S.Container>
   );

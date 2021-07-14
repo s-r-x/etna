@@ -1,15 +1,29 @@
 import React from "react";
 import CodeEditor from "@/domains/code-editor/components";
-import { connector, TConnectorProps } from "../../connectors/gql";
 import { Button } from "antd";
 import { SyncOutlined } from "@ant-design/icons";
 import * as S from "./styled";
+import { HttpReqBodySelectors as Selectors } from "../../store/selectors";
+import { connect, ConnectedProps } from "react-redux";
+import { HttpReqBodyActions as Actions } from "../../store/slice";
 
-type TProps = {
-  value: string;
-  onChange: (value: string) => void;
-} & TConnectorProps;
-const GqlEditor = (props: TProps) => {
+const connector = connect(
+  (state) => ({
+    value: Selectors.getText(state),
+    loading: Selectors.isGqlSchemaLoading(state),
+    vars: Selectors.getGqlVars(state),
+    schema: Selectors.getGqlSchema(state),
+  }),
+  {
+    cancelLoadGqlSchema: Actions.cancelLoadGqlSchema,
+    loadGqlSchema: Actions.loadGqlSchema,
+    updateGqlVars: Actions.updateGqlVars,
+    onChange: Actions.changeText,
+  }
+);
+type TConnectorProps = ConnectedProps<typeof connector>;
+
+const GqlEditor = (props: TConnectorProps) => {
   return (
     <S.Container>
       <S.QueryContainer>

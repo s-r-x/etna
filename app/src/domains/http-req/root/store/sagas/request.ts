@@ -30,8 +30,9 @@ function* makeRequestSaga(): SagaIterator {
   const method = yield* select(Selectors.getMethod);
   const headers = yield* select(Selectors.getRequestReadyHeaders);
   const settings = yield* select(Selectors.getSettings);
-  const body = yield* select(HttpReqBodySelectors.getRequestReadyBody);
+  const state = yield* select((state) => state);
   const auth = yield* select(Selectors.getAuth);
+  const body = yield* call(HttpReqBodySelectors.getRequestReadyBody, state);
   try {
     yield* put(Actions.loadingStart());
     const resp: TResponse = yield* call(client.make, url, method, {

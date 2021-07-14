@@ -1,11 +1,16 @@
 import { THTTPBodyMIME } from "@/typings/http";
 import { THistoryBody } from "@/domains/http-req-history/typings/store";
-import { genVoidKV } from "@/utils/kv";
+import { genVoidKV as genBaseVoidKV } from "@/utils/kv";
 import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
-import { THttpReqBodyState } from "../typings/store";
+import { THttpReqBodyState, TEnhancedKeyValue } from "../typings/store";
+import { TChangeKVDto } from "../typings/dto";
 
 export const DOMAIN = "httpReqBody";
 
+const genVoidKV = (): TEnhancedKeyValue => ({
+  ...genBaseVoidKV(),
+  isFile: false,
+});
 const slice = createSlice({
   name: DOMAIN,
   initialState: {
@@ -39,11 +44,12 @@ const slice = createSlice({
     ) {
       state.kv[payload.id].key = payload.key;
     },
-    changeKVValue(
-      state,
-      { payload }: PayloadAction<{ id: number; value: string }>
-    ) {
-      state.kv[payload.id].value = payload.value;
+    changeKVValue(state, { payload }: PayloadAction<TChangeKVDto>) {
+      const active = state.kv[payload.id];
+      active.mime = payload.mime;
+      active.isFile = payload.isFile;
+      active.value = payload.value;
+      active.fileName = payload.fileName;
     },
     changeKVActive(
       state,

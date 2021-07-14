@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Button, Space } from "antd";
 import Row from "./Row";
 import { PlusOutlined } from "@ant-design/icons";
-import { TProps } from "@/typings/components/keyValueEditor";
+import { TProps } from "./typings";
 
 const KeyValueEditor = (props: TProps) => {
   const onAdd = useCallback(() => {
@@ -19,6 +19,7 @@ const KeyValueEditor = (props: TProps) => {
           onChangeKey={props.onChangeKey}
           onChangeValue={props.onChangeValue}
           onRemove={props.onRemove}
+          valueRenderer={props.valueRenderer}
           keyPlaceholder={props.keyPlaceholder}
           valuePlaceholder={props.valuePlaceholder}
         />

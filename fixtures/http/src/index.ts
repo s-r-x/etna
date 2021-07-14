@@ -2,6 +2,7 @@ import Express from "express";
 import path from "path";
 import fs from "fs";
 import basicAuth from "express-basic-auth";
+import fileUpload from "express-fileupload";
 
 const ROOT = path.resolve(__dirname, "..");
 const BIN_ROOT = path.join(ROOT, "bin");
@@ -13,7 +14,8 @@ app.use(
 );
 app.use(Express.json());
 app.use(Express.text());
-app.use(Express.urlencoded());
+app.use(Express.urlencoded({ extended: true }));
+app.use(fileUpload());
 app.get("/text", (_req, res) => {
   res.type(".txt");
   res.send("hi");
@@ -111,6 +113,20 @@ app.post("/xml", (req, res) => {
 app.post("/html", (req, res) => {
   res.type(".html");
   res.send(req.body);
+});
+app.post("/urlencoded", (req, res) => {
+  res.send(req.body);
+});
+app.post("/formData", (req, res) => {
+  res.send(req.body);
+});
+app.post("/files", (req, res) => {
+  const entries = Object.entries(req.files);
+  for (const name in req.files) {
+    // @ts-ignore
+    req.files[name].data = undefined;
+  }
+  res.send(req.files);
 });
 
 const server = app.listen(PORT, () => console.log(`http://localhost:${PORT}`));

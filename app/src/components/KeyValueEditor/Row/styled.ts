@@ -13,7 +13,7 @@ export const Utils = styled.div`
 export const Inputs = styled(Space)`
   display: flex;
   flex: 1;
-  > div {
+  > div:nth-child(-n + 2) {
     flex-grow: 1;
   }
 `;

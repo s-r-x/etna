@@ -1,3 +1,5 @@
+import React from "react";
+
 export type TItem = {
   key: string;
   value: string;
@@ -13,4 +15,9 @@ export type TProps = {
   onChangeActive?(arg: { id: any; active: boolean }): void;
   onRemove(id: any): void;
   onAdd(): void;
+  valueRenderer?: (data: {
+    row: any;
+    id: any;
+    placeholder: string;
+  }) => React.ReactElement;
 };
