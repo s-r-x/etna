@@ -10,7 +10,7 @@ const getRawSearchForm = (state: TRootState) => state[DOMAIN].searchForm;
 const getSearchForm = createSelector(getRawSearchForm, (form) => {
   return {
     ...form,
-    dateRange: form.dateRange.map((d) => d && moment(d)),
+    date: form.date && moment(form.date),
   };
 });
 const getFullHistory = (state: TRootState) => state[DOMAIN].items;
@@ -18,19 +18,15 @@ const getHistory = createSelector(
   getSearchForm,
   getFullHistory,
   (form, history) => {
-    const hasDateRange = form.dateRange.every(Boolean);
     const url = form.url?.toLowerCase();
     let filtered: THistoryItem[];
-    if (form.status || form.method || url || hasDateRange) {
+    if (form.status || form.method || url || form.date) {
       filtered = history.filter((item) => {
-        const date = hasDateRange ? moment(item.req.date) : null;
+        const date = form.date ? moment(item.req.date) : null;
         return (
           (form.status ? item.res.status == form.status : true) &&
           (form.method ? item.req.method === form.method : true) &&
-          (date
-            ? date.isSameOrAfter(form.dateRange[0]) &&
-              date.isSameOrBefore(form.dateRange[1])
-            : true) &&
+          (date ? date.isSame(form.date, "day") : true) &&
           (url ? item.req.url.includes(url) : true)
         );
       });

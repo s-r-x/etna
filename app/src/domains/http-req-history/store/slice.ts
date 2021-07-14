@@ -13,7 +13,7 @@ const initialState: TState = {
     status: null,
     sort: null,
     sortDir: "asc",
-    dateRange: [null, null],
+    date: null,
   },
 };
 const slice = createSlice({
@@ -34,10 +34,9 @@ const slice = createSlice({
     },
     updateSearchForm(state, { payload }: PayloadAction<Partial<TSearchForm>>) {
       for (const key in payload) {
-        if (key === "dateRange") {
-          const value = (payload[key] as unknown) as [Moment, Moment];
-          state.searchForm[key][0] = value?.[0]?.toISOString() ?? null;
-          state.searchForm[key][1] = value?.[1]?.toISOString() ?? null;
+        if (key === "date") {
+          const value = (payload[key] as unknown) as Moment;
+          state.searchForm[key] = value?.toISOString() ?? null;
         } else {
           const val: string = payload[key];
           state.searchForm[key] = val && val.trim();

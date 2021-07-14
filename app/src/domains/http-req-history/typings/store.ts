@@ -28,7 +28,7 @@ export type TSearchForm = {
   [key: string]: any;
   sort: string;
   sortDir: "asc" | "desc";
-  dateRange: [string, string];
+  date: string;
 };
 
 export type TState = {

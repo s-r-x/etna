@@ -3,7 +3,6 @@ import { Form, Select, Radio, DatePicker } from "antd";
 import { AutoComplete } from "antd";
 import { HTTP_STATUS_CODES, HTTP_METHODS } from "@/constants/http";
 const { Option } = Select;
-const { RangePicker } = DatePicker;
 import { TConnectorProps } from "../../connectors";
 
 const statusSelectOpts = HTTP_STATUS_CODES.map((code) => ({
@@ -20,6 +19,9 @@ const HistorySearchFilters = (props: TProps) => {
       onValuesChange={props.onChange}
       initialValues={props.searchForm}
       layout="vertical"
+      style={{
+        minWidth: "310px",
+      }}
     >
       <Form.Item label="Method" name="method">
         <Select allowClear>
@@ -59,8 +61,8 @@ const HistorySearchFilters = (props: TProps) => {
           <Radio value="desc">DESC</Radio>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="Date" name="dateRange" rules={[{ type: "array" }]}>
-        <RangePicker showTime />
+      <Form.Item label="Date" name="date">
+        <DatePicker />
       </Form.Item>
     </Form>
   );
