@@ -121,10 +121,11 @@ app.post("/formData", (req, res) => {
   res.send(req.body);
 });
 app.post("/files", (req, res) => {
-  const entries = Object.entries(req.files);
-  for (const name in req.files) {
-    // @ts-ignore
-    req.files[name].data = undefined;
+  if (req.files) {
+    for (const name in req.files) {
+      // @ts-ignore
+      req.files[name].data = undefined;
+    }
   }
   res.send(req.files);
 });
