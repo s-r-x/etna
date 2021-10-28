@@ -1,19 +1,20 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { TRootState } from "@/store/rootReducer";
+import { TRootState as State } from "@/store/rootReducer";
 import { DOMAIN } from "./slice";
 import { THistoryItem } from "@/domains/http-req-history/typings/store";
 import _ from "lodash";
 import moment from "moment";
 
-const getSearch = (state: TRootState) => state[DOMAIN].search;
-const getRawSearchForm = (state: TRootState) => state[DOMAIN].searchForm;
+const root = (state: State) => state[DOMAIN];
+const getSearch = (state: State) => root(state).search;
+const getRawSearchForm = (state: State) => root(state).searchForm;
 const getSearchForm = createSelector(getRawSearchForm, (form) => {
   return {
     ...form,
     date: form.date && moment(form.date),
   };
 });
-const getFullHistory = (state: TRootState) => state[DOMAIN].items;
+const getFullHistory = (state: State) => root(state).items;
 const getHistory = createSelector(
   getSearchForm,
   getFullHistory,

@@ -1,10 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { TRootState } from "@/store/rootReducer";
+import { TRootState as State } from "@/store/rootReducer";
 import { DOMAIN } from "./slice";
 
-const getRequest = (state: TRootState) => state[DOMAIN];
-const getAuthStrategy = (state: TRootState) => state[DOMAIN].auth.strategy;
-const getAuthData = (state: TRootState) => state[DOMAIN].auth.data;
+const root = (state: State) => state[DOMAIN];
+const getAuthStrategy = (state: State) => root(state).auth.strategy;
+const getAuthData = (state: State) => root(state).auth.data;
 const getBasicAuthData = createSelector(getAuthData, (data) => data.basic);
 const getAuth = createSelector(
   getAuthStrategy,
@@ -16,23 +16,22 @@ const getAuth = createSelector(
     return null;
   }
 );
-const getHeaders = (state: TRootState) => state[DOMAIN].headers;
+const getHeaders = (state: State) => root(state).headers;
 const getActiveHeaders = createSelector(getHeaders, (headers) =>
   headers.filter((h) => h.active)
 );
 const getHeadersLength = createSelector(getActiveHeaders, (headers) => {
   return headers.length;
 });
-const getUrl = (state: TRootState) => state[DOMAIN].url;
-const getMethod = (state: TRootState) => state[DOMAIN].method;
-const getLoading = (state: TRootState) => state[DOMAIN].loading;
-const getActiveOptsEditor = (state: TRootState) =>
-  state[DOMAIN].activeOptsEditor;
-const getQuery = (state: TRootState) => state[DOMAIN].query;
+const getUrl = (state: State) => root(state).url;
+const getMethod = (state: State) => root(state).method;
+const getLoading = (state: State) => root(state).loading;
+const getActiveOptsEditor = (state: State) => state[DOMAIN].activeOptsEditor;
+const getQuery = (state: State) => root(state).query;
 const getQueryLength = createSelector(getQuery, (query) => {
   return query.length;
 });
-const getSettings = (state: TRootState) => state[DOMAIN].settings;
+const getSettings = (state: State) => root(state).settings;
 const shouldUseProxy = createSelector(
   getSettings,
   (settings) => settings.useProxy
@@ -77,7 +76,7 @@ const getRequestReadyHeaders = createSelector(
 );
 
 export const HttpRequestSelectors = {
-  getRequest,
+  getRequest: root,
   getActiveOptsEditor,
   getAuth,
   getAuthData,

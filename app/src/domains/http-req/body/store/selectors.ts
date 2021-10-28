@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { TRootState } from "@/store/rootReducer";
+import { TRootState as State } from "@/store/rootReducer";
 import { DOMAIN } from "./slice";
 import { buildClientSchema } from "graphql";
 import { WebApi } from "@/utils/webapi";
@@ -15,10 +15,10 @@ export async function dataUrlToFile(
   const blob: Blob = await res.blob();
   return new File([blob], fileName, { type: mime });
 }
-const getFullBody = (state: TRootState) => state[DOMAIN];
-const getText = (state: TRootState) => state[DOMAIN].text;
-const getMIME = (state: TRootState) => state[DOMAIN].mime;
-const getKV = (state: TRootState) => state[DOMAIN].kv;
+const root = (state: State) => state[DOMAIN];
+const getText = (state: State) => root(state).text;
+const getMIME = (state: State) => root(state).mime;
+const getKV = (state: State) => root(state).kv;
 const getRequestReadyKV = createSelector(getKV, (kv) => {
   return kv.filter(({ active }) => active);
 });
@@ -38,7 +38,7 @@ const getActiveEditor = createSelector(getMIME, (mime) => {
       throw new Error(`unknown mime received: ${mime}`);
   }
 });
-const getGqlRawSchema = (state: TRootState) => state[DOMAIN].gql.schema;
+const getGqlRawSchema = (state: State) => root(state).gql.schema;
 const getGqlSchema = createSelector(getGqlRawSchema, (schema) => {
   try {
     return schema && buildClientSchema(JSON.parse(schema)?.data);
@@ -46,9 +46,9 @@ const getGqlSchema = createSelector(getGqlRawSchema, (schema) => {
     return null;
   }
 });
-const isGqlSchemaLoading = (state: TRootState) => state[DOMAIN].gql.loading;
-const getGqlSchemaError = (state: TRootState) => state[DOMAIN].gql.error;
-const getGqlVars = (state: TRootState) => state[DOMAIN].gql.vars;
+const isGqlSchemaLoading = (state: State) => root(state).gql.loading;
+const getGqlSchemaError = (state: State) => root(state).gql.error;
+const getGqlVars = (state: State) => root(state).gql.vars;
 const getParsedGqlVars = createSelector(getGqlVars, (vars) => {
   try {
     return JSON.parse(vars);
@@ -98,7 +98,7 @@ const getRequestReadyBody = createSelector(
 );
 
 export const HttpReqBodySelectors = {
-  getFullBody,
+  getFullBody: root,
   getActiveEditor,
   getText,
   getMIME,

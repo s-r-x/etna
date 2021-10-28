@@ -1,14 +1,15 @@
 import { DOMAIN } from "./slice";
-import { TRootState } from "@/store/rootReducer";
+import { TRootState as State } from "@/store/rootReducer";
 import { createStructuredSelector } from "reselect";
 
-const getTabSize = (state: TRootState) => state[DOMAIN].tabSize;
-const getTheme = (state: TRootState) => state[DOMAIN].theme;
-const getKeyMap = (state: TRootState) => state[DOMAIN].keyMap;
-const getLineNumbers = (state: TRootState) => state[DOMAIN].lineNumbers;
-const getAutoCloseBrackets = (state: TRootState) =>
-  state[DOMAIN].autoCloseBrackets;
-const getLineWrapping = (state: TRootState) => state[DOMAIN].lineWrapping;
+const root = (state: State) => state[DOMAIN];
+const getTabSize = (state: State) => root(state).tabSize;
+const getTheme = (state: State) => root(state).theme;
+const getKeyMap = (state: State) => root(state).keyMap;
+const getLineNumbers = (state: State) => root(state).lineNumbers;
+const getAutoCloseBrackets = (state: State) =>
+  root(state).autoCloseBrackets;
+const getLineWrapping = (state: State) => root(state).lineWrapping;
 const getOptions = createStructuredSelector({
   tabSize: getTabSize,
   theme: getTheme,

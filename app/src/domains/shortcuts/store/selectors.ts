@@ -1,16 +1,16 @@
-import { TRootState } from "@/store/rootReducer";
+import { TRootState as State } from "@/store/rootReducer";
 import { createSelector } from "reselect";
 import { EShortcutEv as EEvent } from "../typings/actions";
 import { DOMAIN } from "./slice";
 import _ from "lodash";
 
-const isEditorOpen = (state: TRootState) => state[DOMAIN].editor.isOpen;
-const getEditorEvent = (state: TRootState) => state[DOMAIN].editor.event;
-const getEditorPressedCombo = (state: TRootState) =>
-  state[DOMAIN].editor.pressed;
+const root = (state: State) => state[DOMAIN];
+const isEditorOpen = (state: State) => root(state).editor.isOpen;
+const getEditorEvent = (state: State) => root(state).editor.event;
+const getEditorPressedCombo = (state: State) => root(state).editor.pressed;
 
-const getKeysMap = (state: TRootState) => state[DOMAIN].keyToEvent;
-const getEventsMap = (state: TRootState) => state[DOMAIN].eventToKey;
+const getKeysMap = (state: State) => root(state).keyToEvent;
+const getEventsMap = (state: State) => root(state).eventToKey;
 const getEventsArray = createSelector(getEventsMap, (map) => {
   return Object.entries(map).map(([event, shortcut]) => ({
     event,

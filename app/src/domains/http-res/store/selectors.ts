@@ -1,14 +1,15 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { TRootState } from "@/store/rootReducer";
+import { TRootState as State } from "@/store/rootReducer";
 import { CodeFormatter } from "@/utils/CodeFormatter";
 import { DOMAIN } from "./slice";
 import _ from "lodash";
 import ms from "pretty-ms";
 import pb from "pretty-bytes";
 
-const getResponse = (state: TRootState) => state[DOMAIN].response;
-const hasResponse = createSelector(getResponse, (res) => Boolean(res));
-const getEditorOpts = (state: TRootState) => state[DOMAIN].editor;
+const root = (state: State) => state[DOMAIN];
+const getResponse = (state: State) => root(state).response;
+const hasResponse = (state: State) => !!getResponse(state);
+const getEditorOpts = (state: State) => root(state).editor;
 const getResponseContentType = createSelector(getResponse, (res): string => {
   const type = res?.headers?.["content-type"];
   if (type) {
@@ -22,7 +23,7 @@ const getFormattedResponseTime = createSelector(getResponse, (res) => {
   }
   return ms(res.responseTime);
 });
-const getCategory = (state: TRootState) => state[DOMAIN].category;
+const getCategory = (state: State) => root(state).category;
 const getRawBody = createSelector(getResponse, (res) => res?.data);
 const isPrettyBodySupported = createSelector(
   getResponseContentType,
