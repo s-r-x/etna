@@ -44,7 +44,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     addShortcut(state, { payload }: PayloadAction<TAddShortcutDto>) {
-      state.keyToEvent[payload.key] = payload.event;
+      state.keyToEvent[payload.key] = Number(payload.event);
       if (payload.event in state.eventToKey) {
         state.eventToKey[payload.event] = payload.key;
       } else {
