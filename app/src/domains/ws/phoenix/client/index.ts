@@ -31,7 +31,11 @@ export class PhoenixClient extends AbstractWsClient {
       params: data.query,
     });
     socket.channels = [];
-    socket.connect();
+    try {
+      socket.connect();
+    } catch (e) {
+      this.onError(e);
+    }
     socket.onOpen(this.onConnect);
     socket.onError(this.onError);
     socket.onClose(this.onDisconnect);
@@ -94,7 +98,7 @@ export class PhoenixClient extends AbstractWsClient {
     this.log({
       ev: "error",
       lvl: EWsLogLevel.ERR,
-      msg: "Error",
+      msg: e.message || "Error",
       route: EWsRouteType.OUT,
     });
   };
@@ -103,7 +107,7 @@ export class PhoenixClient extends AbstractWsClient {
     this.log({
       ev: "disconnected",
       lvl: EWsLogLevel.ERR,
-      msg: String(e),
+      msg: e instanceof CloseEvent ? undefined : e.message,
       route: EWsRouteType.OUT,
     });
   };
