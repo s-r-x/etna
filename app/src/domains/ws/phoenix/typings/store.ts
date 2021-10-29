@@ -30,4 +30,9 @@ export type TPhoenixState = {
   createChForm: TPhoenixCreateChannelForm;
   createEvForm: TPhoenixEventForm;
   logs: TWsLogItem[];
+  input: {
+    mode: "application/json" | "text/plain";
+    event: string;
+    data: string;
+  };
 };

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PhoenixSelectors as Selectors } from "@phoenix/store/selectors";
 import { PhoenixActions as Actions } from "@phoenix/store/slice";
 
-const SocketIoConnectForm = () => {
+const PhoenixConnectForm = () => {
   const dispatch = useDispatch();
   const url = useSelector(Selectors.getUrl);
   const isConnected = useSelector(Selectors.isConnected);
@@ -31,4 +31,4 @@ const SocketIoConnectForm = () => {
   );
 };
 
-export default SocketIoConnectForm;
+export default PhoenixConnectForm;

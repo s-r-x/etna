@@ -1,25 +1,26 @@
 import { createSelector } from "reselect";
 import { DOMAIN } from "./slice";
-import { TRootState } from "@/store/rootReducer";
+import { TRootState as State } from "@/store/rootReducer";
 import { PhoenixClient } from "@phoenix/client";
 import { TWsLogUIItem } from "@ws/shared/typings/ui";
 import { EWsLogLevel } from "@ws/shared/typings/store";
 import moment from "moment";
 
-const getUrl = (state: TRootState) => state[DOMAIN].url;
-const isConnected = (state: TRootState) => state[DOMAIN].connected;
+const root = (state: State) => state[DOMAIN];
+const getUrl = (state: State) => root(state).url;
+const isConnected = (state: State) => root(state).connected;
 const getClient = () => PhoenixClient.getInstance();
-const getTab = (state: TRootState) => state[DOMAIN].tab;
-const getConnTab = (state: TRootState) => state[DOMAIN].connTab;
-const getQuery = (state: TRootState) => state[DOMAIN].query;
+const getTab = (state: State) => root(state).tab;
+const getConnTab = (state: State) => root(state).connTab;
+const getQuery = (state: State) => root(state).query;
 const getNormalizedQuery = createSelector(getQuery, (query) => {
   return query.reduce((acc, { key, value }) => {
     return { ...acc, [key]: value };
   }, {} as TStringDict);
 });
-const getChannelsConnStatuses = (state: TRootState) =>
+const getChannelsConnStatuses = (state: State) =>
   state[DOMAIN].channelsConnStatuses;
-const getRawChannels = (state: TRootState) => state[DOMAIN].channels;
+const getRawChannels = (state: State) => root(state).channels;
 const getChannels = createSelector(
   [getRawChannels, getChannelsConnStatuses],
   (channels, conn) => {
@@ -29,10 +30,10 @@ const getChannels = createSelector(
     }));
   }
 );
-const getCreateChannelForm = (state: TRootState) => state[DOMAIN].createChForm;
-const getCreateEventForm = (state: TRootState) => state[DOMAIN].createEvForm;
-const getEvents = (state: TRootState) => state[DOMAIN].events;
-const getRawLogs = (state: TRootState) => state[DOMAIN].logs;
+const getCreateChannelForm = (state: State) => root(state).createChForm;
+const getCreateEventForm = (state: State) => root(state).createEvForm;
+const getEvents = (state: State) => root(state).events;
+const getRawLogs = (state: State) => root(state).logs;
 const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
   return logs.map((log) => ({
     id: log.id,
@@ -49,6 +50,9 @@ const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
     route: log.route,
   }));
 });
+const getInputEvent = (state: State) => root(state).input.event;
+const getInputMode = (state: State) => root(state).input.mode;
+const getInputData = (state: State) => root(state).input.data;
 
 export const PhoenixSelectors = {
   getCreateEventForm,
@@ -63,4 +67,7 @@ export const PhoenixSelectors = {
   getTab,
   isConnected,
   getClient,
+  getInputData,
+  getInputMode,
+  getInputEvent,
 };

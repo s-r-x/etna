@@ -1,4 +1,4 @@
-import { TRootState } from "@/store/rootReducer";
+import { TRootState as State } from "@/store/rootReducer";
 import { createSelector } from "reselect";
 import { SocketIoClient } from "../client";
 import { EWsLogLevel } from "@ws/shared/typings/store";
@@ -7,10 +7,11 @@ import { DOMAIN } from "./slice";
 import moment from "moment";
 import { JsonService } from "@/services/json";
 
-const getUrl = (state: TRootState) => state[DOMAIN].url;
-const getPath = (state: TRootState) => state[DOMAIN].path;
-const isConnected = (state: TRootState) => state[DOMAIN].connected;
-const getRawLogs = (state: TRootState) => state[DOMAIN].logs;
+const root = (state: State) => state[DOMAIN];
+const getUrl = (state: State) => root(state).url;
+const getPath = (state: State) => root(state).path;
+const isConnected = (state: State) => root(state).connected;
+const getRawLogs = (state: State) => root(state).logs;
 const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
   return logs.map((log) => ({
     id: log.id,
@@ -26,9 +27,9 @@ const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
     route: log.route,
   }));
 });
-const getInputEvent = (state: TRootState) => state[DOMAIN].input.event;
-const getInputMode = (state: TRootState) => state[DOMAIN].input.mode;
-const getInputData = (state: TRootState) => state[DOMAIN].input.data;
+const getInputEvent = (state: State) => root(state).input.event;
+const getInputMode = (state: State) => root(state).input.mode;
+const getInputData = (state: State) => root(state).input.data;
 const getNormalizedInputData = createSelector(
   [getInputMode, getInputData],
   (mode, data) => {
@@ -39,13 +40,13 @@ const getNormalizedInputData = createSelector(
     }
   }
 );
-const getQuery = (state: TRootState) => state[DOMAIN].query;
+const getQuery = (state: State) => root(state).query;
 const getNormalizedQuery = createSelector(getQuery, (query) => {
   return query.reduce((acc, { key, value }) => {
     return { ...acc, [key]: value };
   }, {} as TStringDict);
 });
-const getHeaders = (state: TRootState) => state[DOMAIN].headers;
+const getHeaders = (state: State) => root(state).headers;
 const getNormalizedHeaders = createSelector(getHeaders, (headers) => {
   return headers.reduce((acc, header) => {
     if (header.active && header.key) {

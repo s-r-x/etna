@@ -22,6 +22,11 @@ const initialState: TPhoenixState = {
   channelsConnStatuses: [],
   events: [],
   logs: [],
+  input: {
+    event: "",
+    data: "",
+    mode: "application/json",
+  },
   createChForm: {
     topic: "",
   },
@@ -122,6 +127,16 @@ const slice = createSlice({
     },
     clearLogs(state) {
       state.logs = [];
+    },
+    changeInputEvent(state, { payload }: PayloadAction<string>) {
+      state.input.event = payload;
+    },
+    changeInputData(state, { payload }: PayloadAction<string>) {
+      state.input.data = payload;
+    },
+    // TODO:: correct type
+    changeInputMode(state, { payload }: PayloadAction<any>) {
+      state.input.mode = payload;
     },
   },
 });
