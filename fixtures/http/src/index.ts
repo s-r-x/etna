@@ -6,7 +6,7 @@ import fileUpload from "express-fileupload";
 
 const ROOT = path.resolve(__dirname, "..");
 const BIN_ROOT = path.join(ROOT, "bin");
-const PORT = 4567;
+const PORT = process.env.PORT || 4567;
 
 const app = Express();
 app.use(
@@ -130,6 +130,6 @@ app.post("/files", (req, res) => {
   res.send(req.files);
 });
 
-const server = app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+const server = app.listen(PORT, () => console.log(`http fixture started. port: ${PORT}`));
 
 process.on("SIGTERM", () => server.close());

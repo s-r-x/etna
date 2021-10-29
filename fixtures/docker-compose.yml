@@ -1,0 +1,22 @@
+version: "3"
+services:
+  http:
+    container_name: etna-fixture-http
+    build: "./http"
+    restart: unless-stopped
+    volumes:
+      - ./http:/app
+    environment:
+      - "PORT=${HTTP_PORT}"
+    ports:
+      - "${HTTP_PORT}:${HTTP_PORT}"
+  socketio:
+    container_name: etna-fixture-socketio
+    build: "./socketio"
+    restart: unless-stopped
+    volumes:
+      - ./socketio:/app
+    environment:
+      - "PORT=${IO_PORT}"
+    ports:
+      - "${IO_PORT}:${IO_PORT}"

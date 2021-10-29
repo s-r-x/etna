@@ -1,15 +1,16 @@
 const http = require("http");
 const { Server } = require("socket.io");
+const PORT = process.env.PORT || 1235;
 const server = http.createServer();
 const io = new Server(server, {
   cors: {
-    origin: "http://0.0.0.0:8080",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
 
 io.on("connection", (socket) => {
-  socket.emit("greetings", "hi");
+  socket.emit("conn", "hi");
   socket.onAny((ev, ...args) => {
     socket.emit(ev, args);
   });
@@ -18,6 +19,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(1235, () => {
-  console.log("listening on *:1235");
+server.listen(PORT, () => {
+  console.log(`socketio fixture started. port: ${PORT}`);
 });
