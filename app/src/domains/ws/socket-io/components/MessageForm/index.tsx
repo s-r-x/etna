@@ -27,7 +27,7 @@ const SocketIoMessageForm = () => {
         <Button
           icon={<SendOutlined />}
           type="primary"
-          disabled={!isConnected || !inputEvent}
+          disabled={!isConnected}
           onClick={() => dispatch(Actions.sendMessage())}
         >
           Send
