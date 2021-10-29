@@ -37,13 +37,13 @@ const WsLogger = ({ logs }: TProps) => {
                     )}
                   </Typography.Text>
                   {item.room && (
-                  <Typography.Text keyboard>
-                    {item.room}
-                  </Typography.Text>
+                    <Typography.Text keyboard>{item.room}</Typography.Text>
                   )}
-                  <Typography.Text keyboard strong type={item.typography}>
-                    {item.event}
-                  </Typography.Text>
+                  {item.event && (
+                    <Typography.Text keyboard strong type={item.typography}>
+                      {item.event}
+                    </Typography.Text>
+                  )}
                   {item.message && (
                     <Typography.Text code>{item.message}</Typography.Text>
                   )}
