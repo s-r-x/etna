@@ -20,3 +20,5 @@ fixture.http:
 	$(fixture_compose_cmd) up http
 fixture.socketio:
 	$(fixture_compose_cmd) up socketio
+fixture.phx:
+	$(fixture_compose_cmd) up phx
