@@ -1,5 +1,5 @@
 import React from "react";
-import PhoenixModule from "@/domains/ws/phoenix/components";
+import PhoenixModule from "@phoenix/components";
 import PhoenixLogger from "@phoenix/components/Logger";
 import TwoColResizable from "@/layouts/TwoColResizable";
 
