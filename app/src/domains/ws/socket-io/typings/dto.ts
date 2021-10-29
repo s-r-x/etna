@@ -3,4 +3,5 @@ export interface IConnectSocketIoDto {
   path?: string;
   query?: TStringDict;
   headers?: TStringDict;
+  options?: SocketIOClient.ConnectOpts;
 }

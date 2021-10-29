@@ -40,6 +40,7 @@ export class SocketIoClient extends AbstractWsClient {
           },
         },
       }),
+      ...data.options,
     });
     wildcard(io.Manager)(this.socket);
     this.socket.on("connect", this.onConnect);

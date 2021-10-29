@@ -59,9 +59,21 @@ const getNormalizedHeaders = createSelector(getHeaders, (headers) => {
     }
   }, {} as TStringDict);
 });
+const getOptionsString = (state: State) => root(state).options;
+const getOptions = createSelector(
+  getOptionsString,
+  (opts): SocketIOClient.ConnectOpts => {
+    if (!opts) return;
+    try {
+      return JSON.parse(opts);
+    } catch (_e) {}
+  }
+);
 const getClient = () => SocketIoClient.getInstance();
 
 export const SocketIOSelectors = {
+  getOptions,
+  getOptionsString,
   getLogs,
   getQuery,
   getHeaders,

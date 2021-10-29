@@ -11,6 +11,7 @@ const initialState: TSocketIOState = {
   url: "",
   path: "/socket.io",
   query: [],
+  options: "{}",
   logs: [],
   headers: [],
   input: {
@@ -102,6 +103,9 @@ const slice = createSlice({
     },
     changeConnectStatus(state, { payload }: PayloadAction<boolean>) {
       state.connected = payload;
+    },
+    changeOptions(state, { payload }: PayloadAction<string>) {
+      state.options = payload;
     },
   },
 });

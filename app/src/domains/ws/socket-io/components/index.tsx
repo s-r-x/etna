@@ -3,6 +3,7 @@ import ConnectForm from "./ConnectForm";
 import MessageForm from "./MessageForm";
 import QueryEditor from "./Query";
 import HeadersEditor from "./Headers";
+import Options from './Options';
 import FullHeightCard from "@/components/atoms/FullHeightCard";
 import { Tabs } from "antd";
 const { TabPane } = Tabs;
@@ -22,7 +23,7 @@ const SocketIoRequest = () => {
           <HeadersEditor />
         </TabPane>
         <TabPane tab="Settings" key="settings">
-          settings here
+          <Options/>
         </TabPane>
       </Tabs>
     </FullHeightCard>

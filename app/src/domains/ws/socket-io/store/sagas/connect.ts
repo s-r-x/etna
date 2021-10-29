@@ -9,11 +9,13 @@ function* connectSaga(): SagaIterator {
   const query = yield* select(Selectors.getNormalizedQuery);
   const headers = yield* select(Selectors.getNormalizedHeaders);
   const client = yield* select(Selectors.getClient);
+  const options = yield* select(Selectors.getOptions);
   yield* call(client.connect, {
     url,
     path,
     query,
     headers,
+    options,
   });
 }
 function* disconnectSaga(): SagaIterator {

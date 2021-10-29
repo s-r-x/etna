@@ -8,6 +8,7 @@ export type TSocketIOState = {
   logs: TWsLogItem[];
   query: { key: string; value: string }[];
   headers: TKeyValue[];
+  options: string;
   input: {
     mode: "application/json" | "text/plain";
     event: string;
