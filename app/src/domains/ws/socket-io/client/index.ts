@@ -73,7 +73,7 @@ export class SocketIoClient extends AbstractWsClient {
     this.log({
       ev: "error",
       lvl: EWsLogLevel.ERR,
-      msg: e,
+      msg: e.message,
       route: EWsRouteType.OUT,
     });
   };
