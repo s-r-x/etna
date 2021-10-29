@@ -1,12 +1,10 @@
 import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  TPhoenixCreateChannelForm,
   TPhoenixEventForm,
   TPhoenixState,
   TStorePhoenixChannel,
 } from "@phoenix/typings/store";
 import { TWsLogItem } from "@ws/shared/typings/store";
-
 import _ from "lodash";
 import { UUID } from "@/utils/uuid";
 
@@ -28,7 +26,9 @@ const initialState: TPhoenixState = {
     mode: "application/json",
   },
   createChForm: {
+    isOpen: false,
     topic: "",
+    query: [],
   },
   createEvForm: {
     channel: "",
@@ -95,11 +95,38 @@ const slice = createSlice({
       state.channels = state.channels.filter((ch) => ch.topic !== topic);
       state.channelsConnStatuses.filter((ch) => ch.topic !== topic);
     },
-    updateCreateChannelForm(
+    changeChFormTopic(state, { payload }: PayloadAction<string>) {
+      state.createChForm.topic = payload;
+    },
+    clearChForm(state) {
+      state.createChForm = initialState.createChForm;
+    },
+    openChForm(state) {
+      state.createChForm.isOpen = true;
+    },
+    closeChForm(state) {
+      state.createChForm.isOpen = false;
+    },
+    addChFormQuery(state) {
+      state.createChForm.query.push({
+        key: "",
+        value: "",
+      });
+    },
+    changeChFormQueryKey(
       state,
-      { payload }: PayloadAction<Partial<TPhoenixCreateChannelForm>>
+      { payload }: PayloadAction<{ id: number; key: string }>
     ) {
-      _.merge(state.createChForm, payload);
+      state.createChForm.query[payload.id].key = payload.key;
+    },
+    changeChFormQueryValue(
+      state,
+      { payload }: PayloadAction<{ id: number; value: string }>
+    ) {
+      state.createChForm.query[payload.id].value = payload.value;
+    },
+    removeChFormQuery(state, { payload: idx }: PayloadAction<number>) {
+      state.createChForm.query.splice(idx, 1);
     },
     addQuery(state) {
       state.query.push({

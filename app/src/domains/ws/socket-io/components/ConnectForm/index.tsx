@@ -30,7 +30,7 @@ const SocketIoConnectForm = () => {
         onChange={({ target }) => dispatch(Actions.changePath(target.value))}
         placeholder="Path"
       />
-      <Button onClick={toggleConnection} icon={<SendOutlined />} type="primary">
+      <Button disabled={!url} onClick={toggleConnection} icon={<SendOutlined />} type="primary">
         {isConnected ? "Disconnect" : "Connect"}
       </Button>
     </Container>

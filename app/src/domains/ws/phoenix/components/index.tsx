@@ -2,6 +2,7 @@ import FullHeightCard from "@/components/atoms/FullHeightCard";
 import React from "react";
 import ConnectForm from "./ConnectForm";
 import MessageForm from "./MessageForm";
+import Channels from "./Channels";
 import { Tabs } from "antd";
 import QueryEditor from "./Query";
 const { TabPane } = Tabs;
@@ -17,8 +18,8 @@ const PhoenixModule = () => {
         <TabPane tab="Query" key="query">
           <QueryEditor />
         </TabPane>
-        <TabPane tab="Settings" key="settings">
-          settings here
+        <TabPane tab="Channels" key="channels">
+          <Channels />
         </TabPane>
       </Tabs>
     </FullHeightCard>

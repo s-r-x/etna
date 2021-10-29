@@ -2,9 +2,12 @@ import { TWsLogItem } from "@ws/shared/typings/store";
 
 export type TStorePhoenixChannel = {
   topic: string;
+  query: { key: string; value: string }[];
 };
 export type TPhoenixCreateChannelForm = {
+  isOpen: boolean;
   topic: string;
+  query: { key: string; value: string }[];
 };
 export type TStorePhoenixEvent = {
   id: string;

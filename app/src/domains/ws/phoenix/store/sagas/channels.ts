@@ -5,10 +5,11 @@ import { PhoenixSelectors as Selectors } from "@phoenix/store/selectors";
 import { PhoenixActions as Actions } from "@phoenix/store/slice";
 
 function* createChannelSaga(): SagaIterator {
-  const form = yield* select(Selectors.getCreateChannelForm);
+  const form = yield* select(Selectors.getChannelForm);
   yield* put(
     Actions.addChannel({
       topic: form.topic,
+      query: form.query,
     })
   );
 }

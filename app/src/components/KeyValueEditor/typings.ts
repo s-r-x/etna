@@ -7,6 +7,7 @@ export type TItem = {
 };
 export type TProps = {
   items: TItem[];
+  addTitle?: string;
   addPlaceholder?: string;
   keyPlaceholder?: string;
   valuePlaceholder?: string;

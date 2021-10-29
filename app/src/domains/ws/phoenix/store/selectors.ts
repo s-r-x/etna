@@ -26,11 +26,14 @@ const getChannels = createSelector(
   (channels, conn) => {
     return channels.map((ch) => ({
       ...ch,
-      isConnected: conn.find((conn) => conn.topic === ch.topic)?.connected,
+      isConnected: conn.find((conn) => conn.topic === ch.topic)?.connected ?? false,
     }));
   }
 );
-const getCreateChannelForm = (state: State) => root(state).createChForm;
+const getChannelForm = (state: State) => root(state).createChForm;
+const isChannelFormOpen = (state: State) => getChannelForm(state).isOpen;
+const getChannelFormTopic = (state: State) => getChannelForm(state).topic;
+const getChannelFormQuery = (state: State) => getChannelForm(state).query;
 const getCreateEventForm = (state: State) => root(state).createEvForm;
 const getEvents = (state: State) => root(state).events;
 const getRawLogs = (state: State) => root(state).logs;
@@ -55,8 +58,11 @@ const getInputMode = (state: State) => root(state).input.mode;
 const getInputData = (state: State) => root(state).input.data;
 
 export const PhoenixSelectors = {
+  isChannelFormOpen,
   getCreateEventForm,
-  getCreateChannelForm,
+  getChannelForm,
+  getChannelFormTopic,
+  getChannelFormQuery,
   getChannels,
   getQuery,
   getEvents,
