@@ -43,16 +43,10 @@ export const Link = styled(BaseLink)`
   height: 100%;
   text-align: center;
   color: white;
-  transition: background-color 0.25s ease;
+  transition: color 0.25s ease;
   font-size: 16px;
-  :hover,
-  :focus {
-    background-color: ${({ theme }) => theme.colors.secondary.accent};
-    color: white;
-  }
   &.link-active {
-    background-color: ${({ theme }) => theme.colors.secondary.main};
-    color: white;
+    color: ${({ theme }) => theme.colors.secondary.main};
   }
 `;
 export const Content = styled(Layout.Content)`
