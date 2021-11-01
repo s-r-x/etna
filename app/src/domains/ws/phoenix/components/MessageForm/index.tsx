@@ -1,6 +1,6 @@
 import React from "react";
 import CodeEditor from "@/domains/code-editor/components";
-import { Input, Radio, Button } from "antd";
+import { Input, Radio, Button, Select } from "antd";
 import FullParentHeight from "@/components/FullParentHeight";
 import { useDispatch, useSelector } from "react-redux";
 import { PhoenixSelectors as Selectors } from "@phoenix/store/selectors";
@@ -12,7 +12,9 @@ const SocketIoMessageForm = () => {
   const inputMode = useSelector(Selectors.getInputMode);
   const inputData = useSelector(Selectors.getInputData);
   const inputEvent = useSelector(Selectors.getInputEvent);
-  const isConnected = useSelector(Selectors.isConnected);
+  const inputCh = useSelector(Selectors.getInputChannel);
+  const channels = useSelector(Selectors.getChannels);
+  const isSendMessageEnabled = useSelector(Selectors.isSendMessageEnabled);
   const dispatch = useDispatch();
   return (
     <>
@@ -22,13 +24,26 @@ const SocketIoMessageForm = () => {
           onChange={({ target }) =>
             dispatch(Actions.changeInputEvent(target.value))
           }
-          placeholder="event"
+          placeholder="Event"
         />
+
+        <Select
+          aria-required="true"
+          onChange={(ch) => dispatch(Actions.changeInputChannel(ch))}
+          placeholder="Channel"
+          value={inputCh}
+        >
+          {channels.map(({ topic }) => (
+            <Select.Option key={topic} value={topic}>
+              {topic}
+            </Select.Option>
+          ))}
+        </Select>
         <Button
           icon={<SendOutlined />}
           type="primary"
-          disabled={!isConnected || !inputEvent}
-          //onClick={() => dispatch(Actions.sendMessage())}
+          disabled={!isSendMessageEnabled}
+          onClick={() => dispatch(Actions.sendMessage())}
         >
           Send
         </Button>

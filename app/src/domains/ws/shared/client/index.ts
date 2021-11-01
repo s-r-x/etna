@@ -5,7 +5,7 @@ import { UUID } from "@/utils/uuid";
 export abstract class AbstractWsClient {
   abstract connect(...args: any): void;
   abstract disconnect(): void;
-  abstract send(e: string, payload: any): void;
+  abstract send(...args: any): void;
 
   private sagaEmitter: (input: INotifySagaDto) => void;
   public injectSagaEmitter = (

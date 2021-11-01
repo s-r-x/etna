@@ -5,31 +5,20 @@ import { PhoenixClient } from "@phoenix/client";
 import { TWsLogUIItem } from "@ws/shared/typings/ui";
 import { EWsLogLevel } from "@ws/shared/typings/store";
 import moment from "moment";
+import { ISendPhoenixMessageDto } from "../typings/dto";
 
 const root = (state: State) => state[DOMAIN];
 const getUrl = (state: State) => root(state).url;
 const isConnected = (state: State) => root(state).connected;
 const getClient = () => PhoenixClient.getInstance();
 const getTab = (state: State) => root(state).tab;
-const getConnTab = (state: State) => root(state).connTab;
 const getQuery = (state: State) => root(state).query;
 const getNormalizedQuery = createSelector(getQuery, (query) => {
   return query.reduce((acc, { key, value }) => {
     return { ...acc, [key]: value };
   }, {} as TStringDict);
 });
-const getChannelsConnStatuses = (state: State) =>
-  state[DOMAIN].channelsConnStatuses;
-const getRawChannels = (state: State) => root(state).channels;
-const getChannels = createSelector(
-  [getRawChannels, getChannelsConnStatuses],
-  (channels, conn) => {
-    return channels.map((ch) => ({
-      ...ch,
-      isConnected: conn.find((conn) => conn.topic === ch.topic)?.connected ?? false,
-    }));
-  }
-);
+const getChannels = (state: State) => root(state).channels;
 const getChannelForm = (state: State) => root(state).createChForm;
 const isChannelFormOpen = (state: State) => getChannelForm(state).isOpen;
 const getChannelFormTopic = (state: State) => getChannelForm(state).topic;
@@ -56,6 +45,33 @@ const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
 const getInputEvent = (state: State) => root(state).input.event;
 const getInputMode = (state: State) => root(state).input.mode;
 const getInputData = (state: State) => root(state).input.data;
+const getFinalInputData = createSelector(
+  getInputData,
+  (data): TAnyDict => {
+    try {
+      return JSON.parse(data);
+    } catch (_e) {
+      return { payload: data };
+    }
+  }
+);
+const getInputChannel = (state: State) => root(state).input.channel;
+const getSendMessageDto = createSelector(
+  [getInputEvent, getInputChannel, getFinalInputData],
+  (event, channel, payload): ISendPhoenixMessageDto => {
+    return {
+      event,
+      channel,
+      payload,
+    };
+  }
+);
+const isSendMessageEnabled = createSelector(
+  [getInputChannel, isConnected, getInputEvent],
+  (ch, isConnected, ev) => {
+    return Boolean(ch && isConnected && ev);
+  }
+);
 
 export const PhoenixSelectors = {
   isChannelFormOpen,
@@ -68,7 +84,6 @@ export const PhoenixSelectors = {
   getEvents,
   getLogs,
   getNormalizedQuery,
-  getConnTab,
   getUrl,
   getTab,
   isConnected,
@@ -76,4 +91,7 @@ export const PhoenixSelectors = {
   getInputData,
   getInputMode,
   getInputEvent,
+  getInputChannel,
+  getSendMessageDto,
+  isSendMessageEnabled,
 };

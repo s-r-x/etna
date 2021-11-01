@@ -62,7 +62,7 @@ export class PhoenixChannel extends Channel {
       ev: "connect_error",
       lvl: EWsLogLevel.ERR,
       route: EWsRouteType.OUT,
-      msg: e,
+      msg: JsonService.stringify(e)
     });
   };
   private _onConnectTimeout = () => {

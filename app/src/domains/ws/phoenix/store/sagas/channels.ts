@@ -3,6 +3,7 @@ import { SagaIterator } from "redux-saga";
 import { call, put, select, takeLatest } from "typed-redux-saga";
 import { PhoenixSelectors as Selectors } from "@phoenix/store/selectors";
 import { PhoenixActions as Actions } from "@phoenix/store/slice";
+import { IConnectPhoenixChannelDto } from "../../typings/dto";
 
 function* createChannelSaga(): SagaIterator {
   const form = yield* select(Selectors.getChannelForm);
@@ -20,10 +21,10 @@ function* removeChannelSaga({
   yield* call(client.removeChannel, topic);
 }
 function* connectChannelSaga({
-  payload: topic,
-}: PayloadAction<string>): SagaIterator {
+  payload,
+}: PayloadAction<IConnectPhoenixChannelDto>): SagaIterator {
   const client = yield* select(Selectors.getClient);
-  yield* call(client.connectChannel, topic);
+  yield* call(client.connectChannel, payload);
 }
 function* disconnectChannelSaga({
   payload: topic,

@@ -1,7 +1,9 @@
 import { AbstractWsClient } from "@ws/shared/client";
 import { PhoenixSocket } from "./Socket";
 import {
+  IConnectPhoenixChannelDto,
   IConnectPhoenixDto,
+  ISendPhoenixMessageDto,
   TSyncPhoenixChannelsDto,
 } from "@phoenix/typings/dto";
 import { EWsLogLevel, EWsRouteType } from "@ws/shared/typings/store";
@@ -45,7 +47,7 @@ export class PhoenixClient extends AbstractWsClient {
     }
   };
   private get channels() {
-    return this.socket.channels;
+    return this.socket?.channels ?? [];
   }
   private set channels(channels: PhoenixChannel[]) {
     this.socket.channels = channels;
@@ -77,12 +79,12 @@ export class PhoenixClient extends AbstractWsClient {
         )
     );
   };
-  public connectChannel = (topic: string, params?: TStringDict) => {
-    const ch = this.findChannel(topic);
+  public connectChannel = (data: IConnectPhoenixChannelDto) => {
+    const ch = this.findChannel(data.topic);
     if (ch) {
       ch.join();
     } else {
-      this.createChannel(topic, params).join();
+      this.createChannel(data.topic, data.params).join();
     }
   };
   public disconnectChannel = (topic: string) => {
@@ -91,7 +93,12 @@ export class PhoenixClient extends AbstractWsClient {
   };
   public removeChannel = (topic: string) => {
     const ch = this.findChannel(topic);
-    ch?.leave();
+    if (ch) {
+      ch.leave();
+      this.channels = this.channels.filter(
+        (channel) => channel.topic !== topic
+      );
+    }
   };
   private onError = (e: any) => {
     console.error(e);
@@ -122,7 +129,9 @@ export class PhoenixClient extends AbstractWsClient {
   public disconnect = () => {
     this.socket?.disconnect();
   };
-  public send = () => {
-    console.log("send phoenix");
+  public send = (data: ISendPhoenixMessageDto) => {
+    const ch = this.findChannel(data.channel);
+    if (!ch) return;
+    ch.push(data.event, data.payload);
   };
 }

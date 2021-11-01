@@ -5,4 +5,13 @@ export interface IConnectPhoenixDto {
   query?: TStringDict;
   channels?: TStorePhoenixChannel[];
 }
+export interface IConnectPhoenixChannelDto {
+  topic: string;
+  params: TStringDict;
+}
 export type TSyncPhoenixChannelsDto = TStorePhoenixChannel[];
+export interface ISendPhoenixMessageDto {
+  channel: string;
+  event: string;
+  payload: TAnyDict;
+}

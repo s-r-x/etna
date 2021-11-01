@@ -7,17 +7,16 @@ import {
 import { TWsLogItem } from "@ws/shared/typings/store";
 import _ from "lodash";
 import { UUID } from "@/utils/uuid";
+import { IConnectPhoenixChannelDto } from "../typings/dto";
 
 export const DOMAIN = "phoenix";
 
 const initialState: TPhoenixState = {
   connected: false,
   url: "",
-  tab: "conn",
-  connTab: "main",
+  tab: "message",
   query: [],
   channels: [],
-  channelsConnStatuses: [],
   events: [],
   logs: [],
   input: {
@@ -43,9 +42,6 @@ const slice = createSlice({
     changeTab(state, { payload }: PayloadAction<string>) {
       state.tab = payload;
     },
-    changeConnTab(state, { payload }: PayloadAction<string>) {
-      state.connTab = payload;
-    },
     changeUrl(state, { payload }: PayloadAction<string>) {
       state.url = payload;
     },
@@ -60,18 +56,13 @@ const slice = createSlice({
     },
     changeChannelConnectStatus(
       state,
-      { payload }: PayloadAction<{ topic: string; connected: boolean }>
+      {
+        payload: { topic, connected },
+      }: PayloadAction<{ topic: string; connected: boolean }>
     ) {
-      const ch = state.channelsConnStatuses.find(
-        (ch) => ch.topic === payload.topic
-      );
+      const ch = state.channels.find((ch) => ch.topic === topic);
       if (ch) {
-        ch.connected = payload.connected;
-      } else {
-        state.channelsConnStatuses.push({
-          topic: payload.topic,
-          connected: payload.connected,
-        });
+        ch.connected = connected;
       }
     },
     addEvent(state) {
@@ -86,14 +77,9 @@ const slice = createSlice({
     },
     addChannel(state, { payload }: PayloadAction<TStorePhoenixChannel>) {
       state.channels.push(payload);
-      state.channelsConnStatuses.push({
-        topic: payload.topic,
-        connected: false,
-      });
     },
     removeChannel(state, { payload: topic }: PayloadAction<string>) {
       state.channels = state.channels.filter((ch) => ch.topic !== topic);
-      state.channelsConnStatuses.filter((ch) => ch.topic !== topic);
     },
     changeChFormTopic(state, { payload }: PayloadAction<string>) {
       state.createChForm.topic = payload;
@@ -161,8 +147,10 @@ const slice = createSlice({
     changeInputData(state, { payload }: PayloadAction<string>) {
       state.input.data = payload;
     },
-    // TODO:: correct type
-    changeInputMode(state, { payload }: PayloadAction<any>) {
+    changeInputChannel(state, { payload }: PayloadAction<string>) {
+      state.input.channel = payload;
+    },
+    changeInputMode(state, { payload }: PayloadAction<string>) {
       state.input.mode = payload;
     },
   },
@@ -170,11 +158,14 @@ const slice = createSlice({
 
 const connect = createAction(`${DOMAIN}/connect`);
 const createChannel = createAction(`${DOMAIN}/createCh`);
-const connectChannel = createAction<string>(`${DOMAIN}/connectCh`);
+const connectChannel = createAction<IConnectPhoenixChannelDto>(
+  `${DOMAIN}/connectCh`
+);
 const disconnectChannel = createAction<string>(`${DOMAIN}/disconnectCh`);
 const eventSubscribe = createAction<string>(`${DOMAIN}/eventSubscribe`);
 const eventUnsubscribe = createAction<string>(`${DOMAIN}/eventUnsubscribe`);
 const disconnect = createAction(`${DOMAIN}/disconnect`);
+const sendMessage = createAction(`${DOMAIN}/sendMessage`);
 export const PhoenixActions = {
   ...slice.actions,
   createChannel,
@@ -184,6 +175,7 @@ export const PhoenixActions = {
   disconnectChannel,
   eventSubscribe,
   eventUnsubscribe,
+  sendMessage,
 };
 
 export default slice.reducer;
