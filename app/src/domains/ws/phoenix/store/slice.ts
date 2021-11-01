@@ -80,6 +80,9 @@ const slice = createSlice({
     },
     removeChannel(state, { payload: topic }: PayloadAction<string>) {
       state.channels = state.channels.filter((ch) => ch.topic !== topic);
+      if(state.input.channel === topic) {
+        state.input.channel = undefined;
+      }
     },
     changeChFormTopic(state, { payload }: PayloadAction<string>) {
       state.createChForm.topic = payload;
