@@ -13,6 +13,10 @@ function* createChannelSaga(): SagaIterator {
       query: form.query,
     })
   );
+  const selectedCh = yield* select(Selectors.getInputChannel);
+  if (!selectedCh) {
+    yield* put(Actions.changeInputChannel(form.topic));
+  }
 }
 function* removeChannelSaga({
   payload: topic,
