@@ -38,14 +38,31 @@ export class PhoenixChannel extends Channel {
     }
     return super.leave();
   }
-  private _onMessage = (e: string, payload: any) => {
+  public logMessage(
+    e: string,
+    payload: any,
+    route: EWsRouteType = EWsRouteType.IN
+  ) {
     this.log({
       room: this.topic,
       ev: e,
       lvl: EWsLogLevel.INFO,
-      route: EWsRouteType.IN,
+      route,
       msg: JsonService.stringify(payload),
     });
+  }
+  public logError(e: any) {
+    console.error(e);
+    this.log({
+      room: this.topic,
+      ev: "error",
+      lvl: EWsLogLevel.ERR,
+      msg: e.message ?? JsonService.stringify(e),
+      route: EWsRouteType.OUT,
+    });
+  }
+  private _onMessage = (e: string, payload: any) => {
+    this.logMessage(e, payload);
   };
   private _onConnect = () => {
     this.log({
@@ -62,7 +79,7 @@ export class PhoenixChannel extends Channel {
       ev: "connect_error",
       lvl: EWsLogLevel.ERR,
       route: EWsRouteType.OUT,
-      msg: JsonService.stringify(e)
+      msg: JsonService.stringify(e),
     });
   };
   private _onConnectTimeout = () => {
@@ -84,13 +101,6 @@ export class PhoenixChannel extends Channel {
     });
   };
   private _onError = (e: any) => {
-    console.error(e);
-    this.log({
-      room: this.topic,
-      ev: "error",
-      lvl: EWsLogLevel.ERR,
-      msg: e.message ?? JsonService.stringify(e),
-      route: EWsRouteType.OUT,
-    });
+    this.logError(e);
   };
 }

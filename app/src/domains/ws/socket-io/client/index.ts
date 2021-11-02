@@ -50,9 +50,6 @@ export class SocketIoClient extends AbstractWsClient {
     this.socket.on("reconnect_error", this.onError);
     this.socket.on("error", this.onError);
   };
-  private get isConnected() {
-    return this.socket?.connected;
-  }
   public disconnect = () => {
     if (this.isConnected) {
       this.socket.disconnect();
@@ -70,6 +67,9 @@ export class SocketIoClient extends AbstractWsClient {
       });
     }
   };
+  private get isConnected() {
+    return this.socket?.connected;
+  }
   private onError = (e: any) => {
     this.log({
       ev: "error",

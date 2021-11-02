@@ -132,6 +132,9 @@ export class PhoenixClient extends AbstractWsClient {
   public send = (data: ISendPhoenixMessageDto) => {
     const ch = this.findChannel(data.channel);
     if (!ch) return;
-    ch.push(data.event, data.payload);
+    ch.push(data.event, data.payload)
+      .receive("ok", (payload) => ch.logMessage(data.event, payload))
+      .receive("error", (e) => ch.logError(e));
+    ch.logMessage(data.event, data.payload, EWsRouteType.OUT);
   };
 }
