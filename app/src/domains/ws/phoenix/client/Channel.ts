@@ -57,7 +57,7 @@ export class PhoenixChannel extends Channel {
       room: this.topic,
       ev: "error",
       lvl: EWsLogLevel.ERR,
-      msg: e.message ?? JsonService.stringify(e),
+      msg: e?.message ?? JsonService.stringify(e),
       route: EWsRouteType.OUT,
     });
   }
