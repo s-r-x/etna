@@ -68,6 +68,12 @@ const getFinalInputData = createSelector(
   }
 );
 const getInputChannel = (state: State) => root(state).input.channel;
+const isInputChannelConnected = createSelector(
+  [getInputChannel, getChannelsConnStatuses],
+  (ch, conn) => {
+    return !!conn[ch];
+  }
+);
 const getSendMessageDto = createSelector(
   [getInputEvent, getInputChannel, getFinalInputData],
   (event, channel, payload): ISendPhoenixMessageDto => {
@@ -79,9 +85,9 @@ const getSendMessageDto = createSelector(
   }
 );
 const isSendMessageEnabled = createSelector(
-  [getInputChannel, isConnected, getInputEvent],
+  [getInputChannel, isConnected, getInputEvent, isInputChannelConnected],
   (ch, isConnected, ev) => {
-    return Boolean(ch && isConnected && ev);
+    return Boolean(ch && isConnected && ev && isInputChannelConnected);
   }
 );
 
@@ -106,4 +112,5 @@ export const PhoenixSelectors = {
   getInputChannel,
   getSendMessageDto,
   isSendMessageEnabled,
+  isInputChannelConnected,
 };
