@@ -131,7 +131,6 @@ export class PhoenixClient extends AbstractWsClient {
   };
   public send = (data: ISendPhoenixMessageDto) => {
     const ch = this.findChannel(data.channel);
-    console.log(ch);
     if (!ch) return;
     ch.push(data.event, data.payload);
   };

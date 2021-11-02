@@ -84,11 +84,12 @@ export class PhoenixChannel extends Channel {
     });
   };
   private _onError = (e: any) => {
+    console.error(e);
     this.log({
       room: this.topic,
       ev: "error",
       lvl: EWsLogLevel.ERR,
-      msg: e,
+      msg: e.message ?? JsonService.stringify(e),
       route: EWsRouteType.OUT,
     });
   };
