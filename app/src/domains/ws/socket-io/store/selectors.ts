@@ -8,6 +8,7 @@ import moment from "moment";
 import { JsonService } from "@/services/json";
 
 const root = (state: State) => state[DOMAIN];
+const getTab = (state: State) => root(state).tab;
 const getUrl = (state: State) => root(state).url;
 const getPath = (state: State) => root(state).path;
 const isConnected = (state: State) => root(state).connected;
@@ -72,6 +73,7 @@ const getOptions = createSelector(
 const getClient = () => SocketIoClient.getInstance();
 
 export const SocketIOSelectors = {
+  getTab,
   getOptions,
   getOptionsString,
   getLogs,

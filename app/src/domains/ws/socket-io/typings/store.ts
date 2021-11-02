@@ -5,6 +5,7 @@ export type TSocketIOState = {
   connected: boolean;
   path: string;
   url: string;
+  tab: string;
   logs: TWsLogItem[];
   query: { key: string; value: string }[];
   headers: TKeyValue[];

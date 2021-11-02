@@ -9,6 +9,7 @@ export const DOMAIN = "socketIO";
 const initialState: TSocketIOState = {
   connected: false,
   url: "",
+  tab: "message",
   path: "/socket.io",
   query: [],
   options: "{}",
@@ -25,6 +26,9 @@ const slice = createSlice({
   name: DOMAIN,
   initialState,
   reducers: {
+    changeTab(state, { payload }: PayloadAction<string>) {
+      state.tab = payload;
+    },
     changeUrl(state, { payload }: PayloadAction<string>) {
       state.url = payload;
     },
