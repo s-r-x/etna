@@ -3,7 +3,9 @@ import { TWsLogItem } from "@ws/shared/typings/store";
 export type TStorePhoenixChannel = {
   topic: string;
   query: { key: string; value: string }[];
-  connected?: boolean;
+};
+export type TStorePhoenixChannelWithConn = TStorePhoenixChannel & {
+  connected: boolean;
 };
 export type TPhoenixCreateChannelForm = {
   isOpen: boolean;
@@ -25,6 +27,9 @@ export type TPhoenixState = {
   tab: string;
   query: { key: string; value: string }[];
   channels: TStorePhoenixChannel[];
+  channelsConnStatuses: {
+    [key in string]: boolean;
+  };
   events: TStorePhoenixEvent[];
   createChForm: TPhoenixCreateChannelForm;
   createEvForm: TPhoenixEventForm;

@@ -6,6 +6,7 @@ import { TWsLogUIItem } from "@ws/shared/typings/ui";
 import { EWsLogLevel } from "@ws/shared/typings/store";
 import moment from "moment";
 import { ISendPhoenixMessageDto } from "../typings/dto";
+import { TStorePhoenixChannelWithConn } from "../typings/store";
 
 const root = (state: State) => state[DOMAIN];
 const getUrl = (state: State) => root(state).url;
@@ -18,7 +19,18 @@ const getNormalizedQuery = createSelector(getQuery, (query) => {
     return { ...acc, [key]: value };
   }, {} as TStringDict);
 });
-const getChannels = (state: State) => root(state).channels;
+const getChannelsConnStatuses = (state: State) =>
+  root(state).channelsConnStatuses;
+const getRawChannels = (state: State) => root(state).channels;
+const getChannels = createSelector(
+  [getRawChannels, getChannelsConnStatuses],
+  (channels, conn): TStorePhoenixChannelWithConn[] => {
+    return channels.map((ch) => ({
+      ...ch,
+      connected: conn[ch.topic] ?? false,
+    }));
+  }
+);
 const getChannelForm = (state: State) => root(state).createChForm;
 const isChannelFormOpen = (state: State) => getChannelForm(state).isOpen;
 const getChannelFormTopic = (state: State) => getChannelForm(state).topic;

@@ -19,6 +19,7 @@ const initialState: TPhoenixState = {
   channels: [],
   events: [],
   logs: [],
+  channelsConnStatuses: {},
   input: {
     event: "",
     data: "",
@@ -60,10 +61,8 @@ const slice = createSlice({
         payload: { topic, connected },
       }: PayloadAction<{ topic: string; connected: boolean }>
     ) {
-      const ch = state.channels.find((ch) => ch.topic === topic);
-      if (ch) {
-        ch.connected = connected;
-      }
+      const statuses = state.channelsConnStatuses;
+      statuses[topic] = connected;
     },
     addEvent(state) {
       state.events.push({
@@ -80,7 +79,7 @@ const slice = createSlice({
     },
     removeChannel(state, { payload: topic }: PayloadAction<string>) {
       state.channels = state.channels.filter((ch) => ch.topic !== topic);
-      if(state.input.channel === topic) {
+      if (state.input.channel === topic) {
         state.input.channel = undefined;
       }
     },

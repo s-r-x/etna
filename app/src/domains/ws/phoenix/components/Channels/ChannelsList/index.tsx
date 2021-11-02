@@ -3,13 +3,13 @@ import { List, Button } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { PhoenixSelectors as Selectors } from "@phoenix/store/selectors";
 import { PhoenixActions as Actions } from "@phoenix/store/slice";
-import { TStorePhoenixChannel } from "../../../typings/store";
+import { TStorePhoenixChannelWithConn } from "../../../typings/store";
 
 const ChannelsList = () => {
   const list = useSelector(Selectors.getChannels);
   const isSocketConnected = useSelector(Selectors.isConnected);
   const dispatch = useDispatch();
-  const onConnClick = (ch: TStorePhoenixChannel) => {
+  const onConnClick = (ch: TStorePhoenixChannelWithConn) => {
     if (ch.connected) {
       dispatch(Actions.disconnectChannel(ch.topic));
     } else {

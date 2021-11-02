@@ -5,6 +5,7 @@ import { PhoenixActions as Actions } from "../slice";
 
 function* messageSaga(): SagaIterator {
   const message = yield* select(Selectors.getSendMessageDto);
+  console.log(message);
   const client = yield* select(Selectors.getClient);
   yield* call(client.send, message);
 }
