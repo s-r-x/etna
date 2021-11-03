@@ -12,7 +12,7 @@ const slice = createSlice({
   initialState: {
     tabSize: 2,
     keyMap: "default",
-    theme: "material",
+    theme: "dracula",
     lineNumbers: true,
     lineWrapping: true,
     autoCloseBrackets: true,
