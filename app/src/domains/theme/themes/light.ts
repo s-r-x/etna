@@ -7,7 +7,7 @@ export const lightTheme: TTheme = {
       accent: "",
     },
     primary: {
-      main: "#722ed1",
+      main: "#5c27fe",
       accent: "#9254de",
     },
     secondary: {

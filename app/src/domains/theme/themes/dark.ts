@@ -7,7 +7,7 @@ export const darkTheme: TTheme = {
       accent: "",
     },
     primary: {
-      main: "#642ab5",
+      main: "#795cd1",
       accent: "#854eca",
     },
     secondary: {
