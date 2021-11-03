@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Typography, Button } from "antd";
+import { Layout, Typography } from "antd";
 import { GlobalOutlined, SettingOutlined } from "@ant-design/icons";
 import * as S from "./styled";
 import ThemeToggler from "@/domains/theme/components/Toggler";
@@ -44,16 +44,14 @@ const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
               <PhoenixIcon style={{ fontSize: "30px", paddingTop: "10px" }} />
             </S.Link>
           </li>
+          <li>
+            <S.Link as="button" onClick={props.openSettings}>
+              <SettingOutlined style={{ fontSize: "20px" }} />
+            </S.Link>
+          </li>
         </S.Menu>
         <div>
           <ThemeToggler />
-          <Button
-            type="text"
-            style={{ marginLeft: "10px", color: "white" }}
-            onClick={props.openSettings}
-            shape="circle"
-            icon={<SettingOutlined />}
-          />
         </div>
       </S.Header>
       <S.Content>{props.children}</S.Content>
