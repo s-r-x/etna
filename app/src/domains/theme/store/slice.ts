@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TState, TThemeMode } from "../typings/store";
 
 const initialState: TState = {
-  mode: "light",
+  mode: "dark",
 };
 export const DOMAIN = "theme";
 const slice = createSlice({
