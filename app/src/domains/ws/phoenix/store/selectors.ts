@@ -70,9 +70,7 @@ const getFinalInputData = createSelector(
 const getInputChannel = (state: State) => root(state).input.channel;
 const isInputChannelConnected = createSelector(
   [getInputChannel, getChannelsConnStatuses],
-  (ch, conn) => {
-    return !!conn[ch];
-  }
+  (ch, conn) => !!conn[ch]
 );
 const getSendMessageDto = createSelector(
   [getInputEvent, getInputChannel, getFinalInputData],
@@ -86,8 +84,8 @@ const getSendMessageDto = createSelector(
 );
 const isSendMessageEnabled = createSelector(
   [getInputChannel, isConnected, getInputEvent, isInputChannelConnected],
-  (ch, isConnected, ev) => {
-    return Boolean(ch && isConnected && ev && isInputChannelConnected);
+  (ch, isConnected, ev, isChConnected) => {
+    return Boolean(ch && isConnected && ev && isChConnected);
   }
 );
 
