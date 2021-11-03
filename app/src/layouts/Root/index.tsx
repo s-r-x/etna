@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Typography } from "antd";
+import { Layout } from "antd";
 import { GlobalOutlined, SettingOutlined } from "@ant-design/icons";
 import * as S from "./styled";
 import ThemeToggler from "@/domains/theme/components/Toggler";
@@ -15,11 +15,7 @@ const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <S.Header>
-        <S.Logo>
-          <Typography.Title level={3} style={{ color: "white" }}>
-            Etna
-          </Typography.Title>
-        </S.Logo>
+        <S.Logo alt="logo" src="/logo.svg" />
         <S.Menu>
           <li>
             <S.Link title="HTTP" exact activeClassName="link-active" to="/">

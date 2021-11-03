@@ -2,18 +2,16 @@ import styled from "styled-components";
 import { NavLink as BaseLink } from "react-router-dom";
 import { Layout } from "antd";
 
-export const Logo = styled.div`
-  text-align: center;
-  * {
-    margin: 0 !important;
-  }
+export const Logo = styled.img`
+  display: block;
+  width: 24px;
 `;
 
 export const Header = styled(Layout.Header)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: ${({ theme }) => theme.colors.primary.main};
+  background: ${({ theme }) => theme.colors.paper};
   height: var(--navbar-height);
   line-height: var(--navbar-height);
   padding: 0 30px;
@@ -42,11 +40,11 @@ export const Link = styled(BaseLink)`
   width: 100%;
   height: 100%;
   text-align: center;
-  color: white;
+  color: ${({theme }) => theme.colors.font.accent};
   transition: color 0.25s ease;
   font-size: 16px;
   &.link-active {
-    color: ${({ theme }) => theme.colors.secondary.main};
+    color: ${({ theme }) => theme.colors.primary.accent};
   }
 `;
 export const Content = styled(Layout.Content)`
