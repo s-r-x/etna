@@ -8,7 +8,7 @@ import {
   ThemeSwitcherProvider,
   useThemeSwitcher,
 } from "react-css-theme-switcher";
-import FullScreenSpin from "@/components/SullScreenSpin";
+import FullScreenSpin from "@/components/FullScreenSpin";
 
 const themes = {
   dark: "/dark-theme.css",

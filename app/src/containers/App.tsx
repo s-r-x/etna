@@ -5,7 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import store, { persistor } from "@/store";
 import ThemeProvider from "@/domains/theme/components/Provider";
-import FullScreenSpin from "@/components/SullScreenSpin";
+import FullScreenSpin from "@/components/FullScreenSpin";
 import Shell from "./Shell";
 import { BrowserRouter } from "react-router-dom";
 
