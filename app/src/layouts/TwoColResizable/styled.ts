@@ -14,8 +14,7 @@ export const Root = styled.div`
         top: 0;
         height: 100%;
         width: 1px;
-        // TODO:: light theme
-        background: rgba(255, 255, 255, 0.1);
+        background: ${({ theme }) => theme.colors.border.main};
       }
     }
   }

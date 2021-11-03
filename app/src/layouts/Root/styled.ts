@@ -12,6 +12,7 @@ export const Header = styled(Layout.Header)`
   justify-content: space-between;
   align-items: center;
   background: ${({ theme }) => theme.colors.paper};
+  border-bottom: ${({ theme }) => "1px solid " + theme.colors.border.main};
   height: var(--navbar-height);
   line-height: var(--navbar-height);
   padding: 0 30px;
@@ -40,7 +41,7 @@ export const Link = styled(BaseLink)`
   width: 100%;
   height: 100%;
   text-align: center;
-  color: ${({theme }) => theme.colors.font.accent};
+  color: ${({ theme }) => theme.colors.font.accent};
   transition: color 0.25s ease;
   font-size: 16px;
   &.link-active {
