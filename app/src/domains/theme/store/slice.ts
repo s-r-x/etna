@@ -12,6 +12,9 @@ const slice = createSlice({
     changeMode(state, { payload }: PayloadAction<TThemeMode>) {
       state.mode = payload;
     },
+    toggleMode(state) {
+      state.mode = state.mode === 'light' ? 'dark' : 'light';
+    },
   },
 });
 

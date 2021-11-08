@@ -18,8 +18,17 @@ const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
         <S.Logo alt="logo" src="/logo.svg" />
         <S.Menu>
           <li>
-            <S.Link title="HTTP" exact activeClassName="link-active" to="/">
-              <GlobalOutlined style={{ fontSize: "20px" }} />
+            <S.Link
+              title="HTTP"
+              exact
+              activeClassName="link-active"
+              to="/"
+              style={{
+                paddingTop: "1px",
+                fontSize: "20px",
+              }}
+            >
+              <GlobalOutlined />
             </S.Link>
           </li>
           <li>
@@ -27,8 +36,9 @@ const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
               title="Socket.IO"
               activeClassName="link-active"
               to="/socketio"
+              style={{ fontSize: "22px", paddingTop: "2px" }}
             >
-              <SocketIOIcon style={{ fontSize: "22px", paddingTop: "13px" }} />
+              <SocketIOIcon />
             </S.Link>
           </li>
           <li>
@@ -36,19 +46,24 @@ const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
               title="Phoenix channels"
               activeClassName="link-active"
               to="/phoenix"
+              style={{ fontSize: "30px", paddingTop: "2px" }}
             >
-              <PhoenixIcon style={{ fontSize: "30px", paddingTop: "10px" }} />
+              <PhoenixIcon />
             </S.Link>
           </li>
           <li>
-            <S.Link as="button" onClick={props.openSettings}>
-              <SettingOutlined style={{ fontSize: "20px" }} />
+            <S.Link
+              style={{
+                fontSize: "20px",
+              }}
+              as="button"
+              onClick={props.openSettings}
+            >
+              <SettingOutlined />
             </S.Link>
           </li>
         </S.Menu>
-        <div>
-          <ThemeToggler />
-        </div>
+        <ThemeToggler />
       </S.Header>
       <S.Content>{props.children}</S.Content>
     </Layout>
