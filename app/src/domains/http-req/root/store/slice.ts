@@ -22,7 +22,7 @@ import {
 export const DOMAIN = "httpReq";
 
 const initialState: TState = {
-  url: "",
+  url: "https://jsonplaceholder.typicode.com/todos",
   query: [],
   method: "GET",
   headers: [
