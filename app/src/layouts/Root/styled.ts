@@ -28,7 +28,7 @@ export const Menu = styled.ul`
   display: flex;
   align-items: center;
   margin-right: auto;
-  margin-left: 30px;
+  margin-left: 20px;
   li {
     position: relative;
     width: var(--navbar-height);

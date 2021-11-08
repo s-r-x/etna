@@ -25,7 +25,7 @@ const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
               to="/"
               style={{
                 paddingTop: "1px",
-                fontSize: "20px",
+                fontSize: "21px",
               }}
             >
               <GlobalOutlined />
