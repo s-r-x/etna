@@ -26,6 +26,12 @@ function* makeRequestSaga(): SagaIterator {
     yield* put(Actions.loadingEnd());
     return;
   }
+  const isUrlValid = yield* select(Selectors.isUrlValid);
+  if (!isUrlValid) {
+    message.error("Invalid URL");
+    yield* put(Actions.loadingEnd());
+    return;
+  }
   const client = new HttpClient();
   const method = yield* select(Selectors.getMethod);
   const headers = yield* select(Selectors.getRequestReadyHeaders);

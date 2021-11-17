@@ -24,6 +24,14 @@ const getHeadersLength = createSelector(getActiveHeaders, (headers) => {
   return headers.length;
 });
 const getUrl = (state: State) => root(state).url;
+const isUrlValid = createSelector(getUrl, url => {
+  try {
+    new URL(url);
+    return true;
+  } catch(_e) {
+    return false;
+  }
+})
 const getMethod = (state: State) => root(state).method;
 const getLoading = (state: State) => root(state).loading;
 const getActiveOptsEditor = (state: State) => state[DOMAIN].activeOptsEditor;
@@ -91,5 +99,6 @@ export const HttpRequestSelectors = {
   getRequestReadyHeaders,
   getSettings,
   getUrl,
+  isUrlValid,
   shouldUseProxy,
 };
