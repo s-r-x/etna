@@ -20,30 +20,32 @@ const getHeaders = (state: State) => root(state).headers;
 const getActiveHeaders = createSelector(getHeaders, (headers) =>
   headers.filter((h) => h.active)
 );
-const getHeadersLength = createSelector(getActiveHeaders, (headers) => {
-  return headers.length;
-});
+const getHeadersLength = (state: State) => getActiveHeaders(state).length;
 const getUrl = (state: State) => root(state).url;
-const isUrlValid = createSelector(getUrl, url => {
+const getNormalizedUrl = createSelector(getUrl, (url): string => {
+  try {
+    const parsed = new URL(url);
+    if (["http:", "https:"].includes(parsed.protocol)) {
+      return url;
+    }
+  } catch (_e) {}
+  return "http://" + url;
+});
+const isUrlValid = createSelector(getNormalizedUrl, (url) => {
   try {
     new URL(url);
     return true;
-  } catch(_e) {
+  } catch (_e) {
     return false;
   }
-})
+});
 const getMethod = (state: State) => root(state).method;
 const getLoading = (state: State) => root(state).loading;
 const getActiveOptsEditor = (state: State) => state[DOMAIN].activeOptsEditor;
 const getQuery = (state: State) => root(state).query;
-const getQueryLength = createSelector(getQuery, (query) => {
-  return query.length;
-});
+const getQueryLength = (state: State) => getQuery(state).length;
 const getSettings = (state: State) => root(state).settings;
-const shouldUseProxy = createSelector(
-  getSettings,
-  (settings) => settings.useProxy
-);
+const shouldUseProxy = (state: State) => getSettings(state).useProxy;
 
 const IMMUTABLE_HEADERS = ["content-type", "Content-type"];
 const normalizeHeaderKey = (rawKey: string, useProxy: boolean) => {
@@ -54,7 +56,7 @@ const normalizeHeaderKey = (rawKey: string, useProxy: boolean) => {
   return useProxy ? "x-etna-header-" + key : key;
 };
 const getRequestReadyHeaders = createSelector(
-  getUrl,
+  getNormalizedUrl,
   getActiveHeaders,
   getSettings,
   getMethod,
@@ -101,4 +103,5 @@ export const HttpRequestSelectors = {
   getUrl,
   isUrlValid,
   shouldUseProxy,
+  getNormalizedUrl,
 };
