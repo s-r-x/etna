@@ -50,6 +50,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(SRC, "index.html"),
+      minify: {
+        removeComments: false,
+      },
     }),
     new ForkTsCheckerWebpackPlugin({
       eslint: {

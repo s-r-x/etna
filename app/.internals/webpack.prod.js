@@ -9,6 +9,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+const { GenerateSW } = require("workbox-webpack-plugin");
 
 const config = {
   devtool: false,
@@ -39,6 +40,7 @@ const config = {
     new Dotenv({
       path: PROD_ENV,
     }),
+    new GenerateSW(),
   ],
   optimization: {
     minimize: true,
