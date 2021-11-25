@@ -7,7 +7,7 @@ import { THTTPMethod } from "@/typings/http";
 import { TResponse, TOpts, TProxyResponse } from "@/typings/httpClient";
 import { ETNA_PROXY } from "@/constants/proxy";
 import _ from "lodash";
-import { base64toBlob } from "../base64";
+import { base64toBlob } from "@/utils/base64";
 
 const validNonPrefixHeaders = [
   "content-type",
@@ -129,3 +129,4 @@ export class HttpClient {
     }, {} as THeaders);
   }
 }
+

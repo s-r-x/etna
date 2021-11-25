@@ -1,4 +1,4 @@
-import { HttpClient } from "@/utils/HttpClient";
+import { HttpClient } from "@/domains/http-req/httpClient";
 import { SagaIterator } from "redux-saga";
 import {
   put,

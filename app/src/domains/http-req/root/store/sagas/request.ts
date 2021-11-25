@@ -11,7 +11,7 @@ import {
   takeLatest,
 } from "typed-redux-saga";
 import { HttpReqActions as Actions } from "../slice";
-import { HttpClient } from "@/utils/HttpClient";
+import { HttpClient } from "@/domains/http-req/httpClient";
 import { HttpRequestSelectors as Selectors } from "../selectors";
 import { TResponse } from "@/typings/httpClient";
 import { SagaIterator } from "redux-saga";
