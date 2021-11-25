@@ -1,16 +1,45 @@
 import http, { IncomingHttpHeaders } from "http";
 import axios, { Method } from "axios";
 import FileType from "file-type";
-import { IProxyRes } from "./typings";
+import { URL } from "url";
+import isIp from "is-ip";
+import ip from "ip";
+import dns from "dns/promises";
+import mem from "memoizee";
 
 type TStringDict = Record<string, string>;
+export interface IProxyRes {
+  bin: boolean;
+  status: number;
+  headers: Record<string, string>;
+  data: string;
+  method: string;
+  url: string;
+  time: number;
+  size: number;
+  error: boolean;
+}
 
 function last<T>(array: T[]): T {
   return array[array.length - 1];
 }
 const etnaHeaderRegex = /^x-etna-header-/;
+const PROXY_HOSTNAME = "etna.srx.one";
+const PORT = 1100;
+const PROD = process.env.NODE_ENV === "production";
 const IMMUTABLE_HEADERS = new Set(["authorization", "content-type"]);
 const TARGET_HEADER_NAME = "x-etna-target";
+const PROTOCOLS_WHITELIST = new Set(["http:", "https:"]);
+// TODO:: needs more attention
+const HOSTS_BLACKLIST = new Set<string>(["localhost", PROXY_HOSTNAME]);
+
+const getProxyIp = mem(
+  async (): Promise<string> => {
+    const ip = await dns.lookup(PROXY_HOSTNAME);
+    return ip.address;
+  },
+  { promise: true }
+);
 const normalizeHeaders = (headers: IncomingHttpHeaders): TStringDict => {
   return Object.entries(headers).reduce((acc, [k, v]) => {
     if (Array.isArray(v)) {
@@ -34,6 +63,23 @@ const extractTarget = (headers: IncomingHttpHeaders): string => {
 const extractMethod = (headers: IncomingHttpHeaders): Method => {
   const header = headers["x-etna-method"];
   return ((Array.isArray(header) ? last(header) : header) || "GET") as Method;
+};
+const checkUrlValidity = async (url: string): Promise<boolean> => {
+  try {
+    const { protocol, hostname } = new URL(url);
+
+    if (!PROD) return true;
+
+    if (!PROTOCOLS_WHITELIST.has(protocol)) return false;
+    if (isIp(hostname)) {
+      if (ip.isPrivate(hostname) || hostname === (await getProxyIp())) {
+        return false;
+      }
+    }
+    return !HOSTS_BLACKLIST.has(hostname);
+  } catch (e) {
+    return false;
+  }
 };
 
 const checkIfBinary = async (data: ArrayBuffer) => {
@@ -69,6 +115,12 @@ const server = http.createServer(async (req, res) => {
     res.statusCode = 400;
     res.setHeader("content-type", "text/plain; charset=utf-8");
     res.end(`${TARGET_HEADER_NAME} header is required`);
+    return;
+  }
+  if (!checkUrlValidity(target)) {
+    res.statusCode = 400;
+    res.setHeader("content-type", "text/plain; charset=utf-8");
+    res.end(`bad url`);
     return;
   }
   res.setHeader("content-type", "application/json; charset=utf-8");
@@ -119,8 +171,8 @@ const server = http.createServer(async (req, res) => {
     res.end(JSON.stringify(proxyRes));
   }
 });
-server.listen(3000, () => {
-  console.log("started");
+server.listen(PORT, () => {
+  console.log(`Proxy is ready. Port: ${PORT}`);
 });
 
 process.on("SIGTERM", () => server.close());
