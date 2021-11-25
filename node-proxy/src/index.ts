@@ -56,14 +56,15 @@ const server = http.createServer(async (req, res) => {
     res.end("ok");
     return;
   }
-  res.setHeader("content-type", "application/json; charset=utf-8");
-  const method = extractMethod(req.headers);
   const target = extractTarget(req.headers);
   if (!target) {
     res.statusCode = 400;
+    res.setHeader("content-type", "text/plain; charset=utf-8");
     res.end(`${TARGET_HEADER_NAME} header is required`);
     return;
   }
+  res.setHeader("content-type", "application/json; charset=utf-8");
+  const method = extractMethod(req.headers);
   const proxyHeaders = normalizeHeaders(req.headers);
   const proxyRes: Partial<IProxyRes> = {
     url: target,
