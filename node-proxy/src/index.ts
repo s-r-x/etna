@@ -117,7 +117,7 @@ const server = http.createServer(async (req, res) => {
     res.end(`${TARGET_HEADER_NAME} header is required`);
     return;
   }
-  if (!checkUrlValidity(target)) {
+  if (!(await checkUrlValidity(target))) {
     res.statusCode = 400;
     res.setHeader("content-type", "text/plain; charset=utf-8");
     res.end(`bad url`);
