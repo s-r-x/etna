@@ -3,12 +3,19 @@ import axios, { Method } from "axios";
 import FileType from "file-type";
 import { IProxyRes } from "./typings";
 
-const etnaHeaderRegex = /^x-etna-header-/;
+type TStringDict = Record<string, string>;
 
+function last<T>(array: T[]): T {
+  return array[array.length - 1];
+}
+const etnaHeaderRegex = /^x-etna-header-/;
 const IMMUTABLE_HEADERS = new Set(["authorization", "content-type"]);
 const TARGET_HEADER_NAME = "x-etna-target";
-const normalizeHeaders = (headers: IncomingHttpHeaders) => {
+const normalizeHeaders = (headers: IncomingHttpHeaders): TStringDict => {
   return Object.entries(headers).reduce((acc, [k, v]) => {
+    if (Array.isArray(v)) {
+      v = last(v);
+    }
     if (IMMUTABLE_HEADERS.has(k)) {
       acc[k] = v;
       return acc;
@@ -18,14 +25,15 @@ const normalizeHeaders = (headers: IncomingHttpHeaders) => {
       acc[stripped] = v;
     }
     return acc;
-  }, {} as IncomingHttpHeaders);
+  }, {} as TStringDict);
 };
-const extractTarget = (headers: IncomingHttpHeaders) => {
-  return headers[TARGET_HEADER_NAME] as string;
+const extractTarget = (headers: IncomingHttpHeaders): string => {
+  const header = headers[TARGET_HEADER_NAME];
+  return Array.isArray(header) ? last(header) : header;
 };
-const extractMethod = (headers: IncomingHttpHeaders) => {
-  const method = (headers["x-etna-method"] || "GET") as Method;
-  return method;
+const extractMethod = (headers: IncomingHttpHeaders): Method => {
+  const header = headers["x-etna-method"];
+  return ((Array.isArray(header) ? last(header) : header) || "GET") as Method;
 };
 
 const checkIfBinary = async (data: ArrayBuffer) => {
