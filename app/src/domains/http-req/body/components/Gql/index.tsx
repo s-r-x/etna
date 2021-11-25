@@ -29,7 +29,7 @@ const GqlEditor = (props: TConnectorProps) => {
       <S.QueryContainer>
         <S.MainEditorWrap>
           <CodeEditor
-            allowPrettify
+            // allowPrettify
             extra={
               <Button
                 onClick={() =>

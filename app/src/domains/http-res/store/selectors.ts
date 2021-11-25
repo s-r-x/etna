@@ -29,8 +29,8 @@ const isPrettyBodySupported = createSelector(
   getResponseContentType,
   (type): boolean => {
     switch (type) {
-      case "application/xml":
-      case "text/html":
+      // case "application/xml":
+      // case "text/html":
       case "application/json":
         return true;
       default:

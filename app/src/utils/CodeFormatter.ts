@@ -1,7 +1,6 @@
-import prettier from "prettier/standalone";
-import gqlParser from "prettier/parser-graphql";
-import htmlParser from "prettier/parser-html";
-// TODO:: lazyload
+// import prettier from "prettier/standalone";
+// import gqlParser from "prettier/parser-graphql";
+// import htmlParser from "prettier/parser-html";
 
 const formatJson = (data: string): string => {
   try {
@@ -13,20 +12,20 @@ const formatJson = (data: string): string => {
 export const CodeFormatter = {
   format(code: string, mime: string): string {
     switch (mime) {
-      case "application/xml":
-      case "text/html":
-        return prettier.format(code, {
-          parser: "html",
-          plugins: [htmlParser],
-        });
       case "application/json":
         return formatJson(code);
-      case "graphql":
-      case "application/graphql":
-        return prettier.format(code, {
-          parser: "graphql",
-          plugins: [gqlParser],
-        });
+      // case "application/xml":
+      // case "text/html":
+      //   return prettier.format(code, {
+      //     parser: "html",
+      //     plugins: [htmlParser],
+      //   });
+      // case "graphql":
+      // case "application/graphql":
+      //   return prettier.format(code, {
+      //     parser: "graphql",
+      //     plugins: [gqlParser],
+      //   });
       default:
         return code;
     }
