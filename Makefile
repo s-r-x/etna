@@ -14,6 +14,8 @@ proxy.start:
 	docker-compose -f proxy/docker-compose.yml up nginx
 node-proxy.dev:
 	$(proxy_npm_prefix) run dev
+node-proxy.prod:
+	$(proxy_npm_prefix) start
 fixture.all:
 	$(fixture_compose_cmd) up
 fixture.http:
