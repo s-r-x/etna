@@ -6,6 +6,7 @@ import { IProxyRes } from "./typings";
 const etnaHeaderRegex = /^x-etna-header-/;
 
 const IMMUTABLE_HEADERS = new Set(["authorization", "content-type"]);
+const TARGET_HEADER_NAME = "x-etna-target";
 const normalizeHeaders = (headers: IncomingHttpHeaders) => {
   return Object.entries(headers).reduce((acc, [k, v]) => {
     if (IMMUTABLE_HEADERS.has(k)) {
@@ -20,7 +21,7 @@ const normalizeHeaders = (headers: IncomingHttpHeaders) => {
   }, {} as IncomingHttpHeaders);
 };
 const extractTarget = (headers: IncomingHttpHeaders) => {
-  return headers["x-etna-target"] as string;
+  return headers[TARGET_HEADER_NAME] as string;
 };
 const extractMethod = (headers: IncomingHttpHeaders) => {
   const method = (headers["x-etna-method"] || "GET") as Method;
@@ -29,11 +30,11 @@ const extractMethod = (headers: IncomingHttpHeaders) => {
 
 const checkIfBinary = async (data: ArrayBuffer) => {
   const type = await FileType.fromBuffer(data);
-  if(!type) {
+  if (!type) {
     return false;
   }
-  return type.mime !== 'application/xml'
-}
+  return type.mime !== "application/xml";
+};
 const normalizeResData = async (
   data: ArrayBuffer
 ): Promise<{
@@ -58,6 +59,11 @@ const server = http.createServer(async (req, res) => {
   res.setHeader("content-type", "application/json; charset=utf-8");
   const method = extractMethod(req.headers);
   const target = extractTarget(req.headers);
+  if (!target) {
+    res.statusCode = 400;
+    res.end(`${TARGET_HEADER_NAME} header is required`);
+    return;
+  }
   const proxyHeaders = normalizeHeaders(req.headers);
   const proxyRes: Partial<IProxyRes> = {
     url: target,
