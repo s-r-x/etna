@@ -24,8 +24,8 @@ function last<T>(array: T[]): T {
   return array[array.length - 1];
 }
 const etnaHeaderRegex = /^x-etna-header-/;
-const PROXY_HOSTNAME = "etna.srx.one";
-const PORT = 1100;
+const PROXY_HOSTNAME = process.env.PROXY_HOSTNAME || "etna.srx.one";
+const PORT = process.env.PORT || 1100;
 const PROD = process.env.NODE_ENV === "production";
 const IMMUTABLE_HEADERS = new Set(["authorization", "content-type"]);
 const TARGET_HEADER_NAME = "x-etna-target";
