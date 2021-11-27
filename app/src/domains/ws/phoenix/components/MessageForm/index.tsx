@@ -1,7 +1,6 @@
 import React from "react";
 import CodeEditor from "@/domains/code-editor/components";
 import { Input, Radio, Button, Select } from "antd";
-import FullParentHeight from "@/components/FullParentHeight";
 import { useDispatch, useSelector } from "react-redux";
 import { PhoenixSelectors as Selectors } from "@phoenix/store/selectors";
 import { PhoenixActions as Actions } from "@phoenix/store/slice";
@@ -48,8 +47,8 @@ const SocketIoMessageForm = () => {
           Send
         </Button>
       </S.EventInputContainer>
-      <div style={{ flex: 1, position: "relative" }}>
-        <FullParentHeight>
+      <S.Container>
+        <S.InnerWrap>
           <CodeEditor
             extra={
               <Radio.Group
@@ -67,8 +66,8 @@ const SocketIoMessageForm = () => {
             value={inputData}
             onChange={(v) => dispatch(Actions.changeInputData(v))}
           />
-        </FullParentHeight>
-      </div>
+        </S.InnerWrap>
+      </S.Container>
     </>
   );
 };
