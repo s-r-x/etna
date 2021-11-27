@@ -13,7 +13,7 @@ const HttpResponse = (props: TConnectorProps) => {
   if (!props.hasResponse) {
     return (
       <FullHeightCard>
-        <Empty />
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       </FullHeightCard>
     );
   }
