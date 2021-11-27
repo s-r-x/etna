@@ -10,14 +10,17 @@ type TProps = {
   logs: TWsLogUIItem[];
 };
 const WsLogger = ({ logs }: TProps) => {
-  const ref = React.useRef<HTMLDivElement>();
+  const listRef = React.useRef<any>();
   React.useLayoutEffect(() => {
-    ref.current.scrollIntoView();
+    const $el = listRef.current;
+    if (logs.length && $el) {
+      $el.scrollTop = $el.scrollHeight;
+    }
   }, [logs.length]);
   return (
     <FullHeightCard>
       <S.Container>
-        <S.InnerWrap>
+        <S.InnerWrap ref={listRef}>
           <List
             size="small"
             rowKey="id"
@@ -50,7 +53,6 @@ const WsLogger = ({ logs }: TProps) => {
               </S.ListItem>
             )}
           />
-          <div ref={ref} />
         </S.InnerWrap>
       </S.Container>
     </FullHeightCard>
