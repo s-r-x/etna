@@ -1,7 +1,6 @@
 import FullHeightCard from "@/components/atoms/FullHeightCard";
 import React from "react";
 import { List, Space, Typography } from "antd";
-import FullParentHeight from "@/components/FullParentHeight";
 import { TWsLogUIItem } from "@ws/shared/typings/ui";
 import { EWsRouteType } from "@ws/shared/typings";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
@@ -17,8 +16,8 @@ const WsLogger = ({ logs }: TProps) => {
   }, [logs.length]);
   return (
     <FullHeightCard>
-      <div style={{ flex: 1, position: "relative" }}>
-        <FullParentHeight>
+      <S.Container>
+        <S.InnerWrap>
           <List
             size="small"
             rowKey="id"
@@ -52,8 +51,8 @@ const WsLogger = ({ logs }: TProps) => {
             )}
           />
           <div ref={ref} />
-        </FullParentHeight>
-      </div>
+        </S.InnerWrap>
+      </S.Container>
     </FullHeightCard>
   );
 };
