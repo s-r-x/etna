@@ -40,7 +40,7 @@ const shortcutsConfig = {
 const socketIOConfig = {
   key: SOCKET_IO_DOMAIN,
   storage,
-  blacklist: ["connected", "logs"],
+  blacklist: ["connected", "logs", "connecting"],
 };
 const reqConfig = {
   key: REQ_DOMAIN,

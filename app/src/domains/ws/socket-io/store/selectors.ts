@@ -12,6 +12,7 @@ const getTab = (state: State) => root(state).tab;
 const getUrl = (state: State) => root(state).url;
 const getPath = (state: State) => root(state).path;
 const isConnected = (state: State) => root(state).connected;
+const isConnecting = (state: State) => root(state).connecting;
 const getRawLogs = (state: State) => root(state).logs;
 const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
   return logs.map((log) => ({
@@ -89,4 +90,5 @@ export const SocketIOSelectors = {
   getNormalizedQuery,
   getInputEvent,
   isConnected,
+  isConnecting,
 };

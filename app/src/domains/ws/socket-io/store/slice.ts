@@ -8,6 +8,7 @@ export const DOMAIN = "socketIO";
 
 const initialState: TSocketIOState = {
   connected: false,
+  connecting: false,
   url: "",
   tab: "message",
   path: "/socket.io",
@@ -106,8 +107,13 @@ const slice = createSlice({
       state.logs = [];
     },
     changeConnectStatus(state, { payload }: PayloadAction<boolean>) {
+      state.connecting = false;
       state.connected = payload;
     },
+    changeConnectingStatus(state, { payload }: PayloadAction<boolean>) {
+      state.connecting = payload;
+    },
+
     changeOptions(state, { payload }: PayloadAction<string>) {
       state.options = payload;
     },
@@ -117,11 +123,13 @@ const slice = createSlice({
 const connect = createAction(`${DOMAIN}/connect`);
 const disconnect = createAction(`${DOMAIN}/disconnect`);
 const sendMessage = createAction(`${DOMAIN}/sendMessage`);
+const uiConnectionClick = createAction(`${DOMAIN}/ui/connectionClick`);
 export const SocketIOActions = {
   ...slice.actions,
   connect,
   disconnect,
   sendMessage,
+  uiConnectionClick,
 };
 
 export default slice.reducer;

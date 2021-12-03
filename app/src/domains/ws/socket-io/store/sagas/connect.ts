@@ -1,7 +1,7 @@
 import { SagaIterator } from "redux-saga";
-import { takeLatest, call, select } from "typed-redux-saga";
+import { takeLatest, call, select, put } from "typed-redux-saga";
 import { SocketIOSelectors as Selectors } from "../selectors";
-import { SocketIOActions } from "../slice";
+import { SocketIOActions as Actions } from "../slice";
 
 function* connectSaga(): SagaIterator {
   const url = yield* select(Selectors.getUrl);
@@ -17,12 +17,13 @@ function* connectSaga(): SagaIterator {
     headers,
     options,
   });
+  yield* put(Actions.changeConnectingStatus(true));
 }
 function* disconnectSaga(): SagaIterator {
   const client = yield* select(Selectors.getClient);
   yield* call(client.disconnect);
 }
 export default function* watchSocketIoConnect() {
-  yield* takeLatest(SocketIOActions.connect.type, connectSaga);
-  yield* takeLatest(SocketIOActions.disconnect.type, disconnectSaga);
+  yield* takeLatest(Actions.connect.type, connectSaga);
+  yield* takeLatest(Actions.disconnect.type, disconnectSaga);
 }

@@ -3,6 +3,7 @@ import { TKeyValue } from "@/typings/keyValue";
 
 export type TSocketIOState = {
   connected: boolean;
+  connecting: boolean;
   path: string;
   url: string;
   tab: string;

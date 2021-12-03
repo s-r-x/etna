@@ -50,6 +50,9 @@ export class SocketIoClient extends AbstractWsClient {
     this.socket.on("reconnect_error", this.onError);
     this.socket.on("error", this.onError);
   };
+  public destroy = () => {
+    this.socket?.close();
+  };
   public disconnect = () => {
     if (this.isConnected) {
       this.socket.disconnect();
