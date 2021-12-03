@@ -123,13 +123,13 @@ const slice = createSlice({
 const connect = createAction(`${DOMAIN}/connect`);
 const disconnect = createAction(`${DOMAIN}/disconnect`);
 const sendMessage = createAction(`${DOMAIN}/sendMessage`);
-const uiConnectionClick = createAction(`${DOMAIN}/ui/connectionClick`);
+const uiConnection = createAction(`${DOMAIN}/ui/connection`);
 export const SocketIOActions = {
   ...slice.actions,
   connect,
   disconnect,
   sendMessage,
-  uiConnectionClick,
+  uiConnection,
 };
 
 export default slice.reducer;

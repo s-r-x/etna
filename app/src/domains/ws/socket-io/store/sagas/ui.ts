@@ -3,7 +3,7 @@ import { put, select, takeLatest, call } from "typed-redux-saga";
 import { SocketIOSelectors as Selectors } from "../selectors";
 import { SocketIOActions as Actions } from "../slice";
 
-function* uiConnectionClickSaga(): SagaIterator {
+function* uiConnectionSaga(): SagaIterator {
   const isConnected = yield* select(Selectors.isConnected);
   const isConnecting = yield* select(Selectors.isConnecting);
   if (isConnected) {
@@ -18,5 +18,5 @@ function* uiConnectionClickSaga(): SagaIterator {
 }
 
 export default function* socketIoUiSaga(): SagaIterator {
-  yield* takeLatest(Actions.uiConnectionClick.type, uiConnectionClickSaga);
+  yield* takeLatest(Actions.uiConnection.type, uiConnectionSaga);
 }

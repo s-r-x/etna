@@ -13,6 +13,7 @@ const getUrl = (state: State) => root(state).url;
 const getPath = (state: State) => root(state).path;
 const isConnected = (state: State) => root(state).connected;
 const isConnecting = (state: State) => root(state).connecting;
+const isConnectionButtonDisabled = (state: State): boolean => !getUrl(state);
 const getRawLogs = (state: State) => root(state).logs;
 const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
   return logs.map((log) => ({
@@ -91,4 +92,5 @@ export const SocketIOSelectors = {
   getInputEvent,
   isConnected,
   isConnecting,
+  isConnectionButtonDisabled,
 };

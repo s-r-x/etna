@@ -13,12 +13,15 @@ const SocketIoConnectForm = () => {
   const url = useSelector(Selectors.getUrl);
   const isConnected = useSelector(Selectors.isConnected);
   const isConnecting = useSelector(Selectors.isConnecting);
+  const isDisabled = useSelector(Selectors.isConnectionButtonDisabled);
   const buttonText = useConnectButtonText();
-  const onConnectionClick = () => {
-    dispatch(Actions.uiConnectionClick());
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (isDisabled) return;
+    dispatch(Actions.uiConnection());
   };
   return (
-    <Container onSubmit={(e) => e.preventDefault()}>
+    <Container onSubmit={onSubmit}>
       <Input
         onChange={({ target }) => dispatch(Actions.changeUrl(target.value))}
         value={url}
@@ -30,8 +33,8 @@ const SocketIoConnectForm = () => {
         placeholder="Path"
       />
       <Button
-        disabled={!url}
-        onClick={onConnectionClick}
+        htmlType="submit"
+        disabled={isDisabled}
         icon={<SendOutlined />}
         danger={isConnected || isConnecting}
         type="primary"
