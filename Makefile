@@ -20,6 +20,8 @@ fixture.all:
 	$(fixture_compose_cmd) up
 fixture.http:
 	$(fixture_compose_cmd) up http
+fixture.ws:
+	$(fixture_compose_cmd) up ws
 fixture.socketio:
 	$(fixture_compose_cmd) up socketio
 fixture.phx:

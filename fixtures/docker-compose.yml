@@ -20,6 +20,16 @@ services:
       - "PORT=${IO_PORT}"
     ports:
       - "${IO_PORT}:${IO_PORT}"
+  ws:
+    container_name: etna-fixture-ws
+    build: "./ws"
+    restart: on-failure
+    volumes:
+      - ./ws:/app
+    environment:
+      - "PORT=${WS_PORT}"
+    ports:
+      - "${WS_PORT}:${WS_PORT}"
   phx:
     container_name: etna-fixture-phx
     build: "./phxch"
