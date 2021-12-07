@@ -28,7 +28,10 @@ const WsLogger = ({ logs }: TProps) => {
             renderItem={(item) => (
               <S.ListItem>
                 <Space>
-                  <Typography.Text type="secondary">
+                  <Typography.Text
+                    style={{ whiteSpace: "nowrap" }}
+                    type="secondary"
+                  >
                     {item.date}
                   </Typography.Text>
                   <Typography.Text>

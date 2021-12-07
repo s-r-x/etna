@@ -8,20 +8,20 @@ import moment from "moment";
 import { ISendPhoenixMessageDto } from "../typings/dto";
 import { TStorePhoenixChannelWithConn } from "../typings/store";
 
-const root = (state: State) => state[DOMAIN];
-const getUrl = (state: State) => root(state).url;
-const isConnected = (state: State) => root(state).connected;
+const $ = (state: State) => state[DOMAIN];
+const getUrl = (state: State) => $(state).url;
+const isConnected = (state: State) => $(state).connected;
 const getClient = () => PhoenixClient.getInstance();
-const getTab = (state: State) => root(state).tab;
-const getQuery = (state: State) => root(state).query;
+const getTab = (state: State) => $(state).tab;
+const getQuery = (state: State) => $(state).query;
 const getNormalizedQuery = createSelector(getQuery, (query) => {
   return query.reduce((acc, { key, value }) => {
     return { ...acc, [key]: value };
   }, {} as TStringDict);
 });
 const getChannelsConnStatuses = (state: State) =>
-  root(state).channelsConnStatuses;
-const getRawChannels = (state: State) => root(state).channels;
+  $(state).channelsConnStatuses;
+const getRawChannels = (state: State) => $(state).channels;
 const getChannels = createSelector(
   [getRawChannels, getChannelsConnStatuses],
   (channels, conn): TStorePhoenixChannelWithConn[] => {
@@ -31,13 +31,13 @@ const getChannels = createSelector(
     }));
   }
 );
-const getChannelForm = (state: State) => root(state).createChForm;
+const getChannelForm = (state: State) => $(state).createChForm;
 const isChannelFormOpen = (state: State) => getChannelForm(state).isOpen;
 const getChannelFormTopic = (state: State) => getChannelForm(state).topic;
 const getChannelFormQuery = (state: State) => getChannelForm(state).query;
-const getCreateEventForm = (state: State) => root(state).createEvForm;
-const getEvents = (state: State) => root(state).events;
-const getRawLogs = (state: State) => root(state).logs;
+const getCreateEventForm = (state: State) => $(state).createEvForm;
+const getEvents = (state: State) => $(state).events;
+const getRawLogs = (state: State) => $(state).logs;
 const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
   return logs.map((log) => ({
     id: log.id,
@@ -54,9 +54,9 @@ const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
     route: log.route,
   }));
 });
-const getInputEvent = (state: State) => root(state).input.event;
-const getInputMode = (state: State) => root(state).input.mode;
-const getInputData = (state: State) => root(state).input.data;
+const getInputEvent = (state: State) => $(state).input.event;
+const getInputMode = (state: State) => $(state).input.mode;
+const getInputData = (state: State) => $(state).input.data;
 const getFinalInputData = createSelector(
   getInputData,
   (data): TAnyDict => {
@@ -67,7 +67,7 @@ const getFinalInputData = createSelector(
     }
   }
 );
-const getInputChannel = (state: State) => root(state).input.channel;
+const getInputChannel = (state: State) => $(state).input.channel;
 const isInputChannelConnected = createSelector(
   [getInputChannel, getChannelsConnStatuses],
   (ch, conn) => !!conn[ch]

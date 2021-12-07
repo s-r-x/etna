@@ -4,13 +4,13 @@ import { EShortcutEv as EEvent } from "../typings/actions";
 import { DOMAIN } from "./slice";
 import _ from "lodash";
 
-const root = (state: State) => state[DOMAIN];
-const isEditorOpen = (state: State) => root(state).editor.isOpen;
-const getEditorEvent = (state: State) => root(state).editor.event;
-const getEditorPressedCombo = (state: State) => root(state).editor.pressed;
+const $ = (state: State) => state[DOMAIN];
+const isEditorOpen = (state: State) => $(state).editor.isOpen;
+const getEditorEvent = (state: State) => $(state).editor.event;
+const getEditorPressedCombo = (state: State) => $(state).editor.pressed;
 
-const getKeysMap = (state: State) => root(state).keyToEvent;
-const getEventsMap = (state: State) => root(state).eventToKey;
+const getKeysMap = (state: State) => $(state).keyToEvent;
+const getEventsMap = (state: State) => $(state).eventToKey;
 const getEventsArray = createSelector(getEventsMap, (map) => {
   return Object.entries(map).map(([event, shortcut]) => ({
     event,

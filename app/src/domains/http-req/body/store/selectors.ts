@@ -15,10 +15,10 @@ export async function dataUrlToFile(
   const blob: Blob = await res.blob();
   return new File([blob], fileName, { type: mime });
 }
-const root = (state: State) => state[DOMAIN];
-const getText = (state: State) => root(state).text;
-const getMIME = (state: State) => root(state).mime;
-const getKV = (state: State) => root(state).kv;
+const $ = (state: State) => state[DOMAIN];
+const getText = (state: State) => $(state).text;
+const getMIME = (state: State) => $(state).mime;
+const getKV = (state: State) => $(state).kv;
 const getRequestReadyKV = createSelector(getKV, (kv) => {
   return kv.filter(({ active }) => active);
 });
@@ -38,7 +38,7 @@ const getActiveEditor = createSelector(getMIME, (mime) => {
       throw new Error(`unknown mime received: ${mime}`);
   }
 });
-const getGqlRawSchema = (state: State) => root(state).gql.schema;
+const getGqlRawSchema = (state: State) => $(state).gql.schema;
 const getGqlSchema = createSelector(getGqlRawSchema, (schema) => {
   try {
     return schema && buildClientSchema(JSON.parse(schema)?.data);
@@ -46,9 +46,9 @@ const getGqlSchema = createSelector(getGqlRawSchema, (schema) => {
     return null;
   }
 });
-const isGqlSchemaLoading = (state: State) => root(state).gql.loading;
-const getGqlSchemaError = (state: State) => root(state).gql.error;
-const getGqlVars = (state: State) => root(state).gql.vars;
+const isGqlSchemaLoading = (state: State) => $(state).gql.loading;
+const getGqlSchemaError = (state: State) => $(state).gql.error;
+const getGqlVars = (state: State) => $(state).gql.vars;
 const getParsedGqlVars = createSelector(getGqlVars, (vars) => {
   try {
     return JSON.parse(vars);
@@ -98,7 +98,7 @@ const getRequestReadyBody = createSelector(
 );
 
 export const HttpReqBodySelectors = {
-  getFullBody: root,
+  getFullBody: $,
   getActiveEditor,
   getText,
   getMIME,

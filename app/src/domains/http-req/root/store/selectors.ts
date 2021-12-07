@@ -2,9 +2,9 @@ import { createSelector } from "@reduxjs/toolkit";
 import { TRootState as State } from "@/store/rootReducer";
 import { DOMAIN } from "./slice";
 
-const root = (state: State) => state[DOMAIN];
-const getAuthStrategy = (state: State) => root(state).auth.strategy;
-const getAuthData = (state: State) => root(state).auth.data;
+const $ = (state: State) => state[DOMAIN];
+const getAuthStrategy = (state: State) => $(state).auth.strategy;
+const getAuthData = (state: State) => $(state).auth.data;
 const getBasicAuthData = createSelector(getAuthData, (data) => data.basic);
 const getAuth = createSelector(
   getAuthStrategy,
@@ -16,12 +16,12 @@ const getAuth = createSelector(
     return null;
   }
 );
-const getHeaders = (state: State) => root(state).headers;
+const getHeaders = (state: State) => $(state).headers;
 const getActiveHeaders = createSelector(getHeaders, (headers) =>
   headers.filter((h) => h.active)
 );
 const getHeadersLength = (state: State) => getActiveHeaders(state).length;
-const getUrl = (state: State) => root(state).url;
+const getUrl = (state: State) => $(state).url;
 const getNormalizedUrl = createSelector(getUrl, (url): string => {
   try {
     const parsed = new URL(url);
@@ -39,12 +39,12 @@ const isUrlValid = createSelector(getNormalizedUrl, (url) => {
     return false;
   }
 });
-const getMethod = (state: State) => root(state).method;
-const getLoading = (state: State) => root(state).loading;
+const getMethod = (state: State) => $(state).method;
+const getLoading = (state: State) => $(state).loading;
 const getActiveOptsEditor = (state: State) => state[DOMAIN].activeOptsEditor;
-const getQuery = (state: State) => root(state).query;
+const getQuery = (state: State) => $(state).query;
 const getQueryLength = (state: State) => getQuery(state).length;
-const getSettings = (state: State) => root(state).settings;
+const getSettings = (state: State) => $(state).settings;
 const shouldUseProxy = (state: State) => getSettings(state).useProxy;
 
 const IMMUTABLE_HEADERS = ["content-type", "Content-type"];
@@ -86,7 +86,7 @@ const getRequestReadyHeaders = createSelector(
 );
 
 export const HttpRequestSelectors = {
-  getRequest: root,
+  getRequest: $,
   getActiveOptsEditor,
   getAuth,
   getAuthData,

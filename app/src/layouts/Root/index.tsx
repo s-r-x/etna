@@ -7,6 +7,7 @@ import SocketIOIcon from "@/components/icons/SocketIO";
 import PhoenixIcon from "@/components/icons/Phoenix";
 import { connect, ConnectedProps } from "react-redux";
 import { open as openSettings } from "@/domains/settings/store/slice";
+import WebsocketIcon from "@/components/icons/Websocket";
 
 const connector = connect(null, {
   openSettings,
@@ -29,6 +30,16 @@ const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
               }}
             >
               <GlobalOutlined />
+            </S.Link>
+          </li>
+          <li>
+            <S.Link
+              title="Websocket"
+              activeClassName="link-active"
+              to="/ws"
+              style={{ fontSize: "22px", paddingTop: "2px" }}
+            >
+              <WebsocketIcon />
             </S.Link>
           </li>
           <li>

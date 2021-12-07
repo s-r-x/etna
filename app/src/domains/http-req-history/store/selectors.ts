@@ -5,16 +5,16 @@ import { THistoryItem } from "@/domains/http-req-history/typings/store";
 import _ from "lodash";
 import moment from "moment";
 
-const root = (state: State) => state[DOMAIN];
-const getSearch = (state: State) => root(state).search;
-const getRawSearchForm = (state: State) => root(state).searchForm;
+const $ = (state: State) => state[DOMAIN];
+const getSearch = (state: State) => $(state).search;
+const getRawSearchForm = (state: State) => $(state).searchForm;
 const getSearchForm = createSelector(getRawSearchForm, (form) => {
   return {
     ...form,
     date: form.date && moment(form.date),
   };
 });
-const getFullHistory = (state: State) => root(state).items;
+const getFullHistory = (state: State) => $(state).items;
 const getHistory = createSelector(
   getSearchForm,
   getFullHistory,

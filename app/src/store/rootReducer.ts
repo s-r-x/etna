@@ -19,6 +19,7 @@ import socketIO, { DOMAIN as SOCKET_IO_DOMAIN } from "@socket-io/store/slice";
 import { persistReducer } from "redux-persist";
 import phoenix, { DOMAIN as PHOENIX_DOMAIN } from "@phoenix/store/slice";
 import storage from "localforage";
+import wsRaw, { DOMAIN as WS_RAW_DOMAIN } from "@/domains/ws/raw/store/slice";
 import settings, {
   DOMAIN as SETTINGS_DOMAIN,
 } from "@/domains/settings/store/slice";
@@ -29,9 +30,20 @@ import shortcuts, {
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: [SOCKET_IO_DOMAIN, REQ_DOMAIN, PHOENIX_DOMAIN, SHORTCUTS_DOMAIN],
+  blacklist: [
+    SOCKET_IO_DOMAIN,
+    REQ_DOMAIN,
+    PHOENIX_DOMAIN,
+    WS_RAW_DOMAIN,
+    SHORTCUTS_DOMAIN,
+  ],
 };
 
+const wsRawConfig = {
+  key: WS_RAW_DOMAIN,
+  storage,
+  blacklist: ["connected", "logs", "connecting"],
+};
 const shortcutsConfig = {
   key: SHORTCUTS_DOMAIN,
   storage,
@@ -62,6 +74,7 @@ const reducer = persistReducer(
   persistConfig,
   combineReducers({
     [THEME_DOMAIN]: theme,
+    [WS_RAW_DOMAIN]: persistReducer(wsRawConfig, wsRaw),
     [REQ_DOMAIN]: persistReducer(reqConfig, httpRequest),
     [RES_DOMAIN]: httpResponse,
     [HISTORY_DOMAIN]: history,

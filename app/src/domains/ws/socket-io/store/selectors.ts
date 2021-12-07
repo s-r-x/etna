@@ -7,14 +7,14 @@ import { DOMAIN } from "./slice";
 import moment from "moment";
 import { JsonService } from "@/services/json";
 
-const root = (state: State) => state[DOMAIN];
-const getTab = (state: State) => root(state).tab;
-const getUrl = (state: State) => root(state).url;
-const getPath = (state: State) => root(state).path;
-const isConnected = (state: State) => root(state).connected;
-const isConnecting = (state: State) => root(state).connecting;
+const $ = (state: State) => state[DOMAIN];
+const getTab = (state: State) => $(state).tab;
+const getUrl = (state: State) => $(state).url;
+const getPath = (state: State) => $(state).path;
+const isConnected = (state: State) => $(state).connected;
+const isConnecting = (state: State) => $(state).connecting;
 const isConnectionButtonDisabled = (state: State): boolean => !getUrl(state);
-const getRawLogs = (state: State) => root(state).logs;
+const getRawLogs = (state: State) => $(state).logs;
 const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
   return logs.map((log) => ({
     id: log.id,
@@ -30,9 +30,9 @@ const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
     route: log.route,
   }));
 });
-const getInputEvent = (state: State) => root(state).input.event;
-const getInputMode = (state: State) => root(state).input.mode;
-const getInputData = (state: State) => root(state).input.data;
+const getInputEvent = (state: State) => $(state).input.event;
+const getInputMode = (state: State) => $(state).input.mode;
+const getInputData = (state: State) => $(state).input.data;
 const getNormalizedInputData = createSelector(
   [getInputMode, getInputData],
   (mode, data) => {
@@ -43,13 +43,13 @@ const getNormalizedInputData = createSelector(
     }
   }
 );
-const getQuery = (state: State) => root(state).query;
+const getQuery = (state: State) => $(state).query;
 const getNormalizedQuery = createSelector(getQuery, (query) => {
   return query.reduce((acc, { key, value }) => {
     return { ...acc, [key]: value };
   }, {} as TStringDict);
 });
-const getHeaders = (state: State) => root(state).headers;
+const getHeaders = (state: State) => $(state).headers;
 const getNormalizedHeaders = createSelector(getHeaders, (headers) => {
   return headers.reduce((acc, header) => {
     if (header.active && header.key) {
@@ -62,7 +62,7 @@ const getNormalizedHeaders = createSelector(getHeaders, (headers) => {
     }
   }, {} as TStringDict);
 });
-const getOptionsString = (state: State) => root(state).options;
+const getOptionsString = (state: State) => $(state).options;
 const getOptions = createSelector(
   getOptionsString,
   (opts): SocketIOClient.ConnectOpts => {
