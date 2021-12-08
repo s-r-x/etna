@@ -1,10 +1,8 @@
 import { TRootState as State } from "@/store/rootReducer";
 import { createSelector } from "reselect";
 import { WsRawClient } from "../client";
-import { EWsConnStatus, EWsLogLevel } from "@ws/shared/typings";
-import { TWsLogUIItem } from "@ws/shared/typings/ui";
+import { EWsConnStatus } from "@ws/shared/typings";
 import { DOMAIN } from "./slice";
-import moment from "moment";
 
 const $ = (state: State) => state[DOMAIN];
 const getTab = (state: State) => $(state).tab;
@@ -20,28 +18,14 @@ const isConnected = (state: State) =>
 const isConnecting = (state: State) =>
   getConnStatus(state) === EWsConnStatus.CONNECTING;
 const isConnectionButtonDisabled = (state: State): boolean => !getUrl(state);
-const getRawLogs = (state: State) => $(state).logs;
-const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
-  return logs.map((log) => ({
-    id: log.id,
-    event: log.ev,
-    typography:
-      log.lvl === EWsLogLevel.ERR
-        ? "danger"
-        : log.lvl === EWsLogLevel.OK
-        ? "success"
-        : undefined,
-    message: log.msg,
-    date: moment(log.date).format("LTS"),
-    route: log.route,
-  }));
-});
+const getLogs = (state: State) => $(state).logs;
 const getInputMode = (state: State) => $(state).input.mode;
 const getInputData = (state: State) => $(state).input.data;
 const getNormalizedInputData = getInputData;
 const getClient = () => WsRawClient.getInstance();
 
 export const WsRawSelectors = {
+  getConnStatus,
   getTab,
   getLogs,
   getClient,

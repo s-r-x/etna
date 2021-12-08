@@ -3,7 +3,6 @@ import { call, put, select, take } from "typed-redux-saga";
 import { INotifySagaDto } from "@ws/shared/typings/dto";
 import { PhoenixActions as Actions } from "../slice";
 import { PhoenixSelectors as Selectors } from "../selectors";
-import { message } from "antd";
 import { EWsConnStatus } from "@/domains/ws/shared/typings";
 
 function* connectedSaga(payload: INotifySagaDto): SagaIterator {
@@ -14,10 +13,8 @@ function* connectedSaga(payload: INotifySagaDto): SagaIterator {
         connected: true,
       })
     );
-    message.success(`Channel ${payload.room} connected`);
   } else {
     yield* put(Actions.changeConnStatus(EWsConnStatus.CONNECTED));
-    message.success("Socket connected");
   }
 }
 function* disconnectedSaga(payload: INotifySagaDto): SagaIterator {
@@ -28,10 +25,8 @@ function* disconnectedSaga(payload: INotifySagaDto): SagaIterator {
         connected: false,
       })
     );
-    message.error(`Channel ${payload.room} disconnected`);
   } else {
     yield* put(Actions.changeConnStatus(EWsConnStatus.DISCONNECTED));
-    message.error("Socket disconnected");
   }
 }
 export default function* phoenixEventsSaga(): SagaIterator {

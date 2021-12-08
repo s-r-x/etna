@@ -159,6 +159,9 @@ const slice = createSlice({
 });
 
 const connect = createAction(`${DOMAIN}/connect`);
+const interrupt = createAction(`${DOMAIN}/interrupt`);
+const disconnect = createAction(`${DOMAIN}/disconnect`);
+const uiConnection = createAction(`${DOMAIN}/ui/connection`);
 const createChannel = createAction(`${DOMAIN}/createCh`);
 const connectChannel = createAction<IConnectPhoenixChannelDto>(
   `${DOMAIN}/connectCh`
@@ -166,7 +169,6 @@ const connectChannel = createAction<IConnectPhoenixChannelDto>(
 const disconnectChannel = createAction<string>(`${DOMAIN}/disconnectCh`);
 const eventSubscribe = createAction<string>(`${DOMAIN}/eventSubscribe`);
 const eventUnsubscribe = createAction<string>(`${DOMAIN}/eventUnsubscribe`);
-const disconnect = createAction(`${DOMAIN}/disconnect`);
 const sendMessage = createAction(`${DOMAIN}/sendMessage`);
 export const PhoenixActions = {
   ...slice.actions,
@@ -174,6 +176,8 @@ export const PhoenixActions = {
   connectChannel,
   connect,
   disconnect,
+  interrupt,
+  uiConnection,
   disconnectChannel,
   eventSubscribe,
   eventUnsubscribe,

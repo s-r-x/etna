@@ -18,7 +18,13 @@ function* disconnectSaga(): SagaIterator {
   const client = yield* select(Selectors.getClient);
   yield* call(client.disconnect);
 }
+function* interruptSaga(): SagaIterator {
+  const client = yield* select(Selectors.getClient);
+  yield* call(client.destroy);
+  yield* put(Actions.changeConnStatus(EWsConnStatus.DISCONNECTED));
+}
 export default function* watchWsRawConnect() {
   yield* takeLatest(Actions.connect.type, connectSaga);
   yield* takeLatest(Actions.disconnect.type, disconnectSaga);
+  yield* takeLatest(Actions.interrupt.type, interruptSaga);
 }

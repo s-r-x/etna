@@ -1,19 +1,16 @@
 import React from "react";
-import { Button, Input } from "antd";
+import { Input } from "antd";
 import { Container } from "./styled";
-import { SendOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { WsRawSelectors as Selectors } from "@ws/raw/store/selectors";
 import { WsRawActions as Actions } from "@ws/raw/store/slice";
-import { useConnectButtonText } from "./hooks";
+import ConnectButton from "@/domains/ws/shared/components/ConnectButton";
 
 const WsRawConnectForm = () => {
+  const connStatus = useSelector(Selectors.getConnStatus);
   const dispatch = useDispatch();
   const url = useSelector(Selectors.getUrl);
-  const isConnected = useSelector(Selectors.isConnected);
-  const isConnecting = useSelector(Selectors.isConnecting);
   const isDisabled = useSelector(Selectors.isConnectionButtonDisabled);
-  const buttonText = useConnectButtonText();
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isDisabled) return;
@@ -26,15 +23,7 @@ const WsRawConnectForm = () => {
         value={url}
         placeholder="URL"
       />
-      <Button
-        htmlType="submit"
-        disabled={isDisabled}
-        icon={<SendOutlined />}
-        danger={isConnected || isConnecting}
-        type="primary"
-      >
-        {buttonText}
-      </Button>
+      <ConnectButton connStatus={connStatus} isDisabled={isDisabled} />
     </Container>
   );
 };

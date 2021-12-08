@@ -22,14 +22,12 @@ export class PhoenixClient extends AbstractWsClient {
     }
     return PhoenixClient.instance;
   }
+  public destroy = () => {
+    this.socket?.disconnect();
+  };
   public connect = (data: IConnectPhoenixDto) => {
-    if (this.socket) {
-      this.socket.disconnect();
-    }
+    this.socket?.disconnect();
     const socket = new PhoenixSocket(data.url, {
-      reconnectAfterMs() {
-        return 3000;
-      },
       params: data.query,
     });
     socket.channels = [];
@@ -110,6 +108,7 @@ export class PhoenixClient extends AbstractWsClient {
     });
   };
   private onDisconnect = (e: any) => {
+    this.destroy();
     this.channels.forEach((ch) => ch.leave());
     this.log({
       ev: "disconnected",

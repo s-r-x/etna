@@ -2,16 +2,13 @@ import { SagaIterator } from "redux-saga";
 import { call, put, select, take } from "typed-redux-saga";
 import { WsRawActions as Actions } from "../slice";
 import { WsRawSelectors } from "../selectors";
-import { message } from "antd";
 import { EWsConnStatus } from "@/domains/ws/shared/typings";
 
 function* connectedSaga(): SagaIterator {
   yield* put(Actions.changeConnStatus(EWsConnStatus.CONNECTED));
-  message.success("Connected");
 }
 function* disconnectedSaga(): SagaIterator {
   yield* put(Actions.changeConnStatus(EWsConnStatus.DISCONNECTED));
-  message.error("Disconnected");
 }
 export default function* wsRawEventsSaga(): SagaIterator {
   const client = yield* select(WsRawSelectors.getClient);

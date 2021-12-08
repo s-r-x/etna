@@ -2,9 +2,7 @@ import { createSelector } from "reselect";
 import { DOMAIN } from "./slice";
 import { TRootState as State } from "@/store/rootReducer";
 import { PhoenixClient } from "@phoenix/client";
-import { TWsLogUIItem } from "@ws/shared/typings/ui";
-import { EWsConnStatus, EWsLogLevel } from "@ws/shared/typings";
-import moment from "moment";
+import { EWsConnStatus } from "@ws/shared/typings";
 import { ISendPhoenixMessageDto } from "../typings/dto";
 import { TStorePhoenixChannelWithConn } from "../typings/store";
 
@@ -13,6 +11,8 @@ const getUrl = (state: State) => $(state).url;
 const getConnStatus = (state: State) => $(state).connStatus;
 const isConnected = (state: State) =>
   getConnStatus(state) === EWsConnStatus.CONNECTED;
+const isConnecting = (state: State) =>
+  getConnStatus(state) === EWsConnStatus.CONNECTING;
 const getClient = () => PhoenixClient.getInstance();
 const getTab = (state: State) => $(state).tab;
 const getQuery = (state: State) => $(state).query;
@@ -38,23 +38,7 @@ const getChannelFormTopic = (state: State) => getChannelForm(state).topic;
 const getChannelFormQuery = (state: State) => getChannelForm(state).query;
 const getCreateEventForm = (state: State) => $(state).createEvForm;
 const getEvents = (state: State) => $(state).events;
-const getRawLogs = (state: State) => $(state).logs;
-const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {
-  return logs.map((log) => ({
-    id: log.id,
-    room: log.room,
-    event: log.ev,
-    typography:
-      log.lvl === EWsLogLevel.ERR
-        ? "danger"
-        : log.lvl === EWsLogLevel.OK
-        ? "success"
-        : undefined,
-    message: log.msg,
-    date: moment(log.date).format("LTS"),
-    route: log.route,
-  }));
-});
+const getLogs = (state: State) => $(state).logs;
 const getInputEvent = (state: State) => $(state).input.event;
 const getInputMode = (state: State) => $(state).input.mode;
 const getInputData = (state: State) => $(state).input.data;
@@ -91,6 +75,7 @@ const isSendMessageEnabled = createSelector(
 );
 
 export const PhoenixSelectors = {
+  getConnStatus,
   isChannelFormOpen,
   getCreateEventForm,
   getChannelForm,
@@ -112,4 +97,5 @@ export const PhoenixSelectors = {
   getSendMessageDto,
   isSendMessageEnabled,
   isInputChannelConnected,
+  isConnecting,
 };

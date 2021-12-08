@@ -116,12 +116,14 @@ const slice = createSlice({
 });
 
 const connect = createAction(`${DOMAIN}/connect`);
+const interrupt = createAction(`${DOMAIN}/interrupt`);
 const disconnect = createAction(`${DOMAIN}/disconnect`);
 const sendMessage = createAction(`${DOMAIN}/sendMessage`);
 const uiConnection = createAction(`${DOMAIN}/ui/connection`);
 export const SocketIOActions = {
   ...slice.actions,
   connect,
+  interrupt,
   disconnect,
   sendMessage,
   uiConnection,

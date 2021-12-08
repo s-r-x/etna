@@ -1,15 +1,32 @@
 import FullHeightCard from "@/components/atoms/FullHeightCard";
-import React from "react";
+import React, { useMemo } from "react";
 import { List, Space, Typography } from "antd";
-import { TWsLogUIItem } from "@ws/shared/typings/ui";
-import { EWsRouteType } from "@ws/shared/typings";
+import { EWsLogLevel, EWsRouteType, TWsLogItem } from "@ws/shared/typings";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import * as S from "./styled";
+import moment from "moment";
+import { BaseType } from "antd/lib/typography/Base";
 
 type TProps = {
-  logs: TWsLogUIItem[];
+  logs: TWsLogItem[];
 };
-const WsLogger = ({ logs }: TProps) => {
+const WsLogger = ({ logs: rawLogs }: TProps) => {
+  const logs = useMemo(() => {
+    return rawLogs.map((log) => ({
+      id: log.id,
+      room: log.room,
+      event: log.ev,
+      typography:
+        log.lvl === EWsLogLevel.ERR
+          ? "danger"
+          : log.lvl === EWsLogLevel.OK
+          ? "success"
+          : undefined,
+      message: log.msg,
+      date: moment(log.date).format("LTS"),
+      route: log.route,
+    }));
+  }, [rawLogs]);
   const listRef = React.useRef<any>();
   React.useLayoutEffect(() => {
     const $el = listRef.current;
@@ -45,7 +62,11 @@ const WsLogger = ({ logs }: TProps) => {
                     <Typography.Text keyboard>{item.room}</Typography.Text>
                   )}
                   {item.event && (
-                    <Typography.Text keyboard strong type={item.typography}>
+                    <Typography.Text
+                      keyboard
+                      strong
+                      type={item.typography as BaseType}
+                    >
                       {item.event}
                     </Typography.Text>
                   )}

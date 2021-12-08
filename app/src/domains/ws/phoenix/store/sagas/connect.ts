@@ -1,8 +1,8 @@
-import { PhoenixClient } from "@phoenix/client";
+import { EWsConnStatus } from "@/domains/ws/shared/typings";
 import { SagaIterator } from "redux-saga";
-import { call, select, takeLatest } from "typed-redux-saga";
+import { call, select, takeLatest, put } from "typed-redux-saga";
 import { PhoenixSelectors as Selectors } from "../selectors";
-import { PhoenixActions } from "../slice";
+import { PhoenixActions as Actions } from "../slice";
 
 function* connectSaga(): SagaIterator {
   const url = yield* select(Selectors.getUrl);
@@ -14,13 +14,20 @@ function* connectSaga(): SagaIterator {
     query,
     channels,
   });
+  yield* put(Actions.changeConnStatus(EWsConnStatus.CONNECTING));
 }
 function* disconnectSaga(): SagaIterator {
-  const client: PhoenixClient = yield* select(Selectors.getClient);
+  const client = yield* select(Selectors.getClient);
   yield* call(client.disconnect);
+}
+function* interruptSaga(): SagaIterator {
+  const client = yield* select(Selectors.getClient);
+  yield* call(client.destroy);
+  yield* put(Actions.changeConnStatus(EWsConnStatus.DISCONNECTED));
 }
 
 export default function* watchPhoenixConnect() {
-  yield* takeLatest(PhoenixActions.connect.type, connectSaga);
-  yield* takeLatest(PhoenixActions.disconnect.type, disconnectSaga);
+  yield* takeLatest(Actions.connect.type, connectSaga);
+  yield* takeLatest(Actions.disconnect.type, disconnectSaga);
+  yield* takeLatest(Actions.interrupt.type, interruptSaga);
 }
