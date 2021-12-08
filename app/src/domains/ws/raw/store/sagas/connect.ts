@@ -1,3 +1,4 @@
+import { EWsConnStatus } from "@/domains/ws/shared/typings";
 import { SagaIterator } from "redux-saga";
 import { takeLatest, call, select, put } from "typed-redux-saga";
 import { WsRawSelectors as Selectors } from "../selectors";
@@ -11,7 +12,7 @@ function* connectSaga(): SagaIterator {
     url,
     protocols,
   });
-  yield* put(Actions.changeConnectingStatus(true));
+  yield* put(Actions.changeConnStatus(EWsConnStatus.CONNECTING));
 }
 function* disconnectSaga(): SagaIterator {
   const client = yield* select(Selectors.getClient);

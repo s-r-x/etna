@@ -1,4 +1,4 @@
-import { TWsLogItem } from "@ws/shared/typings/store";
+import { EWsConnStatus, TWsLogItem } from "@ws/shared/typings";
 
 export type TStorePhoenixChannel = {
   topic: string;
@@ -22,7 +22,7 @@ export type TPhoenixEventForm = {
   event: string;
 };
 export type TPhoenixState = {
-  connected: boolean;
+  connStatus: EWsConnStatus;
   url: string;
   tab: string;
   query: { key: string; value: string }[];

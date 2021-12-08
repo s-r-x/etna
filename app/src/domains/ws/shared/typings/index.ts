@@ -16,3 +16,9 @@ export type TWsLogItem = {
   msg: string;
   route: EWsRouteType;
 };
+
+export enum EWsConnStatus {
+  DISCONNECTED,
+  CONNECTED,
+  CONNECTING,
+}

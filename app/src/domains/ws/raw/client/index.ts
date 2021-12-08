@@ -1,6 +1,6 @@
 import { AbstractWsClient } from "@ws/shared/client";
 import { IConnectWsRawDto } from "@ws/raw/typings/dto";
-import { EWsLogLevel, EWsRouteType } from "@ws/shared/typings/store";
+import { EWsLogLevel, EWsRouteType } from "@ws/shared/typings";
 
 export class WsRawClient extends AbstractWsClient {
   private static instance: WsRawClient;

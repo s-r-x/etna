@@ -42,7 +42,7 @@ const persistConfig = {
 const wsRawConfig = {
   key: WS_RAW_DOMAIN,
   storage,
-  blacklist: ["connected", "logs", "connecting"],
+  blacklist: ["connStatus", "logs"],
 };
 const shortcutsConfig = {
   key: SHORTCUTS_DOMAIN,
@@ -52,7 +52,7 @@ const shortcutsConfig = {
 const socketIOConfig = {
   key: SOCKET_IO_DOMAIN,
   storage,
-  blacklist: ["connected", "logs", "connecting"],
+  blacklist: ["connStatus", "logs"],
 };
 const reqConfig = {
   key: REQ_DOMAIN,
@@ -62,7 +62,7 @@ const reqConfig = {
 const phoenixConfig = {
   key: PHOENIX_DOMAIN,
   storage,
-  blacklist: ["connected", "logs", "channelsConnStatuses"],
+  blacklist: ["connStatus", "logs", "channelsConnStatuses"],
 };
 const settingsConfig = {
   key: SETTINGS_DOMAIN,

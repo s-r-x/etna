@@ -1,8 +1,7 @@
-import { TWsLogItem } from "@ws/shared/typings/store";
+import { EWsConnStatus, TWsLogItem } from "@ws/shared/typings";
 
 export type TWsRawState = {
-  connected: boolean;
-  connecting: boolean;
+  connStatus: EWsConnStatus;
   path: string;
   url: string;
   tab: string;

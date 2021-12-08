@@ -6,7 +6,7 @@ import {
   ISendPhoenixMessageDto,
   TSyncPhoenixChannelsDto,
 } from "@phoenix/typings/dto";
-import { EWsLogLevel, EWsRouteType } from "@ws/shared/typings/store";
+import { EWsLogLevel, EWsRouteType } from "@ws/shared/typings";
 import { PhoenixChannel } from "./Channel";
 
 export class PhoenixClient extends AbstractWsClient {

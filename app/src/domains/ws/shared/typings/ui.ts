@@ -1,5 +1,5 @@
 import { BaseType } from "antd/lib/typography/Base";
-import { EWsRouteType } from "./store";
+import { EWsRouteType } from "./";
 
 export type TWsLogUIItem = {
   id: string;

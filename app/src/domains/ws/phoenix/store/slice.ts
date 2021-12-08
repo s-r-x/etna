@@ -4,7 +4,7 @@ import {
   TPhoenixState,
   TStorePhoenixChannel,
 } from "@phoenix/typings/store";
-import { TWsLogItem } from "@ws/shared/typings/store";
+import { EWsConnStatus, TWsLogItem } from "@ws/shared/typings";
 import _ from "lodash";
 import { UUID } from "@/utils/uuid";
 import { IConnectPhoenixChannelDto } from "../typings/dto";
@@ -12,7 +12,7 @@ import { IConnectPhoenixChannelDto } from "../typings/dto";
 export const DOMAIN = "phoenix";
 
 const initialState: TPhoenixState = {
-  connected: false,
+  connStatus: EWsConnStatus.DISCONNECTED,
   url: "",
   tab: "message",
   query: [],
@@ -52,8 +52,8 @@ const slice = createSlice({
     ) {
       _.merge(state.createEvForm, payload);
     },
-    changeConnectStatus(state, { payload }: PayloadAction<boolean>) {
-      state.connected = payload;
+    changeConnStatus(state, { payload }: PayloadAction<EWsConnStatus>) {
+      state.connStatus = payload;
     },
     changeChannelConnectStatus(
       state,

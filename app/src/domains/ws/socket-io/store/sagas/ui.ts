@@ -1,3 +1,4 @@
+import { EWsConnStatus } from "@/domains/ws/shared/typings";
 import { SagaIterator } from "redux-saga";
 import { put, select, takeLatest, call } from "typed-redux-saga";
 import { SocketIOSelectors as Selectors } from "../selectors";
@@ -11,7 +12,7 @@ function* uiConnectionSaga(): SagaIterator {
   } else if (isConnecting) {
     const client = yield* select(Selectors.getClient);
     yield* call(client.destroy);
-    yield* put(Actions.changeConnectingStatus(false));
+    yield* put(Actions.changeConnStatus(EWsConnStatus.DISCONNECTED));
   } else {
     yield* put(Actions.connect());
   }

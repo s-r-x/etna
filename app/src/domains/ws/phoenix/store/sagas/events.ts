@@ -4,6 +4,7 @@ import { INotifySagaDto } from "@ws/shared/typings/dto";
 import { PhoenixActions as Actions } from "../slice";
 import { PhoenixSelectors as Selectors } from "../selectors";
 import { message } from "antd";
+import { EWsConnStatus } from "@/domains/ws/shared/typings";
 
 function* connectedSaga(payload: INotifySagaDto): SagaIterator {
   if (payload.room) {
@@ -15,7 +16,7 @@ function* connectedSaga(payload: INotifySagaDto): SagaIterator {
     );
     message.success(`Channel ${payload.room} connected`);
   } else {
-    yield* put(Actions.changeConnectStatus(true));
+    yield* put(Actions.changeConnStatus(EWsConnStatus.CONNECTED));
     message.success("Socket connected");
   }
 }
@@ -29,7 +30,7 @@ function* disconnectedSaga(payload: INotifySagaDto): SagaIterator {
     );
     message.error(`Channel ${payload.room} disconnected`);
   } else {
-    yield* put(Actions.changeConnectStatus(false));
+    yield* put(Actions.changeConnStatus(EWsConnStatus.DISCONNECTED));
     message.error("Socket disconnected");
   }
 }

@@ -4,13 +4,14 @@ import { INotifySagaDto } from "@ws/shared/typings/dto";
 import { SocketIOActions as Actions } from "@socket-io/store/slice";
 import { SocketIOSelectors } from "@socket-io/store/selectors";
 import { message } from "antd";
+import { EWsConnStatus } from "@/domains/ws/shared/typings";
 
 function* connectedSaga(): SagaIterator {
-  yield* put(Actions.changeConnectStatus(true));
+  yield* put(Actions.changeConnStatus(EWsConnStatus.CONNECTED));
   message.success("Connected");
 }
 function* disconnectedSaga(): SagaIterator {
-  yield* put(Actions.changeConnectStatus(false));
+  yield* put(Actions.changeConnStatus(EWsConnStatus.DISCONNECTED));
   message.error("Disconnected");
 }
 export default function* socketIoEventsSaga(): SagaIterator {

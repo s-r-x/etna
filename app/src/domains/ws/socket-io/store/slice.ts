@@ -1,5 +1,5 @@
 import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TWsLogItem } from "@ws/shared/typings/store";
+import { EWsConnStatus, TWsLogItem } from "@ws/shared/typings";
 import { genVoidKV } from "@/utils/kv";
 import { TKeyValue } from "@/typings/keyValue";
 import { TSocketIOState } from "../typings/store";
@@ -7,8 +7,7 @@ import { TSocketIOState } from "../typings/store";
 export const DOMAIN = "socketIO";
 
 const initialState: TSocketIOState = {
-  connected: false,
-  connecting: false,
+  connStatus: EWsConnStatus.DISCONNECTED,
   url: "",
   tab: "message",
   path: "/socket.io",
@@ -106,12 +105,8 @@ const slice = createSlice({
     clearLogs(state) {
       state.logs = [];
     },
-    changeConnectStatus(state, { payload }: PayloadAction<boolean>) {
-      state.connecting = false;
-      state.connected = payload;
-    },
-    changeConnectingStatus(state, { payload }: PayloadAction<boolean>) {
-      state.connecting = payload;
+    changeConnStatus(state, { payload }: PayloadAction<EWsConnStatus>) {
+      state.connStatus = payload;
     },
 
     changeOptions(state, { payload }: PayloadAction<string>) {

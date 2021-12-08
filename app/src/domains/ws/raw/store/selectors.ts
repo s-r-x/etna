@@ -1,7 +1,7 @@
 import { TRootState as State } from "@/store/rootReducer";
 import { createSelector } from "reselect";
 import { WsRawClient } from "../client";
-import { EWsLogLevel } from "@ws/shared/typings/store";
+import { EWsConnStatus, EWsLogLevel } from "@ws/shared/typings";
 import { TWsLogUIItem } from "@ws/shared/typings/ui";
 import { DOMAIN } from "./slice";
 import moment from "moment";
@@ -11,9 +11,14 @@ const getTab = (state: State) => $(state).tab;
 const getUrl = (state: State) => $(state).url;
 const getPath = (state: State) => $(state).path;
 const getProtocols = (state: State) => $(state).protocols;
-const getNormalizedProtocols = createSelector(getProtocols, protocols => protocols.filter(Boolean));
-const isConnected = (state: State) => $(state).connected;
-const isConnecting = (state: State) => $(state).connecting;
+const getNormalizedProtocols = createSelector(getProtocols, (protocols) =>
+  protocols.filter(Boolean)
+);
+const getConnStatus = (state: State) => $(state).connStatus;
+const isConnected = (state: State) =>
+  getConnStatus(state) === EWsConnStatus.CONNECTED;
+const isConnecting = (state: State) =>
+  getConnStatus(state) === EWsConnStatus.CONNECTING;
 const isConnectionButtonDisabled = (state: State): boolean => !getUrl(state);
 const getRawLogs = (state: State) => $(state).logs;
 const getLogs = createSelector(getRawLogs, (logs): TWsLogUIItem[] => {

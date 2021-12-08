@@ -2,7 +2,7 @@ import { AbstractWsClient } from "@ws/shared/client";
 import io from "socket.io-client";
 import wildcard from "socketio-wildcard";
 import { IConnectSocketIoDto } from "@socket-io/typings/dto";
-import { EWsLogLevel, EWsRouteType } from "@ws/shared/typings/store";
+import { EWsLogLevel, EWsRouteType } from "@ws/shared/typings";
 import { JsonService } from "@/services/json";
 import _ from "lodash";
 

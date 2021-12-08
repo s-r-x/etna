@@ -1,7 +1,7 @@
 import { JsonService } from "@/services/json";
 import { Channel } from "phoenix";
 import { INotifySagaDto } from "@ws/shared/typings/dto";
-import { EWsLogLevel, EWsRouteType } from "@ws/shared/typings/store";
+import { EWsLogLevel, EWsRouteType } from "@ws/shared/typings";
 import { PhoenixSocket } from "./Socket";
 import { Wildcard } from "phx-wildcard";
 

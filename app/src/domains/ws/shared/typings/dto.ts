@@ -1,4 +1,4 @@
-import { TWsLogItem } from "./store";
+import { TWsLogItem } from "./";
 
 export interface IConnectDto {
   url: string;

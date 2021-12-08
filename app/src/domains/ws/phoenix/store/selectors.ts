@@ -3,14 +3,16 @@ import { DOMAIN } from "./slice";
 import { TRootState as State } from "@/store/rootReducer";
 import { PhoenixClient } from "@phoenix/client";
 import { TWsLogUIItem } from "@ws/shared/typings/ui";
-import { EWsLogLevel } from "@ws/shared/typings/store";
+import { EWsConnStatus, EWsLogLevel } from "@ws/shared/typings";
 import moment from "moment";
 import { ISendPhoenixMessageDto } from "../typings/dto";
 import { TStorePhoenixChannelWithConn } from "../typings/store";
 
 const $ = (state: State) => state[DOMAIN];
 const getUrl = (state: State) => $(state).url;
-const isConnected = (state: State) => $(state).connected;
+const getConnStatus = (state: State) => $(state).connStatus;
+const isConnected = (state: State) =>
+  getConnStatus(state) === EWsConnStatus.CONNECTED;
 const getClient = () => PhoenixClient.getInstance();
 const getTab = (state: State) => $(state).tab;
 const getQuery = (state: State) => $(state).query;
@@ -19,8 +21,7 @@ const getNormalizedQuery = createSelector(getQuery, (query) => {
     return { ...acc, [key]: value };
   }, {} as TStringDict);
 });
-const getChannelsConnStatuses = (state: State) =>
-  $(state).channelsConnStatuses;
+const getChannelsConnStatuses = (state: State) => $(state).channelsConnStatuses;
 const getRawChannels = (state: State) => $(state).channels;
 const getChannels = createSelector(
   [getRawChannels, getChannelsConnStatuses],

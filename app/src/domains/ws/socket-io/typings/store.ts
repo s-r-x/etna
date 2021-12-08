@@ -1,9 +1,8 @@
-import { TWsLogItem } from "@ws/shared/typings/store";
+import { EWsConnStatus, TWsLogItem } from "@ws/shared/typings";
 import { TKeyValue } from "@/typings/keyValue";
 
 export type TSocketIOState = {
-  connected: boolean;
-  connecting: boolean;
+  connStatus: EWsConnStatus;
   path: string;
   url: string;
   tab: string;
