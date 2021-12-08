@@ -1,7 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { TRootState as State } from "@/store/rootReducer";
 import { DOMAIN } from "./slice";
-import { THistoryItem } from "@/domains/http-req-history/typings/store";
+import { THistoryItem } from "@/domains/http-history/typings/store";
 import _ from "lodash";
 import moment from "moment";
 

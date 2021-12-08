@@ -6,7 +6,7 @@ import { extractItem, addItem, restoreItem } from "../slice";
 import { UUID } from "@/utils/uuid";
 import _ from "lodash";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { THistoryItem } from "@/domains/http-req-history/typings/store";
+import { THistoryItem } from "@/domains/http-history/typings/store";
 import { HttpReqActions } from "@/domains/http-req/root/store/slice";
 import { restoreFromHistory as restoreRes } from "@/domains/http-res/store/slice";
 import { HttpReqBodyActions as BodyActions } from "@/domains/http-req/body/store/slice";

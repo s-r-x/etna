@@ -1,4 +1,4 @@
-import { THistoryRequest } from "@/domains/http-req-history/typings/store";
+import { THistoryRequest } from "@/domains/http-history/typings/store";
 import { THTTPMethod } from "@/typings/http";
 import { TKeyValue } from "@/typings/keyValue";
 import { PayloadAction } from "@reduxjs/toolkit";

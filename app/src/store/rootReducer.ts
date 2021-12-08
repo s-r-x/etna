@@ -7,7 +7,7 @@ import httpResponse, {
 } from "@/domains/http-res/store/slice";
 import history, {
   DOMAIN as HISTORY_DOMAIN,
-} from "@/domains/http-req-history/store/slice";
+} from "@/domains/http-history/store/slice";
 import codeEditor, {
   DOMAIN as CODE_EDITOR_DOMAIN,
 } from "@/domains/code-editor/store/slice";

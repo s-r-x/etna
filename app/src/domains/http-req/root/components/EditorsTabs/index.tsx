@@ -7,7 +7,7 @@ import BodyEditor from "@/domains/http-req/body/components";
 import Auth from "../Auth";
 import Settings from "../Settings";
 import CountTab from "@/components/atoms/CountTab";
-import History from "@/domains/http-req-history/components";
+import History from "@/domains/http-history/components";
 import BodyTab from "./BodyTab";
 const { TabPane } = Tabs;
 

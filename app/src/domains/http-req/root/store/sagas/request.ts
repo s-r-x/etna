@@ -16,7 +16,7 @@ import { HttpRequestSelectors as Selectors } from "../selectors";
 import { TResponse } from "@/typings/httpClient";
 import { SagaIterator } from "redux-saga";
 import { message } from "antd";
-import { extractItem } from "@/domains/http-req-history/store/slice";
+import { extractItem } from "@/domains/http-history/store/slice";
 import { setResponse } from "@/domains/http-res/store/slice";
 import { HttpReqBodySelectors } from "@/domains/http-req/body/store/selectors";
 
