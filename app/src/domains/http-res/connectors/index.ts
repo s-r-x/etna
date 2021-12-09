@@ -8,7 +8,7 @@ import {
 } from "@/domains/http-res/store/slice";
 
 export const connector = connect(
-  (state) => ({
+  state => ({
     hasResponse: ResSelectors.hasResponse(state),
     category: ResSelectors.getCategory(state),
     editorOpts: ResSelectors.getEditorOpts(state),

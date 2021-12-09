@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Document, Page } from "react-pdf";
 import { Pagination } from "antd";
-import { pdfjs } from 'react-pdf';
+import { pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 type TProps = {
@@ -15,15 +15,17 @@ const PdfRenderer = (props: TProps) => {
   };
   return (
     <div>
-      <div style={{
-       marginBottom: '10px'
-      }}>
-      <Pagination
-        onChange={setPage}
-        total={pages}
-        pageSize={1}
-        current={page}
-      />
+      <div
+        style={{
+          marginBottom: "10px",
+        }}
+      >
+        <Pagination
+          onChange={setPage}
+          total={pages}
+          pageSize={1}
+          current={page}
+        />
       </div>
       <Document
         renderMode="canvas"

@@ -30,13 +30,13 @@ const getNormalizedInputData = createSelector(
   }
 );
 const getQuery = (state: State) => $(state).query;
-const getNormalizedQuery = createSelector(getQuery, (query) => {
+const getNormalizedQuery = createSelector(getQuery, query => {
   return query.reduce((acc, { key, value }) => {
     return { ...acc, [key]: value };
   }, {} as TStringDict);
 });
 const getHeaders = (state: State) => $(state).headers;
-const getNormalizedHeaders = createSelector(getHeaders, (headers) => {
+const getNormalizedHeaders = createSelector(getHeaders, headers => {
   return headers.reduce((acc, header) => {
     if (header.active && header.key) {
       return {

@@ -23,7 +23,7 @@ const Main: React.FC = ({ children }) => {
     <FullScreenSpin />
   );
 };
-const ThemeProvider: React.FC = (props) => {
+const ThemeProvider: React.FC = props => {
   const mode = useSelector(ThemeSelectors.getMode);
   return (
     <ThemeSwitcherProvider

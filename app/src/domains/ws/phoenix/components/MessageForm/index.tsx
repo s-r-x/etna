@@ -28,7 +28,7 @@ const SocketIoMessageForm = () => {
 
         <Select
           aria-required="true"
-          onChange={(ch) => dispatch(Actions.changeInputChannel(ch))}
+          onChange={ch => dispatch(Actions.changeInputChannel(ch))}
           placeholder="Channel"
           value={inputCh}
         >
@@ -64,7 +64,7 @@ const SocketIoMessageForm = () => {
             }
             mode={inputMode}
             value={inputData}
-            onChange={(v) => dispatch(Actions.changeInputData(v))}
+            onChange={v => dispatch(Actions.changeInputData(v))}
           />
         </S.InnerWrap>
       </S.Container>

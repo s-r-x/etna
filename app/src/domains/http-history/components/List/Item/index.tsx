@@ -11,7 +11,7 @@ import {
 } from "@ant-design/icons";
 import { Color } from "@/utils/color";
 import * as S from "./styled";
-import day from 'dayjs';
+import day from "dayjs";
 
 type TData = Pick<TConnectorProps, "history" | "removeItem" | "restore">;
 const SearchItem = memo((props: ListChildComponentProps) => {

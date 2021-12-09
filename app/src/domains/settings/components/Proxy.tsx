@@ -5,7 +5,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { HttpReqActions } from "@/domains/http-req/root/store/slice";
 
 const connector = connect(
-  (state) => ({
+  state => ({
     settings: HttpRequestSelectors.getSettings(state),
   }),
   {

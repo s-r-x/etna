@@ -16,7 +16,7 @@ const MethodSelect = (props: TProps) => {
       defaultValue="GET"
       onChange={props.onChange}
     >
-      {HTTP_METHODS.map((method) => (
+      {HTTP_METHODS.map(method => (
         <Option key={method} value={method}>
           {method}
         </Option>

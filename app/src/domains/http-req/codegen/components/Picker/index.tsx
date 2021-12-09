@@ -22,7 +22,7 @@ const CodegenPicker = ({ snippet }: TProps) => {
       <S.Container>
         <Cascader
           allowClear={false}
-          onChange={(value) =>
+          onChange={value =>
             dispatch(Actions.changeTargetAndClient(value as any))
           }
           size="large"

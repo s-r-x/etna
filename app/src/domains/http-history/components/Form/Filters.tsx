@@ -5,7 +5,7 @@ import { HTTP_STATUS_CODES, HTTP_METHODS } from "@/constants/http";
 const { Option } = Select;
 import { TConnectorProps } from "../../connectors";
 
-const statusSelectOpts = HTTP_STATUS_CODES.map((code) => ({
+const statusSelectOpts = HTTP_STATUS_CODES.map(code => ({
   value: "" + code.value,
   label: `${code.value} (${code.hr})`,
 }));
@@ -25,7 +25,7 @@ const HistorySearchFilters = (props: TProps) => {
     >
       <Form.Item label="Method" name="method">
         <Select allowClear>
-          {HTTP_METHODS.map((method) => (
+          {HTTP_METHODS.map(method => (
             <Option key={method} value={method}>
               {method}
             </Option>

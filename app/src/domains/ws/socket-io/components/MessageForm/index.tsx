@@ -49,7 +49,7 @@ const SocketIoMessageForm = () => {
             }
             mode={inputMode}
             value={inputData}
-            onChange={(v) => dispatch(Actions.changeInputData(v))}
+            onChange={v => dispatch(Actions.changeInputData(v))}
           />
         </S.InnerWrap>
       </S.Container>

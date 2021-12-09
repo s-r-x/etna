@@ -10,4 +10,4 @@ export const Container = styled.form`
 export const PathInput = styled(Input)`
   width: 200px;
   margin-left: 10px;
-`
+`;

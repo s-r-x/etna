@@ -6,7 +6,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { HttpReqBodyActions as Actions } from "@/domains/http-req/body/store/slice";
 
 const connector = connect(
-  (state) => ({
+  state => ({
     text: Selectors.getText(state),
     MIME: Selectors.getMIME(state),
   }),

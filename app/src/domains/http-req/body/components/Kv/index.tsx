@@ -67,7 +67,7 @@ const BodyKVEditor = (props: TConnectorProps) => {
           <Input
             placeholder={placeholder}
             value={row.value}
-            onChange={(e) =>
+            onChange={e =>
               props.changeKVValue({
                 id,
                 value: e.target.value,

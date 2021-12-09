@@ -30,7 +30,9 @@ const KeyValueEditor = (props: TProps) => {
         type="primary"
         block
         icon={<PlusOutlined />}
-      >{props.addTitle}</Button>
+      >
+        {props.addTitle}
+      </Button>
     </Space>
   );
 };

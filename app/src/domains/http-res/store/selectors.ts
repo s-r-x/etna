@@ -17,14 +17,14 @@ const getResponseContentType = createSelector(getResponse, (res): string => {
   }
   return type;
 });
-const getFormattedResponseTime = createSelector(getResponse, (res) => {
+const getFormattedResponseTime = createSelector(getResponse, res => {
   if (_.isNil(res.responseTime)) {
     return ms(0);
   }
   return ms(res.responseTime);
 });
 const getCategory = (state: State) => root(state).category;
-const getRawBody = createSelector(getResponse, (res) => res?.data);
+const getRawBody = createSelector(getResponse, res => res?.data);
 const isPrettyBodySupported = createSelector(
   getResponseContentType,
   (type): boolean => {
@@ -49,27 +49,24 @@ const getPrettyBody = createSelector(
     return CodeFormatter.format(body, type);
   }
 );
-const getRawHeaders = createSelector(getResponse, (res) => res?.headers ?? {});
-const getHeaders = createSelector(getRawHeaders, (headers) => {
-  return Object.keys(headers).map((key) => ({
+const getRawHeaders = createSelector(getResponse, res => res?.headers ?? {});
+const getHeaders = createSelector(getRawHeaders, headers => {
+  return Object.keys(headers).map(key => ({
     key,
     value: headers[key] as string,
   }));
 });
-const getResponseStatus = createSelector(getResponse, (res) => res.status);
-const getResponseSize = createSelector(
-  getResponse,
-  (res) => res?.bodySize ?? 0
-);
-const getFormattedResponseSize = createSelector(getResponseSize, (size) => {
+const getResponseStatus = createSelector(getResponse, res => res.status);
+const getResponseSize = createSelector(getResponse, res => res?.bodySize ?? 0);
+const getFormattedResponseSize = createSelector(getResponseSize, size => {
   if (_.isNil(size)) {
     return pb(0);
   }
   return pb(size);
 });
 
-const isBinary = createSelector(getResponse, (res) => res?.isBinary);
-const isSvg = createSelector(getResponseContentType, (type) => {
+const isBinary = createSelector(getResponse, res => res?.isBinary);
+const isSvg = createSelector(getResponseContentType, type => {
   return type === "image/svg+xml";
 });
 const isImage = createSelector(getResponseContentType, (type): boolean => {

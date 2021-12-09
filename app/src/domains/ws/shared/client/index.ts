@@ -23,7 +23,7 @@ export abstract class AbstractWsClient {
     }
   };
   public creataSagaChannel = () => {
-    return eventChannel<INotifySagaDto>((emit) => {
+    return eventChannel<INotifySagaDto>(emit => {
       this.injectSagaEmitter(emit);
       return () => {
         this.disconnect();

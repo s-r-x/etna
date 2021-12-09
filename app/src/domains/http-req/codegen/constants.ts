@@ -20,10 +20,10 @@ export const AVAILABLE_CLIENTS: Record<TCodegenTarget, string[]> = {
   csharp: ["httpclient", "restsharp"],
 };
 
-export const OPTIONS_SELECT = AVAILABLE_TARGETS.map((target) => ({
+export const OPTIONS_SELECT = AVAILABLE_TARGETS.map(target => ({
   value: target,
   label: _.capitalize(target),
-  children: AVAILABLE_CLIENTS[target].map((client) => ({
+  children: AVAILABLE_CLIENTS[target].map(client => ({
     value: client,
     label: client,
   })),

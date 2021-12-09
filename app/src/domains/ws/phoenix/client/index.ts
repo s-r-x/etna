@@ -62,12 +62,12 @@ export class PhoenixClient extends AbstractWsClient {
     return channel;
   };
   private findChannel = (topic: string) => {
-    return this.channels.find((ch) => ch.topic === topic);
+    return this.channels.find(ch => ch.topic === topic);
   };
   private syncChannels = (channels: TSyncPhoenixChannelsDto) => {
-    this.channels.forEach((ch) => ch.leave());
+    this.channels.forEach(ch => ch.leave());
     this.channels = channels.map(
-      (ch) =>
+      ch =>
         new PhoenixChannel(
           {
             topic: ch.topic,
@@ -93,9 +93,7 @@ export class PhoenixClient extends AbstractWsClient {
     const ch = this.findChannel(topic);
     if (ch) {
       ch.leave();
-      this.channels = this.channels.filter(
-        (channel) => channel.topic !== topic
-      );
+      this.channels = this.channels.filter(channel => channel.topic !== topic);
     }
   };
   private onError = (e: any) => {
@@ -109,7 +107,7 @@ export class PhoenixClient extends AbstractWsClient {
   };
   private onDisconnect = (e: any) => {
     this.destroy();
-    this.channels.forEach((ch) => ch.leave());
+    this.channels.forEach(ch => ch.leave());
     this.log({
       ev: "disconnected",
       lvl: EWsLogLevel.ERR,
@@ -132,8 +130,8 @@ export class PhoenixClient extends AbstractWsClient {
     const ch = this.findChannel(data.channel);
     if (!ch) return;
     ch.push(data.event, data.payload)
-      .receive("ok", (payload) => ch.logMessage(":ok", payload))
-      .receive("error", (e) => ch.logError(e));
+      .receive("ok", payload => ch.logMessage(":ok", payload))
+      .receive("error", e => ch.logError(e));
     ch.logMessage(data.event, data.payload, EWsRouteType.OUT);
   };
 }

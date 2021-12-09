@@ -12,7 +12,11 @@ const BasicAuthForm = (props: TProps) => {
     [props.updateBasicAuthForm]
   );
   return (
-    <Form layout="vertical" onValuesChange={onChange} initialValues={props.basicData}>
+    <Form
+      layout="vertical"
+      onValuesChange={onChange}
+      initialValues={props.basicData}
+    >
       <Form.Item label="Username" name="username">
         <Input />
       </Form.Item>

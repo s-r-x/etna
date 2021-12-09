@@ -37,10 +37,10 @@ const CreateChannelModal = () => {
         }}
       />
       <KeyValueEditor
-        onChangeKey={(e) => dispatch(Actions.changeChFormQueryKey(e))}
-        onChangeValue={(e) => dispatch(Actions.changeChFormQueryValue(e))}
+        onChangeKey={e => dispatch(Actions.changeChFormQueryKey(e))}
+        onChangeValue={e => dispatch(Actions.changeChFormQueryValue(e))}
         onAdd={() => dispatch(Actions.addChFormQuery())}
-        onRemove={(e) => dispatch(Actions.removeChFormQuery(e))}
+        onRemove={e => dispatch(Actions.removeChFormQuery(e))}
         addTitle="Add param"
         items={query}
       />

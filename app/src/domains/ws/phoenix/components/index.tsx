@@ -18,7 +18,7 @@ const PhoenixModule = () => {
       <ConnectForm />
       <Tabs
         activeKey={tab}
-        onChange={(tab) => dispatch(Actions.changeTab(tab))}
+        onChange={tab => dispatch(Actions.changeTab(tab))}
         destroyInactiveTabPane
         defaultActiveKey="message"
       >

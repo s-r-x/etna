@@ -13,7 +13,7 @@ const slice = createSlice({
       state.mode = payload;
     },
     toggleMode(state) {
-      state.mode = state.mode === 'light' ? 'dark' : 'light';
+      state.mode = state.mode === "light" ? "dark" : "light";
     },
   },
 });

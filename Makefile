@@ -12,6 +12,14 @@ app.test:
 	$(app_npm_prefix) npm test
 app.compile-themes:
 	cd ./app && npx gulp less
+app.lint:
+	$(app_npm_prefix) run lint
+app.lint.strict:
+	$(app_npm_prefix) run lint.strict
+app.lint.fix:
+	$(app_npm_prefix) run lint.fix
+app.check-types:
+	$(app_npm_prefix) run check-types
 proxy.start:
 	docker-compose -f proxy/docker-compose.yml up nginx
 node-proxy.dev:

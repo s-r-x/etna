@@ -9,7 +9,7 @@ const getTab = (state: State) => $(state).tab;
 const getUrl = (state: State) => $(state).url;
 const getPath = (state: State) => $(state).path;
 const getProtocols = (state: State) => $(state).protocols;
-const getNormalizedProtocols = createSelector(getProtocols, (protocols) =>
+const getNormalizedProtocols = createSelector(getProtocols, protocols =>
   protocols.filter(Boolean)
 );
 const getConnStatus = (state: State) => $(state).connStatus;

@@ -4,7 +4,6 @@ import { takeLatest } from "typed-redux-saga";
 import { SocketIOSelectors as Selectors } from "../selectors";
 import { SocketIOActions as Actions } from "../slice";
 
-
 export default function* socketIoUiSaga(): SagaIterator {
   yield* takeLatest(
     Actions.uiConnection.type,

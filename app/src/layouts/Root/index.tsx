@@ -12,7 +12,7 @@ import WebsocketIcon from "@/components/icons/Websocket";
 const connector = connect(null, {
   openSettings,
 });
-const RootLayout: React.FC<ConnectedProps<typeof connector>> = (props) => {
+const RootLayout: React.FC<ConnectedProps<typeof connector>> = props => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <S.Header>

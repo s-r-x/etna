@@ -10,7 +10,7 @@ import {
 } from "@/domains/shortcuts/store/slice";
 
 const connector = connect(
-  (state) => ({
+  state => ({
     shortcuts: Selectors.getEventsForSettingsRender(state),
     isEditorOpen: Selectors.isEditorOpen(state),
     editorEvent: Selectors.getEditorEvent(state),

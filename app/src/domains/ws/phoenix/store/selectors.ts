@@ -16,7 +16,7 @@ const isConnecting = (state: State) =>
 const getClient = () => PhoenixClient.getInstance();
 const getTab = (state: State) => $(state).tab;
 const getQuery = (state: State) => $(state).query;
-const getNormalizedQuery = createSelector(getQuery, (query) => {
+const getNormalizedQuery = createSelector(getQuery, query => {
   return query.reduce((acc, { key, value }) => {
     return { ...acc, [key]: value };
   }, {} as TStringDict);
@@ -26,7 +26,7 @@ const getRawChannels = (state: State) => $(state).channels;
 const getChannels = createSelector(
   [getRawChannels, getChannelsConnStatuses],
   (channels, conn): TStorePhoenixChannelWithConn[] => {
-    return channels.map((ch) => ({
+    return channels.map(ch => ({
       ...ch,
       connected: conn[ch.topic] ?? false,
     }));

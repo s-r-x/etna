@@ -22,7 +22,7 @@ const ChannelsList = () => {
   return (
     <List
       dataSource={list}
-      renderItem={(ch) => (
+      renderItem={ch => (
         <List.Item
           actions={[
             <Button

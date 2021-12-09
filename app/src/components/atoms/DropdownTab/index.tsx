@@ -7,7 +7,7 @@ type TProps = {
   disabled: boolean;
   menu: React.ReactElement | (() => React.ReactElement);
 };
-const DropdownTab: React.FC<TProps> = (props) => {
+const DropdownTab: React.FC<TProps> = props => {
   return (
     <Dropdown
       trigger={["click"]}

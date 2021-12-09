@@ -8,6 +8,7 @@
     "jsx": "react",
     "allowJs": true,
     "lib": ["es2018", "dom"],
+    "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"],
       "@socket-io/*": ["./src/domains/ws/socket-io/*"],

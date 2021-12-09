@@ -39,7 +39,7 @@ export class HttpClient {
         cancelToken: this.cancelTokenSource.token,
         headers: opts.headers,
         data: opts.body,
-        transformResponse: (r) => r,
+        transformResponse: r => r,
         method: opts.useProxy ? "POST" : method,
         responseType: opts.useProxy
           ? "json"
@@ -84,7 +84,7 @@ export class HttpClient {
         response.data = e?.message;
       }
     } finally {
-      if(!response.responseTime) {
+      if (!response.responseTime) {
         response.responseTime = performance.now() - requestStart;
       }
       return response;
@@ -129,4 +129,3 @@ export class HttpClient {
     }, {} as THeaders);
   }
 }
-

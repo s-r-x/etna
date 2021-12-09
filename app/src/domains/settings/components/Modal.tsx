@@ -11,7 +11,7 @@ import { ShortcutsSelectors } from "@/domains/shortcuts/store/selectors";
 const { TabPane } = Tabs;
 
 const connector = connect(
-  (state) => ({
+  state => ({
     isOpen: SettingsSelectors.isOpen(state),
     isShortcutEditorOpen: ShortcutsSelectors.isEditorOpen(state),
     activeTab: SettingsSelectors.getActiveTab(state),

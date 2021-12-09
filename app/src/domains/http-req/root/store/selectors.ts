@@ -8,7 +8,7 @@ import { TKeyValue } from "@/typings/keyValue";
 const $ = (state: State) => state[DOMAIN];
 const getAuthStrategy = (state: State) => $(state).auth.strategy;
 const getAuthData = (state: State) => $(state).auth.data;
-const getBasicAuthData = createSelector(getAuthData, (data) => data.basic);
+const getBasicAuthData = createSelector(getAuthData, data => data.basic);
 const getAuth = createSelector(
   getAuthStrategy,
   getBasicAuthData,
@@ -26,7 +26,7 @@ const getQuery = (state: State) => $(state).query;
 const getQueryLength = (state: State) => getQuery(state).length;
 const getSettings = (state: State) => $(state).settings;
 const shouldUseProxy = (state: State) => getSettings(state).useProxy;
-const shouldAppendBody = createSelector(getMethod, (method) => {
+const shouldAppendBody = createSelector(getMethod, method => {
   return method !== "GET" && method !== "DELETE";
 });
 const getUrl = (state: State) => $(state).url;
@@ -39,7 +39,7 @@ const getNormalizedUrl = createSelector(getUrl, (url): string => {
   } catch (_e) {}
   return "http://" + url;
 });
-const isUrlValid = createSelector(getNormalizedUrl, (url) => {
+const isUrlValid = createSelector(getNormalizedUrl, url => {
   try {
     new URL(url);
     return true;
@@ -48,8 +48,8 @@ const isUrlValid = createSelector(getNormalizedUrl, (url) => {
   }
 });
 const getHeaders = (state: State) => $(state).headers;
-const getActiveHeaders = createSelector(getHeaders, (headers) =>
-  headers.filter((h) => h.active)
+const getActiveHeaders = createSelector(getHeaders, headers =>
+  headers.filter(h => h.active)
 );
 const getHeadersLength = (state: State) => getActiveHeaders(state).length;
 const IMMUTABLE_HEADERS = new Set(["content-type", "Content-type"]);
@@ -118,7 +118,7 @@ const getRequestReadyHeaders = createSelector(
 const getSnippetReadyHeaders = createSelector(
   getNormalizedHeaders,
   (headers): Header[] => {
-    return headers.map((header) => ({ name: header.key, value: header.value }));
+    return headers.map(header => ({ name: header.key, value: header.value }));
   }
 );
 

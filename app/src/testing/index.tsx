@@ -6,7 +6,7 @@ import { render, RenderOptions } from "@testing-library/react";
 import { createStore } from "@/store";
 import { Provider } from "react-redux";
 
-const WithProviders: React.FC = (props) => {
+const WithProviders: React.FC = props => {
   const store = createStore();
   return (
     <Provider store={store}>

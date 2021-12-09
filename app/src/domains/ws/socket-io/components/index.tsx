@@ -18,7 +18,7 @@ const SocketIoRequest = () => {
     <FullHeightCard>
       <ConnectForm />
       <Tabs
-        onChange={(tab) => dispatch(Actions.changeTab(tab))}
+        onChange={tab => dispatch(Actions.changeTab(tab))}
         activeKey={tab}
         destroyInactiveTabPane
         defaultActiveKey="message"

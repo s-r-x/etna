@@ -23,7 +23,7 @@ import {
 } from "@/domains/settings/store/slice";
 
 function createKeyboardChannel(keys: string) {
-  return eventChannel<string>((emit) => {
+  return eventChannel<string>(emit => {
     const onPress = (rawEvent: KeyboardEvent, e: HotkeysEvent) => {
       rawEvent.preventDefault();
       emit(e.key);

@@ -11,13 +11,13 @@ const getEditorPressedCombo = (state: State) => $(state).editor.pressed;
 
 const getKeysMap = (state: State) => $(state).keyToEvent;
 const getEventsMap = (state: State) => $(state).eventToKey;
-const getEventsArray = createSelector(getEventsMap, (map) => {
+const getEventsArray = createSelector(getEventsMap, map => {
   return Object.entries(map).map(([event, shortcut]) => ({
     event,
     shortcut,
   }));
 });
-const getKeysForKeyboardWatcher = createSelector(getKeysMap, (map) => {
+const getKeysForKeyboardWatcher = createSelector(getKeysMap, map => {
   return Object.entries(map)
     .filter(([_k, e]) => !_.isNil(e))
     .map(([k]) => k)
@@ -36,7 +36,7 @@ const evI18nMap: Record<EEvent, string> = {
   [EEvent.TOGGLE_PROXY]: "Toggle etna proxy",
   [EEvent.SHOW_SHORTCUTS]: "Show shortcuts",
 };
-const getEventsForSettingsRender = createSelector(getEventsMap, (map) => {
+const getEventsForSettingsRender = createSelector(getEventsMap, map => {
   return Object.entries(map).map(([event, shortcut]) => ({
     event: (event as unknown) as EEvent,
     eventHr: evI18nMap[event],

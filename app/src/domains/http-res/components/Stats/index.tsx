@@ -7,7 +7,7 @@ import * as S from "./styled";
 import { useHttpStatusColor } from "@/hooks/useHttpStatusColor";
 const { Text } = Typography;
 
-const connector = connect((state) => ({
+const connector = connect(state => ({
   time: Selectors.getFormattedResponseTime(state),
   size: Selectors.getFormattedResponseSize(state),
   status: Selectors.getResponseStatus(state),

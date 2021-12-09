@@ -8,7 +8,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { HttpReqBodyActions as Actions } from "../../store/slice";
 
 const connector = connect(
-  (state) => ({
+  state => ({
     value: Selectors.getText(state),
     loading: Selectors.isGqlSchemaLoading(state),
     vars: Selectors.getGqlVars(state),

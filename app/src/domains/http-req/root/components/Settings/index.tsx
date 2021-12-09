@@ -6,7 +6,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { Form } from "./styled";
 
 const connector = connect(
-  (state) => ({
+  state => ({
     settings: Selectors.getSettings(state),
   }),
   {

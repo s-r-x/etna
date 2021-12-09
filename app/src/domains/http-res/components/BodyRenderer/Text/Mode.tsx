@@ -3,7 +3,6 @@ import { Radio } from "antd";
 import { TConnectorProps } from "../../../connectors";
 import { TBodyFormatMode } from "@/domains/http-res/typings/store";
 
-
 type TProps = Pick<
   TConnectorProps,
   "editorOpts" | "changeEditorFormat" | "isPrettyBodySupported"

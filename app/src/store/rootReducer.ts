@@ -26,7 +26,9 @@ import settings, {
 import shortcuts, {
   DOMAIN as SHORTCUTS_DOMAIN,
 } from "@/domains/shortcuts/store/slice";
-import httpCodegen, { DOMAIN as HTTP_CODEGEN_DOMAIN } from '@/domains/http-req/codegen/store/slice';
+import httpCodegen, {
+  DOMAIN as HTTP_CODEGEN_DOMAIN,
+} from "@/domains/http-req/codegen/store/slice";
 
 const persistConfig = {
   key: "root",

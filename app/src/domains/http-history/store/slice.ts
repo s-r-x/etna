@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
 import { TState, THistoryItem, TSearchForm } from "../typings/store";
-import { Dayjs } from 'dayjs';
+import { Dayjs } from "dayjs";
 
 export const DOMAIN = "history";
 

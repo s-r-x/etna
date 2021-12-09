@@ -9,10 +9,10 @@ const SocketIoQueryEditor = () => {
   const query = useSelector(Selectors.getQuery);
   return (
     <KeyValueEditor
-      onChangeKey={(e) => dispatch(Actions.changeQueryKey(e))}
-      onChangeValue={(e) => dispatch(Actions.changeQueryValue(e))}
+      onChangeKey={e => dispatch(Actions.changeQueryKey(e))}
+      onChangeValue={e => dispatch(Actions.changeQueryValue(e))}
       onAdd={() => dispatch(Actions.addQuery())}
-      onRemove={(e) => dispatch(Actions.removeQuery(e))}
+      onRemove={e => dispatch(Actions.removeQuery(e))}
       items={query}
     />
   );

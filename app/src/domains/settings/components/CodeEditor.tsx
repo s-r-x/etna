@@ -13,7 +13,7 @@ import {
 const { Option } = Select;
 
 const connector = connect(
-  (state) => ({
+  state => ({
     form: CodeEditorSelectors.getOptions(state),
   }),
   {

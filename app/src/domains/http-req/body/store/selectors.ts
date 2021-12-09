@@ -10,14 +10,14 @@ import { PostData } from "har-format";
 const $ = (state: State) => state[DOMAIN];
 const getText = (state: State) => $(state).text;
 const getMIME = (state: State) => $(state).mime;
-const getRequestReadyMIME = createSelector(getMIME, (mime) => {
+const getRequestReadyMIME = createSelector(getMIME, mime => {
   return mime === "application/graphql" ? "application/json" : mime;
 });
 const getKV = (state: State) => $(state).kv;
-const getRequestReadyKV = createSelector(getKV, (kv) => {
+const getRequestReadyKV = createSelector(getKV, kv => {
   return kv.filter(({ active }) => active);
 });
-const getActiveEditor = createSelector(getMIME, (mime) => {
+const getActiveEditor = createSelector(getMIME, mime => {
   switch (mime) {
     case "application/json":
     case "application/xml":
@@ -34,7 +34,7 @@ const getActiveEditor = createSelector(getMIME, (mime) => {
   }
 });
 const getGqlRawSchema = (state: State) => $(state).gql.schema;
-const getGqlSchema = createSelector(getGqlRawSchema, (schema) => {
+const getGqlSchema = createSelector(getGqlRawSchema, schema => {
   try {
     return schema && buildClientSchema(JSON.parse(schema)?.data);
   } catch (_e) {
@@ -44,7 +44,7 @@ const getGqlSchema = createSelector(getGqlRawSchema, (schema) => {
 const isGqlSchemaLoading = (state: State) => $(state).gql.loading;
 const getGqlSchemaError = (state: State) => $(state).gql.error;
 const getGqlVars = (state: State) => $(state).gql.vars;
-const getParsedGqlVars = createSelector(getGqlVars, (vars) => {
+const getParsedGqlVars = createSelector(getGqlVars, vars => {
   try {
     return JSON.parse(vars);
   } catch (_e) {
@@ -84,7 +84,7 @@ const getRequestReadyBody = createSelector(
         );
       case "multipart/form-data":
         const normalizedKv = await Promise.all(
-          kv.map(async (data) => {
+          kv.map(async data => {
             return {
               key: data.key,
               fileName: data.fileName,
@@ -136,7 +136,7 @@ const getSnippetReadyBody = createSelector(
       case "multipart/form-data":
         return {
           mimeType,
-          params: kv.map((data) => ({
+          params: kv.map(data => ({
             name: data.key,
             value: data.value,
             ...(data.isFile && {

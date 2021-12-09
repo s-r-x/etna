@@ -4,7 +4,7 @@ import { List, Space, Typography } from "antd";
 import { EWsLogLevel, EWsRouteType, TWsLogItem } from "@ws/shared/typings";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import * as S from "./styled";
-import day from 'dayjs';
+import day from "dayjs";
 import { BaseType } from "antd/lib/typography/Base";
 
 type TProps = {
@@ -12,7 +12,7 @@ type TProps = {
 };
 const WsLogger = ({ logs: rawLogs }: TProps) => {
   const logs = useMemo(() => {
-    return rawLogs.map((log) => ({
+    return rawLogs.map(log => ({
       id: log.id,
       room: log.room,
       event: log.ev,
@@ -42,7 +42,7 @@ const WsLogger = ({ logs: rawLogs }: TProps) => {
             size="small"
             rowKey="id"
             dataSource={logs}
-            renderItem={(item) => (
+            renderItem={item => (
               <S.ListItem>
                 <Space>
                   <Typography.Text

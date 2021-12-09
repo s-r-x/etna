@@ -10,7 +10,11 @@
     "analyze-bundle": "NODE_ENV=production ANALYZE_BUNDLE=true webpack --mode=production --config .internals/webpack.prod.js",
     "test": "NODE_ENV=test jest",
     "postinstall": "rm -rf node_modules/@types/react-native",
-    "test-watch": "NODE_ENV=test jest --watch"
+    "test-watch": "NODE_ENV=test jest --watch",
+    "lint": "eslint --ext .ts,.tsx src",
+    "lint.strict": "eslint --ext .ts,.tsx src --max-warnings 0",
+    "lint.fix": "eslint --ext .ts,.tsx --fix src",
+    "check-types": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -109,6 +113,8 @@
     "css-loader": "^5.2.4",
     "css-minimizer-webpack-plugin": "^2.0.0",
     "dotenv-webpack": "^7.0.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.23.2",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^6.2.5",

@@ -5,7 +5,7 @@ import _ from "lodash";
 import { normalizeKeyboardCode } from "@/domains/shortcuts/utils";
 
 function createKeyboardChannel() {
-  return eventChannel<string[]>((emit) => {
+  return eventChannel<string[]>(emit => {
     let pressed: string[] = [];
     const upListener = (e: KeyboardEvent) => {
       e.preventDefault();

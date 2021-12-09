@@ -72,13 +72,13 @@ const slice = createSlice({
       });
     },
     removeEvent(state, { payload: id }: PayloadAction<string>) {
-      state.events = state.events.filter((e) => e.id !== id);
+      state.events = state.events.filter(e => e.id !== id);
     },
     addChannel(state, { payload }: PayloadAction<TStorePhoenixChannel>) {
       state.channels.push(payload);
     },
     removeChannel(state, { payload: topic }: PayloadAction<string>) {
-      state.channels = state.channels.filter((ch) => ch.topic !== topic);
+      state.channels = state.channels.filter(ch => ch.topic !== topic);
       if (state.input.channel === topic) {
         state.input.channel = undefined;
       }
