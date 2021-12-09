@@ -27,8 +27,8 @@ const initialState: TState = {
   method: "GET",
   headers: [
     {
-      key: "Content-Type",
-      value: "application/json",
+      key: "hello",
+      value: "world",
       active: true,
     },
   ],

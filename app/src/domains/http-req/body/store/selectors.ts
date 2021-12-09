@@ -5,19 +5,14 @@ import { buildClientSchema } from "graphql";
 import { WebApi } from "@/utils/webapi";
 import qs from "query-string";
 import _ from "lodash";
+import { PostData } from "har-format";
 
-export async function dataUrlToFile(
-  dataUrl: string,
-  mime: string,
-  fileName: string
-): Promise<File> {
-  const res: Response = await fetch(dataUrl);
-  const blob: Blob = await res.blob();
-  return new File([blob], fileName, { type: mime });
-}
 const $ = (state: State) => state[DOMAIN];
 const getText = (state: State) => $(state).text;
 const getMIME = (state: State) => $(state).mime;
+const getRequestReadyMIME = createSelector(getMIME, (mime) => {
+  return mime === "application/graphql" ? "application/json" : mime;
+});
 const getKV = (state: State) => $(state).kv;
 const getRequestReadyKV = createSelector(getKV, (kv) => {
   return kv.filter(({ active }) => active);
@@ -57,6 +52,15 @@ const getParsedGqlVars = createSelector(getGqlVars, (vars) => {
   }
 });
 
+async function dataUrlToFile(
+  dataUrl: string,
+  mime: string,
+  fileName: string
+): Promise<File> {
+  const res: Response = await fetch(dataUrl);
+  const blob: Blob = await res.blob();
+  return new File([blob], fileName, { type: mime });
+}
 const getRequestReadyBody = createSelector(
   getText,
   getRequestReadyKV,
@@ -97,15 +101,65 @@ const getRequestReadyBody = createSelector(
   }
 );
 
+const getSnippetReadyBody = createSelector(
+  getText,
+  getRequestReadyKV,
+  getMIME,
+  getRequestReadyMIME,
+  getParsedGqlVars,
+  (text, kv, rawMime, mimeType, variables): PostData => {
+    switch (rawMime) {
+      case "application/json":
+      case "text/html":
+      case "text/plain":
+      case "application/xml":
+        return {
+          mimeType,
+          text,
+        };
+      case "application/graphql":
+        return {
+          mimeType,
+          text: JSON.stringify({
+            query: text,
+            variables,
+          }),
+        };
+      case "application/x-www-form-urlencoded":
+        return {
+          mimeType,
+          params: kv.map(({ key, value }) => ({
+            name: key,
+            value,
+          })),
+        };
+      case "multipart/form-data":
+        return {
+          mimeType,
+          params: kv.map((data) => ({
+            name: data.key,
+            value: data.value,
+            ...(data.isFile && {
+              fileName: data.fileName,
+              contentType: data.mime,
+            }),
+          })),
+        };
+    }
+  }
+);
+
 export const HttpReqBodySelectors = {
   getFullBody: $,
   getActiveEditor,
   getText,
   getMIME,
+  getRequestReadyMIME,
   getKV,
   getGqlSchema,
   getGqlVars,
   getGqlSchemaError,
   isGqlSchemaLoading,
   getRequestReadyBody,
+  getSnippetReadyBody,
 };

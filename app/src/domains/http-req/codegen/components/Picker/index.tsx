@@ -17,19 +17,24 @@ const CodegenPicker = ({ snippet }: TProps) => {
     WebApi.copyToClipboard(snippet);
   };
   return (
-    <S.Container>
-      <Cascader
-        allowClear={false}
-        onChange={(value) =>
-          dispatch(Actions.changeTargetAndClient(value as any))
-        }
-				size="large"
-        value={value}
-        options={OPTIONS_SELECT}
-        placeholder="Target"
-      />
-      <Button size="large" onClick={onCopy}>Copy</Button>
-    </S.Container>
+    <>
+      <S.GlobalStyle />
+      <S.Container>
+        <Cascader
+          allowClear={false}
+          onChange={(value) =>
+            dispatch(Actions.changeTargetAndClient(value as any))
+          }
+          size="large"
+          value={value}
+          options={OPTIONS_SELECT}
+          placeholder="Target"
+        />
+        <Button size="large" onClick={onCopy}>
+          Copy
+        </Button>
+      </S.Container>
+    </>
   );
 };
 export default CodegenPicker;
