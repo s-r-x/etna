@@ -3,7 +3,7 @@ import { TRootState as State } from "@/store/rootReducer";
 import { DOMAIN } from "./slice";
 import { THistoryItem } from "@/domains/http-history/typings/store";
 import _ from "lodash";
-import moment from "moment";
+import day from 'dayjs';
 
 const $ = (state: State) => state[DOMAIN];
 const getSearch = (state: State) => $(state).search;
@@ -11,7 +11,7 @@ const getRawSearchForm = (state: State) => $(state).searchForm;
 const getSearchForm = createSelector(getRawSearchForm, (form) => {
   return {
     ...form,
-    date: form.date && moment(form.date),
+    date: form.date && day(form.date),
   };
 });
 const getFullHistory = (state: State) => $(state).items;
@@ -23,7 +23,7 @@ const getHistory = createSelector(
     let filtered: THistoryItem[];
     if (form.status || form.method || url || form.date) {
       filtered = history.filter((item) => {
-        const date = form.date ? moment(item.req.date) : null;
+        const date = form.date ? day(item.req.date) : null;
         return (
           (form.status ? item.res.status == form.status : true) &&
           (form.method ? item.req.method === form.method : true) &&

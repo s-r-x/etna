@@ -2,7 +2,6 @@ import React, { memo, useCallback } from "react";
 import { ListChildComponentProps } from "react-window";
 import { TConnectorProps } from "../../../connectors";
 import { Tag, Tooltip, Button, Space } from "antd";
-import moment from "moment";
 import ms from "pretty-ms";
 import {
   ClockCircleFilled,
@@ -12,6 +11,7 @@ import {
 } from "@ant-design/icons";
 import { Color } from "@/utils/color";
 import * as S from "./styled";
+import day from 'dayjs';
 
 type TData = Pick<TConnectorProps, "history" | "removeItem" | "restore">;
 const SearchItem = memo((props: ListChildComponentProps) => {
@@ -42,7 +42,7 @@ const SearchItem = memo((props: ListChildComponentProps) => {
           <S.RequestDate>
             <CalendarFilled />
             <span style={{ marginLeft: "5px" }}>
-              {moment(item.req.date).format("L LT")}
+              {day(item.req.date).format("L LT")}
             </span>
           </S.RequestDate>
         </S.TimeSect>

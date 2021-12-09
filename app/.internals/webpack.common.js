@@ -5,6 +5,7 @@ const { SRC, DST } = require("./constants");
 const alias = require("./aliases");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const { ProvidePlugin } = require("webpack");
+const AntdDayjsWebpackPlugin = require("antd-dayjs-webpack-plugin");
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -52,8 +53,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new AntdDayjsWebpackPlugin(),
     new ProvidePlugin({
-      process: 'process/browser',
+      process: "process/browser",
     }),
     new HtmlWebpackPlugin({
       template: path.join(SRC, "index.html"),

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
 import { TState, THistoryItem, TSearchForm } from "../typings/store";
-import { Moment } from "moment";
+import { Dayjs } from 'dayjs';
 
 export const DOMAIN = "history";
 
@@ -35,7 +35,7 @@ const slice = createSlice({
     updateSearchForm(state, { payload }: PayloadAction<Partial<TSearchForm>>) {
       for (const key in payload) {
         if (key === "date") {
-          const value = (payload[key] as unknown) as Moment;
+          const value = (payload[key] as unknown) as Dayjs;
           state.searchForm[key] = value?.toISOString() ?? null;
         } else {
           const val: string = payload[key];

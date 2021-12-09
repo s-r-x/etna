@@ -13,7 +13,7 @@ const HistorySearchForm = (props: TProps) => {
   const onChange = useCallback(
     _.debounce((changed: TAnyDict) => {
       props.updateSearchForm(changed);
-    }, 175),
+    }, 150),
     [props.searchForm]
   );
   return (

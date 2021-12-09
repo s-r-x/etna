@@ -4,7 +4,7 @@ import { List, Space, Typography } from "antd";
 import { EWsLogLevel, EWsRouteType, TWsLogItem } from "@ws/shared/typings";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import * as S from "./styled";
-import moment from "moment";
+import day from 'dayjs';
 import { BaseType } from "antd/lib/typography/Base";
 
 type TProps = {
@@ -23,7 +23,7 @@ const WsLogger = ({ logs: rawLogs }: TProps) => {
           ? "success"
           : undefined,
       message: log.msg,
-      date: moment(log.date).format("LTS"),
+      date: day(log.date).format("LTS"),
       route: log.route,
     }));
   }, [rawLogs]);
