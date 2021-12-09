@@ -26,6 +26,7 @@ import settings, {
 import shortcuts, {
   DOMAIN as SHORTCUTS_DOMAIN,
 } from "@/domains/shortcuts/store/slice";
+import httpCodegen, { DOMAIN as HTTP_CODEGEN_DOMAIN } from '@/domains/http-req/codegen/store/slice';
 
 const persistConfig = {
   key: "root",
@@ -74,6 +75,7 @@ const reducer = persistReducer(
   persistConfig,
   combineReducers({
     [THEME_DOMAIN]: theme,
+    [HTTP_CODEGEN_DOMAIN]: httpCodegen,
     [WS_RAW_DOMAIN]: persistReducer(wsRawConfig, wsRaw),
     [REQ_DOMAIN]: persistReducer(reqConfig, httpRequest),
     [RES_DOMAIN]: httpResponse,

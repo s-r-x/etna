@@ -4,6 +4,7 @@ const { FILE_REGEX } = require("./constants");
 const { SRC, DST } = require("./constants");
 const alias = require("./aliases");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const { ProvidePlugin } = require("webpack");
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -21,6 +22,9 @@ module.exports = {
   resolve: {
     alias,
     extensions: [".ts", ".tsx", ".js"],
+    fallback: {
+      stream: require.resolve("stream-browserify"),
+    },
   },
   module: {
     rules: [
@@ -48,6 +52,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new ProvidePlugin({
+      process: 'process/browser',
+    }),
     new HtmlWebpackPlugin({
       template: path.join(SRC, "index.html"),
       minify: {

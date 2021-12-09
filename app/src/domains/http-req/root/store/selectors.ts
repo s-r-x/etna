@@ -1,6 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { TRootState as State } from "@/store/rootReducer";
 import { DOMAIN } from "./slice";
+import { Header } from "har-format";
 
 const $ = (state: State) => state[DOMAIN];
 const getAuthStrategy = (state: State) => $(state).auth.strategy;
@@ -84,6 +85,15 @@ const getRequestReadyHeaders = createSelector(
     return norm;
   }
 );
+const getSnippetReadyHeaders = createSelector(
+  getActiveHeaders,
+  (headers): Header[] => {
+    return headers.reduce((acc, header) => {
+      acc.push({ name: header.key, value: header.value });
+      return acc;
+    }, [] as Header[]);
+  }
+);
 
 export const HttpRequestSelectors = {
   getRequest: $,
@@ -99,6 +109,7 @@ export const HttpRequestSelectors = {
   getQuery,
   getQueryLength,
   getRequestReadyHeaders,
+  getSnippetReadyHeaders,
   getSettings,
   getUrl,
   isUrlValid,

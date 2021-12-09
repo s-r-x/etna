@@ -9,7 +9,11 @@ import Settings from "../Settings";
 import CountTab from "@/components/atoms/CountTab";
 import History from "@/domains/http-history/components";
 import BodyTab from "./BodyTab";
+import Spin from "@/components/Spin";
 const { TabPane } = Tabs;
+const CodeGen = React.lazy(
+  () => import("@/domains/http-req/codegen/components")
+);
 
 const Editors = (props: TConnectorProps) => {
   return (
@@ -46,11 +50,16 @@ const Editors = (props: TConnectorProps) => {
       <TabPane tab="Auth" key="auth">
         <Auth />
       </TabPane>
-      <TabPane tab="Settings" key="settings">
-        <Settings />
+      <TabPane tab="Codegen" key="codegen">
+        <React.Suspense fallback={<Spin size="large" centered />}>
+          <CodeGen />
+        </React.Suspense>
       </TabPane>
       <TabPane tab="History" key="history">
         <History />
+      </TabPane>
+      <TabPane tab="Settings" key="settings">
+        <Settings />
       </TabPane>
     </Tabs>
   );

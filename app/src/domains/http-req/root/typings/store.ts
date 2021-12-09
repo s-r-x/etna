@@ -12,6 +12,7 @@ export type TOptsKey =
   | "query"
   | "auth"
   | "settings"
+  | "codegen"
   | "history";
 export type TAuth = {
   strategy: TAuthStrategy;

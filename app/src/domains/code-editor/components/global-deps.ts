@@ -1,5 +1,8 @@
 import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/xml/xml";
+import "codemirror/mode/php/php";
+import "codemirror/mode/shell/shell";
+import "codemirror/mode/python/python";
 import "codemirror/addon/lint/lint";
 import "codemirror/addon/hint/show-hint";
 import "codemirror/addon/lint/json-lint";
