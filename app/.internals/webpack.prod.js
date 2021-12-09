@@ -10,8 +10,8 @@ const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const { GenerateSW } = require("workbox-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 const config = {
   devtool: false,
@@ -43,8 +43,8 @@ const config = {
       path: PROD_ENV,
     }),
     new GenerateSW(),
-    // new BundleAnalyzerPlugin()
-  ],
+    process.env.ANALYZE_BUNDLE === "true" && new BundleAnalyzerPlugin(),
+  ].filter(Boolean),
   optimization: {
     minimize: true,
     splitChunks: {

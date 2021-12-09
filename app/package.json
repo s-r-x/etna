@@ -7,6 +7,7 @@
   "scripts": {
     "start": "NODE_ENV=development webpack serve --mode=development --client-log-level warning --config .internals/webpack.dev.js",
     "build": "NODE_ENV=production webpack --mode=production --config .internals/webpack.prod.js",
+    "analyze-bundle": "NODE_ENV=production ANALYZE_BUNDLE=true webpack --mode=production --config .internals/webpack.prod.js",
     "test": "NODE_ENV=test jest",
     "postinstall": "rm -rf node_modules/@types/react-native",
     "test-watch": "NODE_ENV=test jest --watch"

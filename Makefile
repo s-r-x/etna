@@ -4,6 +4,8 @@ fixture_compose_cmd = docker-compose -f ./fixtures/docker-compose.yml
 
 app.dev:
 	$(app_npm_prefix) start
+app.analyze-bundle:
+	$(app_npm_prefix) run analyze-bundle
 app.prod:
 	$(app_npm_prefix) run build
 app.test:
