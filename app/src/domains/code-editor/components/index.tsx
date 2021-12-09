@@ -1,7 +1,7 @@
 import React, { useCallback, Suspense } from "react";
 import "./global-deps";
 import { Controlled as CodeMirror } from "react-codemirror2";
-import { Spin } from "antd";
+import Spin from "@/components/Spin";
 import * as S from "./styled";
 import { CodeEditorSelectors as Selectors } from "../store/selectors";
 import { useSelector } from "react-redux";
@@ -33,7 +33,7 @@ const CodeEditor = (props: TProps) => {
   const Mapping = useKeyMapComponent();
   const isGraphql = props.mode === "graphql";
   return (
-    <Suspense fallback={<Spin size="large" />}>
+    <Suspense fallback={<Spin size="large" centered />}>
       <Mapping>
         <S.Container>
           <S.Extra>

@@ -1,7 +1,8 @@
 import React from "react";
 import ImageRenderer from "./Image";
 import TextRenderer from "./Text";
-import { Empty, Spin } from "antd";
+import { Empty } from "antd";
+import Spin from "@/components/Spin";
 import { TConnectorProps } from "../../connectors";
 import SvgRenderer from "./Svg";
 import VideoRenderer from "./Video";
@@ -34,7 +35,7 @@ const BodyRenderer = (props: TProps) => {
       return <ImageRenderer body={props.rawBody} />;
     } else if (props.isPdf) {
       return (
-        <React.Suspense fallback={<Spin size="large" />}>
+        <React.Suspense fallback={<Spin centered size="large" />}>
           <PdfRenderer document={props.rawBody} />
         </React.Suspense>
       );
