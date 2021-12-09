@@ -5,14 +5,14 @@ on:
     paths: ["app/**"]
 
 jobs:
- lint:
+  lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/bootstrap-app
       - run: npm --prefix ./app run lint.strict
- checkTypes:
+  checkTypes:
     name: Check types
     runs-on: ubuntu-latest
     steps:
