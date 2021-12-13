@@ -3,7 +3,7 @@ services:
   http:
     container_name: etna-fixture-http
     build: "./http"
-    restart: on-failure
+    restart: never
     volumes:
       - ./http:/app
     environment:
@@ -13,7 +13,7 @@ services:
   socketio:
     container_name: etna-fixture-socketio
     build: "./socketio"
-    restart: on-failure
+    restart: never
     volumes:
       - ./socketio:/app
     environment:
@@ -23,7 +23,7 @@ services:
   ws:
     container_name: etna-fixture-ws
     build: "./ws"
-    restart: on-failure
+    restart: never
     volumes:
       - ./ws:/app
     environment:
@@ -37,6 +37,6 @@ services:
     - "PORT=${PHX_PORT}"
     ports:
       - "${PHX_PORT}:${PHX_PORT}"
-    restart: on-failure
+    restart: never
     volumes:
       - ./phxch:/app
