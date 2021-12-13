@@ -13,10 +13,10 @@ import { openEditor, closeEditor } from "../slice";
 import hotkeys, { HotkeysEvent } from "hotkeys-js";
 import { ShortcutsSelectors } from "../selectors";
 import { EShortcutEv } from "../../typings/actions";
-import { HttpReqActions } from "@/domains/http-req/root/store/slice";
+import { HttpReqActions } from "@/domains/http/req/root/store/slice";
 import { WebApi } from "@/utils/webapi";
 import { message } from "antd";
-import { HttpRequestSelectors } from "@/domains/http-req/root/store/selectors";
+import { HttpRequestSelectors } from "@/domains/http/req/root/store/selectors";
 import {
   changeActiveTab,
   open as openSettings,

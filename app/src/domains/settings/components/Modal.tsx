@@ -4,7 +4,6 @@ import { connect, ConnectedProps } from "react-redux";
 import { SettingsSelectors } from "../store/selectors";
 import { close, changeActiveTab } from "../store/slice";
 import CodeEditor from "./CodeEditor";
-import Proxy from "./Proxy";
 import { Tabs } from "antd";
 import Shortcuts from "./Shortcuts";
 import { ShortcutsSelectors } from "@/domains/shortcuts/store/selectors";
@@ -37,9 +36,6 @@ const SettingsModal = (props: ConnectedProps<typeof connector>) => {
       >
         <TabPane tab="Text editor" key="textEditor">
           <CodeEditor />
-        </TabPane>
-        <TabPane tab="Proxy" key="proxy">
-          <Proxy />
         </TabPane>
         <TabPane tab="Shortcuts" key="shortcuts">
           <Shortcuts />

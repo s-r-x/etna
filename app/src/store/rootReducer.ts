@@ -1,19 +1,19 @@
 import { combineReducers } from "redux";
 import httpRequest, {
   DOMAIN as REQ_DOMAIN,
-} from "@/domains/http-req/root/store/slice";
+} from "@/domains/http/req/root/store/slice";
 import httpResponse, {
   DOMAIN as RES_DOMAIN,
-} from "@/domains/http-res/store/slice";
+} from "@/domains/http/res/store/slice";
 import history, {
   DOMAIN as HISTORY_DOMAIN,
-} from "@/domains/http-history/store/slice";
+} from "@/domains/http/history/store/slice";
 import codeEditor, {
   DOMAIN as CODE_EDITOR_DOMAIN,
 } from "@/domains/code-editor/store/slice";
 import httpRequestBody, {
   DOMAIN as REQ_BODY_DOMAIN,
-} from "@/domains/http-req/body/store/slice";
+} from "@/domains/http/req/body/store/slice";
 import theme, { DOMAIN as THEME_DOMAIN } from "@/domains/theme/store/slice";
 import socketIO, { DOMAIN as SOCKET_IO_DOMAIN } from "@socket-io/store/slice";
 import { persistReducer } from "redux-persist";
@@ -28,7 +28,7 @@ import shortcuts, {
 } from "@/domains/shortcuts/store/slice";
 import httpCodegen, {
   DOMAIN as HTTP_CODEGEN_DOMAIN,
-} from "@/domains/http-req/codegen/store/slice";
+} from "@/domains/http/req/codegen/store/slice";
 
 const persistConfig = {
   key: "root",
