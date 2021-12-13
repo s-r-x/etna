@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { Menu } from "antd";
 import { TConnectorProps } from "@/domains/http/req/root/connectors/tabs";
-import { THTTPBodyMIME } from "@/typings/http";
-import { MimeService } from "@/services/mime";
+import { THTTPBodyMIME } from "@/domains/http/shared/typings";
+import { humanReadableMime } from "@/domains/http/shared/utils/human-readable-mime";
 import DropdownTab from "@/components/atoms/DropdownTab";
 
 type TProps = Pick<TConnectorProps, "mime" | "changeMime"> & {
@@ -17,29 +17,29 @@ const BodyTab = (props: TProps) => {
       >
         <Menu.ItemGroup key="g1" title="Text">
           <Menu.Item key="application/json">
-            {MimeService.formatHR("application/json")}
+            {humanReadableMime("application/json")}
           </Menu.Item>
           <Menu.Item key="application/xml">
-            {MimeService.formatHR("application/xml")}
+            {humanReadableMime("application/xml")}
           </Menu.Item>
           <Menu.Item key="text/html">
-            {MimeService.formatHR("text/html")}
+            {humanReadableMime("text/html")}
           </Menu.Item>
           <Menu.Item key="text/plain">
-            {MimeService.formatHR("text/plain")}
+            {humanReadableMime("text/plain")}
           </Menu.Item>
         </Menu.ItemGroup>
         <Menu.ItemGroup key="g2" title="Key:value">
           <Menu.Item key="application/x-www-form-urlencoded">
-            {MimeService.formatHR("application/x-www-form-urlencoded")}
+            {humanReadableMime("application/x-www-form-urlencoded")}
           </Menu.Item>
           <Menu.Item key="multipart/form-data">
-            {MimeService.formatHR("multipart/form-data")}
+            {humanReadableMime("multipart/form-data")}
           </Menu.Item>
         </Menu.ItemGroup>
         <Menu.ItemGroup key="g3" title="Other">
           <Menu.Item key="application/graphql">
-            {MimeService.formatHR("application/graphql")}
+            {humanReadableMime("application/graphql")}
           </Menu.Item>
         </Menu.ItemGroup>
       </Menu>
@@ -47,7 +47,7 @@ const BodyTab = (props: TProps) => {
   }, [props.mime, props.changeMime]);
   return (
     <DropdownTab
-      title={MimeService.formatHR(props.mime)}
+      title={humanReadableMime(props.mime)}
       disabled={!props.isActive}
       menu={menu}
     />

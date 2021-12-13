@@ -1,5 +1,5 @@
 import { THistoryRequest } from "@/domains/http/history/typings/store";
-import { THTTPMethod } from "@/typings/http";
+import { THTTPMethod } from "@/domains/http/shared/typings";
 import { TKeyValue } from "@/typings/keyValue";
 import { PayloadAction } from "@reduxjs/toolkit";
 import {

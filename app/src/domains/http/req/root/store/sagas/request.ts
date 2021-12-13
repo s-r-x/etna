@@ -11,13 +11,13 @@ import {
   takeLatest,
 } from "typed-redux-saga";
 import { HttpReqActions as Actions } from "../slice";
-import { HttpClient } from "@/domains/http/req/httpClient";
 import { HttpRequestSelectors as Selectors } from "../selectors";
 import { SagaIterator } from "redux-saga";
 import { message } from "antd";
 import { extractItem } from "@/domains/http/history/store/slice";
 import { HttpResActions } from "@/domains/http/res/store/slice";
 import { HttpReqBodySelectors } from "@/domains/http/req/body/store/selectors";
+import { HttpClient } from "@/domains/http/shared/client";
 
 function* makeRequestSaga(): SagaIterator {
   const url = yield* select(Selectors.getNormalizedUrl);

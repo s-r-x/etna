@@ -1,7 +1,7 @@
 import { THttpReqBodyState } from "@/domains/http/req/body/typings/store";
-import { THTTPMethod } from "@/typings/http";
-import { TResponse } from "@/typings/httpClient";
+import { THTTPMethod } from "../../shared/typings";
 import { TState as TReqState } from "@/domains/http/req/root/typings/store";
+import { TResponse } from "../../shared/typings/http-client";
 
 export type THistoryRequest = Pick<
   TReqState,

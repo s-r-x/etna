@@ -1,4 +1,4 @@
-import { THTTPBodyMIME } from "@/typings/http";
+import { THTTPBodyMIME } from "@/domains/http/shared/typings";
 import { THistoryBody } from "@/domains/http/history/typings/store";
 import { genVoidKV as genBaseVoidKV } from "@/utils/kv";
 import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";

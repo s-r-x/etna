@@ -1,4 +1,4 @@
-import { THTTPMethod } from "@/typings/http";
+import { THTTPMethod } from "@/domains/http/shared/typings";
 import { TKeyValue } from "@/typings/keyValue";
 
 export type TRestoreParams = {

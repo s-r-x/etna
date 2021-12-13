@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TState, TBodyFormatMode } from "../typings/store";
-import { TResponse } from "@/typings/httpClient";
+import { TResponse } from "@/domains/http/shared/typings/http-client";
 import { THistoryResponse } from "@/domains/http/history/typings/store";
 
 export const DOMAIN = "httpRes";

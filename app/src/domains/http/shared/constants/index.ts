@@ -1,4 +1,4 @@
-import { THTTPMethod, THTTPBodyMIME } from "@/typings/http";
+import { THTTPMethod, THTTPBodyMIME } from "../typings";
 
 export const HTTP_METHODS: THTTPMethod[] = [
   "GET",

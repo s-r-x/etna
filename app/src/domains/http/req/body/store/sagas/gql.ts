@@ -1,4 +1,3 @@
-import { HttpClient } from "@/domains/http/req/httpClient";
 import { SagaIterator } from "redux-saga";
 import {
   put,
@@ -13,6 +12,7 @@ import {
 import { HttpReqBodyActions as Actions } from "../slice";
 import { message } from "antd";
 import { HttpRequestSelectors } from "@/domains/http/req/root/store/selectors";
+import { HttpClient } from "@/domains/http/shared/client";
 
 function* gqlSchemaSaga(): SagaIterator {
   const client = new HttpClient();

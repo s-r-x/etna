@@ -3,8 +3,8 @@ import axios, {
   AxiosResponse,
   AxiosRequestConfig,
 } from "axios";
-import { THTTPMethod } from "@/typings/http";
-import { TResponse, TOpts, TProxyResponse } from "@/typings/httpClient";
+import { THTTPMethod } from "../typings";
+import { TResponse, TOpts, TProxyResponse } from "../typings/http-client";
 import { ETNA_PROXY } from "@/constants/proxy";
 import _ from "lodash";
 import { base64toBlob } from "@/utils/base64";

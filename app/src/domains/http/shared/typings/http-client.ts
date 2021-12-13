@@ -1,4 +1,4 @@
-import { THTTPMethod } from "./http";
+import { THTTPMethod } from ".";
 
 export type TOpts = {
   headers?: {

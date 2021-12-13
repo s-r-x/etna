@@ -4,7 +4,7 @@ import { SagaIterator } from "redux-saga";
 import { HttpReqBodySelectors as Selectors } from "../selectors";
 import { HttpRequestSelectors } from "@/domains/http/req/root/store/selectors";
 import { HttpReqActions } from "@/domains/http/req/root/store/slice";
-import { THTTPBodyMIME } from "@/typings/http";
+import { THTTPBodyMIME } from "@/domains/http/shared/typings";
 
 function* bodyMimeSaga(): SagaIterator {
   const mime = yield* select(Selectors.getMIME);

@@ -1,4 +1,4 @@
-import { TResponse } from "@/typings/httpClient";
+import { TResponse } from "@/domains/http/shared/typings/http-client";
 
 export type TBodyFormatMode = "Pretty" | "Raw";
 export type TState = {

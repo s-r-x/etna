@@ -1,5 +1,5 @@
 import React from "react";
-import { THTTPMethod } from "@/typings/http";
+import { THTTPMethod } from "@/domains/http/shared/typings";
 import { HTTP_METHODS } from "@/domains/http/shared/constants";
 import { Select } from "antd";
 const { Option } = Select;

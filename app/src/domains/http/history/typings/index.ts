@@ -1,4 +1,4 @@
-import { THTTPMethod } from "./http";
+import { THTTPMethod } from "../../shared/typings";
 
 export type THistoryItem = {
   method: THTTPMethod;

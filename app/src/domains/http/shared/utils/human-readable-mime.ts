@@ -1,4 +1,4 @@
-import { THTTPBodyMIME } from "@/typings/http";
+import { THTTPBodyMIME } from "../typings";
 
 const humanReadableMimes: { [key in THTTPBodyMIME]: string } = {
   "application/json": "JSON",
@@ -9,12 +9,11 @@ const humanReadableMimes: { [key in THTTPBodyMIME]: string } = {
   "multipart/form-data": "Multipart form-data",
   "application/graphql": "Graphql",
 };
-export const MimeService = {
-  formatHR(mime: THTTPBodyMIME) {
-    if (mime in humanReadableMimes) {
-      return humanReadableMimes[mime];
-    } else {
-      return mime;
-    }
-  },
+
+export const humanReadableMime = (mime: THTTPBodyMIME) => {
+  if (mime in humanReadableMimes) {
+    return humanReadableMimes[mime];
+  } else {
+    return mime;
+  }
 };

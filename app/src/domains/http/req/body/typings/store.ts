@@ -1,4 +1,4 @@
-import { THTTPBodyMIME } from "@/typings/http";
+import { THTTPBodyMIME } from "@/domains/http/shared/typings";
 import { TKeyValue } from "@/typings/keyValue";
 
 export type TEnhancedKeyValue = TKeyValue & {
