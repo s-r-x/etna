@@ -9,7 +9,6 @@ const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
-const { GenerateSW } = require("workbox-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
@@ -42,23 +41,10 @@ const config = {
     new Dotenv({
       path: PROD_ENV,
     }),
-    new GenerateSW(),
     process.env.ANALYZE_BUNDLE === "true" && new BundleAnalyzerPlugin(),
   ].filter(Boolean),
   optimization: {
     minimize: true,
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendor",
-          chunks: "initial",
-        },
-      },
-    },
-    runtimeChunk: {
-      name: "manifest",
-    },
     minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
   },
 };
