@@ -3,6 +3,7 @@ import _ from "lodash";
 
 export const AVAILABLE_TARGETS: TCodegenTarget[] = [
   "csharp",
+  "http",
   "java",
   "javascript",
   "node",
@@ -18,6 +19,7 @@ export const AVAILABLE_CLIENTS: Record<TCodegenTarget, string[]> = {
   java: ["asynchttp", "nethttp", "okhttp", "unirest"],
   python: ["python3", "requests"],
   csharp: ["httpclient", "restsharp"],
+  http: ["1.1"],
 };
 
 export const OPTIONS_SELECT = AVAILABLE_TARGETS.map(target => ({

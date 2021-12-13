@@ -25,6 +25,7 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js"],
     fallback: {
       stream: require.resolve("stream-browserify"),
+      buffer: require.resolve("buffer"),
     },
   },
   module: {
@@ -56,6 +57,9 @@ module.exports = {
     new AntdDayjsWebpackPlugin(),
     new ProvidePlugin({
       process: "process/browser",
+    }),
+    new ProvidePlugin({
+      Buffer: ["buffer", "Buffer"],
     }),
     new HtmlWebpackPlugin({
       template: path.join(SRC, "index.html"),

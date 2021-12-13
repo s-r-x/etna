@@ -5,4 +5,5 @@ export type TCodegenTarget =
   | "php"
   | "java"
   | "python"
+  | "http"
   | "csharp";
